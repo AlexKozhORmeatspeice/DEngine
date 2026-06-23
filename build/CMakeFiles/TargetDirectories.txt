@@ -1,8 +1,0 @@
-C:/Users/Lenovo/Desktop/Programing/GameDev/B++/DEngine/build/CMakeFiles/DEngine.dir
-C:/Users/Lenovo/Desktop/Programing/GameDev/B++/DEngine/build/CMakeFiles/Experimental.dir
-C:/Users/Lenovo/Desktop/Programing/GameDev/B++/DEngine/build/CMakeFiles/Nightly.dir
-C:/Users/Lenovo/Desktop/Programing/GameDev/B++/DEngine/build/CMakeFiles/Continuous.dir
-C:/Users/Lenovo/Desktop/Programing/GameDev/B++/DEngine/build/CMakeFiles/NightlyMemoryCheck.dir
-C:/Users/Lenovo/Desktop/Programing/GameDev/B++/DEngine/build/CMakeFiles/RUN_TESTS.dir
-C:/Users/Lenovo/Desktop/Programing/GameDev/B++/DEngine/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/Lenovo/Desktop/Programing/GameDev/B++/DEngine/build/CMakeFiles/ZERO_CHECK.dir
