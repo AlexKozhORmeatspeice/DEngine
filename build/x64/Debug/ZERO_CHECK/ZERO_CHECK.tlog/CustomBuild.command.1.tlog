@@ -1,0 +1,10 @@
+^C:\USERS\LENOVO\DESKTOP\PROGRAMING\GAMEDEV\B++\DENGINE\BUILD\CMAKEFILES\F4C0311821EA75449CAA68F0D5F1CEEB\GENERATE.STAMP.RULE
+setlocal
+C:\tools\cmake\bin\cmake.exe -SC:/Users/Lenovo/Desktop/Programing/GameDev/B++/DEngine -BC:/Users/Lenovo/Desktop/Programing/GameDev/B++/DEngine/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/Lenovo/Desktop/Programing/GameDev/B++/DEngine/build/DEngine.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
