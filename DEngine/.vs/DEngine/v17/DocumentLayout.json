@@ -3,14 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2E31D9D5-5A90-4C28-9046-E9488B3EE74F}|DEngine\\DEngine.vcxproj|C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine\\EntryPoint.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2E31D9D5-5A90-4C28-9046-E9488B3EE74F}|DEngine\\DEngine.vcxproj|solutionrelative:DEngine\\src\\DEngine\\EntryPoint.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2E31D9D5-5A90-4C28-9046-E9488B3EE74F}|DEngine\\DEngine.vcxproj|C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2E31D9D5-5A90-4C28-9046-E9488B3EE74F}|DEngine\\DEngine.vcxproj|solutionrelative:DEngine\\src\\DEngine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{482F1FE8-D6A7-409A-B9A5-3DFECA57D76A}|SandBox\\SandBox.vcxproj|C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\SandBox\\src\\SandBox_App.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{482F1FE8-D6A7-409A-B9A5-3DFECA57D76A}|SandBox\\SandBox.vcxproj|solutionrelative:SandBox\\src\\SandBox_App.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -19,12 +11,20 @@
       "RelativeMoniker": "D:0:0:{2E31D9D5-5A90-4C28-9046-E9488B3EE74F}|DEngine\\DEngine.vcxproj|solutionrelative:DEngine\\src\\DEngine\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{2E31D9D5-5A90-4C28-9046-E9488B3EE74F}|DEngine\\DEngine.vcxproj|C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2E31D9D5-5A90-4C28-9046-E9488B3EE74F}|DEngine\\DEngine.vcxproj|solutionrelative:DEngine\\src\\DEngine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E31D9D5-5A90-4C28-9046-E9488B3EE74F}|DEngine\\DEngine.vcxproj|C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2E31D9D5-5A90-4C28-9046-E9488B3EE74F}|DEngine\\DEngine.vcxproj|solutionrelative:DEngine\\src\\DEngine\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2E31D9D5-5A90-4C28-9046-E9488B3EE74F}|DEngine\\DEngine.vcxproj|C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine\\Core.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2E31D9D5-5A90-4C28-9046-E9488B3EE74F}|DEngine\\DEngine.vcxproj|solutionrelative:DEngine\\src\\DEngine\\Core.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{482F1FE8-D6A7-409A-B9A5-3DFECA57D76A}|SandBox\\SandBox.vcxproj|C:\\USERS\\LENOVO\\DESKTOP\\PROGRAMING\\GAMEDEV\\B\u002B\u002B\\DENGINE\\DENGINE\\DENGINE\\SRC\\DENGINE\\APPLICATION.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{482F1FE8-D6A7-409A-B9A5-3DFECA57D76A}|SandBox\\SandBox.vcxproj|solutionrelative:DENGINE\\SRC\\DENGINE\\APPLICATION.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2E31D9D5-5A90-4C28-9046-E9488B3EE74F}|DEngine\\DEngine.vcxproj|C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine\\EntryPoint.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2E31D9D5-5A90-4C28-9046-E9488B3EE74F}|DEngine\\DEngine.vcxproj|solutionrelative:DEngine\\src\\DEngine\\EntryPoint.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 201,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,65 +42,65 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "EntryPoint.h",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine\\EntryPoint.h",
               "RelativeDocumentMoniker": "DEngine\\src\\DEngine\\EntryPoint.h",
               "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine\\EntryPoint.h",
               "RelativeToolTip": "DEngine\\src\\DEngine\\EntryPoint.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-06-23T10:45:20.288Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "DEngine.h",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine.h",
               "RelativeDocumentMoniker": "DEngine\\src\\DEngine.h",
               "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine.h",
               "RelativeToolTip": "DEngine\\src\\DEngine.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-06-23T10:29:45.272Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Application.cpp",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine\\Application.cpp",
               "RelativeDocumentMoniker": "DEngine\\src\\DEngine\\Application.cpp",
               "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine\\Application.cpp",
               "RelativeToolTip": "DEngine\\src\\DEngine\\Application.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-06-23T10:28:20.95Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "Application.h",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine\\Application.h",
               "RelativeDocumentMoniker": "DEngine\\src\\DEngine\\Application.h",
               "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine\\Application.h",
               "RelativeToolTip": "DEngine\\src\\DEngine\\Application.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-06-23T10:28:19.791Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "SandBox_App.cpp",
               "DocumentMoniker": "C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\SandBox\\src\\SandBox_App.cpp",
               "RelativeDocumentMoniker": "SandBox\\src\\SandBox_App.cpp",
               "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\SandBox\\src\\SandBox_App.cpp",
               "RelativeToolTip": "SandBox\\src\\SandBox_App.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-06-23T10:25:51.903Z",
               "EditorCaption": ""
@@ -113,7 +113,7 @@
               "RelativeDocumentMoniker": "DEngine\\src\\DEngine\\Core.h",
               "ToolTip": "C:\\Users\\Lenovo\\Desktop\\Programing\\GameDev\\B\u002B\u002B\\DEngine\\DEngine\\DEngine\\src\\DEngine\\Core.h",
               "RelativeToolTip": "DEngine\\src\\DEngine\\Core.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-06-23T10:11:26.986Z",
               "EditorCaption": ""
