@@ -1,51 +1,27 @@
-# Build directories
-build/
-cmake-build-*/
-out/
-bin/
-bin-int/
-[Bb]in/
-[Bb]in-int/
-[Oo]bj/
-
-# Premake
-*.make
-*.mk
-*.cmake
+# ============================================
+# PREMAKE GENERATED FILES
+# ============================================
+*.sln
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
-*.sln
-*.sln.docstates
-*.suo
-*.user
-*.userosscache
-*.rsuser
-*.VC.db
-*.VC.VC.opendb
-*.opendb
-*.opensdf
-*.sdf
-*.cachefile
-*.vspscc
-*.vssscc
-.vs/
-ipch/
-Generated Files/
+*.make
+*.mk
 
-# CMake
-CMakeLists.txt.user
-CMakeCache.txt
-CMakeFiles/
-CMakeScripts/
-Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_deps/
+# ============================================
+# BUILD OUTPUT
+# ============================================
+bin/
+bin-int/
+build/
+[Bb]in/
+[Oo]bj/
+out/
+cmake-build-*/
 
-# Object files
+# ============================================
+# COMPILER OUTPUT
+# ============================================
 *.o
 *.obj
 *.ko
@@ -74,147 +50,36 @@ _deps/
 *.su
 *.dSYM/
 
-# IDEs
-.vscode/
-*.code-workspace
-.history/
-.idea/
-*.iml
-*.pro.user
-*.pro.user.*
-*.autosave
+# ============================================
+# VISUAL STUDIO
+# ============================================
+.vs/
+*.sln.docstates
+*.suo
+*.user
+*.userosscache
+*.rsuser
+*.VC.db
+*.VC.VC.opendb
+*.opendb
+*.opensdf
+*.sdf
+*.cachefile
+ipch/
+Generated Files/
 
-# Logs & temp
+# ============================================
+# OTHER
+# ============================================
 *.log
 *.tmp
 *.temp
 *.bak
 *.orig
 *~
-*.stackdump
-
-# OS
 Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
-*.lnk
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
 .DS_Store
-.AppleDouble
-.LSOverride
-._*
-.Spotlight-V100
-.Trashes
-.fseventsd
-.directory
-.Trash-*
-.fuse_hidden*
-.nfs*
-
-# VCS
-.svn/
-.hg/
-.hgignore
-.hgsigs
-.hgsub
-.hgsubstate
-.hgtags
-.bzr/
-.bzrignore
-/CVS/
-**/CVS/
-.cvsignore
-
-# Editors
-*.sublime-workspace
-*.tmlanguage.cache
-*.tmPreferences.cache
-Package Control.last-run
-[._]*.s[a-v][a-z]
-[._]*.sw[a-p]
-[._]s[a-rt-v][a-z]
-[._]ss[a-gi-z]
-[._]sw[a-p]
-Session.vim
-.netrwhist
-tags
-*~
-\#*\#
-/.emacs.desktop
-*.elc
-auto-save-list
-tramp
-.\#*
-
-# Package managers
-vcpkg_installed/
-vcpkg-manifest-install.log
-conaninfo.txt
-conanbuildinfo.*
-conanbuildinfo.mak
-conan.lock
-
-# Shader cache
-*.spv
-*.cso
-*.dxbc
-
-# Physics cache
-*.nvdb
-*.bvh
-
-# Archives
-*.zip
-*.tar
-*.gz
-*.7z
-*.rar
-
-# CI/CD
-.azure-pipelines/
-.github/
-.gitlab/
-
-# Docs
-docs/_build/
-docs/html/
-docs/latex/
-*.dox
-
-# Profiling
-*.psess
-*.vsp
-*.vspx
-*.sap
-*.prof
-*.gcda
-*.gcno
-
-# Backups
-*.orig
-*.bak
-*~
-*.swp
-*.swo
-
-# Secrets
-*.pem
-*.key
-*.crt
-*.p12
-*.pfx
-*.snk
-secrets/
-*.secret
-
-# User settings
-local.properties
-.env
-*.local
-user_settings.json
-config.local.*
+.vscode/
+.idea/
+*.iml
+.DS_Store
