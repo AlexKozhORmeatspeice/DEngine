@@ -1,81 +1,20 @@
-# ============================================
-# ИГРОВОЙ ДВИЖОК НА C++ - СПЕЦИАЛИЗИРОВАННЫЙ .gitignore
-# Для команды из 4 человек
-# ============================================
-
-# ============================================
-# 1. СБОРКА (CMAKE)
-# ============================================
-# Папки сборки (полностью игнорируем)
+# Build directories
 build/
 cmake-build-*/
 out/
-bin/              # Ваши бинарники (движок + игра)
-bin-int/          # Промежуточные файлы (объектники)
+bin/
+bin-int/
 [Bb]in/
 [Oo]bj/
 
-# Файлы CMake
-CMakeLists.txt.user
-CMakeCache.txt
-CMakeFiles/
-CMakeScripts/
-Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_deps/
+# Premake
+*.make
+*.mk
 *.cmake
-!CMakeLists.txt    # Исключение: сам CMakeLists.txt НЕ игнорируем
-
-# ============================================
-# 2. КОМПИЛЯТОРЫ И ЛИНКОВЩИКИ
-# ============================================
-# Объектные файлы
-*.o
-*.obj
-*.ko
-*.elf
-
-# Прекомпилированные заголовки
-*.gch
-*.pch
-
-# Статические библиотеки
-*.a
-*.la
-*.lib
-*.lai
-
-# Динамические библиотеки
-*.so
-*.so.*
-*.dylib
-*.dll
-*.dll.a
-
-# Исполняемые файлы
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-
-# Файлы отладки
-*.pdb
-*.idb
-*.ilk
-*.map
-*.exp
-*.su
-*.dSYM/
-
-# ============================================
-# 3. ИНТЕГРИРОВАННЫЕ СРЕДЫ РАЗРАБОТКИ (IDE)
-# ============================================
-# Visual Studio
-.vs/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
 *.sln.docstates
 *.suo
 *.user
@@ -87,28 +26,64 @@ _deps/
 *.opensdf
 *.sdf
 *.cachefile
+*.vspscc
+*.vssscc
+.vs/
 ipch/
 Generated Files/
 
-# Visual Studio Code
+# CMake
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
+
+# Object files
+*.o
+*.obj
+*.ko
+*.elf
+*.gch
+*.pch
+*.a
+*.la
+*.lib
+*.lai
+*.so
+*.so.*
+*.dylib
+*.dll
+*.dll.a
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.pdb
+*.idb
+*.ilk
+*.map
+*.exp
+*.su
+*.dSYM/
+
+# IDEs
 .vscode/
 *.code-workspace
 .history/
-
-# CLion
 .idea/
 *.iml
-cmake-build-*/
-
-# Qt Creator
 *.pro.user
 *.pro.user.*
 *.autosave
-CMakeLists.txt.user*
 
-# ============================================
-# 4. ЛОГИ И ВРЕМЕННЫЕ ФАЙЛЫ
-# ============================================
+# Logs & temp
 *.log
 *.tmp
 *.temp
@@ -117,10 +92,7 @@ CMakeLists.txt.user*
 *~
 *.stackdump
 
-# ============================================
-# 5. ОПЕРАЦИОННЫЕ СИСТЕМЫ
-# ============================================
-# Windows
+# OS
 Thumbs.db
 ehthumbs.db
 Desktop.ini
@@ -131,8 +103,6 @@ $RECYCLE.BIN/
 *.msix
 *.msm
 *.msp
-
-# macOS
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -140,16 +110,12 @@ $RECYCLE.BIN/
 .Spotlight-V100
 .Trashes
 .fseventsd
-
-# Linux
 .directory
 .Trash-*
 .fuse_hidden*
 .nfs*
 
-# ============================================
-# 6. СИСТЕМЫ КОНТРОЛЯ ВЕРСИЙ
-# ============================================
+# VCS
 .svn/
 .hg/
 .hgignore
@@ -163,16 +129,11 @@ $RECYCLE.BIN/
 **/CVS/
 .cvsignore
 
-# ============================================
-# 7. РЕДАКТОРЫ И ИНСТРУМЕНТЫ
-# ============================================
-# Sublime Text
+# Editors
 *.sublime-workspace
 *.tmlanguage.cache
 *.tmPreferences.cache
 Package Control.last-run
-
-# Vim
 [._]*.s[a-v][a-z]
 [._]*.sw[a-p]
 [._]s[a-rt-v][a-z]
@@ -181,8 +142,6 @@ Package Control.last-run
 Session.vim
 .netrwhist
 tags
-
-# Emacs
 *~
 \#*\#
 /.emacs.desktop
@@ -191,80 +150,42 @@ auto-save-list
 tramp
 .\#*
 
-# ============================================
-# 8. УПРАВЛЕНИЕ ЗАВИСИМОСТЯМИ
-# ============================================
-# vcpkg
+# Package managers
 vcpkg_installed/
 vcpkg-manifest-install.log
-
-# Conan
 conaninfo.txt
 conanbuildinfo.*
 conanbuildinfo.mak
 conan.lock
 
-# ============================================
-# 9. БИБЛИОТЕКИ ТРЕТЬИХ ЛИЦ (если скачиваете в проект)
-# ============================================
-# Обычно библиотеки лежат в отдельной папке
-# Если вы скачиваете их в проект - раскомментируйте:
-# external/
-# libs/
-# dependencies/
-
-# ============================================
-# 10. ИГРОВЫЕ РЕСУРСЫ (опционально)
-# ============================================
-# Если ресурсы генерируются во время сборки
-# *.png
-# *.jpg
-# *.wav
-# *.mp3
-# *.fbx
-# *.gltf
-
-# ============================================
-# 11. ВРЕМЕННЫЕ ФАЙЛЫ ДВИЖКА
-# ============================================
-# Шейдерный кеш
+# Shader cache
 *.spv
 *.cso
 *.dxbc
 
-# Физический кеш (если используете)
+# Physics cache
 *.nvdb
 *.bvh
 
-# ============================================
-# 12. ПАКЕТЫ И АРХИВЫ
-# ============================================
+# Archives
 *.zip
 *.tar
 *.gz
 *.7z
 *.rar
 
-# ============================================
-# 13. CI/CD (Continuous Integration)
-# ============================================
+# CI/CD
 .azure-pipelines/
 .github/
 .gitlab/
-*.ci.yml
-*.ci.yaml
 
-# ============================================
-# 14. ДОКУМЕНТАЦИЯ (если генерируется)
-# ============================================
+# Docs
 docs/_build/
 docs/html/
 docs/latex/
 *.dox
 
-# ============================================
-# 15. ПРОФАЙЛИНГ
-# ============================================
+# Profiling
 *.psess
 *.vsp
 *.vspx
@@ -273,18 +194,14 @@ docs/latex/
 *.gcda
 *.gcno
 
-# ============================================
-# 16. РЕЗЕРВНЫЕ КОПИИ
-# ============================================
+# Backups
 *.orig
 *.bak
 *~
 *.swp
 *.swo
 
-# ============================================
-# 17. КЛЮЧИ И ПАРОЛИ
-# ============================================
+# Secrets
 *.pem
 *.key
 *.crt
@@ -294,9 +211,7 @@ docs/latex/
 secrets/
 *.secret
 
-# ============================================
-# 18. НАСТРОЙКИ ПОЛЬЗОВАТЕЛЯ
-# ============================================
+# User settings
 local.properties
 .env
 *.local
