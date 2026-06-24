@@ -10,6 +10,10 @@
     #error DEngine only support Windows!
 #endif
 
+#ifdef D_DEBUG
+	#define D_ENABLE_ASSERTS
+#endif
+
 #ifdef D_ENABLE_ASSERTS
 	#define D_ASSERT(x, ...) { if(!(x)) { D_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 	#define D_CORE_ASSERT(x, ...) { if(!(x)) { D_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
