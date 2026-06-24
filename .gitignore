@@ -55,6 +55,7 @@ cmake-build-*/
 # ============================================
 *.db
 DEngine/.vs/
+.vs/
 .vscode/
 *.suo
 *.sln.docstates
