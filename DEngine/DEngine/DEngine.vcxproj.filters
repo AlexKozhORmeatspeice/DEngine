@@ -61,6 +61,9 @@
     <ClInclude Include="src\DEngine\Platform\OpenGL\imGUIOpenGLRenderer.h">
       <Filter>DEngine\Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\DEngine\Platform\OpenGL\imgui_impl_opengl3_loader.h">
+      <Filter>DEngine\Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\DEngine\Platform\Windows\WindowsWindow.h">
       <Filter>DEngine\Platform\Windows</Filter>
     </ClInclude>

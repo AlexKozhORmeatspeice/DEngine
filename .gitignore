@@ -5,6 +5,7 @@ out/
 bin/
 bin-int/
 [Bb]in/
+[Bb]in-int/
 [Oo]bj/
 
 # Premake
