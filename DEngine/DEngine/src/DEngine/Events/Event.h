@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Core.h"
-#include "string"
-#include "functional"
+#include "dpch.h"
+#include "DEngine/Core.h"
 
 namespace DEngine
 {
@@ -25,7 +24,7 @@ namespace DEngine
 		EventCategoryMouseButton = BIT(4)
 	};
 
-#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
+#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }\
 								virtual EventType GetEventType() const override { return GetStaticType(); }\
 								virtual const char* GetName() const override { return #type; }
 
@@ -36,6 +35,8 @@ namespace DEngine
 		friend class EventDispatcher;
 
 	public:
+		bool m_Handled = false;
+
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
@@ -45,8 +46,6 @@ namespace DEngine
 		{
 			return GetCategoryFlags() & category;
 		}
-	protected:
-		bool m_Handled = false;
 	};
 
 	class D_API EventDispatcher
@@ -63,7 +62,7 @@ namespace DEngine
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.Handled |= func(*(T*)&m_Event);
+				m_Event.m_Handled |= func(*(T*)&m_Event);
 				return true;
 			}
 			return false;
@@ -74,7 +73,8 @@ namespace DEngine
 
 	inline std::ostream& operator<<(std::ostream& os, const Event& e)
 	{
-		return os << e.ToString();
+		os << e.ToString();
+		return os;
 	}
 }
 

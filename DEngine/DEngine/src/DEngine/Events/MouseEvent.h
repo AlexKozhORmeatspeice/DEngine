@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Event.h"
-#include "sstream"
 
 namespace DEngine
 {
@@ -21,7 +20,7 @@ namespace DEngine
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(EventType::MouseMoved)
+		EVENT_CLASS_TYPE(MouseMoved)
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
 		float m_MouseX, m_MouseY;
@@ -43,7 +42,7 @@ namespace DEngine
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(EventType::MouseScrolled)
+		EVENT_CLASS_TYPE(MouseScrolled)
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
 		float m_XOffset, m_YOffset;
@@ -74,7 +73,7 @@ namespace DEngine
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(EventType::MouseButtonPressed)
+		EVENT_CLASS_TYPE(MouseButtonPressed)
 	};
 
 	class D_API MouseButtonReleasedEvent : public MouseButtonEvent
@@ -90,6 +89,6 @@ namespace DEngine
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(EventType::MouseButtonReleased)
+		EVENT_CLASS_TYPE(MouseButtonReleased)
 	};
 }

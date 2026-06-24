@@ -1,106 +1,138 @@
 workspace "DEngine"
-	architecture "x64"
-	startproject "Sandbox"
-	configurations
-	{
-		"Debug",
-		"Release",
-		"Dist"
-	}
+    architecture "x64"
+    startproject "Sandbox"
+    configurations
+    {
+        "Debug",
+        "Release",
+        "Dist"
+    }
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- INCLUDE dirs relative to root folder (solution dir)
+IncludeDir = {}
+IncludeDir["GLFW"] = "DEngine/vendor/GLFW/include"
+
+include "DEngine/vendor/GLFW"
+
 project "DEngine"
-	location "DEngine"
-	kind "SharedLib"
-	language "C++"
-	
-	targetdir ("bin/" ..outputdir.. "/%{prj.name}")
-	objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
+    location "DEngine"
+    kind "SharedLib"
+    language "C++"
+    
+    targetdir ("bin/" ..outputdir.. "/%{prj.name}")
+    objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
 
-	files 
-	{
-		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
-	}
+    pchheader "dpch.h"
+    pchsource "DEngine/src/dpch.cpp"
 
-	includedirs
-	{
-		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
-	}
-	
-	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
-		systemversion "latest"
+    files 
+    {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp"
+    }
 
-		defines
-		{
-			"D_PLATFORM_WINDOWS",
-			"D_BUILD_DLL"
-		}
+    includedirs
+    {
+        "%{prj.name}/src",
+        "%{prj.name}/vendor/spdlog/include",
+        "%{IncludeDir.GLFW}"
+    }
 
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-		}
+    links
+    {
+        "GLFW",
+        "opengl32.lib",
+        "dwmapi.lib"
+    }
+    
+    filter "system:windows"
+        cppdialect "C++17"
+        staticruntime "Off"  -- ИЗМЕНЕНО: используем динамическую CRT
+        systemversion "latest"
+        
+        -- Добавляем недостающие библиотеки
+        links
+        {
+            "opengl32.lib",
+            "dwmapi.lib",
+            "gdi32.lib",      -- Добавляем GDI
+            "user32.lib",     -- Добавляем User32
+            "winmm.lib",      -- Добавляем Windows Multimedia
+            "advapi32.lib"    -- Добавляем Advanced API
+        }
 
-	filter "configurations:Debug"
-		defines "D_DEBUG"
-		symbols "On"
+        defines
+        {
+            "D_PLATFORM_WINDOWS",
+            "D_BUILD_DLL",
+            "_CRT_SECURE_NO_WARNINGS",
+            "_CRT_NONSTDC_NO_WARNINGS"
+        }
 
-	filter "configurations:Release"
-		defines "D_RELEASE"
-		optimize "On"
-		
-	filter "configurations:Dist"
-		defines "D_Dist"
-		optimize "On"
+        postbuildcommands
+        {
+            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+        }
 
-project "SandBox"
-	location "SandBox"
-	kind "ConsoleApp"
-	language "C++"
-	
-	targetdir ("bin/" ..outputdir.. "/%{prj.name}")
-	objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
+    filter "configurations:Debug"
+        defines "D_DEBUG"
+        symbols "On"
 
-	files 
-	{
-		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
-	}
+    filter "configurations:Release"
+        defines "D_RELEASE"
+        optimize "On"
+        
+    filter "configurations:Dist"
+        defines "D_DIST"
+        optimize "On"
 
-	includedirs
-	{
-		"DEngine/vendor/spdlog/include",
-		"DEngine/src"
-	}
+project "Sandbox"
+    location "Sandbox"
+    kind "ConsoleApp"
+    language "C++"
+    
+    targetdir ("bin/" ..outputdir.. "/%{prj.name}")
+    objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
 
-	links
-	{
-		"DEngine"
-	}
-	
-	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
-		systemversion "latest"
+    files 
+    {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp"
+    }
 
-		defines
-		{
-			"D_PLATFORM_WINDOWS"
-		}
+    includedirs
+    {
+        "DEngine/vendor/spdlog/include",
+        "DEngine/src"
+    }
 
-	filter "configurations:Debug"
-		defines "D_DEBUG"
-		symbols "On"
+    links
+    {
+        "DEngine"
+    }
+    
+    filter "system:windows"
+        cppdialect "C++17"
+        staticruntime "Off"  -- ИЗМЕНЕНО: синхронизируем с DEngine
+        systemversion "latest"
 
-	filter "configurations:Release"
-		defines "D_RELEASE"
-		optimize "On"
-		
-	filter "configurations:Dist"
-		defines "D_Dist"
-		optimize "On"
+        defines
+        {
+            "D_PLATFORM_WINDOWS",
+            "_CRT_SECURE_NO_WARNINGS",
+            "_CRT_NONSTDC_NO_WARNINGS"
+        }
+
+    filter "configurations:Debug"
+        defines "D_DEBUG"
+        symbols "On"
+
+    filter "configurations:Release"
+        defines "D_RELEASE"
+        optimize "On"
+        
+    filter "configurations:Dist"
+        defines "D_DIST"
+        optimize "On"

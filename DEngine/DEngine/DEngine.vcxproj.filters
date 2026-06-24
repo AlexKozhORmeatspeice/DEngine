@@ -7,6 +7,12 @@
     <Filter Include="DEngine\Events">
       <UniqueIdentifier>{C3A22E96-AF70-229C-9804-93C28471FE00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DEngine\Platform">
+      <UniqueIdentifier>{F36680F8-DF5F-9F4A-0892-84CFF4E97E56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DEngine\Platform\Windows">
+      <UniqueIdentifier>{2D54B325-1979-02A6-42C4-E7352E4801C4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\DEngine.h" />
@@ -34,6 +40,13 @@
     <ClInclude Include="src\DEngine\Events\MouseEvent.h">
       <Filter>DEngine\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\DEngine\Platform\Windows\WindowsWindow.h">
+      <Filter>DEngine\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DEngine\Window.h">
+      <Filter>DEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\DEngine\Application.cpp">
@@ -42,5 +55,9 @@
     <ClCompile Include="src\DEngine\DLog.cpp">
       <Filter>DEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\DEngine\Platform\Windows\WindowsWindow.cpp">
+      <Filter>DEngine\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dpch.cpp" />
   </ItemGroup>
 </Project>

@@ -1,3 +1,4 @@
+#include "dpch.h"
 #include "DLog.h"
 #include <spdlog/sinks/stdout_color_sinks.h>
 

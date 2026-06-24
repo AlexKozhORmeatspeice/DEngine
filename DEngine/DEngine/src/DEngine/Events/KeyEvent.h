@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Event.h"
-#include "sstream"
 
 namespace DEngine
 {
@@ -34,7 +33,7 @@ namespace DEngine
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(EventType::KeyPressed)
+		EVENT_CLASS_TYPE(KeyPressed)
 	private:
 		int m_RepeatCount;
 		int m_KeyCode;
@@ -53,6 +52,6 @@ namespace DEngine
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(EventType::KeyReleased);
+		EVENT_CLASS_TYPE(KeyReleased);
 	};
 }

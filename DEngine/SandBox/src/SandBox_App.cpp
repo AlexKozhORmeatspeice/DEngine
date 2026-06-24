@@ -3,7 +3,7 @@
 class SandBox : public DEngine::Application
 {
 public:
-    SandBox() {}
+    SandBox() : Application() {}
     virtual ~SandBox() {}
 };
 

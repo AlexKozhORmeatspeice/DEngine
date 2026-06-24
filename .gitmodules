@@ -1,3 +1,6 @@
 [submodule "DEngine/DEngine/vendor/spdlog"]
 	path = DEngine/DEngine/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "DEngine/DEngine/vendor/GLFW"]
+	path = DEngine/DEngine/vendor/GLFW
+	url = https://github.com/TheCherno/GLFW
