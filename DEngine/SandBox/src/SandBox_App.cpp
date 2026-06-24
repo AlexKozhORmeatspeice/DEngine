@@ -3,7 +3,11 @@
 class SandBox : public DEngine::Application
 {
 public:
-    SandBox() : Application() {}
+    SandBox() : Application() 
+    {
+        PushLayer(new DEngine::ImGuiLayer());
+    }
+
     virtual ~SandBox() {}
 };
 

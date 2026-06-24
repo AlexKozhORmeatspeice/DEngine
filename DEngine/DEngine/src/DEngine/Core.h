@@ -19,3 +19,4 @@
 #endif
 
 #define BIT(X) (1 << X)
+#define BIND_EVENT_FN(X) std::bind(&X, this, std::placeholders::_1)

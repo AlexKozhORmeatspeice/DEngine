@@ -4,3 +4,6 @@
 [submodule "DEngine/DEngine/vendor/GLFW"]
 	path = DEngine/DEngine/vendor/GLFW
 	url = https://github.com/TheCherno/GLFW
+[submodule "DEngine/DEngine/vendor/imgui"]
+	path = DEngine/DEngine/vendor/imgui
+	url = https://github.com/TheCherno/imgui

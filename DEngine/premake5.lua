@@ -10,11 +10,14 @@ workspace "DEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
--- INCLUDE dirs relative to root folder (solution dir)
 IncludeDir = {}
 IncludeDir["GLFW"] = "DEngine/vendor/GLFW/include"
+IncludeDir["GLAD"] = "DEngine/vendor/GLAD/include"
+IncludeDir["ImGUI"] = "DEngine/vendor/imgui"
 
 include "DEngine/vendor/GLFW"
+include "DEngine/vendor/GLAD"
+include "DEngine/vendor/imgui"
 
 project "DEngine"
     location "DEngine"
@@ -37,14 +40,18 @@ project "DEngine"
     {
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.GLAD}",
+        "%{IncludeDir.ImGUI}"
     }
 
     links
     {
         "GLFW",
         "opengl32.lib",
-        "dwmapi.lib"
+        "dwmapi.lib",
+        "GLAD",
+        "ImGui"
     }
     
     filter "system:windows"
@@ -68,7 +75,8 @@ project "DEngine"
             "D_PLATFORM_WINDOWS",
             "D_BUILD_DLL",
             "_CRT_SECURE_NO_WARNINGS",
-            "_CRT_NONSTDC_NO_WARNINGS"
+            "_CRT_NONSTDC_NO_WARNINGS",
+            "GLFW_INCLUDE_NONE"
         }
 
         postbuildcommands
@@ -115,7 +123,7 @@ project "Sandbox"
     
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "Off"  -- ИЗМЕНЕНО: синхронизируем с DEngine
+        staticruntime "Off"
         systemversion "latest"
 
         defines
@@ -127,12 +135,15 @@ project "Sandbox"
 
     filter "configurations:Debug"
         defines "D_DEBUG"
+        buildoptions "/MDd"
         symbols "On"
 
     filter "configurations:Release"
         defines "D_RELEASE"
+        buildoptions "/MD"
         optimize "On"
         
     filter "configurations:Dist"
         defines "D_DIST"
+        buildoptions "/MD"
         optimize "On"
