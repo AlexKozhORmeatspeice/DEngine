@@ -1,6 +1,9 @@
 #include "Application.h"
 #include "iostream"
 
+#include "DLog.h"
+#include "Events/ApplicationEvent.h"
+
 namespace DEngine
 {
     Application::Application()
