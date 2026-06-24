@@ -53,7 +53,10 @@ cmake-build-*/
 # ============================================
 # VISUAL STUDIO
 # ============================================
-.vs/
+*.db
+DEngine/.vs/
+.vscode/
+*.suo
 *.sln.docstates
 *.suo
 *.user
