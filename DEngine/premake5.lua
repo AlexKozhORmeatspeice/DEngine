@@ -14,6 +14,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "DEngine/vendor/GLFW/include"
 IncludeDir["GLAD"] = "DEngine/vendor/GLAD/include"
 IncludeDir["ImGUI"] = "DEngine/vendor/imgui"
+IncludeDir["glm"] = "DEngine/vendor/glm"
 
 include "DEngine/vendor/GLFW"
 include "DEngine/vendor/GLAD"
@@ -33,7 +34,9 @@ project "DEngine"
     files 
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/glm/glm/**.hpp",
+        "%{prj.name}/vendor/glm/glm/**.inl"
     }
 
     includedirs
@@ -42,7 +45,8 @@ project "DEngine"
         "%{prj.name}/vendor/spdlog/include",
         "%{IncludeDir.GLFW}",
         "%{IncludeDir.GLAD}",
-        "%{IncludeDir.ImGUI}"
+        "%{IncludeDir.ImGUI}",
+        "%{IncludeDir.glm}"
     }
 
     links
@@ -113,7 +117,9 @@ project "Sandbox"
     includedirs
     {
         "DEngine/vendor/spdlog/include",
-        "DEngine/src"
+        "DEngine/src",
+        "DEngine/vendor",
+        "%{IncludeDir.glm}"
     }
 
     links

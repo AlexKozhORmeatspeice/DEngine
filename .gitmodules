@@ -7,3 +7,6 @@
 [submodule "DEngine/DEngine/vendor/imgui"]
 	path = DEngine/DEngine/vendor/imgui
 	url = https://github.com/TheCherno/imgui
+[submodule "DEngine/DEngine/vendor/glm"]
+	path = DEngine/DEngine/vendor/glm
+	url = https://github.com/g-truc/glm
