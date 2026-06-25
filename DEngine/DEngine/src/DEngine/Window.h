@@ -1,6 +1,4 @@
 #pragma once
-#include "dpch.h"
-
 #include "Core.h"
 #include "Events/Event.h"
 

@@ -3,11 +3,13 @@
 #ifdef D_PLATFORM_WINDOWS
     #ifdef D_BUILD_DLL
         #define D_API __declspec(dllexport)
-    #else
+    #elif defined(D_IMPORT_DLL)
         #define D_API __declspec(dllimport)
+    #else
+        #define D_API  // Static library or no DLL import/export
     #endif
 #else
-    #error DEngine only support Windows!
+    #error DEngine only supports Windows!
 #endif
 
 #ifdef D_DEBUG

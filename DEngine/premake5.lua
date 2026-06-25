@@ -22,11 +22,13 @@ include "DEngine/vendor/imgui"
 
 project "DEngine"
     location "DEngine"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
     
-    targetdir ("bin/" ..outputdir.. "/%{prj.name}")
-    objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
+    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
     pchheader "dpch.h"
     pchsource "DEngine/src/dpch.cpp"
@@ -52,58 +54,51 @@ project "DEngine"
     links
     {
         "GLFW",
-        "opengl32.lib",
-        "dwmapi.lib",
         "GLAD",
         "ImGui"
     }
     
     filter "system:windows"
-        cppdialect "C++17"
-        staticruntime "Off"  -- ИЗМЕНЕНО: используем динамическую CRT
         systemversion "latest"
         
-        -- Добавляем недостающие библиотеки
         links
         {
             "opengl32.lib",
             "dwmapi.lib",
-            "gdi32.lib",      -- Добавляем GDI
-            "user32.lib",     -- Добавляем User32
-            "winmm.lib",      -- Добавляем Windows Multimedia
-            "advapi32.lib"    -- Добавляем Advanced API
+            "gdi32.lib",
+            "user32.lib",
+            "winmm.lib",
+            "advapi32.lib"
         }
 
         defines
         {
             "D_PLATFORM_WINDOWS",
-            "D_BUILD_DLL",
+            "GLFW_INCLUDE_NONE",
             "_CRT_SECURE_NO_WARNINGS",
-            "_CRT_NONSTDC_NO_WARNINGS",
-            "GLFW_INCLUDE_NONE"
-        }
-
-        postbuildcommands
-        {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+            "_CRT_NONSTDC_NO_WARNINGS"
         }
 
     filter "configurations:Debug"
         defines "D_DEBUG"
-        symbols "On"
+        runtime "Debug"
+        symbols "on"
 
     filter "configurations:Release"
         defines "D_RELEASE"
-        optimize "On"
+        runtime "Release"
+        optimize "on"
         
     filter "configurations:Dist"
         defines "D_DIST"
-        optimize "On"
-
+        runtime "Release"
+        optimize "on"
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
     
     targetdir ("bin/" ..outputdir.. "/%{prj.name}")
     objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
@@ -128,8 +123,6 @@ project "Sandbox"
     }
     
     filter "system:windows"
-        cppdialect "C++17"
-        staticruntime "Off"
         systemversion "latest"
 
         defines
@@ -141,15 +134,15 @@ project "Sandbox"
 
     filter "configurations:Debug"
         defines "D_DEBUG"
-        buildoptions "/MDd"
-        symbols "On"
+        runtime "Debug"
+        symbols "on"
 
     filter "configurations:Release"
         defines "D_RELEASE"
-        buildoptions "/MD"
-        optimize "On"
+        runtime "Release"
+        optimize "on"
         
     filter "configurations:Dist"
         defines "D_DIST"
-        buildoptions "/MD"
-        optimize "On"
+        runtime "Release"
+        optimize "on"

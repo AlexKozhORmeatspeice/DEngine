@@ -1,7 +1,8 @@
 #pragma once
-
 #include "DEngine/Window.h"
-#include "GLFW/glfw3.h"
+#include "DEngine/Renderer/GraphicsContext.h"
+
+class GLFWwindow;
 
 namespace DEngine
 {
@@ -30,6 +31,7 @@ namespace DEngine
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{
