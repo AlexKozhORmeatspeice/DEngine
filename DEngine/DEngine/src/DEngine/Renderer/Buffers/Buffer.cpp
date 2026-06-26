@@ -10,9 +10,9 @@ namespace DEngine
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLVertexBuffer(verts, size);
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			D_CORE_ASSERT(false, "None API is not supported")
 			break;
 		}
@@ -26,9 +26,9 @@ namespace DEngine
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLIndexBuffer(inds, count);
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			D_CORE_ASSERT(false, "None API is not supported")
 			break;
 		}

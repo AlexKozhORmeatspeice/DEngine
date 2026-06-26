@@ -2,6 +2,7 @@
 #include "OpenGLShader.h"
 
 #include "glad/glad.h"
+#include "glm/gtc/type_ptr.hpp"
 
 namespace DEngine
 {
@@ -123,5 +124,11 @@ namespace DEngine
 	void OpenGLShader::Unbind() const
 	{
 		glUseProgram(0);
+	}
+
+	void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& mat)
+	{
+		GLint u_loc = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniformMatrix4fv(u_loc, 1, GL_FALSE, glm::value_ptr(mat));
 	}
 }

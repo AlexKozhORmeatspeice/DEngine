@@ -10,9 +10,9 @@ namespace DEngine
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLShader(vertexSrc, fragSrc);
-		case RendererAPI::None: D_CORE_ASSERT(false, "None API is not supported");
+		case RendererAPI::API::None: D_CORE_ASSERT(false, "None API is not supported");
 		default:
 			break;
 		}

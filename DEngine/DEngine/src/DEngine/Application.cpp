@@ -2,35 +2,16 @@
 #include "Application.h"
 #include "DLog.h"
 
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
-
 #include "Input/Input.h"
+
+#include "DEngine/Renderer/RenderCommand.h"
+#include "DEngine/Renderer/Renderer.h"
+
+#include "DEngine/Renderer/Cameras/OrthCamera.h"
 
 namespace DEngine
 {
     Application* Application::s_Instance = nullptr;
-    static GLenum ShaderDataTypeToOpenGLType(ShaderDataType type)
-    {
-        switch (type)
-        {
-			case DEngine::ShaderDataType::None:   return GL_FLOAT;
-			case DEngine::ShaderDataType::Float:  return GL_FLOAT;
-			case DEngine::ShaderDataType::Float2: return GL_FLOAT;
-			case DEngine::ShaderDataType::Float3: return GL_FLOAT;
-			case DEngine::ShaderDataType::Float4: return GL_FLOAT;
-			case DEngine::ShaderDataType::Mat3:   return GL_FLOAT;
-			case DEngine::ShaderDataType::Mat4:   return GL_FLOAT;
-			case DEngine::ShaderDataType::Int:    return GL_INT;
-			case DEngine::ShaderDataType::Int2:   return GL_INT;
-			case DEngine::ShaderDataType::Int3:   return GL_INT;
-			case DEngine::ShaderDataType::Int4:   return GL_INT;
-			case DEngine::ShaderDataType::Bool:   return GL_BOOL;
-        }
-
-        D_CORE_ASSERT(false, "Can't convert ShaderDataType to OpenGL type");
-        return 0;
-    }
 
     Application::Application()
     {
@@ -38,55 +19,65 @@ namespace DEngine
 
         s_Instance = this;
 
+        //Create window
         m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
+        //Init ImGui
         m_ImGuiLayer = new ImGuiLayer();
         PushOverlay(m_ImGuiLayer);
 
-        glGenVertexArrays(1, &m_VertexArray);
-        glBindVertexArray(m_VertexArray);
+        //Set Renderer
+        ///Set camera
+        m_Camera = std::make_shared<OrthographicCamera>(-1.0f, 1.0f, -1.0f, 1.0f);
 
-        float verts[7 * 3]
-        {
-            -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-            0.5f,  -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-            0.0f,   0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f
-        };
+        ///Init buffers
+        m_VertexArray.reset(VertexArray::Create());
+
+        float verts[8 * 7] = {
+			-0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f, 1.0f,
+			 0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
+			 0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 0.0f, 1.0f,
+			-0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 1.0f, 1.0f,
+			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
+			 0.5f,  0.5f, -0.5f,  1.0f, 0.5f, 0.0f, 1.0f,
+			-0.5f,  0.5f, -0.5f,  0.5f, 0.0f, 1.0f, 1.0f 
+		};
         m_VertexBuffer.reset(VertexBuffer::Create(verts, sizeof(verts)));
-
         BufferLayout layout =
         {
             {ShaderDataType::Float3, "a_Position"},
             {ShaderDataType::Float4, "a_Color"},
         };
-
-        uint32_t ind = 0;
-
         m_VertexBuffer->SetLayout(layout);
+        m_VertexArray->AddVertexBuffer(m_VertexBuffer);
 
-        for (const auto& elem : m_VertexBuffer->GetLayout())
-        {
-			glEnableVertexAttribArray(ind);
-			glVertexAttribPointer(
-                ind, 
-                elem.GetComponentCount(), 
-                ShaderDataTypeToOpenGLType(elem.Type), 
-                elem.IsNorm ? GL_TRUE : GL_FALSE, 
-                layout.GetStride(),
-                (const void*)elem.Offset);
-
-			ind++;
-        }
-
-        unsigned int inds[3] = { 0, 1, 2 };
+        unsigned int inds[36] = {
+			0, 1, 2,
+			2, 3, 0,
+			4, 6, 5,
+			4, 7, 6,
+			0, 7, 3,
+			0, 4, 7,
+			1, 5, 6,
+			1, 6, 2,
+			3, 2, 6,
+			3, 6, 7,
+			0, 5, 1,
+			0, 4, 5
+		};
         m_IndexBuffer.reset(IndexBuffer::Create(inds, sizeof(inds) / sizeof(uint32_t)));
+        m_VertexArray->SetIndexBuffer(m_IndexBuffer);
 
+        ///Init shaders
         std::string vertSrc = R"(
             #version 330 core
 
             layout(location = 0) in vec3 a_Position;
             layout(location = 1) in vec4 a_Color;
+
+            uniform mat4 u_ViewProj;
 
             out vec3 v_Pos;
             out vec4 v_Color;
@@ -95,7 +86,7 @@ namespace DEngine
 			{
                 v_Pos = a_Position;
                 v_Color = a_Color;
-                gl_Position = vec4(a_Position, 1.0f);
+                gl_Position = u_ViewProj * vec4(a_Position, 1.0f);
 			}
         )";
 
@@ -138,13 +129,15 @@ namespace DEngine
     {
         while (m_Running)
         {
-            glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            m_Camera->SetRot({ 0.0f, 0.0f, 45.0f });
+            RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.15f, 1.0f });
+            RenderCommand::Clear();
 
-            m_Shader->Bind();
+            Renderer::BeginScene(m_Camera);
 
-            glBindVertexArray(m_VertexArray);
-            glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+            Renderer::Submit(m_VertexArray, m_Shader);
+
+            Renderer::EndScene();
 
             for (Layer* layer : m_layerStack)
             {
