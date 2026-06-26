@@ -18,13 +18,13 @@ namespace DEngine
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		D_CORE_ASSERT(status, "Failed to initialize Glad");
 
-		auto vendorGPUName = glGetString(GL_RENDERER);
-		std::string res1(reinterpret_cast<const char*>(vendorGPUName));
+		auto glStr = glGetString(GL_RENDERER);
+		std::string gpuName(reinterpret_cast<const char*>(glStr));
 
-		auto versionName = glGetString(GL_VERSION);
-		std::string res2(reinterpret_cast<const char*>(versionName));
+		glStr = glGetString(GL_VERSION);
+		std::string verName(reinterpret_cast<const char*>(glStr));
 
-		D_CORE_INFO("Init OpenGL Renderer: {0}, {1}", res2, res1);
+		D_CORE_INFO("Init OpenGL Renderer: {0}, {1}", verName, gpuName);
 	}
 
 	void OpenGLContext::SwapBuffers()
