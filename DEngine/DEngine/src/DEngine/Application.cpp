@@ -27,6 +27,9 @@ namespace DEngine
         m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
+        //Renderer
+        Renderer::Init();
+
         //Init ImGui
         m_ImGuiLayer = new ImGuiLayer();
         PushOverlay(m_ImGuiLayer);
@@ -52,15 +55,6 @@ namespace DEngine
 
     void Application::Run()
     {
-		//TODO: перенести в init рендера
-        glEnable(GL_DEPTH_TEST); 
-		glDepthFunc(GL_LESS);
-
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
-		glFrontFace(GL_CCW);
-		//TODO--------------------------
-
         while (m_Running)
         {
 			//TODO: перенести реализацию в какой-то class Time независимый от платформы

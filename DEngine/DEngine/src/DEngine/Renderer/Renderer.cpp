@@ -5,6 +5,11 @@ namespace DEngine
 {
 	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
 
+	void Renderer::Init()
+	{
+		RenderCommand::Init();
+	}
+
 	void Renderer::BeginScene(const DEngine::Ref<Camera>& camera)
 	{
 		s_SceneData->viewProjMat = camera->GetViewProjMat();

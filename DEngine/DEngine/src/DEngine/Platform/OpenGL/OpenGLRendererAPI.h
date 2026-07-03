@@ -8,6 +8,7 @@ namespace DEngine
 	class D_API OpenGLRendererAPI : public RendererAPI
 	{
 	public:
+		virtual void Init() override;
 		virtual void SetClearColor(const glm::vec4& color) override;
 		virtual void Clear() override;
 

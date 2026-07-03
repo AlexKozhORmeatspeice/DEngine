@@ -104,7 +104,7 @@ public:
 
         m_Shader.reset(DEngine::Shader::Create(vertSrc, fragSrc));
 
-		m_Texture = DEngine::Texture2D::Create("assets/textures/pasha.jpg");
+		m_Texture = DEngine::Texture2D::Create("assets/textures/Shoot.png");
 
         m_Shader->UploadUniformInt("u_Texture", 0);
     }
