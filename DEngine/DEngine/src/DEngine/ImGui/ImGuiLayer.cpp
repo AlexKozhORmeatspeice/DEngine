@@ -58,8 +58,6 @@ namespace DEngine
 
 	void ImGuiLayer::OnImGuiRenderer()
 	{
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
 	}
 
 	void ImGuiLayer::Begin()

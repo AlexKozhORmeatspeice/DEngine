@@ -47,7 +47,7 @@ namespace DEngine
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const DEngine::Ref<VertexBuffer>& vertBuffer)
 	{
 		glBindVertexArray(m_RendererID);
 		vertBuffer->Bind();
@@ -73,7 +73,7 @@ namespace DEngine
 		m_VertexBuffers.push_back(vertBuffer);
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indBuffer)
+	void OpenGLVertexArray::SetIndexBuffer(const DEngine::Ref<IndexBuffer>& indBuffer)
 	{
 		glBindVertexArray(m_RendererID);
 		indBuffer->Bind();

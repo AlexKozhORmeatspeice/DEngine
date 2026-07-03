@@ -9,6 +9,8 @@
 
 #include "DEngine/Renderer/Cameras/Camera.h"
 
+#include "DEngine/Core/Timestep.h"
+
 //TODO: TEMP
 #include "DEngine/Renderer/Buffers/Buffer.h"
 #include "DEngine/Renderer/Shader/Shader.h"
@@ -34,18 +36,14 @@ namespace DEngine
     private:
         bool OnWindowClosed(WindowCloseEvent& e);
 
+    private:
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
         bool m_Running = true;
         LayerStack m_layerStack;
 
-        std::shared_ptr<VertexArray> m_VertexArray;
-        std::shared_ptr<VertexBuffer> m_VertexBuffer;
-        std::shared_ptr<IndexBuffer> m_IndexBuffer;
+        float m_LastFrameTime = 0.0f;
 
-        std::shared_ptr<Camera> m_Camera;
-
-        std::shared_ptr<Shader> m_Shader;
         static Application* s_Instance;
     };
 

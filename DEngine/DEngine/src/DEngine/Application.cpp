@@ -9,6 +9,10 @@
 
 #include "DEngine/Renderer/Cameras/OrthCamera.h"
 
+//TODO: TEMP
+#include "GLFW/glfw3.h" 
+#include "glad/glad.h"
+
 namespace DEngine
 {
     Application* Application::s_Instance = nullptr;
@@ -26,85 +30,6 @@ namespace DEngine
         //Init ImGui
         m_ImGuiLayer = new ImGuiLayer();
         PushOverlay(m_ImGuiLayer);
-
-        //Set Renderer
-        ///Set camera
-        m_Camera = std::make_shared<OrthographicCamera>(-1.0f, 1.0f, -1.0f, 1.0f);
-
-        ///Init buffers
-        m_VertexArray.reset(VertexArray::Create());
-
-        float verts[8 * 7] = {
-			-0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f, 1.0f,
-			 0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f, 1.0f,
-			 0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,
-			-0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 0.0f, 1.0f,
-			-0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 1.0f, 1.0f,
-			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 1.0f, 1.0f,
-			 0.5f,  0.5f, -0.5f,  1.0f, 0.5f, 0.0f, 1.0f,
-			-0.5f,  0.5f, -0.5f,  0.5f, 0.0f, 1.0f, 1.0f 
-		};
-        m_VertexBuffer.reset(VertexBuffer::Create(verts, sizeof(verts)));
-        BufferLayout layout =
-        {
-            {ShaderDataType::Float3, "a_Position"},
-            {ShaderDataType::Float4, "a_Color"},
-        };
-        m_VertexBuffer->SetLayout(layout);
-        m_VertexArray->AddVertexBuffer(m_VertexBuffer);
-
-        unsigned int inds[36] = {
-			0, 1, 2,
-			2, 3, 0,
-			4, 6, 5,
-			4, 7, 6,
-			0, 7, 3,
-			0, 4, 7,
-			1, 5, 6,
-			1, 6, 2,
-			3, 2, 6,
-			3, 6, 7,
-			0, 5, 1,
-			0, 4, 5
-		};
-        m_IndexBuffer.reset(IndexBuffer::Create(inds, sizeof(inds) / sizeof(uint32_t)));
-        m_VertexArray->SetIndexBuffer(m_IndexBuffer);
-
-        ///Init shaders
-        std::string vertSrc = R"(
-            #version 330 core
-
-            layout(location = 0) in vec3 a_Position;
-            layout(location = 1) in vec4 a_Color;
-
-            uniform mat4 u_ViewProj;
-
-            out vec3 v_Pos;
-            out vec4 v_Color;
-            
-            void main()
-			{
-                v_Pos = a_Position;
-                v_Color = a_Color;
-                gl_Position = u_ViewProj * vec4(a_Position, 1.0f);
-			}
-        )";
-
-        std::string fragSrc = R"(
-            #version 330 core
-
-            layout(location = 0) out vec4 color;
-
-            in vec3 v_Pos;
-            in vec4 v_Color;
-            
-            void main()
-			{
-                color = vec4(v_Color);
-			}
-        )";
-
-        m_Shader.reset(Shader::Create(vertSrc, fragSrc));
     }
 
     Application::~Application()
@@ -127,21 +52,25 @@ namespace DEngine
 
     void Application::Run()
     {
+		//TODO: перенести в init рендера
+        glEnable(GL_DEPTH_TEST); 
+		glDepthFunc(GL_LESS);
+
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		glFrontFace(GL_CCW);
+		//TODO--------------------------
+
         while (m_Running)
         {
-            m_Camera->SetRot({ 0.0f, 0.0f, 45.0f });
-            RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.15f, 1.0f });
-            RenderCommand::Clear();
-
-            Renderer::BeginScene(m_Camera);
-
-            Renderer::Submit(m_VertexArray, m_Shader);
-
-            Renderer::EndScene();
+			//TODO: перенести реализацию в какой-то class Time независимый от платформы
+            float time = (float)glfwGetTime(); 
+            Timestep timestep = time - m_LastFrameTime;
+            m_LastFrameTime = time;
 
             for (Layer* layer : m_layerStack)
             {
-				layer->OnUpdate();
+				layer->OnUpdate(timestep);
             }
 
             m_ImGuiLayer->Begin();

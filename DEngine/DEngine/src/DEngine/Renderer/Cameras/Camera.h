@@ -2,7 +2,11 @@
 
 #include "DEngine/Core.h"
 
+#define GLM_ENABLE_EXPERIMENTAL
+
 #include "glm/glm.hpp"
+#include "glm/gtx/rotate_vector.hpp"
+#include "glm/gtc/quaternion.hpp"
 
 namespace DEngine
 {
@@ -21,6 +25,30 @@ namespace DEngine
 		{ 
 			m_Rot = rot; 
 			RecalcViewMat();
+		}
+
+		glm::vec3& GetForwardDir()
+		{
+			glm::quat rotation = glm::quat(glm::vec3(
+				glm::radians(m_Rot.x),
+				glm::radians(m_Rot.y),
+				glm::radians(m_Rot.z)
+			));
+
+			return rotation * glm::vec3(0.0f, 0.0f, -1.0f);
+		}
+
+		glm::vec3& GetRightDir()
+		{
+			glm::vec3 forward = glm::vec3(1.0f, 0.0f, 0.0f);
+			glm::quat rotX = glm::angleAxis(glm::radians(m_Rot.x), glm::vec3(1.0f, 0.0f, 0.0f));
+			glm::quat rotY = glm::angleAxis(glm::radians(m_Rot.y), glm::vec3(0.0f, 1.0f, 0.0f));
+			glm::quat rotZ = glm::angleAxis(glm::radians(m_Rot.z), glm::vec3(0.0f, 0.0f, 1.0f));
+
+			glm::quat rotation = rotX * rotY * rotZ;
+
+			forward = rotation * forward;
+			return forward;
 		}
 
 		const glm::mat4& GetProjMat() const { return m_ProjMat; }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "memory"
+
 #ifdef D_PLATFORM_WINDOWS
     #ifdef D_BUILD_DLL
         #define D_API __declspec(dllexport)
@@ -26,3 +28,12 @@
 
 #define BIT(X) (1 << X)
 #define BIND_EVENT_FN(X) std::bind(&X, this, std::placeholders::_1)
+
+namespace DEngine
+{
+    template<typename T>
+    using Scope = std::unique_ptr<T>;
+
+    template<typename T>
+    using Ref = std::shared_ptr<T>;
+}

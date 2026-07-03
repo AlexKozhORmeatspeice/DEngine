@@ -15,7 +15,7 @@ namespace DEngine
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void OpenGLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray> vertArr)
+	void OpenGLRendererAPI::DrawIndexed(const DEngine::Ref<VertexArray> vertArr)
 	{
 		vertArr->Bind();
 		glDrawElements(GL_TRIANGLES, vertArr->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);

@@ -3,6 +3,8 @@
 #include "DEngine/Core.h"
 #include "DEngine/Events/Event.h"
 
+#include "DEngine/Core/Timestep.h"
+
 namespace DEngine
 {
 	class D_API Layer
@@ -13,7 +15,7 @@ namespace DEngine
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(const Timestep& ts) {}
 		virtual void OnImGuiRenderer() {}
 		virtual void OnEvent(Event& event) {}
 

@@ -5,7 +5,7 @@ namespace DEngine
 {
 	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
 
-	void Renderer::BeginScene(const std::shared_ptr<Camera>& camera)
+	void Renderer::BeginScene(const DEngine::Ref<Camera>& camera)
 	{
 		s_SceneData->viewProjMat = camera->GetViewProjMat();
 	}
@@ -15,14 +15,15 @@ namespace DEngine
 		
 	}
 
-	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray,
-						  const std::shared_ptr<Shader>& shader)
+	void Renderer::Submit(const DEngine::Ref<VertexArray>& vertexArray,
+						  const DEngine::Ref<Shader>& shader,
+						  const glm::mat4 trans)
 	{
 		shader->Bind();
 		shader->UploadUniformMat4("u_ViewProj", s_SceneData->viewProjMat);
+		shader->UploadUniformMat4("u_ModelMat", trans);
 
 		vertexArray->Bind();
-
 		RenderCommand::DrawIndexed(vertexArray);
 	}
 }

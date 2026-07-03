@@ -11,6 +11,6 @@ namespace DEngine
 		virtual void SetClearColor(const glm::vec4& color) override;
 		virtual void Clear() override;
 
-		virtual void DrawIndexed(const std::shared_ptr<VertexArray> vertArr) override;
+		virtual void DrawIndexed(const DEngine::Ref<VertexArray> vertArr) override;
 	};
 }
