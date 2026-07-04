@@ -20,7 +20,7 @@ namespace DEngine
 		virtual const std::vector<DEngine::Ref<VertexBuffer>>& GetVertexBuffers() const = 0;
 		virtual const DEngine::Ref<IndexBuffer>& GetIndexBuffer() const = 0;
 
-		static VertexArray* Create();
+		static Ref<VertexArray> Create();
 	protected:
 		VertexArray() {}
 	};

@@ -50,6 +50,18 @@ namespace DEngine
 		glDeleteTextures(1, &m_RendererID);
 	}
 
+	void OpenGLTexture2D::SetData(void* data, uint32_t size)
+	{ 
+		uint32_t bpp = m_Width * m_Height * 4;
+		D_CORE_ASSERT(size == bpp, "Data must be entire texture!");
+		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	}
+
+	uint32_t OpenGLTexture2D::GetRendererID() const
+	{
+		return m_RendererID;
+	}
+
 	void OpenGLTexture2D::Bind(unsigned int slot) const
 	{
 		glBindTextureUnit(slot, m_RendererID);

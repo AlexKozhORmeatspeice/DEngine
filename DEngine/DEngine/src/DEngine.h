@@ -26,6 +26,7 @@
 #include "DEngine/Renderer/Texture.h"
 #include "DEngine/Renderer/Shader/Shader.h"
 #include "DEngine/Renderer/Buffers/Buffer.h"
+#include "DEngine/Renderer/Buffers/Framebuffer.h"
 #include "DEngine/Renderer/Buffers/VertexArray.h"
 #include "DEngine/Renderer/Cameras/Camera.h"
 #include "DEngine/Renderer/Cameras/OrthCamera.h"
@@ -33,6 +34,6 @@
 #include "DEngine/Renderer/Texture/Texture.h"
 //------------
 
-//--Entry Point--
-#include "DEngine/EntryPoint.h"
-//---------------
+//--Utils--
+#include "DEngine/Utils/Timer.h"
+//---------

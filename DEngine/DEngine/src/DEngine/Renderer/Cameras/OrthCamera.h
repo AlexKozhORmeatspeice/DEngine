@@ -3,6 +3,7 @@
 #include "glm/glm.hpp"
 #include "Camera.h"
 
+//TODO: обновить логику для совместимости с Camera
 namespace DEngine
 {
 	class OrthographicCamera : public Camera

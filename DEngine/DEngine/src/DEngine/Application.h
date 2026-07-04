@@ -21,7 +21,7 @@ namespace DEngine
     class D_API Application
     {
     public:
-        Application();
+        Application(const std::string& name = "Hazel App");
         virtual ~Application();
 
         void Run();
@@ -31,16 +31,21 @@ namespace DEngine
         void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
+        void Close();
+
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
     private:
         bool OnWindowClosed(WindowCloseEvent& e);
+        bool OnWindowResize(WindowResizeEvent& e);
 
     private:
-		std::unique_ptr<Window> m_Window;
+		Scope<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
-        bool m_Running = true;
         LayerStack m_layerStack;
+
+        bool m_Running = true;
+        bool m_Minimized = false;
 
         float m_LastFrameTime = 0.0f;
 

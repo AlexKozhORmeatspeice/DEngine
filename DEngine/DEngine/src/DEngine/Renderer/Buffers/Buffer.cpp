@@ -6,12 +6,12 @@
 
 namespace DEngine
 {
-	VertexBuffer* VertexBuffer::Create(float* verts, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* verts, uint32_t size)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::OpenGL:
-			return new OpenGLVertexBuffer(verts, size);
+			return std::make_shared<OpenGLVertexBuffer>(verts, size);
 		case RendererAPI::API::None:
 			D_CORE_ASSERT(false, "None API is not supported")
 			break;
@@ -22,12 +22,12 @@ namespace DEngine
 	}
 
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* inds, uint32_t count)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* inds, uint32_t count)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::OpenGL:
-			return new OpenGLIndexBuffer(inds, count);
+			return std::make_shared<OpenGLIndexBuffer>(inds, count);
 		case RendererAPI::API::None:
 			D_CORE_ASSERT(false, "None API is not supported")
 			break;

@@ -20,6 +20,11 @@ namespace DEngine
 		
 	}
 
+	void Renderer::OnWindowResize(uint32_t width, uint32_t height)
+	{
+		RenderCommand::SetViewport(width, height);
+	}
+
 	void Renderer::Submit(const DEngine::Ref<VertexArray>& vertexArray,
 						  const DEngine::Ref<Shader>& shader,
 						  const glm::mat4 trans)

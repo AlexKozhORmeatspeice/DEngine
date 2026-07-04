@@ -6,11 +6,11 @@
 
 namespace DEngine
 {
-	VertexArray* VertexArray::Create()
+	Ref<VertexArray> VertexArray::Create()
 	{
 		switch (Renderer::GetAPI())
 		{
-			case RendererAPI::API::OpenGL: return new OpenGLVertexArray();
+			case RendererAPI::API::OpenGL: return std::make_shared<OpenGLVertexArray>();
 			case RendererAPI::API::None: D_CORE_ASSERT(false, "None API is not supported");
 			default:
 				break;

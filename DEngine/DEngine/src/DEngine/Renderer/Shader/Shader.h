@@ -5,6 +5,8 @@
 #include "string"
 #include "glm/glm.hpp"
 
+#include "unordered_map"
+
 namespace DEngine
 {
 	class D_API Shader
@@ -23,8 +25,24 @@ namespace DEngine
 		virtual void UploadUniformMat3(const std::string& name, const glm::mat3& mat) = 0;
 		virtual void UploadUniformMat4(const std::string& name, const glm::mat4& mat) = 0;
 
-		static Shader* Create(const std::string& vertexSrc, const std::string& fragSrc);
+		virtual const std::string& GetName() const = 0;
+
+		static Ref<Shader> Create(const std::string& filePath);
+		static Ref<Shader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragSrc);
 	protected:
 		Shader() {}
+	};
+
+	class D_API ShaderLibrary
+	{
+	public:
+		void Add(const Ref<Shader>& shader);
+		void Add(const std::string& name, const Ref<Shader>& shader);
+		Ref<Shader> Load(const std::string& filePath);
+		Ref<Shader> Load(const std::string& name, const std::string& filePath);
+
+		Ref<Shader> Get(const std::string& name);
+	private:
+		std::unordered_map<std::string, Ref<Shader>> m_Shaders;
 	};
 }

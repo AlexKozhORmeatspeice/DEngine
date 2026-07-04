@@ -17,14 +17,14 @@ namespace DEngine
 {
     Application* Application::s_Instance = nullptr;
 
-    Application::Application()
+    Application::Application(const std::string& name)
     {
         D_CORE_ASSERT(!s_Instance, "Application already exist");
 
         s_Instance = this;
 
         //Create window
-        m_Window = std::unique_ptr<Window>(Window::Create());
+        m_Window = Window::Create(WindowProps(name));
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
         //Renderer
@@ -44,6 +44,7 @@ namespace DEngine
     {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClosed));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize));
 
 		for (auto it = m_layerStack.end(); it != m_layerStack.begin(); )
 		{
@@ -62,9 +63,10 @@ namespace DEngine
             Timestep timestep = time - m_LastFrameTime;
             m_LastFrameTime = time;
 
-            for (Layer* layer : m_layerStack)
+            if (!m_Minimized)
             {
-				layer->OnUpdate(timestep);
+				for (Layer* layer : m_layerStack)
+					layer->OnUpdate(timestep);
             }
 
             m_ImGuiLayer->Begin();
@@ -88,9 +90,28 @@ namespace DEngine
         overlay->OnAttach();
     }
 
+    void Application::Close()
+    {
+        m_Running = false;
+    }
+
     bool Application::OnWindowClosed(WindowCloseEvent& e)
     {
 		m_Running = false;
 		return true;
+    }
+
+    bool Application::OnWindowResize(WindowResizeEvent& e)
+    {
+		if (e.GetWidth() == 0 || e.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+        m_Minimized = false;
+
+        Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+        return false;
     }
 }

@@ -1,6 +1,6 @@
 workspace "DEngine"
     architecture "x64"
-    startproject "Sandbox"
+    startproject "DEditor"
     configurations
     {
         "Debug",
@@ -17,9 +17,11 @@ IncludeDir["ImGUI"] = "DEngine/vendor/imgui"
 IncludeDir["glm"] = "DEngine/vendor/glm"
 IncludeDir["stb_image"] = "DEngine/vendor/stb_image"
 
-include "DEngine/vendor/GLFW"
-include "DEngine/vendor/GLAD"
-include "DEngine/vendor/imgui"
+group "Dependencies"
+	include "DEngine/vendor/GLFW"
+	include "DEngine/vendor/GLAD"
+	include "DEngine/vendor/imgui"
+group ""
 
 project "DEngine"
     location "DEngine"
@@ -96,8 +98,63 @@ project "DEngine"
         defines "D_DIST"
         runtime "Release"
         optimize "on"
+
 project "Sandbox"
     location "Sandbox"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
+    
+    targetdir ("bin/" ..outputdir.. "/%{prj.name}")
+    objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
+
+    files 
+    {
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp"
+    }
+
+    includedirs
+    {
+        "DEngine/vendor/spdlog/include",
+        "DEngine/src",
+        "DEngine/vendor",
+        "%{IncludeDir.glm}"
+    }
+
+    links
+    {
+        "DEngine"
+    }
+    
+    filter "system:windows"
+        systemversion "latest"
+
+        defines
+        {
+            "D_PLATFORM_WINDOWS",
+            "_CRT_SECURE_NO_WARNINGS",
+            "_CRT_NONSTDC_NO_WARNINGS"
+        }
+
+    filter "configurations:Debug"
+        defines "D_DEBUG"
+        runtime "Debug"
+        symbols "on"
+
+    filter "configurations:Release"
+        defines "D_RELEASE"
+        runtime "Release"
+        optimize "on"
+        
+    filter "configurations:Dist"
+        defines "D_DIST"
+        runtime "Release"
+        optimize "on"
+
+project "DEditor"
+    location "DEditor"
     kind "ConsoleApp"
     language "C++"
     cppdialect "C++17"

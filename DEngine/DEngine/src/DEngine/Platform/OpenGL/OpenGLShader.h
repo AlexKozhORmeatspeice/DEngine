@@ -2,12 +2,17 @@
 #include "DEngine/Core.h"
 #include "DEngine/Renderer/Shader/Shader.h"
 
+#include "unordered_map"
+#include "glad/glad.h"
+#include "glm/glm.hpp"
+
 namespace DEngine
 {
 	class D_API OpenGLShader : public Shader
 	{
 	public:
-		OpenGLShader(const std::string& vertexSrc, const std::string& fragSrc);
+		OpenGLShader(const std::string& filePath);
+		OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragSrc);
 		virtual ~OpenGLShader();
 
 		virtual void Bind() const override;
@@ -20,7 +25,15 @@ namespace DEngine
 		virtual void UploadUniformFloat4(const std::string& name, const glm::vec4& val) override;
 		virtual void UploadUniformMat3(const std::string& name, const glm::mat3& mat) override;
 		virtual void UploadUniformMat4(const std::string& name, const glm::mat4& mat) override;
+
+		virtual inline const std::string& GetName() const override { return m_Name; }
+
+	private:
+		std::string ReadFile(const std::string& filePath);
+		std::unordered_map<GLenum, std::string> Preprocess(const std::string& source);
+		void Compile(const std::unordered_map<GLenum, std::string>& shaderSources);
 	private:
 		uint32_t m_RendererID;
+		std::string m_Name;
 	};
 }

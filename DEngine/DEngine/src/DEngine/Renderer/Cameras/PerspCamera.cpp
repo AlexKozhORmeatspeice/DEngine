@@ -2,35 +2,47 @@
 #include "DEngine/Renderer/Cameras/PerspCamera.h"
 
 #include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtx/rotate_vector.hpp"
+#include "glm/gtc/quaternion.hpp"
 
 namespace DEngine
 {
 	PerspectiveCamera::PerspectiveCamera()
-		: Camera(), m_Fov(60.0f), m_Width(1920), m_Height(1080)
+		: Camera(), m_Fov(glm::radians(60.0f)), m_Width(1920), m_Height(1080), m_Zoom(0.1f)
 	{
 		z_Near = 0.1f;
-		z_Far = 100.0f;
+		z_Far = 1000.0f;
 		m_Pos = glm::vec3(0.0f);
 		m_Rot = glm::vec3(0.0f);
 
-		m_ProjMat = glm::perspectiveFov(glm::radians(m_Fov), m_Width, m_Height, z_Near, z_Far);
+		m_ProjMat = glm::perspectiveFov(m_Fov, m_Width * m_Zoom, m_Height * m_Zoom, z_Near, z_Far);
 
 		m_ViewMat = glm::mat4(1.0f);
 		m_ViewProjMat = m_ProjMat * m_ViewMat;
 	}
 
-	PerspectiveCamera::PerspectiveCamera(float fov, float width, float height, float _near, float _far)
-		: Camera(), m_Fov(fov), m_Width(width), m_Height(height)
+	PerspectiveCamera::PerspectiveCamera(float fov, uint32_t width, uint32_t height, float _near, float _far, float _zoomLevel)
+		: Camera(), m_Fov(glm::radians(fov)), m_Width(width), m_Height(height), m_Zoom(_zoomLevel)
 	{
 		z_Near = _near;
 		z_Far = _far;
 		m_Pos = glm::vec3(0.0f);
 		m_Rot = glm::vec3(0.0f);
 
-		m_ProjMat = glm::perspectiveFov(glm::radians(m_Fov), m_Width, m_Height, z_Near, z_Far);
+		m_ProjMat = glm::perspectiveFov(m_Fov, m_Width * m_Zoom, m_Height * m_Zoom, z_Near, z_Far);
 
 		m_ViewMat = glm::mat4(1.0f);
 		m_ViewProjMat = m_ProjMat * m_ViewMat;
+	}
+
+	void PerspectiveCamera::ChangeSize(uint32_t width, uint32_t height)
+	{
+		m_Width = width;
+		m_Height = height;
+
+		m_ProjMat = glm::perspectiveFov(m_Fov, m_Width * m_Zoom, m_Height * m_Zoom, z_Near, z_Far);
+
+		RecalcViewMat();
 	}
 
 	void PerspectiveCamera::RecalcViewMat()
