@@ -10,6 +10,11 @@ namespace DEngine
 		Window& win = Application::Get().GetWindow();
 		m_Camera = std::make_shared<PerspectiveCamera>(60.0f, win.GetWidth(), win.GetHeight());
 
+		//Set scene
+		m_Scene = CreateRef<Scene>();
+
+		auto cam = m_Scene->CreateEntity();
+
 		//Set Renderer
 		///Init buffers
 		m_VertexArray = VertexArray::Create();
@@ -67,26 +72,31 @@ namespace DEngine
 
 	void EditorLayer::OnUpdate(const Timestep& ts)
 	{
-		if (Input::IsKeyPressed(D_KEY_LEFT))
-			m_CamPos = m_CamPos - m_Camera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
-		if (Input::IsKeyPressed(D_KEY_RIGHT))
-			m_CamPos = m_CamPos + m_Camera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
-		if (Input::IsKeyPressed(D_KEY_UP))
-			m_CamPos = m_CamPos + m_Camera->GetForwardDir() * m_CamSpeed * ts.GetSeconds();
-		if (Input::IsKeyPressed(D_KEY_DOWN))
-			m_CamPos = m_CamPos - m_Camera->GetForwardDir() * m_CamSpeed * ts.GetSeconds();
+		m_Scene->OnUpdate(ts);
 
-		if (Input::IsKeyPressed(D_KEY_A))
-			m_CamRot.y += m_CamRotSpeed * ts;
-		if (Input::IsKeyPressed(D_KEY_D))
-			m_CamRot.y -= m_CamRotSpeed * ts;
-		if (Input::IsKeyPressed(D_KEY_W))
-			m_CamRot.x += m_CamRotSpeed * ts;
-		if (Input::IsKeyPressed(D_KEY_S))
-			m_CamRot.x -= m_CamRotSpeed * ts;
+		if (m_ViewportFocused)
+		{
+			if (Input::IsKeyPressed(D_KEY_LEFT))
+				m_CamPos = m_CamPos - m_Camera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
+			if (Input::IsKeyPressed(D_KEY_RIGHT))
+				m_CamPos = m_CamPos + m_Camera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
+			if (Input::IsKeyPressed(D_KEY_UP))
+				m_CamPos = m_CamPos + m_Camera->GetForwardDir() * m_CamSpeed * ts.GetSeconds();
+			if (Input::IsKeyPressed(D_KEY_DOWN))
+				m_CamPos = m_CamPos - m_Camera->GetForwardDir() * m_CamSpeed * ts.GetSeconds();
 
-		m_Camera->SetPos(m_CamPos);
-		m_Camera->SetRot(m_CamRot);
+			if (Input::IsKeyPressed(D_KEY_A))
+				m_CamRot.y += m_CamRotSpeed * ts;
+			if (Input::IsKeyPressed(D_KEY_D))
+				m_CamRot.y -= m_CamRotSpeed * ts;
+			if (Input::IsKeyPressed(D_KEY_W))
+				m_CamRot.x += m_CamRotSpeed * ts;
+			if (Input::IsKeyPressed(D_KEY_S))
+				m_CamRot.x -= m_CamRotSpeed * ts;
+
+			m_Camera->SetPos(m_CamPos);
+			m_Camera->SetRot(m_CamRot);
+		}
 		
 		glm::mat4 trans = glm::translate(glm::mat4(1.0f), m_CamPos);
 
@@ -161,7 +171,6 @@ namespace DEngine
 		}
 
 		ImGui::Begin("Profile data");
-
 		for (const auto& res : m_ProfileResults)
 		{
 			char label[50];
@@ -170,12 +179,26 @@ namespace DEngine
 
 			ImGui::Text(label, res.Time);
 		}
+		ImGui::End();
 
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
+		ImGui::Begin("Viewport");
+
+		m_ViewportFocused = ImGui::IsWindowFocused();
+		m_ViewportFocused = ImGui::IsWindowHovered();
+		Application::Get().GetImGuiLayer()->SetBlockEvents(!m_ViewportFocused || !m_ViewportHovered);
+
+		ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+		if (m_ViewportSize != *((glm::vec2*)&viewportSize))
+		{
+			m_ViewportSize = { viewportSize.x, viewportSize.y };
+			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+		}
 		uint32_t textureID = m_Texture->GetRendererID();
-		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{ 1280.0f, 720.0f }, ImVec2{ 0, 1 }, ImVec2{1, 0});
-
+		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{viewportSize.x, viewportSize.y}, ImVec2{ 0, 1 }, ImVec2{1, 0});
 		m_ProfileResults.clear();
 		ImGui::End();
+		ImGui::PopStyleVar();
 
 		ImGui::End();
 	}

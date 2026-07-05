@@ -25,7 +25,13 @@ namespace DEngine
 		ShaderLibrary shaderLib;
 		Ref<Texture2D> m_Texture;
 
+		Ref<Scene> m_Scene;
+
 		std::vector<ProfileResult> m_ProfileResults;
+
+		glm::vec2 m_ViewportSize;
+		bool m_ViewportFocused = false;
+		bool m_ViewportHovered = false;
 
 		glm::vec3 m_CamPos;
 		glm::vec3 m_CamRot;

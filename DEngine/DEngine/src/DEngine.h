@@ -18,6 +18,10 @@
 
 #include "DEngine/Window.h"
 
+#include "DEngine/Scene/Scene.h"
+#include "DEngine/Scene/Entity.h"
+#include "DEngine/Scene/Components.h"
+
 //--Renderer--
 #include "DEngine/Renderer/Renderer.h"
 #include "DEngine/Renderer/RenderCommand.h"

@@ -16,6 +16,7 @@ IncludeDir["GLAD"] = "DEngine/vendor/GLAD/include"
 IncludeDir["ImGUI"] = "DEngine/vendor/imgui"
 IncludeDir["glm"] = "DEngine/vendor/glm"
 IncludeDir["stb_image"] = "DEngine/vendor/stb_image"
+IncludeDir["entt"] = "DEngine/vendor/entt/include"
 
 group "Dependencies"
 	include "DEngine/vendor/GLFW"
@@ -53,7 +54,8 @@ project "DEngine"
         "%{IncludeDir.GLAD}",
         "%{IncludeDir.ImGUI}",
         "%{IncludeDir.glm}",
-        "%{IncludeDir.stb_image}"
+        "%{IncludeDir.stb_image}",
+        "%{IncludeDir.entt}"
     }
 
     links
@@ -120,7 +122,8 @@ project "Sandbox"
         "DEngine/vendor/spdlog/include",
         "DEngine/src",
         "DEngine/vendor",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.entt}"
     }
 
     links
@@ -174,7 +177,8 @@ project "DEditor"
         "DEngine/vendor/spdlog/include",
         "DEngine/src",
         "DEngine/vendor",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.entt}"
     }
 
     links
