@@ -24,7 +24,7 @@ namespace DEngine
 
 	}
 
-	void ImGuiLayer::OnAttach()
+	void ImGuiLayer::Init()
 	{
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -49,7 +49,7 @@ namespace DEngine
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
 
-	void ImGuiLayer::OnDetach()
+	void ImGuiLayer::Shutdown()
 	{
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();

@@ -4,6 +4,8 @@
 #include "Entity.h"
 #include "Components.h"
 
+#include "DEngine/Scene/System.h"
+
 namespace DEngine
 {
 	Scene::Scene()
@@ -28,8 +30,33 @@ namespace DEngine
 		return entity;
 	}
 
-	void Scene::OnUpdate(Timestep ts)
+	void Scene::AddSystem(std::shared_ptr<System> system)
 	{
-		
+		for (const auto& sys : m_Systems)
+		{
+			if (typeid(*sys) == typeid(*system))
+			{
+				D_CORE_WARN("System is already setted to scene");
+				return;
+			}
+		}
+
+		m_Systems.push_back(system);
+	}
+
+	void Scene::OnUpdate(const Timestep& ts)
+	{
+		for (auto system : m_Systems)
+		{
+			system->OnUpdate(ts, const_cast<const Scene*>(this));
+		}
+	}
+
+	void Scene::OnRender(const Timestep& ts)
+	{
+		for (auto system : m_Systems)
+		{
+			system->OnRender(ts, const_cast<const Scene*>(this));
+		}
 	}
 }

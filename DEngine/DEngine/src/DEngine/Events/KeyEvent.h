@@ -34,6 +34,8 @@ namespace DEngine
 		}
 
 		EVENT_CLASS_TYPE(KeyPressed)
+
+		virtual Event* Clone() override { return &KeyPressedEvent(m_KeyCode, m_RepeatCount); }
 	private:
 		int m_RepeatCount;
 		int m_KeyCode;
@@ -53,6 +55,7 @@ namespace DEngine
 		}
 
 		EVENT_CLASS_TYPE(KeyReleased);
+		virtual Event* Clone() override { return &KeyReleasedEvent(m_KeyCode); }
 	};
 
 	class D_API KeyTypedEvent : public KeyEvent
@@ -69,6 +72,8 @@ namespace DEngine
 		}
 
 		EVENT_CLASS_TYPE(KeyTyped)
+
+		virtual Event* Clone() override { return &KeyTypedEvent(m_KeyCode); }
 	private:
 		int m_KeyCode;
 	};

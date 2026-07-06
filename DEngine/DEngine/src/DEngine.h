@@ -21,6 +21,7 @@
 #include "DEngine/Scene/Scene.h"
 #include "DEngine/Scene/Entity.h"
 #include "DEngine/Scene/Components.h"
+#include "DEngine/Scene/Systems.h"
 
 //--Renderer--
 #include "DEngine/Renderer/Renderer.h"
@@ -32,6 +33,9 @@
 #include "DEngine/Renderer/Buffers/Buffer.h"
 #include "DEngine/Renderer/Buffers/Framebuffer.h"
 #include "DEngine/Renderer/Buffers/VertexArray.h"
+#include "DEngine/Renderer/Mesh/Mesh.h"
+#include "DEngine/Renderer/Mesh/MeshGenerator.h"
+#include "DEngine/Renderer/Material/Material.h"
 #include "DEngine/Renderer/Cameras/Camera.h"
 #include "DEngine/Renderer/Cameras/OrthCamera.h"
 #include "DEngine/Renderer/Cameras/PerspCamera.h"

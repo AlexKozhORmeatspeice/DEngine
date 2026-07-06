@@ -8,18 +8,20 @@ namespace DEngine
 	public:
 		EditorLayer();
 
+		virtual void Init() override;
 		virtual void OnUpdate(const Timestep& ts) override;
+		virtual void OnRender(const Timestep& ts) override;
 		virtual void OnImGuiRenderer() override;
+		virtual void Shutdown() override;
 
 		virtual void OnEvent(Event& event) override;
 
 		bool OnKeyPressedEv(KeyPressedEvent& event);
 	private:
-		Ref<Camera> m_Camera;
+		Ref<Camera> m_EditorCamera;
 
-		Ref<VertexArray> m_VertexArray;
-		Ref<VertexBuffer> m_VertexBuffer;
-		Ref<IndexBuffer> m_IndexBuffer;
+		Ref<Mesh> m_CubeMesh;
+		Ref<Material> m_Material;
 		Ref<Framebuffer> m_Framebuffer;
 
 		ShaderLibrary shaderLib;

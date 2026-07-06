@@ -24,6 +24,8 @@ namespace DEngine
 		EVENT_CLASS_TYPE(WindowResize)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 
+		virtual Event* Clone() override { return &WindowResizeEvent(m_Width, m_Height); }
+
 	private:
 		unsigned int m_Width, m_Height;
 	};
@@ -35,6 +37,8 @@ namespace DEngine
 
 		EVENT_CLASS_TYPE(WindowClose)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+
+		virtual Event* Clone() override { return &WindowCloseEvent(); }
 	};
 
 	class D_API AppTickEvent : public Event
@@ -43,6 +47,8 @@ namespace DEngine
 		AppTickEvent() {}
 		EVENT_CLASS_TYPE(AppTick)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+
+		virtual Event* Clone() override { return &AppTickEvent(); }
 	};
 
 	class D_API AppUpdateEvent : public Event
@@ -51,6 +57,8 @@ namespace DEngine
 		AppUpdateEvent() {}
 		EVENT_CLASS_TYPE(AppUpdate)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+
+		virtual Event* Clone() override { return &AppUpdateEvent(); }
 	};
 
 	class D_API AppRenderEvent : public Event
@@ -59,5 +67,7 @@ namespace DEngine
 		AppRenderEvent() {}
 		EVENT_CLASS_TYPE(AppRender)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
+
+		virtual Event* Clone() override { return &AppRenderEvent(); }
 	};
 }

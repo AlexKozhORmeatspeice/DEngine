@@ -15,8 +15,8 @@ namespace DEngine
 		ImGuiLayer();
 		virtual ~ImGuiLayer();
 
-		virtual void OnAttach() override;
-		virtual void OnDetach() override;
+		virtual void Init() override;
+		virtual void Shutdown() override;
 
 		virtual void OnImGuiRenderer() override;
 

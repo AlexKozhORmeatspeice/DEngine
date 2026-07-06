@@ -25,15 +25,14 @@ namespace DEngine
 		RenderCommand::SetViewport(width, height);
 	}
 
-	void Renderer::Submit(const DEngine::Ref<VertexArray>& vertexArray,
-						  const DEngine::Ref<Shader>& shader,
-						  const glm::mat4 trans)
+	void Renderer::Submit(const Ref<Mesh>& mesh, const Ref<Material>& mat, const glm::mat4& trans)
 	{
-		shader->Bind();
-		shader->UploadUniformMat4("u_ViewProj", s_SceneData->viewProjMat);
-		shader->UploadUniformMat4("u_ModelMat", trans);
+		mat->Bind();
+		mat->SetMat4("u_ViewProj", s_SceneData->viewProjMat);
+		mat->SetMat4("u_ModelMat", trans);
 
-		vertexArray->Bind();
-		RenderCommand::DrawIndexed(vertexArray);
+		mesh->Bind();
+
+		RenderCommand::DrawIndexed(mesh->GetVertexArray());
 	}
 }

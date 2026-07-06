@@ -10,11 +10,8 @@
 #include "DEngine/Renderer/Cameras/Camera.h"
 
 #include "DEngine/Core/Timestep.h"
-
-//TODO: TEMP
-#include "DEngine/Renderer/Buffers/Buffer.h"
-#include "DEngine/Renderer/Shader/Shader.h"
-#include "DEngine/Renderer/Buffers/VertexArray.h"
+#include "queue"
+#include "memory"
 
 namespace DEngine
 {
@@ -26,8 +23,6 @@ namespace DEngine
 
         void Run();
 
-        void OnEvent(Event& e);
-
         void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
@@ -37,12 +32,23 @@ namespace DEngine
 
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
+        inline float GetFPS() const { return m_FPS; }
+
     private:
+
+        void Init();
+        void OnUpdate(const Timestep& ts);
+        void OnRender(const Timestep& ts);
+        void GUIUpdate();
+        void Shutdown();
+
+        void OnEvent(Event& e);
         bool OnWindowClosed(WindowCloseEvent& e);
         bool OnWindowResize(WindowResizeEvent& e);
 
     private:
 		Scope<Window> m_Window;
+
 		ImGuiLayer* m_ImGuiLayer;
         LayerStack m_layerStack;
 
@@ -50,6 +56,9 @@ namespace DEngine
         bool m_Minimized = false;
 
         float m_LastFrameTime = 0.0f;
+        int m_FrameCount = 0;
+		float m_FPSTimer = 0.0f;
+		float m_FPS = 0.0f;
 
         static Application* s_Instance;
     };

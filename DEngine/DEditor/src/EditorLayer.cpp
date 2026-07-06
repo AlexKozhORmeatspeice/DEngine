@@ -6,68 +6,32 @@ namespace DEngine
 	EditorLayer::EditorLayer() 
 		: Layer("Editor"), m_CamPos(0.0f), m_SquarePos(0.0f), m_CamRot(0.0f)
 	{
+	}
+
+	void EditorLayer::Init()
+	{
 		///Set camera
 		Window& win = Application::Get().GetWindow();
-		m_Camera = std::make_shared<PerspectiveCamera>(60.0f, win.GetWidth(), win.GetHeight());
+		m_EditorCamera = std::make_shared<PerspectiveCamera>(60.0f, win.GetWidth(), win.GetHeight());
 
 		//Set scene
 		m_Scene = CreateRef<Scene>();
+		m_Scene->AddSystem(std::make_shared<MeshRendererSystem>());
 
-		auto cam = m_Scene->CreateEntity();
-
-		//Set Renderer
-		///Init buffers
-		m_VertexArray = VertexArray::Create();
-		m_Framebuffer = Framebuffer::Create({ win.GetWidth(), win.GetHeight() });
-
-		float verts[8 * 9] = {
-			// Передняя грань (z = 0.5f) - UV: 0,0 до 1,1
-			-0.5f, -0.5f,  0.5f,  1.0f, 0.0f, 0.0f, 1.0f,  0.0f, 0.0f,  // 0
-			 0.5f, -0.5f,  0.5f,  0.0f, 1.0f, 0.0f, 1.0f,  1.0f, 0.0f,  // 1
-			 0.5f,  0.5f,  0.5f,  0.0f, 0.0f, 1.0f, 1.0f,  1.0f, 1.0f,  // 2
-			-0.5f,  0.5f,  0.5f,  1.0f, 1.0f, 0.0f, 1.0f,  0.0f, 1.0f,  // 3
-			
-			// Задняя грань (z = -0.5f) - UV: 0,0 до 1,1
-			-0.5f, -0.5f, -0.5f,  1.0f, 0.0f, 1.0f, 1.0f,  0.0f, 0.0f,  // 4
-			 0.5f, -0.5f, -0.5f,  0.0f, 1.0f, 1.0f, 1.0f,  1.0f, 0.0f,  // 5
-			 0.5f,  0.5f, -0.5f,  1.0f, 0.5f, 0.0f, 1.0f,  1.0f, 1.0f,  // 6
-			-0.5f,  0.5f, -0.5f,  0.5f, 0.0f, 1.0f, 1.0f,  0.0f, 1.0f   // 7
-		};
-
-
-		m_VertexBuffer = VertexBuffer::Create(verts, sizeof(verts));
-		BufferLayout layout =
-		{
-			{ShaderDataType::Float3, "a_Position"},
-			{ShaderDataType::Float4, "a_Color"},
-			{ShaderDataType::Float2, "a_TexCoord"},
-		};
-
-		m_VertexBuffer->SetLayout(layout);
-		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
-
-		unsigned int inds[36] = {
-			0, 1, 2,
-			2, 3, 0,
-			4, 6, 5,
-			4, 7, 6,
-			3, 7, 0,
-			7, 4, 0,
-			1, 5, 6,
-			1, 6, 2,
-			3, 2, 6,
-			3, 6, 7,
-			0, 5, 1,
-			0, 4, 5
-		};
-
-		m_IndexBuffer = IndexBuffer::Create(inds, sizeof(inds) / sizeof(uint32_t));
-		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
-
-		///Init shaders
+		///Set models
 		shaderLib.Load("assets/shaders/Base.glsl");
 		m_Texture = Texture2D::Create("assets/textures/pasha.jpg");
-		shaderLib.Get("Base")->UploadUniformInt("u_Texture", 0);
+
+		m_CubeMesh = MeshGenerator::CreateCube();
+		m_Material = CreateRef<Material>(shaderLib.Get("Base"));
+		m_Material->SetTexture2D("u_Texture", m_Texture);
+
+		///Set objs
+		auto cube = m_Scene->CreateEntity();
+		cube.AddComponent<MeshRendererComponent>(m_CubeMesh, m_Material);
+
+		//Set Renderer
+		m_Framebuffer = Framebuffer::Create({ win.GetWidth(), win.GetHeight() });
 	}
 
 	void EditorLayer::OnUpdate(const Timestep& ts)
@@ -77,13 +41,13 @@ namespace DEngine
 		if (m_ViewportFocused)
 		{
 			if (Input::IsKeyPressed(D_KEY_LEFT))
-				m_CamPos = m_CamPos - m_Camera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
+				m_CamPos = m_CamPos - m_EditorCamera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
 			if (Input::IsKeyPressed(D_KEY_RIGHT))
-				m_CamPos = m_CamPos + m_Camera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
+				m_CamPos = m_CamPos + m_EditorCamera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
 			if (Input::IsKeyPressed(D_KEY_UP))
-				m_CamPos = m_CamPos + m_Camera->GetForwardDir() * m_CamSpeed * ts.GetSeconds();
+				m_CamPos = m_CamPos + m_EditorCamera->GetForwardDir() * m_CamSpeed * ts.GetSeconds();
 			if (Input::IsKeyPressed(D_KEY_DOWN))
-				m_CamPos = m_CamPos - m_Camera->GetForwardDir() * m_CamSpeed * ts.GetSeconds();
+				m_CamPos = m_CamPos - m_EditorCamera->GetForwardDir() * m_CamSpeed * ts.GetSeconds();
 
 			if (Input::IsKeyPressed(D_KEY_A))
 				m_CamRot.y += m_CamRotSpeed * ts;
@@ -94,19 +58,19 @@ namespace DEngine
 			if (Input::IsKeyPressed(D_KEY_S))
 				m_CamRot.x -= m_CamRotSpeed * ts;
 
-			m_Camera->SetPos(m_CamPos);
-			m_Camera->SetRot(m_CamRot);
+			m_EditorCamera->SetPos(m_CamPos);
+			m_EditorCamera->SetRot(m_CamRot);
 		}
-		
-		glm::mat4 trans = glm::translate(glm::mat4(1.0f), m_CamPos);
+	}
 
+	void EditorLayer::OnRender(const Timestep& ts)
+	{
 		m_Framebuffer->Bind();
 		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.15f, 1.0f });
 		RenderCommand::Clear();
-		Renderer::BeginScene(m_Camera);
+		Renderer::BeginScene(m_EditorCamera);
 
-		m_Texture->Bind();
-		Renderer::Submit(m_VertexArray, shaderLib.Get("Base"));
+		m_Scene->OnRender(ts);
 
 		Renderer::EndScene();
 		m_Framebuffer->Unbind();
@@ -170,7 +134,18 @@ namespace DEngine
 			ImGui::EndMenuBar();
 		}
 
+		ImGui::Begin("Scene Hierarchy");
+		ImGui::End();
+
+		ImGui::Begin("Inspector");
+		ImGui::End();
+
 		ImGui::Begin("Profile data");
+		char fpsLabel[50];
+		strcpy(fpsLabel, std::to_string((int)Application::Get().GetFPS()).c_str());
+		strcat(fpsLabel, " FPS");
+		ImGui::Text(fpsLabel);
+
 		for (const auto& res : m_ProfileResults)
 		{
 			char label[50];
@@ -192,6 +167,7 @@ namespace DEngine
 		if (m_ViewportSize != *((glm::vec2*)&viewportSize))
 		{
 			m_ViewportSize = { viewportSize.x, viewportSize.y };
+			m_EditorCamera->ChangeSize(viewportSize.x, viewportSize.y);
 			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
 		uint32_t textureID = m_Texture->GetRendererID();
@@ -214,8 +190,12 @@ namespace DEngine
 			uint32_t width = resizeEvent.GetWidth();
 			uint32_t height = resizeEvent.GetHeight();
 
-			m_Camera->ChangeSize(width, height);
+			m_EditorCamera->ChangeSize(width, height);
 		}
+	}
+
+	void EditorLayer::Shutdown()
+	{
 	}
 
 	bool EditorLayer::OnKeyPressedEv(KeyPressedEvent& event)

@@ -98,7 +98,6 @@ public:
 		DEngine::Renderer::BeginScene(m_Camera);
 
 		m_Texture->Bind();
-		DEngine::Renderer::Submit(m_VertexArray, shaderLib.Get("Base"));
 
 		DEngine::Renderer::EndScene();
     }

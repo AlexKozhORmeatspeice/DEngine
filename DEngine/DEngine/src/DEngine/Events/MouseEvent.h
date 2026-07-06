@@ -22,6 +22,9 @@ namespace DEngine
 
 		EVENT_CLASS_TYPE(MouseMoved)
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+
+		virtual Event* Clone() override { return &MouseMovedEvent(m_MouseX, m_MouseY); }
+
 	private:
 		float m_MouseX, m_MouseY;
 	};
@@ -44,6 +47,8 @@ namespace DEngine
 
 		EVENT_CLASS_TYPE(MouseScrolled)
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
+
+		virtual Event* Clone() override { return &MouseScrolledEvent(m_XOffset, m_YOffset); }
 	private:
 		float m_XOffset, m_YOffset;
 	};
@@ -53,6 +58,7 @@ namespace DEngine
 	public:
 		inline int GetMouseButton() const { return m_Button; }
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput | EventCategoryMouseButton)
+
 	protected:
 		MouseButtonEvent(int button)
 			: m_Button(button) {
@@ -74,6 +80,7 @@ namespace DEngine
 		}
 
 		EVENT_CLASS_TYPE(MouseButtonPressed)
+		virtual Event* Clone() override { return &MouseButtonPressedEvent(m_Button); }
 	};
 
 	class D_API MouseButtonReleasedEvent : public MouseButtonEvent
@@ -90,5 +97,7 @@ namespace DEngine
 		}
 
 		EVENT_CLASS_TYPE(MouseButtonReleased)
+
+		virtual Event* Clone() override { return &MouseButtonReleasedEvent(m_Button); }
 	};
 }

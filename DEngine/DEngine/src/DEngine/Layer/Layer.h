@@ -13,11 +13,12 @@ namespace DEngine
 		Layer(const std::string& name = "Layer");
 		virtual ~Layer();
 
-		virtual void OnAttach() {}
-		virtual void OnDetach() {}
+		virtual void Init() {}
 		virtual void OnUpdate(const Timestep& ts) {}
+		virtual void OnRender(const Timestep& ts) {}
 		virtual void OnImGuiRenderer() {}
 		virtual void OnEvent(Event& event) {}
+		virtual void Shutdown() {}
 
 		inline const std::string& GetName() const { return m_DebugName; }
 	private:

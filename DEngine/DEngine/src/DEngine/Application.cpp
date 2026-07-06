@@ -40,54 +40,96 @@ namespace DEngine
         
     }
 
-    void Application::OnEvent(Event& e)
+    void Application::OnEvent(Event& event)
     {
-		EventDispatcher dispatcher(e);
+		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClosed));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(Application::OnWindowResize));
 
 		for (auto it = m_layerStack.end(); it != m_layerStack.begin(); )
 		{
-			(*--it)->OnEvent(e);
-			if (e.m_Handled)
+			(*--it)->OnEvent(event);
+			if ((event).m_Handled)
 				break;
 		}
     }
 
     void Application::Run()
     {
+        Init();
+
         while (m_Running)
         {
 			//TODO: перенести реализацию в какой-то class Time независимый от платформы
+            //Обновляем время
             float time = (float)glfwGetTime(); 
             Timestep timestep = time - m_LastFrameTime;
             m_LastFrameTime = time;
 
-            if (!m_Minimized)
+            //Ставим FPS
+            m_FrameCount++;
+            if (time - m_FPSTimer >= 1.0f)
             {
-				for (Layer* layer : m_layerStack)
-					layer->OnUpdate(timestep);
+                m_FPS = m_FrameCount;
+                m_FrameCount = 0;
+                m_FPSTimer = time;
             }
 
-            m_ImGuiLayer->Begin();
-            for (Layer* layer : m_layerStack)
-				layer->OnImGuiRenderer();
-            m_ImGuiLayer->End();
+            if (!m_Minimized)
+            {
+				OnUpdate(timestep);
+            }
+
+            OnRender(timestep);
+
+            GUIUpdate();
 
             m_Window->OnUpdate();
         }
+
+        Shutdown();
+    }
+
+    void Application::Init()
+    {
+		for (Layer* layer : m_layerStack)
+			layer->Init();
+    }
+
+    void Application::OnUpdate(const Timestep& ts)
+    {
+		for (Layer* layer : m_layerStack)
+			layer->OnUpdate(ts);
+    }
+
+    void Application::OnRender(const Timestep& ts)
+    {
+		for (Layer* layer : m_layerStack)
+			layer->OnRender(ts);
+    }
+
+    void Application::GUIUpdate()
+    {
+		m_ImGuiLayer->Begin();
+		for (Layer* layer : m_layerStack)
+			layer->OnImGuiRenderer();
+		m_ImGuiLayer->End();
+    }
+
+    void Application::Shutdown()
+    {
+		for (Layer* layer : m_layerStack)
+			layer->Shutdown();
     }
     
     void Application::PushLayer(Layer* layer)
     {
         m_layerStack.PushLayer(layer);
-        layer->OnAttach();
     }
 
     void Application::PushOverlay(Layer* overlay)
     {
         m_layerStack.PushOverlay(overlay);
-        overlay->OnAttach();
     }
 
     void Application::Close()
