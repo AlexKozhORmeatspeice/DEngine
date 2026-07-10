@@ -18,6 +18,7 @@ IncludeDir["glm"] = "DEngine/vendor/glm"
 IncludeDir["stb_image"] = "DEngine/vendor/stb_image"
 IncludeDir["entt"] = "DEngine/vendor/entt/include"
 IncludeDir["yaml"] = "DEngine/vendor/yaml-cpp/include"
+IncludeDir["assimp"] = "DEngine/vendor/assimp/include"
 
 group "Dependencies"
     include "DEngine/vendor/GLFW"
@@ -58,7 +59,13 @@ project "DEngine"
         "%{IncludeDir.glm}",
         "%{IncludeDir.stb_image}",
         "%{IncludeDir.entt}",
-        "%{IncludeDir.yaml}"
+        "%{IncludeDir.yaml}",
+        "%{IncludeDir.assimp}"
+    }
+
+    libdirs
+    {
+        "%{prj.name}/vendor/assimp/lib"
     }
 
     links
@@ -66,12 +73,13 @@ project "DEngine"
         "GLFW",
         "GLAD",
         "ImGui",
-        "yaml-cpp"
+        "yaml-cpp",
+        "assimp-vc143-mt"
     }
     
     filter "system:windows"
         systemversion "latest"
-        
+
         links
         {
             "opengl32.lib",
@@ -146,6 +154,11 @@ project "Sandbox"
             "_CRT_NONSTDC_NO_WARNINGS"
         }
 
+        postbuildcommands
+        {
+            "{COPY} %{wks.location}/DEngine/vendor/assimp/dll/assimp-vc143-mt.dll %{cfg.targetdir}"
+        }
+
     filter "configurations:Debug"
         defines "D_DEBUG"
         runtime "Debug"
@@ -199,6 +212,11 @@ project "DEditor"
             "D_PLATFORM_WINDOWS",
             "_CRT_SECURE_NO_WARNINGS",
             "_CRT_NONSTDC_NO_WARNINGS"
+        }
+
+        postbuildcommands
+        {
+            "{COPY} %{wks.location}/DEngine/vendor/assimp/dll/assimp-vc143-mt.dll %{cfg.targetdir}"
         }
 
     filter "configurations:Debug"

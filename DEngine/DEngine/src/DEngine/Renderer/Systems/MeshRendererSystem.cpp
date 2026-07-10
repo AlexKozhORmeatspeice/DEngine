@@ -4,6 +4,8 @@
 #include "DEngine/Scene/Components.h"
 #include "DEngine/Renderer/Renderer.h"
 
+#include "DEngine/Asset/AssetManager.h"
+
 namespace DEngine
 {
 	void MeshRendererSystem::OnRender(const Timestep& ts, const Scene* scene)
@@ -12,7 +14,10 @@ namespace DEngine
 
 		for (auto [entity, mesh, trans] : comps.each())
 		{
-			Renderer::Submit(mesh.mesh, mesh.material, trans.trans);
+			auto mat = AssetManager::GetAsset<Material>(mesh.materialHandle);
+			auto meshObj = AssetManager::GetAsset<Mesh>(mesh.meshHandle);
+
+			Renderer::Submit(meshObj, mat, trans.trans);
 		}
 	}
 }

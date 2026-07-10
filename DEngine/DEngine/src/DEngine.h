@@ -31,6 +31,7 @@
 #include "DEngine/Asset/EditorAssetManager.h"
 #include "DEngine/Asset/RuntimeAssetManager.h"
 #include "DEngine/Asset/AssetManager.h"
+#include "DEngine/Renderer/Mesh/Model.h"
 //---------
 
 //--Renderer--

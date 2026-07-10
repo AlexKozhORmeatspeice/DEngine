@@ -6,7 +6,7 @@
 namespace DEngine
 {
 
-	Material::Material(Ref<Shader> shader) : m_Shader(shader) {}
+	Material::Material(const AssetHandle& shaderHandle) : m_ShaderHandle(shaderHandle) {}
 
 	void Material::SetInt(const std::string& name, int val)
 	{
@@ -114,7 +114,7 @@ namespace DEngine
 
 	void Material::Bind()
 	{
-		m_Shader->Bind();
+		AssetManager::GetAsset<Shader>(m_ShaderHandle)->Bind();
 
 		UpdateDirtyValues();
 
@@ -127,41 +127,43 @@ namespace DEngine
 
 	void Material::Unbind()
 	{
-		m_Shader->Unbind();
+		AssetManager::GetAsset<Shader>(m_ShaderHandle)->Unbind();
 	}
 
 	void Material::UpdateDirtyValues()
 	{
+		Ref<Shader> shader = AssetManager::GetAsset<Shader>(m_ShaderHandle);
+
 		for (uint32_t id : m_DirtyInts)
-			m_Shader->UploadUniformInt(id, m_IntValues[id]);
+			shader->UploadUniformInt(id, m_IntValues[id]);
 		m_DirtyInts.clear();
 
 		for (uint32_t id : m_DirtyFloats)
-			m_Shader->UploadUniformFloat(id, m_FloatValues[id]);
+			shader->UploadUniformFloat(id, m_FloatValues[id]);
 		m_DirtyFloats.clear();
 
 		for (uint32_t id : m_DirtyVec2s)
-			m_Shader->UploadUniformFloat2(id, m_Vec2Values[id]);
+			shader->UploadUniformFloat2(id, m_Vec2Values[id]);
 		m_DirtyVec2s.clear();
 
 		for (uint32_t id : m_DirtyVec3s)
-			m_Shader->UploadUniformFloat3(id, m_Vec3Values[id]);
+			shader->UploadUniformFloat3(id, m_Vec3Values[id]);
 		m_DirtyVec3s.clear();
 
 		for (uint32_t id : m_DirtyVec4s)
-			m_Shader->UploadUniformFloat4(id, m_Vec4Values[id]);
+			shader->UploadUniformFloat4(id, m_Vec4Values[id]);
 		m_DirtyVec4s.clear();
 
 		for (uint32_t id : m_DirtyMat3s)
-			m_Shader->UploadUniformMat3(id, m_Mat3Values[id]);
+			shader->UploadUniformMat3(id, m_Mat3Values[id]);
 		m_DirtyMat3s.clear();
 
 		for (uint32_t id : m_DirtyMat4s)
-			m_Shader->UploadUniformMat4(id, m_Mat4Values[id]);
+			shader->UploadUniformMat4(id, m_Mat4Values[id]);
 		m_DirtyMat4s.clear();
 
 		for (uint32_t id : m_DirtyTextures)
-			m_Shader->UploadUniformInt(id, 0); //TODO: надо какую-то систему слотов для текстур сделать вероятно
+			shader->UploadUniformInt(id, 0); //TODO: надо какую-то систему слотов для текстур сделать вероятно
 		m_DirtyTextures.clear();
 	}
 
@@ -171,9 +173,12 @@ namespace DEngine
 		if (it != m_NameToID.end())
 			return it->second;
 		
-		uint32_t id = m_Shader->GetUniformLocation(name);
+		Ref<Shader> shader = AssetManager::GetAsset<Shader>(m_ShaderHandle);
+		uint32_t id = shader->GetUniformLocation(name);
+
 		if (id != UINT32_MAX)
 			m_NameToID[name] = id;
+		
 		return id;
 	}
 }

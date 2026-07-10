@@ -10,7 +10,7 @@ namespace DEngine
 	class AssetManager
 	{
 	public:
-		static void SetAssetManager(const std::shared_ptr<BaseAssetManager>& manager);
+		static void Init(const std::shared_ptr<BaseAssetManager>& manager);
 		static const AssetHandle& CreateAsset(const AssetMetadata& metadata);
 
 		template<typename T>
@@ -18,6 +18,15 @@ namespace DEngine
 		{
 			return std::static_pointer_cast<T>(m_AssetManager->GetAsset(handle));
 		}
+
+		static const AssetHandle& CreateMeshAsset(const BufferLayout& layout, 
+												  float* verts, uint32_t vertsSize, 
+												  uint32_t* inds, uint32_t indsSize, 
+												  const std::filesystem::path& path);
+
+		static const AssetHandle& GetBaseRendererShaderHandle();
+		static const AssetHandle& GetPrimitiveMesh(PrimitiveType type);
+
 	private:
 		static std::shared_ptr<BaseAssetManager> m_AssetManager;
 	};

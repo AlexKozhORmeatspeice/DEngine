@@ -4,16 +4,18 @@
 #include "DEngine/Renderer/Shader/Shader.h"
 #include "DEngine/Renderer/Texture/Texture.h"
 
+#include "DEngine/Asset/Asset.h"
+
 #include <unordered_map>
 #include <vector>
 #include <cstring>
 
 namespace DEngine
 {
-    class Material
+    class Material : public Asset
     {
     public:
-        Material(Ref<Shader> shader);
+        Material(const AssetHandle& shaderHandle);
 
         void SetInt(const std::string& name, int val);
         void SetFloat(const std::string& name, float val);
@@ -27,13 +29,16 @@ namespace DEngine
         void Bind();
         void Unbind();
 
+		static AssetType GetStaticType() { return AssetType::Material; }
+		virtual AssetType GetType() const override { return GetStaticType(); }
+
     private:
         void UpdateDirtyValues();
 
         uint32_t GetCachedID(const std::string& name);
 
     private:
-        Ref<Shader> m_Shader;
+        AssetHandle m_ShaderHandle;
         
         std::unordered_map<std::string, uint32_t> m_NameToID;
         

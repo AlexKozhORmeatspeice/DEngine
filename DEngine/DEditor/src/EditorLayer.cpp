@@ -11,7 +11,7 @@ namespace DEngine
 	void EditorLayer::Init()
 	{
 		//Init asset manager
-		AssetManager::SetAssetManager(std::make_shared<EditorAssetManager>());
+		AssetManager::Init(std::make_shared<EditorAssetManager>());
 
 		///Set camera
 		Window& win = Application::Get().GetWindow();
@@ -22,17 +22,22 @@ namespace DEngine
 		m_Scene = CreateRef<Scene>();
 
 		///Set models
-		shaderLib.Load("assets/shaders/Base.glsl");
-
 		const AssetHandle texHandle = AssetManager::CreateAsset({ AssetType::Texture2D, "assets/textures/pasha.jpg" });
+		const AssetHandle matHandle = AssetManager::CreateAsset({ AssetType::Material, "" });
+		const AssetHandle sponzaHandle = AssetManager::CreateAsset({ AssetType::Model, "assets/models/sponza.obj-master/sponza.obj" });
+		const AssetHandle meshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Cube);
 
-		m_CubeMesh = MeshGenerator::CreateCube();
-		m_Material = CreateRef<Material>(shaderLib.Get("Base"));
-		m_Material->SetTexture2D("u_Texture", texHandle);
+		AssetManager::GetAsset<Material>(matHandle)->SetTexture2D("u_Texture", texHandle);
 
 		///Set objs
 		auto cube = m_Scene->CreateEntity();
-		cube.AddComponent<MeshRendererComponent>(m_CubeMesh, m_Material);
+		cube.AddComponent<MeshRendererComponent>(meshHandle, matHandle);
+
+		for (const auto& renderData : AssetManager::GetAsset<Model>(sponzaHandle)->GetRenderData())
+		{
+			auto sponzaObj = m_Scene->CreateEntity();
+			sponzaObj.AddComponent<MeshRendererComponent>(renderData.MeshHandle, renderData.second);
+		}
 
 		//Set Renderer
 		m_Framebuffer = Framebuffer::Create({ win.GetWidth(), win.GetHeight() });

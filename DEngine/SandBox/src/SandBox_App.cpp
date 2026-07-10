@@ -43,11 +43,9 @@ private:
 	Ref<Mesh> m_CubeMesh;
 	Ref<Material> m_Material;
 
-	ShaderLibrary shaderLib;
 	Ref<Texture2D> m_Texture;
 
 	Ref<Scene> m_Scene;
-    std::shared_ptr<BaseAssetManager> m_AssetManager;
 
     std::vector<DEngine::ProfileResult> m_ProfileResults;
 

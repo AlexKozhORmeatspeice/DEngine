@@ -11,8 +11,7 @@ namespace DEngine
 	class D_API OpenGLShader : public Shader
 	{
 	public:
-		OpenGLShader(const std::string& filePath);
-		OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragSrc);
+		OpenGLShader(const ShaderRegistry& shaderRegistry, const std::string& name = "");
 		virtual ~OpenGLShader();
 
 		virtual void Bind() const override;
@@ -38,9 +37,7 @@ namespace DEngine
 		virtual inline const std::string& GetName() const override { return m_Name; }
 
 	private:
-		std::string ReadFile(const std::string& filePath);
-		std::unordered_map<GLenum, std::string> Preprocess(const std::string& source);
-		void Compile(const std::unordered_map<GLenum, std::string>& shaderSources);
+		void Compile(const ShaderRegistry& shaderSources);
 	private:
 		uint32_t m_RendererID;
 		std::string m_Name;

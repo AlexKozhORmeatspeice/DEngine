@@ -20,10 +20,27 @@ namespace DEngine
 		return out;
 	}
 
+	EditorAssetManager::EditorAssetManager()
+	{
+		CreateBaseRendererShader();
+	}
+
 	const AssetHandle& EditorAssetManager::CreateAsset(AssetMetadata metadata)
 	{
 		AssetHandle handle;
 		m_AssetRegistry[handle] = metadata;
+
+		return handle;
+	}
+
+	const AssetHandle& EditorAssetManager::CreateMeshAsset(const BufferLayout& layout,
+														   float* verts, uint32_t vertsSize,
+														   uint32_t* inds, uint32_t indsSize,
+														   const std::filesystem::path& path)
+	{
+		AssetHandle handle;
+		m_AssetRegistry[handle] = { AssetType::Mesh, path};
+		m_LoadedAssets[handle] = CreateRef<Mesh>(layout, verts, vertsSize, inds, indsSize);
 
 		return handle;
 	}
@@ -78,6 +95,15 @@ namespace DEngine
 		}
 
 		return it->second;
+	}
+
+	const AssetHandle& EditorAssetManager::GetPrimitiveMesh(PrimitiveType type)
+	{
+		auto it = m_MeshPrimitives.find(type);
+		if (it != m_MeshPrimitives.end())
+			return it->second;
+
+		return CreateMeshPrimitive(type);
 	}
 	
 	void EditorAssetManager::SerializeAssetRegistry()
@@ -135,5 +161,19 @@ namespace DEngine
 		}
 
 		return true;
+	}
+
+	void EditorAssetManager::CreateBaseRendererShader()
+	{
+		m_BaseShaderHandle = CreateAsset({AssetType::Shader, "assets/shaders/Base.glsl"});
+	}
+
+	const AssetHandle& EditorAssetManager::CreateMeshPrimitive(PrimitiveType type)
+	{
+		AssetHandle handle;
+		m_AssetRegistry[handle] = { AssetType::Mesh, "" };
+		m_LoadedAssets[handle] = MeshGenerator::CreatePrimitive(type);
+
+		return handle;
 	}
 }

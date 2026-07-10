@@ -20,11 +20,7 @@ namespace DEngine
 	private:
 		Ref<Camera> m_EditorCamera;
 
-		Ref<Mesh> m_CubeMesh;
-		Ref<Material> m_Material;
 		Ref<Framebuffer> m_Framebuffer;
-
-		ShaderLibrary shaderLib;
 
 		Ref<Scene> m_Scene;
 

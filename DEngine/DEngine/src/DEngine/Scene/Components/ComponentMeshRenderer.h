@@ -4,16 +4,18 @@
 #include "DEngine/Renderer/Mesh/Mesh.h"
 #include "DEngine/Renderer/Material/Material.h"
 
+#include "DEngine/Asset/Asset.h"
+
 namespace DEngine
 {
 	struct MeshRendererComponent
 	{
-		Ref<Mesh> mesh;
-		Ref<Material> material;
+		AssetHandle meshHandle;
+		AssetHandle materialHandle;
 
 		MeshRendererComponent() = default;
 		MeshRendererComponent(const MeshRendererComponent&) = default;
-		MeshRendererComponent(const Ref<Mesh>& _mesh, const Ref<Material>& _mat)
-			: mesh(_mesh), material(_mat) { }
+		MeshRendererComponent(const AssetHandle& _mesh, const AssetHandle& _mat)
+			: meshHandle(_mesh), materialHandle(_mat) { }
 	};
 }

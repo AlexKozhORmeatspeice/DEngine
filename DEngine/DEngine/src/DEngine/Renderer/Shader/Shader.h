@@ -1,15 +1,26 @@
 #pragma once
 
 #include "DEngine/Core.h"
+#include "DEngine/Asset/Asset.h"
 
 #include "string"
 #include "glm/glm.hpp"
 
 #include "unordered_map"
+#include "map"
 
 namespace DEngine
 {
-	class D_API Shader
+	//-------Settings-------
+	//Max number of shader program objects available to a GL program
+	const int MAX_SHADER_SIZE = 4;
+	//----------------------
+
+	enum class ShaderType { None, Vertex, Fragment };
+
+	using ShaderRegistry = std::map<ShaderType, std::string>;
+
+	class D_API Shader : public Asset
 	{
 	public:
 		virtual ~Shader() {}
@@ -36,22 +47,11 @@ namespace DEngine
 
 		virtual const std::string& GetName() const = 0;
 
-		static Ref<Shader> Create(const std::string& filePath);
-		static Ref<Shader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragSrc);
+		static Ref<Shader> Create(const ShaderRegistry& shaderRegistry, const std::string& name = "");
+
+		static AssetType GetStaticType() { return AssetType::Shader; }
+		virtual AssetType GetType() const override { return GetStaticType(); }
 	protected:
 		Shader() {}
-	};
-
-	class D_API ShaderLibrary
-	{
-	public:
-		void Add(const Ref<Shader>& shader);
-		void Add(const std::string& name, const Ref<Shader>& shader);
-		Ref<Shader> Load(const std::string& filePath);
-		Ref<Shader> Load(const std::string& name, const std::string& filePath);
-
-		Ref<Shader> Get(const std::string& name);
-	private:
-		std::unordered_map<std::string, Ref<Shader>> m_Shaders;
 	};
 }

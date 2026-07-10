@@ -11,7 +11,10 @@ namespace DEngine
 		None = 0,
 		Scene,
 		Texture2D,
-		Mesh
+		Mesh,
+		Material,
+		Model,
+		Shader
 	};
 
 	std::string_view AssetTypeToString(AssetType type);
