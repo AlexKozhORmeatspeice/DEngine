@@ -8,7 +8,7 @@ namespace DEngine
 	class Editor : public Application
 	{
 	public:
-		Editor() : Application("Hazel Editor")
+		Editor() : Application("DEngine editor")
 		{
 			PushLayer(new EditorLayer());
 		}

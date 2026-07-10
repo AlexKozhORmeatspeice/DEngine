@@ -39,6 +39,12 @@ namespace DEngine
 			unsigned int Width, Height;
 			bool VSync;
 
+			 bool IsFullscreen = false;
+			int WindowedPosX = 0;
+			int WindowedPosY = 0;
+			int WindowedWidth = 800;
+			int WindowedHeight = 600;
+
 			EventCallbackFn EventCallback;
 		};
 

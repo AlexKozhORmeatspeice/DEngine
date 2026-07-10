@@ -14,6 +14,7 @@
 #include "unordered_set"
 
 #include "DEngine/DLog.h"
+#include "DEngine/Core/DataBuffer.h"
 
 #ifdef D_PLATFORM_WINDOWS
 	#include "Windows.h"

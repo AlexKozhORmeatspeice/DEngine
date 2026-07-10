@@ -1,6 +1,8 @@
 #include "dpch.h"
 #include "Material.h"
 
+#include "DEngine/Asset/AssetManager.h"
+
 namespace DEngine
 {
 
@@ -97,7 +99,7 @@ namespace DEngine
 		}
 	}
 
-	void Material::SetTexture2D(const std::string& name, const Ref<Texture2D>& tex)
+	void Material::SetTexture2D(const std::string& name, const AssetHandle& tex)
 	{
 		uint32_t id = GetCachedID(name);
 		if (id == UINT32_MAX) return;
@@ -112,13 +114,15 @@ namespace DEngine
 
 	void Material::Bind()
 	{
+		m_Shader->Bind();
+
 		UpdateDirtyValues();
 
-		for (const auto& [id, texture] : m_TextureValues)
+		for (const auto& [id, textureHandle] : m_TextureValues)
 		{
+			auto texture = AssetManager::GetAsset<Texture2D>(textureHandle);
 			texture->Bind();
 		}
-		m_Shader->Bind();
 	}
 
 	void Material::Unbind()

@@ -23,6 +23,16 @@
 #include "DEngine/Scene/Components.h"
 #include "DEngine/Scene/Systems.h"
 
+#include "DEngine/Project/Project.h"
+
+//--Assets--
+#include "DEngine/Asset/Asset.h"
+#include "DEngine/Asset/AssetManagerBase.h"
+#include "DEngine/Asset/EditorAssetManager.h"
+#include "DEngine/Asset/RuntimeAssetManager.h"
+#include "DEngine/Asset/AssetManager.h"
+//---------
+
 //--Renderer--
 #include "DEngine/Renderer/Renderer.h"
 #include "DEngine/Renderer/RenderCommand.h"

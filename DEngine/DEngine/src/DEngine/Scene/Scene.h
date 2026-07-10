@@ -20,8 +20,6 @@ namespace DEngine
 
 		Entity& CreateEntity(const std::string& name = std::string());
 
-		void AddSystem(std::shared_ptr<System> sys);
-
 		template<typename... Components>
 		auto View()
 		{
@@ -37,6 +35,8 @@ namespace DEngine
 		void OnUpdate(const Timestep& ts);
 		void OnRender(const Timestep& ts);
 	private:
+		void AddSystem(std::shared_ptr<System> sys);
+
 		std::vector<std::shared_ptr<System>> m_Systems;
 		entt::registry m_Registry;
 

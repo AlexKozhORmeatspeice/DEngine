@@ -22,7 +22,7 @@ namespace DEngine
         void SetFloat4(const std::string& name, const glm::vec4& val);
         void SetMat3(const std::string& name, const glm::mat3& val);
         void SetMat4(const std::string& name, const glm::mat4& val);
-        void SetTexture2D(const std::string& name, const Ref<Texture2D>& tex);
+        void SetTexture2D(const std::string& name, const AssetHandle& tex);
 
         void Bind();
         void Unbind();
@@ -44,7 +44,7 @@ namespace DEngine
         std::unordered_map<uint32_t, glm::vec4> m_Vec4Values;
         std::unordered_map<uint32_t, glm::mat3> m_Mat3Values;
         std::unordered_map<uint32_t, glm::mat4> m_Mat4Values;
-        std::unordered_map<uint32_t, Ref<Texture2D>> m_TextureValues;
+        std::unordered_map<uint32_t, AssetHandle> m_TextureValues;
         
         std::vector<uint32_t> m_DirtyInts;
         std::vector<uint32_t> m_DirtyFloats;

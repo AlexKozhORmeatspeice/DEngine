@@ -1,3 +1,3 @@
 #pragma once
 
-#include "DEngine/Scene/Systems/MeshRendererSystem.h"
+#include "DEngine/Renderer/Systems/MeshRendererSystem.h"

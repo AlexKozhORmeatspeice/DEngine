@@ -10,21 +10,25 @@ namespace DEngine
 
 	void EditorLayer::Init()
 	{
+		//Init asset manager
+		AssetManager::SetAssetManager(std::make_shared<EditorAssetManager>());
+
 		///Set camera
 		Window& win = Application::Get().GetWindow();
 		m_EditorCamera = std::make_shared<PerspectiveCamera>(60.0f, win.GetWidth(), win.GetHeight());
 
+		//TODO: в будущем мы должны уметь серализовать сцену и загружать ее как ресурс
 		//Set scene
 		m_Scene = CreateRef<Scene>();
-		m_Scene->AddSystem(std::make_shared<MeshRendererSystem>());
 
 		///Set models
 		shaderLib.Load("assets/shaders/Base.glsl");
-		m_Texture = Texture2D::Create("assets/textures/pasha.jpg");
+
+		const AssetHandle texHandle = AssetManager::CreateAsset({ AssetType::Texture2D, "assets/textures/pasha.jpg" });
 
 		m_CubeMesh = MeshGenerator::CreateCube();
 		m_Material = CreateRef<Material>(shaderLib.Get("Base"));
-		m_Material->SetTexture2D("u_Texture", m_Texture);
+		m_Material->SetTexture2D("u_Texture", texHandle);
 
 		///Set objs
 		auto cube = m_Scene->CreateEntity();
@@ -40,6 +44,7 @@ namespace DEngine
 
 		if (m_ViewportFocused)
 		{
+			//TODO: перенести код управления камерой в отдельный класс
 			if (Input::IsKeyPressed(D_KEY_LEFT))
 				m_CamPos = m_CamPos - m_EditorCamera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
 			if (Input::IsKeyPressed(D_KEY_RIGHT))
@@ -145,15 +150,6 @@ namespace DEngine
 		strcpy(fpsLabel, std::to_string((int)Application::Get().GetFPS()).c_str());
 		strcat(fpsLabel, " FPS");
 		ImGui::Text(fpsLabel);
-
-		for (const auto& res : m_ProfileResults)
-		{
-			char label[50];
-			strcpy(label, res.Name);
-			strcat(label, " %.2fms");
-
-			ImGui::Text(label, res.Time);
-		}
 		ImGui::End();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
@@ -170,9 +166,9 @@ namespace DEngine
 			m_EditorCamera->ChangeSize(viewportSize.x, viewportSize.y);
 			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
-		uint32_t textureID = m_Texture->GetRendererID();
+
 		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{viewportSize.x, viewportSize.y}, ImVec2{ 0, 1 }, ImVec2{1, 0});
-		m_ProfileResults.clear();
+
 		ImGui::End();
 		ImGui::PopStyleVar();
 

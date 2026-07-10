@@ -17,11 +17,13 @@ IncludeDir["ImGUI"] = "DEngine/vendor/imgui"
 IncludeDir["glm"] = "DEngine/vendor/glm"
 IncludeDir["stb_image"] = "DEngine/vendor/stb_image"
 IncludeDir["entt"] = "DEngine/vendor/entt/include"
+IncludeDir["yaml"] = "DEngine/vendor/yaml-cpp/include"
 
 group "Dependencies"
-	include "DEngine/vendor/GLFW"
-	include "DEngine/vendor/GLAD"
-	include "DEngine/vendor/imgui"
+    include "DEngine/vendor/GLFW"
+    include "DEngine/vendor/GLAD"
+    include "DEngine/vendor/imgui"
+    include "DEngine/vendor/yaml-cpp"
 group ""
 
 project "DEngine"
@@ -55,14 +57,16 @@ project "DEngine"
         "%{IncludeDir.ImGUI}",
         "%{IncludeDir.glm}",
         "%{IncludeDir.stb_image}",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.yaml}"
     }
 
     links
     {
         "GLFW",
         "GLAD",
-        "ImGui"
+        "ImGui",
+        "yaml-cpp"
     }
     
     filter "system:windows"
@@ -83,7 +87,8 @@ project "DEngine"
             "D_PLATFORM_WINDOWS",
             "GLFW_INCLUDE_NONE",
             "_CRT_SECURE_NO_WARNINGS",
-            "_CRT_NONSTDC_NO_WARNINGS"
+            "_CRT_NONSTDC_NO_WARNINGS",
+            "YAML_CPP_STATIC_DEFINE"
         }
 
     filter "configurations:Debug"

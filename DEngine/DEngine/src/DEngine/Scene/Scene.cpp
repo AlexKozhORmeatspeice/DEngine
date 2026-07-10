@@ -5,12 +5,18 @@
 #include "Components.h"
 
 #include "DEngine/Scene/System.h"
+#include "DEngine/Scene/Systems.h"
 
 namespace DEngine
 {
 	Scene::Scene()
 	{
 		entt::entity entity = m_Registry.create();
+
+		//Список всех систем подгружаемых в обработчики
+		//При реализации новой системы ее стоят добавлять только сюда в соответствии с примерами ниже
+		//После добавления автоматически будет работать
+		AddSystem(std::make_shared<MeshRendererSystem>());
 	}
 
 	Scene::~Scene()

@@ -7,7 +7,6 @@
 
 namespace DEngine
 {
-	//TODO: сделать нормальную инициализацию
 	class D_API RenderCommand
 	{
 	public:

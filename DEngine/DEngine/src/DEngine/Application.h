@@ -18,7 +18,7 @@ namespace DEngine
     class D_API Application
     {
     public:
-        Application(const std::string& name = "Hazel App");
+        Application(const std::string& name = "DEngine App");
         virtual ~Application();
 
         void Run();

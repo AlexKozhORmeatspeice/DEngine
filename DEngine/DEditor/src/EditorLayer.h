@@ -25,11 +25,8 @@ namespace DEngine
 		Ref<Framebuffer> m_Framebuffer;
 
 		ShaderLibrary shaderLib;
-		Ref<Texture2D> m_Texture;
 
 		Ref<Scene> m_Scene;
-
-		std::vector<ProfileResult> m_ProfileResults;
 
 		glm::vec2 m_ViewportSize;
 		bool m_ViewportFocused = false;
