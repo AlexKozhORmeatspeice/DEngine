@@ -6,6 +6,8 @@
 #include "glad/glad.h"
 #include "glm/gtc/type_ptr.hpp"
 
+//TODO: при ошибки компиляции не помешает возвращать шейдер который будет рисовать мадженту, что-то вроде ErrorShader
+
 namespace DEngine
 {
 	static GLenum ShaderTypeToGLType(ShaderType type)
