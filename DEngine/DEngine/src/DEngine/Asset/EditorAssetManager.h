@@ -3,6 +3,8 @@
 
 #include "AssetMetadata.h"
 #include "AssetManagerBase.h"
+#include "FileWatcher.h"
+#include "DEngine/Asset/Asset.h"
 
 #include "unordered_map"
 
@@ -33,10 +35,23 @@ namespace DEngine
 
 		void SerializeAssetRegistry();
 		bool DeserializeAssetRegistry();
-	private:
 
+        void ReloadAsset(const AssetHandle& handle);
+        void ReloadAssetByPath(const std::filesystem::path& path);
+        void EnableHotReload(bool enable) { m_HotReloadEnabled = enable; }
+        bool IsHotReloadEnabled() const { return m_HotReloadEnabled; }
+
+        void Update();
+
+	private:
 		void CreateBaseRendererShader();
 		const AssetHandle& CreateMeshPrimitive(PrimitiveType type);
+
+        void SetupFileWatcher();
+        void OnFileChanged(const std::filesystem::path& path);
+        void ReloadShader(const AssetHandle& handle, const AssetMetadata& metadata);
+        void ReloadMesh(const AssetHandle& handle, const AssetMetadata& metadata);
+        void ReloadTexture(const AssetHandle& handle, const AssetMetadata& metadata);
 
 	private:
 		std::unordered_map<PrimitiveType, AssetHandle> m_MeshPrimitives;
@@ -44,5 +59,12 @@ namespace DEngine
 
 		AssetRegistry m_AssetRegistry;
 		AssetMap m_LoadedAssets;
+
+        FileWatcher m_FileWatcher;
+        bool m_HotReloadEnabled = true;
+        std::unordered_map<std::filesystem::path, AssetHandle> m_PathToHandle;
+        std::unordered_map<AssetHandle, std::filesystem::path> m_HandleToPath;
+        
+        std::unordered_map<AssetHandle, std::filesystem::file_time_type> m_AssetLastLoadTime;
 	};
 }

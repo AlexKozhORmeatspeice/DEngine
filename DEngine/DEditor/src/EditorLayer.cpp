@@ -54,6 +54,7 @@ namespace DEngine
 
 	void EditorLayer::OnUpdate(const Timestep& ts)
 	{
+		AssetManager::Update();
 		m_Scene->OnUpdate(ts);
 
 		if (m_ViewportFocused)

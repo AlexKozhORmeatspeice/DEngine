@@ -13,6 +13,8 @@ namespace DEngine
 		static void Init(const std::shared_ptr<BaseAssetManager>& manager);
 		static const AssetHandle& CreateAsset(const AssetMetadata& metadata);
 
+		static void Update();
+
 		template<typename T>
 		static Ref<T> GetAsset(AssetHandle handle)
 		{

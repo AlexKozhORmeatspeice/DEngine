@@ -11,6 +11,9 @@ namespace DEngine
 			case AssetType::Scene:		return "AssetType::Scene";
 			case AssetType::Texture2D:	return "AssetType::Texture2D";
 			case AssetType::Mesh:		return "AssetType::Mesh";
+			case AssetType::Material:	return "AssetType::Material";
+			case AssetType::Model:		return "AssetType::Model";
+			case AssetType::Shader:		return "AssetType::Shader";
 		}
 
 		return "AssetType::Invalid";
@@ -22,6 +25,9 @@ namespace DEngine
 		if (str == "AssetType::Scene") return AssetType::Scene;
 		if (str == "AssetType::Texture2D") return AssetType::Texture2D;
 		if (str == "AssetType::Mesh") return AssetType::Mesh;
+		if (str == "AssetType::Material") return AssetType::Material;
+		if (str == "AssetType::Model") return AssetType::Model;
+		if (str == "AssetType::Shader") return AssetType::Shader;
 
 		return AssetType::None;
 	}
