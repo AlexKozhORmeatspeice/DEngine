@@ -13,6 +13,7 @@ namespace DEngine
 	void Renderer::BeginScene(const DEngine::Ref<Camera>& camera)
 	{
 		s_SceneData->viewProjMat = camera->GetViewProjMat();
+		s_SceneData->cam = camera;
 	}
 
 	void Renderer::EndScene()
@@ -27,12 +28,17 @@ namespace DEngine
 
 	void Renderer::Submit(const Ref<Mesh>& mesh, const Ref<Material>& mat, const glm::mat4& trans)
 	{
-		mat->Bind();
 		mat->SetMat4("u_ViewProj", s_SceneData->viewProjMat);
 		mat->SetMat4("u_ModelMat", trans);
+		mat->SetFloat3("u_ViewPos", s_SceneData->cam->GetPos());
+
+		mat->Bind();
 
 		mesh->Bind();
 
 		RenderCommand::DrawIndexed(mesh->GetVertexArray());
+
+		mat->Unbind();
+		mesh->Unbind();
 	}
 }

@@ -32,6 +32,15 @@ namespace DEngine
 		///Set objs
 		auto cube = m_Scene->CreateEntity();
 		cube.AddComponent<MeshRendererComponent>(meshHandle, matHandle);
+		auto& trans = cube.GetComponent<TransformComponent>();
+		trans.SetScale({ 100.0f, 100.0f, 100.0f });
+		trans.SetPosition({ 100.0f, 100.0f, trans.GetPosition().z });
+
+		auto directLight = m_Scene->CreateEntity();
+		directLight.AddComponent<DirectLightComponent>(glm::vec3(1.0f, 1.0f, 1.0f), 1.0f);
+		auto& lightTrans = directLight.GetComponent<TransformComponent>();
+		lightTrans.Rotate(-60.0f, {1.0f, 0.0f, 0.0f});
+		lightTrans.Rotate(90.0f, {0.0f, 1.0f, 0.0f});
 
 		for (const auto& renderData : AssetManager::GetAsset<Model>(sponzaHandle)->GetRenderData())
 		{
@@ -116,7 +125,7 @@ namespace DEngine
 		if (!opt_padding)
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 		
-		ImGui::Begin("DockSpace Demo", &dockspaceOpen, window_flags);
+		ImGui::Begin("DEngine", &dockspaceOpen, window_flags);
 		if (!opt_padding)
 			ImGui::PopStyleVar();
 

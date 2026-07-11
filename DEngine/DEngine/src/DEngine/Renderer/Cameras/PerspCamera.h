@@ -9,7 +9,7 @@ namespace DEngine
 	{
 	public:
 		PerspectiveCamera();
-		PerspectiveCamera(float fov, uint32_t width, uint32_t height, float _near = 0.01f, float _far = 10000.0f, float _zoomLevel = 0.1f);
+		PerspectiveCamera(float fov, uint32_t width, uint32_t height, float _near = 0.1f, float _far = 3000.0f, float _zoomLevel = 0.1f);
 
 		virtual void ChangeSize(uint32_t width, uint32_t height) override;
 	protected:

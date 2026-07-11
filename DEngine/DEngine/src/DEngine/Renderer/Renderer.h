@@ -28,6 +28,7 @@ namespace DEngine
 		struct SceneData
 		{
 			glm::mat4 viewProjMat;
+			Ref<Camera> cam;
 		};
 
 		static SceneData* s_SceneData;

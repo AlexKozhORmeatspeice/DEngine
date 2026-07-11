@@ -85,6 +85,11 @@ namespace DEngine
 
         glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, 
                            m_DataFormat, GL_UNSIGNED_BYTE, data.Data);
+
+        glGenerateTextureMipmap(m_RendererID);
+
+		glTextureParameteri(m_RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTextureParameteri(m_RendererID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     }
 
     uint32_t OpenGLTexture2D::GetRendererID() const

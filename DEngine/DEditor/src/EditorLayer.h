@@ -30,7 +30,7 @@ namespace DEngine
 
 		glm::vec3 m_CamPos;
 		glm::vec3 m_CamRot;
-		float m_CamSpeed = 2.0f;
+		float m_CamSpeed = 200.0f;
 		float m_CamRotSpeed = 100.0f;
 
 		glm::vec3 m_SquarePos;

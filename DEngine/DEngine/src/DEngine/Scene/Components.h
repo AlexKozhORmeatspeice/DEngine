@@ -4,3 +4,4 @@
 #include "Components/ComponentMeshRenderer.h"
 #include "Components/ComponentTransform.h"
 #include "Components/TagComponent.h"
+#include "Components/DirectLightComponent.h"

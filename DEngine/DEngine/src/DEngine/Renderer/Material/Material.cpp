@@ -5,7 +5,6 @@
 
 namespace DEngine
 {
-
 	Material::Material(const AssetHandle& shaderHandle) : m_ShaderHandle(shaderHandle) {}
 
 	void Material::SetInt(const std::string& name, int val)
@@ -14,11 +13,8 @@ namespace DEngine
 		if (id == UINT32_MAX) return;
 		
 		auto it = m_IntValues.find(id);
-		if (it == m_IntValues.end() || it->second != val)
-		{
-			m_IntValues[id] = val;
-			m_DirtyInts.push_back(id);
-		}
+		m_IntValues[id] = val;
+		m_DirtyInts.push_back(id);
 	}
 
 	void Material::SetFloat(const std::string& name, float val)
@@ -27,11 +23,8 @@ namespace DEngine
 		if (id == UINT32_MAX) return;
 		
 		auto it = m_FloatValues.find(id);
-		if (it == m_FloatValues.end() || it->second != val)
-		{
-			m_FloatValues[id] = val;
-			m_DirtyFloats.push_back(id);
-		}
+		m_FloatValues[id] = val;
+		m_DirtyFloats.push_back(id);
 	}
 
 	void Material::SetFloat2(const std::string& name, const glm::vec2& val)
@@ -40,11 +33,8 @@ namespace DEngine
 		if (id == UINT32_MAX) return;
 		
 		auto it = m_Vec2Values.find(id);
-		if (it == m_Vec2Values.end() || it->second != val)
-		{
-			m_Vec2Values[id] = val;
-			m_DirtyVec2s.push_back(id);
-		}
+		m_Vec2Values[id] = val;
+		m_DirtyVec2s.push_back(id);
 	}
 
 	void Material::SetFloat3(const std::string& name, const glm::vec3& val)
@@ -53,11 +43,8 @@ namespace DEngine
 		if (id == UINT32_MAX) return;
 		
 		auto it = m_Vec3Values.find(id);
-		if (it == m_Vec3Values.end() || it->second != val)
-		{
-			m_Vec3Values[id] = val;
-			m_DirtyVec3s.push_back(id);
-		}
+		m_Vec3Values[id] = val;
+		m_DirtyVec3s.push_back(id);
 	}
 
 	void Material::SetFloat4(const std::string& name, const glm::vec4& val)
@@ -66,11 +53,8 @@ namespace DEngine
 		if (id == UINT32_MAX) return;
 		
 		auto it = m_Vec4Values.find(id);
-		if (it == m_Vec4Values.end() || it->second != val)
-		{
-			m_Vec4Values[id] = val;
-			m_DirtyVec4s.push_back(id);
-		}
+		m_Vec4Values[id] = val;
+		m_DirtyVec4s.push_back(id);
 	}
 
 	void Material::SetMat3(const std::string& name, const glm::mat3& val)
@@ -79,11 +63,8 @@ namespace DEngine
 		if (id == UINT32_MAX) return;
 		
 		auto it = m_Mat3Values.find(id);
-		if (it == m_Mat3Values.end() || it->second != val)
-		{
-			m_Mat3Values[id] = val;
-			m_DirtyMat3s.push_back(id);
-		}
+		m_Mat3Values[id] = val;
+		m_DirtyMat3s.push_back(id);
 	}
 
 	void Material::SetMat4(const std::string& name, const glm::mat4& val)
@@ -91,12 +72,8 @@ namespace DEngine
 		uint32_t id = GetCachedID(name);
 		if (id == UINT32_MAX) return;
 		
-		auto it = m_Mat4Values.find(id);
-		if (it == m_Mat4Values.end() || it->second != val)
-		{
-			m_Mat4Values[id] = val;
-			m_DirtyMat4s.push_back(id);
-		}
+		m_Mat4Values[id] = val;
+		m_DirtyMat4s.push_back(id);
 	}
 
 	void Material::SetTexture2D(const std::string& name, const AssetHandle& tex)
@@ -105,11 +82,8 @@ namespace DEngine
 		if (id == UINT32_MAX) return;
 		
 		auto it = m_TextureValues.find(id);
-		if (it == m_TextureValues.end() || it->second != tex)
-		{
-			m_TextureValues[id] = tex;
-			m_DirtyTextures.push_back(id);
-		}
+		m_TextureValues[id] = tex;
+		m_DirtyTextures.push_back(id);
 	}
 
 	void Material::Bind()

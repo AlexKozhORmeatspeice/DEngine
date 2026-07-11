@@ -53,21 +53,19 @@ namespace DEngine
 			return nullptr;
 			
 		Ref<Asset> asset;
-		if (IsAssetLoaded(handle))
-		{
-			asset = m_LoadedAssets[handle];
-		}
-		else
+		if (!IsAssetLoaded(handle))
 		{
 			asset = AsssetImporter::ImportAsset(handle, metadata);
 			if (!asset) 
 			{
-				D_CORE_ASSERT(false, "EditorAssetManager::GetAsset: couldn't load texture");
+				D_CORE_ASSERT(false, "EditorAssetManager::GetAsset: couldn't load {0} by path {1}", AssetTypeToString(metadata.Type), metadata.FilePath.string());
 				return nullptr;
 			}
 
 			m_LoadedAssets[handle] = asset;
 		}
+
+		asset = m_LoadedAssets[handle];
 
 		return asset;
 	}

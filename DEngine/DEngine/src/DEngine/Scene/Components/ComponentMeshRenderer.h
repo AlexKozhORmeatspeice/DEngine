@@ -1,8 +1,6 @@
 #pragma once
 
 #include "DEngine/Core.h"
-#include "DEngine/Renderer/Mesh/Mesh.h"
-#include "DEngine/Renderer/Material/Material.h"
 
 #include "DEngine/Asset/Asset.h"
 

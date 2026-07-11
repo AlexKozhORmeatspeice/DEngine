@@ -15,9 +15,9 @@ namespace DEngine
         glEnable(GL_DEPTH_TEST); 
 		glDepthFunc(GL_LESS);
 
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
 		glFrontFace(GL_CCW);
+		glCullFace(GL_BACK);
+		glEnable(GL_CULL_FACE);
 	}
 
 	void OpenGLRendererAPI::SetClearColor(const glm::vec4& color)

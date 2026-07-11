@@ -77,7 +77,7 @@ namespace DEngine
                 continue;
 
             std::vector<float> vertices;
-            //vertices.reserve(mesh->mNumVertices * 11); //11 - количество данных на 1 вертекс
+            vertices.reserve(mesh->mNumVertices * 11); //11 - количество данных на 1 вертекс
 
             // Извлекаем вершины
             for (unsigned int v = 0; v < mesh->mNumVertices; v++)
@@ -133,8 +133,8 @@ namespace DEngine
                 aiFace face = mesh->mFaces[f];
                 // CCW порядок: меняем местами второй и третий индекс
                 indices.push_back(face.mIndices[0]);
-                indices.push_back(face.mIndices[2]);
                 indices.push_back(face.mIndices[1]);
+                indices.push_back(face.mIndices[2]);
             }
 
             // Создаём Mesh как ассет
@@ -149,7 +149,7 @@ namespace DEngine
 				{ShaderDataType::Float3, "a_Tangent"},
 			};
 
-            const AssetHandle meshHandle = AssetManager::CreateMeshAsset(layout, vertices.data(), vertices.size(), indices.data(), indices.size(), meshPath);
+            const AssetHandle meshHandle = AssetManager::CreateMeshAsset(layout, vertices.data(), vertices.size() * sizeof(float), indices.data(), indices.size(), meshPath);
 
             // Загружаем материал
             std::string matName = "material" + std::to_string(i);
