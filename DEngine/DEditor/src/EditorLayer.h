@@ -1,5 +1,7 @@
 #pragma once
 #include "DEngine.h"
+#include "Panels/Scene/ScenePanel.h"
+#include "Panels/Properties/PropertiesPanel.h"
 
 namespace DEngine
 {
@@ -18,11 +20,14 @@ namespace DEngine
 
 		bool OnKeyPressedEv(KeyPressedEvent& event);
 	private:
+		//Panels
+		ScenePanel m_ScenePanel;
+		PropetiesPanel m_PropPanel;
+
+		//Objs
 		Ref<Camera> m_EditorCamera;
-
 		Ref<Framebuffer> m_Framebuffer;
-
-		Ref<Scene> m_Scene;
+		Ref<Scene> m_ActiveScene;
 
 		glm::vec2 m_ViewportSize;
 		bool m_ViewportFocused = false;

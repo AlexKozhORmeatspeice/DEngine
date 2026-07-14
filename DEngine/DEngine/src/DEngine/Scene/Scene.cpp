@@ -21,12 +21,13 @@ namespace DEngine
 
 	Scene::~Scene()
 	{
-		
+		m_Entities.clear();
 	}
 
 	Entity& Scene::CreateEntity(const std::string& name)
 	{
-		Entity entity = { m_Registry.create(), this };
+		m_Entities.emplace_back(m_Registry.create(), this);
+		Entity& entity = m_Entities[m_Entities.size() - 1];
 
 		entity.AddComponent<TransformComponent>();
 

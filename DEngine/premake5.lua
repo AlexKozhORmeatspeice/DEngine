@@ -132,6 +132,7 @@ project "Sandbox"
 
     includedirs
     {
+        "%{prj.name}/src",
         "DEngine/vendor/spdlog/include",
         "DEngine/src",
         "DEngine/vendor",
@@ -192,6 +193,7 @@ project "DEditor"
 
     includedirs
     {
+        "%{prj.name}/src",
         "DEngine/vendor/spdlog/include",
         "DEngine/src",
         "DEngine/vendor",

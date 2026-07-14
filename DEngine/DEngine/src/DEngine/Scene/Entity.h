@@ -11,9 +11,16 @@ namespace DEngine
 		Entity();
 		Entity(entt::entity _handle, Scene* scene);
 		Entity(const Entity& other) = default;
+		~Entity();
 
 		template<typename T>
 		bool HasComponent()
+		{
+			return m_Scene->m_Registry.try_get<T>(m_Handle);
+		}
+
+		template<typename T>
+		bool HasComponent() const
 		{
 			return m_Scene->m_Registry.try_get<T>(m_Handle);
 		}
@@ -33,6 +40,14 @@ namespace DEngine
 
 			return m_Scene->m_Registry.get<T>(m_Handle);
 		}
+		
+		template<typename T>
+		T& GetComponent() const
+		{
+			D_CORE_ASSERT(HasComponent<T>(), "Entity doesn't have component");
+
+			return m_Scene->m_Registry.get<T>(m_Handle);
+		}
 
 		template<typename T>
 		void RemoveComponent()
@@ -42,8 +57,10 @@ namespace DEngine
 			return m_Scene->m_Registry.remove<T>(m_Handle);
 		}
 
-		//TODO: я немного бля убиться хочу от этого, но нормик думаю. Если не впдалу - сделайте лучше
-		operator bool() const { return *((int*)&m_Handle) != 0; } 
+		operator bool() const { return m_Handle != entt::null; } 
+		bool operator==(const Entity& other) const { return m_Handle == other.m_Handle && m_Scene == other.m_Scene; } 
+		bool operator!=(const Entity& other) const { return m_Handle != other.m_Handle || m_Scene != other.m_Scene; } 
+		operator uint32_t() const { return (uint32_t)m_Handle; }
 
 	private:
 		entt::entity m_Handle{ entt::null };

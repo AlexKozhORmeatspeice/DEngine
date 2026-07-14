@@ -19,43 +19,43 @@ namespace DEngine
 
 		//TODO: в будущем мы должны уметь серализовать сцену и загружать ее как ресурс
 		//Set scene
-		m_Scene = CreateRef<Scene>();
+		m_ActiveScene = CreateRef<Scene>();
 
 		///Set models
 		const AssetHandle texHandle = AssetManager::CreateAsset({ AssetType::Texture2D, "assets/textures/pasha.jpg" });
 		const AssetHandle matHandle = AssetManager::CreateAsset({ AssetType::Material, "" });
-		const AssetHandle sponzaHandle = AssetManager::CreateAsset({ AssetType::Model, "assets/models/sponza.obj-master/sponza.obj" });
 		const AssetHandle meshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Cube);
 
 		AssetManager::GetAsset<Material>(matHandle)->SetTexture2D("u_Texture", texHandle);
 
 		///Set objs
-		auto cube = m_Scene->CreateEntity();
+		auto& cube = m_ActiveScene->CreateEntity("cube");
 		cube.AddComponent<MeshRendererComponent>(meshHandle, matHandle);
 		auto& trans = cube.GetComponent<TransformComponent>();
 		trans.SetScale({ 100.0f, 100.0f, 100.0f });
 		trans.SetPosition({ 100.0f, 100.0f, trans.GetPosition().z });
 
-		auto directLight = m_Scene->CreateEntity();
+		auto& directLight = m_ActiveScene->CreateEntity("direct light");
 		directLight.AddComponent<DirectLightComponent>(glm::vec3(1.0f, 1.0f, 1.0f), 1.0f);
 		auto& lightTrans = directLight.GetComponent<TransformComponent>();
 		lightTrans.Rotate(-60.0f, {1.0f, 0.0f, 0.0f});
 		lightTrans.Rotate(90.0f, {0.0f, 1.0f, 0.0f});
 
-		for (const auto& renderData : AssetManager::GetAsset<Model>(sponzaHandle)->GetRenderData())
-		{
-			auto sponzaObj = m_Scene->CreateEntity();
-			sponzaObj.AddComponent<MeshRendererComponent>(renderData.MeshHandle, renderData.second);
-		}
-
 		//Set Renderer
 		m_Framebuffer = Framebuffer::Create({ win.GetWidth(), win.GetHeight() });
+
+		//Set panels
+		m_ScenePanel.SetContext(m_ActiveScene);
+
+		//Serialization
+		SceneSerializer sceneSerializer(m_ActiveScene);
+		sceneSerializer.Serialize("assets/scenes/Example.dscene");
 	}
 
 	void EditorLayer::OnUpdate(const Timestep& ts)
 	{
 		AssetManager::Update();
-		m_Scene->OnUpdate(ts);
+		m_ActiveScene->OnUpdate(ts);
 
 		if (m_ViewportFocused)
 		{
@@ -90,7 +90,7 @@ namespace DEngine
 		RenderCommand::Clear();
 		Renderer::BeginScene(m_EditorCamera);
 
-		m_Scene->OnRender(ts);
+		m_ActiveScene->OnRender(ts);
 
 		Renderer::EndScene();
 		m_Framebuffer->Unbind();
@@ -154,11 +154,8 @@ namespace DEngine
 			ImGui::EndMenuBar();
 		}
 
-		ImGui::Begin("Scene Hierarchy");
-		ImGui::End();
-
-		ImGui::Begin("Inspector");
-		ImGui::End();
+		m_ScenePanel.OnImGuiRender();
+		m_PropPanel.OnImGuiRender();
 
 		ImGui::Begin("Profile data");
 		char fpsLabel[50];
@@ -168,6 +165,7 @@ namespace DEngine
 		ImGui::End();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
+
 		ImGui::Begin("Viewport");
 
 		m_ViewportFocused = ImGui::IsWindowFocused();

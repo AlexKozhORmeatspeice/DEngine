@@ -13,10 +13,17 @@ namespace DEngine
     {
         glm::mat4 trans = glm::mat4(1.0f);
 
+        // Храним углы отдельно для стабильности UI
+        glm::vec3 m_RotationEuler = glm::vec3(0.0f); // в градусах
+
         TransformComponent() = default;
         TransformComponent(const TransformComponent&) = default;
         TransformComponent(const glm::mat4& _trans)
-            : trans(_trans) {}
+            : trans(_trans) 
+        {
+            // При инициализации из матрицы извлекаем углы
+            m_RotationEuler = glm::degrees(glm::eulerAngles(glm::quat_cast(trans)));
+        }
 
         void SetPosition(const glm::vec3& position)
         {
@@ -32,6 +39,22 @@ namespace DEngine
 
         void SetRotation(const glm::quat& rotation)
         {
+            // Сохраняем углы для UI
+            m_RotationEuler = glm::degrees(glm::eulerAngles(rotation));
+            
+            glm::vec3 scale = GetScale();
+            glm::vec3 position = GetPosition();
+            trans = glm::translate(glm::mat4(1.0f), position) * 
+                    glm::toMat4(rotation) * 
+                    glm::scale(glm::mat4(1.0f), scale);
+        }
+
+        // Установка вращения через углы Эйлера (в градусах)
+        void SetRotationEuler(const glm::vec3& eulerDegrees)
+        {
+            m_RotationEuler = eulerDegrees;
+            
+            glm::quat rotation = glm::quat(glm::radians(eulerDegrees));
             glm::vec3 scale = GetScale();
             glm::vec3 position = GetPosition();
             trans = glm::translate(glm::mat4(1.0f), position) * 
@@ -41,7 +64,13 @@ namespace DEngine
 
         glm::quat GetRotation() const
         {
-            return glm::quat_cast(trans);
+            return glm::quat(glm::radians(m_RotationEuler));
+        }
+
+        // Получение углов для UI (в градусах)
+        glm::vec3 GetRotationEuler() const
+        {
+            return m_RotationEuler;
         }
 
         void SetScale(const glm::vec3& scale)

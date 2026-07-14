@@ -25,6 +25,10 @@
 
 #include "DEngine/Project/Project.h"
 
+//--Serializers--
+#include "DEngine/Scene//Serialization/SceneSerializer.h"
+//---------------
+
 //--Assets--
 #include "DEngine/Asset/Asset.h"
 #include "DEngine/Asset/AssetManagerBase.h"

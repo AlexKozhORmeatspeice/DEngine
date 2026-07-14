@@ -34,12 +34,17 @@ namespace DEngine
 
 		void OnUpdate(const Timestep& ts);
 		void OnRender(const Timestep& ts);
+
+		const std::vector<Entity>& GetAllEntities() const { return m_Entities; }
 	private:
 		void AddSystem(std::shared_ptr<System> sys);
 
 		std::vector<std::shared_ptr<System>> m_Systems;
+		std::vector<Entity> m_Entities;
 		entt::registry m_Registry;
 
 		friend class Entity;
+		friend class ScenePanel;
+		friend class SceneSerializer;
 	};
 }

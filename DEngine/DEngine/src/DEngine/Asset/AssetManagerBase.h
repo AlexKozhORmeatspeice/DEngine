@@ -17,6 +17,7 @@ namespace DEngine
 	{
 	public:
 		virtual const AssetHandle& CreateAsset(AssetMetadata metadata) = 0;
+
 		virtual const AssetHandle& CreateMeshAsset(const BufferLayout& layout, 
 												   float* verts, uint32_t vertsSize, 
 												   uint32_t* inds, uint32_t indsSize, 

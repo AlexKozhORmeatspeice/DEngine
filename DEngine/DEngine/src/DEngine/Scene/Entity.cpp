@@ -13,4 +13,9 @@ namespace DEngine
 	{
 
 	}
+
+	Entity::~Entity()
+	{
+
+	}
 }
