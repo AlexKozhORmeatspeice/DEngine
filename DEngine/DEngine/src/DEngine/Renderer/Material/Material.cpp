@@ -95,6 +95,7 @@ namespace DEngine
 		for (const auto& [id, textureHandle] : m_TextureValues)
 		{
 			auto texture = AssetManager::GetAsset<Texture2D>(textureHandle);
+
 			texture->Bind();
 		}
 	}

@@ -14,6 +14,10 @@ namespace DEngine {
 	UUID::UUID()
 		: m_UUID(s_UniformDistribution(s_Engine))
 	{
+		if (m_UUID == Invalid())
+		{
+			m_UUID = s_UniformDistribution(s_Engine);
+		}
 	}
 
 	UUID::UUID(uint64_t uuid)

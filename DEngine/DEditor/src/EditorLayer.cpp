@@ -22,8 +22,9 @@ namespace DEngine
 		m_ActiveScene = CreateRef<Scene>();
 
 		///Set models
-		const AssetHandle texHandle = AssetManager::CreateAsset({ AssetType::Texture2D, "assets/textures/pasha.jpg" });
+		const AssetHandle texHandle = AssetManager::CreateAsset("assets/textures/pasha.jpg");
 		const AssetHandle matHandle = AssetManager::CreateAsset({ AssetType::Material, "" });
+		const AssetHandle sponzaHandle = AssetManager::CreateAsset({ AssetType::Model, "assets/models/sponza.obj-master/sponza.obj" });
 		const AssetHandle meshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Cube);
 
 		AssetManager::GetAsset<Material>(matHandle)->SetTexture2D("u_Texture", texHandle);
@@ -41,6 +42,12 @@ namespace DEngine
 		lightTrans.Rotate(-60.0f, {1.0f, 0.0f, 0.0f});
 		lightTrans.Rotate(90.0f, {0.0f, 1.0f, 0.0f});
 
+		for (const auto& renderData : AssetManager::GetAsset<Model>(sponzaHandle)->GetRenderData())
+		{
+			auto sponzaObj = m_ActiveScene->CreateEntity();
+			sponzaObj.AddComponent<MeshRendererComponent>(renderData.MeshHandle, renderData.second);
+		}
+
 		//Set Renderer
 		m_Framebuffer = Framebuffer::Create({ win.GetWidth(), win.GetHeight() });
 
@@ -54,12 +61,13 @@ namespace DEngine
 
 	void EditorLayer::OnUpdate(const Timestep& ts)
 	{
-		AssetManager::Update();
+		UpdateAssets(ts);
+
 		m_ActiveScene->OnUpdate(ts);
 
+		//TODO: перенести код управления камерой в отдельный класс
 		if (m_ViewportFocused)
 		{
-			//TODO: перенести код управления камерой в отдельный класс
 			if (Input::IsKeyPressed(D_KEY_LEFT))
 				m_CamPos = m_CamPos - m_EditorCamera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
 			if (Input::IsKeyPressed(D_KEY_RIGHT))
@@ -96,6 +104,68 @@ namespace DEngine
 		m_Framebuffer->Unbind();
 	}
 
+	void EditorLayer::OnRenderDocker()
+	{
+		//Обработка панелей
+		m_ScenePanel.OnImGuiRender();
+		m_PropPanel.OnImGuiRender();
+		m_AssetsPanel.OnImGuiRender();
+
+		//Профайлинг
+		ImGui::Begin("Profile data");
+		char fpsLabel[50];
+		strcpy(fpsLabel, std::to_string((int)Application::Get().GetFPS()).c_str());
+		strcat(fpsLabel, " FPS");
+		ImGui::Text(fpsLabel);
+		ImGui::End();
+
+		//Viewport
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
+		ImGui::Begin("Viewport");
+
+		m_ViewportFocused = ImGui::IsWindowFocused();
+		m_ViewportFocused = ImGui::IsWindowHovered();
+		Application::Get().GetImGuiLayer()->SetBlockEvents(!m_ViewportFocused || !m_ViewportHovered);
+
+		ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+		if (m_ViewportSize != *((glm::vec2*)&viewportSize))
+		{
+			m_ViewportSize = { viewportSize.x, viewportSize.y };
+			m_EditorCamera->ChangeSize(viewportSize.x, viewportSize.y);
+			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+		}
+
+		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{viewportSize.x, viewportSize.y}, ImVec2{ 0, 1 }, ImVec2{1, 0});
+
+		ImGui::End();
+		ImGui::PopStyleVar();
+	}
+
+	void EditorLayer::OnEvent(Event& event)
+	{
+		EventDispatcher dis(event);
+		dis.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(EditorLayer::OnKeyPressedEv));
+
+		if (event.GetEventType() == EventType::WindowResize)
+		{
+			WindowResizeEvent& resizeEvent = (WindowResizeEvent&)event;
+			uint32_t width = resizeEvent.GetWidth();
+			uint32_t height = resizeEvent.GetHeight();
+
+			m_EditorCamera->ChangeSize(width, height);
+		}
+	}
+
+	void EditorLayer::Shutdown()
+	{
+	}
+
+	bool EditorLayer::OnKeyPressedEv(KeyPressedEvent& event)
+	{
+		return false;
+	}
+
+	//Устанавливаем значения для докера
 	void EditorLayer::OnImGuiRenderer()
 	{
 		static bool dockspaceOpen = true;
@@ -154,61 +224,18 @@ namespace DEngine
 			ImGui::EndMenuBar();
 		}
 
-		m_ScenePanel.OnImGuiRender();
-		m_PropPanel.OnImGuiRender();
+		OnRenderDocker();
 
-		ImGui::Begin("Profile data");
-		char fpsLabel[50];
-		strcpy(fpsLabel, std::to_string((int)Application::Get().GetFPS()).c_str());
-		strcat(fpsLabel, " FPS");
-		ImGui::Text(fpsLabel);
 		ImGui::End();
+	}
 
-		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
-
-		ImGui::Begin("Viewport");
-
-		m_ViewportFocused = ImGui::IsWindowFocused();
-		m_ViewportFocused = ImGui::IsWindowHovered();
-		Application::Get().GetImGuiLayer()->SetBlockEvents(!m_ViewportFocused || !m_ViewportHovered);
-
-		ImVec2 viewportSize = ImGui::GetContentRegionAvail();
-		if (m_ViewportSize != *((glm::vec2*)&viewportSize))
+	void EditorLayer::UpdateAssets(const Timestep& ts)
+	{
+		timeUpdateAssetsSum += ts.GetSeconds();
+		if (timeUpdateAssetsSum >= TIME_BETWEEN_ASSETS_HOT_RELOAD)
 		{
-			m_ViewportSize = { viewportSize.x, viewportSize.y };
-			m_EditorCamera->ChangeSize(viewportSize.x, viewportSize.y);
-			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			AssetManager::Update();
+			timeUpdateAssetsSum = 0.0f;
 		}
-
-		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{viewportSize.x, viewportSize.y}, ImVec2{ 0, 1 }, ImVec2{1, 0});
-
-		ImGui::End();
-		ImGui::PopStyleVar();
-
-		ImGui::End();
-	}
-
-	void EditorLayer::OnEvent(Event& event)
-	{
-		EventDispatcher dis(event);
-		dis.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(EditorLayer::OnKeyPressedEv));
-
-		if (event.GetEventType() == EventType::WindowResize)
-		{
-			WindowResizeEvent& resizeEvent = (WindowResizeEvent&)event;
-			uint32_t width = resizeEvent.GetWidth();
-			uint32_t height = resizeEvent.GetHeight();
-
-			m_EditorCamera->ChangeSize(width, height);
-		}
-	}
-
-	void EditorLayer::Shutdown()
-	{
-	}
-
-	bool EditorLayer::OnKeyPressedEv(KeyPressedEvent& event)
-	{
-		return false;
 	}
 }

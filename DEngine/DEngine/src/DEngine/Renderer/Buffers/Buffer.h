@@ -32,6 +32,47 @@ namespace DEngine
 		D_CORE_ASSERT(false, "ShaderDataSize(ShaderDataType): Unkown ShaderDataType");
 		return 0;
 	}
+	static std::string ShaderDataTypeToString(ShaderDataType type)
+	{
+		switch (type)
+		{
+			case ShaderDataType::None:   return "None";
+			case ShaderDataType::Float:  return "Float";
+			case ShaderDataType::Float2: return "Float2";
+			case ShaderDataType::Float3: return "Float3";
+			case ShaderDataType::Float4: return "Float4";
+			case ShaderDataType::Mat3:   return "Mat3";
+			case ShaderDataType::Mat4:   return "Mat4";
+			case ShaderDataType::Int:    return "Int";
+			case ShaderDataType::Int2:   return "Int2";
+			case ShaderDataType::Int3:   return "Int3";
+			case ShaderDataType::Int4:   return "Int4";
+			case ShaderDataType::Bool:   return "Bool";
+		}
+
+		D_CORE_ASSERT(false, "ShaderDataTypeToString: Unknown ShaderDataType");
+		return "None";
+	}
+
+	static ShaderDataType ShaderDataStringToType(const std::string& str)
+	{
+		if (str == "None")   return ShaderDataType::None;
+		if (str == "Float")  return ShaderDataType::Float;
+		if (str == "Float2") return ShaderDataType::Float2;
+		if (str == "Float3") return ShaderDataType::Float3;
+		if (str == "Float4") return ShaderDataType::Float4;
+		if (str == "Mat3")   return ShaderDataType::Mat3;
+		if (str == "Mat4")   return ShaderDataType::Mat4;
+		if (str == "Int")    return ShaderDataType::Int;
+		if (str == "Int2")   return ShaderDataType::Int2;
+		if (str == "Int3")   return ShaderDataType::Int3;
+		if (str == "Int4")   return ShaderDataType::Int4;
+		if (str == "Bool")   return ShaderDataType::Bool;
+
+		D_CORE_ASSERT(false, "ShaderDataStringToType: Unknown ShaderDataType string");
+		return ShaderDataType::None;
+	}
+
 
 	struct D_API BufferElement
 	{
@@ -87,6 +128,10 @@ namespace DEngine
 
 		inline uint32_t GetStride() const { return m_Stride; }
 		inline const std::vector<BufferElement>& GetElements() const { return m_Elements; }
+		void AddElement(const BufferElement& elem)
+		{
+			m_Elements.push_back(elem);
+		}
 
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
 		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
@@ -109,6 +154,8 @@ namespace DEngine
 
 		std::vector<BufferElement> m_Elements;
 		uint32_t m_Stride = 0;
+
+		friend class MeshSerializer;
 	};
 
 	class D_API VertexBuffer

@@ -18,6 +18,7 @@ build/
 [Oo]bj/
 out/
 cmake-build-*/
+resources/
 
 # ============================================
 # COMPILER OUTPUT

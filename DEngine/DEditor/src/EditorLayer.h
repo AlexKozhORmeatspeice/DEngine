@@ -2,6 +2,7 @@
 #include "DEngine.h"
 #include "Panels/Scene/ScenePanel.h"
 #include "Panels/Properties/PropertiesPanel.h"
+#include "Panels/AssetsPanel/AssetsPanel.h"
 
 namespace DEngine
 {
@@ -10,19 +11,24 @@ namespace DEngine
 	public:
 		EditorLayer();
 
+
 		virtual void Init() override;
 		virtual void OnUpdate(const Timestep& ts) override;
 		virtual void OnRender(const Timestep& ts) override;
-		virtual void OnImGuiRenderer() override;
+		void OnRenderDocker();
 		virtual void Shutdown() override;
 
 		virtual void OnEvent(Event& event) override;
-
 		bool OnKeyPressedEv(KeyPressedEvent& event);
+
+		virtual void OnImGuiRenderer() override;
+	private:
+		void UpdateAssets(const Timestep& ts);
 	private:
 		//Panels
 		ScenePanel m_ScenePanel;
 		PropetiesPanel m_PropPanel;
+		AssetsPanel m_AssetsPanel;
 
 		//Objs
 		Ref<Camera> m_EditorCamera;
@@ -37,6 +43,9 @@ namespace DEngine
 		glm::vec3 m_CamRot;
 		float m_CamSpeed = 200.0f;
 		float m_CamRotSpeed = 100.0f;
+
+		float timeUpdateAssetsSum = 0.0f;
+		const float TIME_BETWEEN_ASSETS_HOT_RELOAD = 1.0f;
 
 		glm::vec3 m_SquarePos;
 	};

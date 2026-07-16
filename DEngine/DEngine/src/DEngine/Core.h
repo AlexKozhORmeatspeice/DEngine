@@ -29,6 +29,10 @@
 #define BIT(X) (1 << X)
 #define BIND_EVENT_FN(X) std::bind(&X, this, std::placeholders::_1)
 
+#define DMESH_FILE_EXT	".dmesh"
+#define DMAT_FILE_EXT	".dmat"
+#define DACTOR_FILE_EXT	".dactor"
+
 namespace DEngine
 {
     template<typename T>

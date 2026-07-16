@@ -11,6 +11,7 @@ namespace DEngine
 	{
 	public:
 		static void Init(const std::shared_ptr<BaseAssetManager>& manager);
+		static const AssetHandle& CreateAsset(const std::filesystem::path& path);
 		static const AssetHandle& CreateAsset(const AssetMetadata& metadata);
 
 		static void Update();
@@ -18,7 +19,7 @@ namespace DEngine
 		template<typename T>
 		static Ref<T> GetAsset(AssetHandle handle)
 		{
-			return std::static_pointer_cast<T>(m_AssetManager->GetAsset(handle));
+			return std::dynamic_pointer_cast<T>(m_AssetManager->GetAsset(handle));
 		}
 
 		static const AssetHandle& CreateMeshAsset(const BufferLayout& layout, 

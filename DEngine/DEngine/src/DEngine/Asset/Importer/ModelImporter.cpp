@@ -6,6 +6,7 @@
 
 #include "DEngine/Renderer/Mesh/Mesh.h"
 #include "DEngine/Renderer/Material/Material.h"
+#include "DEngine/Project/Project.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -14,6 +15,10 @@
 
 namespace DEngine
 {
+    const std::string MODELS_DIR_NAME = "models";
+    const std::string MESHES_DIR_NAME = "meshes";
+    const std::string MESH_FILE_NAME = "mesh";
+
     Ref<Model> ModelImporter::ImportModel(AssetHandle handle, const AssetMetadata& metadata)
     {
         return LoadModel(metadata.FilePath);
@@ -26,6 +31,8 @@ namespace DEngine
             D_CORE_ERROR("ModelImporter: file not found: {0}", path.string());
             return nullptr;
         }
+
+        std::string name = GetModelName(path);
 
         Assimp::Importer importer;
         const aiScene* scene = importer.ReadFile(
@@ -43,7 +50,7 @@ namespace DEngine
         std::vector<MeshRenderData> renderData;
         auto directory = path.parent_path();
 
-        ProcessNode(scene->mRootNode, scene, directory, renderData);
+        ProcessNode(scene->mRootNode, scene, directory, renderData, name, 0);
 
         if (renderData.empty())
         {
@@ -51,24 +58,16 @@ namespace DEngine
             return nullptr;
         }
 
-        // Создаём модель
-        std::string filePath = path.string();
-
-        auto lastSlash = filePath.find_last_of("/\\");
-        lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
-
-        auto lastDot = filePath.rfind(".");
-        auto count = lastDot == std::string::npos ? filePath.size() - lastSlash : lastDot - lastSlash;
-
-        std::string name = filePath.substr(lastSlash, count);
 
         auto model = CreateRef<Model>(renderData, name);
         return model;
     }
 
-    void ModelImporter::ProcessNode(aiNode* node, const aiScene* scene, 
-                                    const std::filesystem::path& directory,
-                                    std::vector<MeshRenderData>& renderData)
+    void ModelImporter::ProcessNode(aiNode* node, const aiScene* scene,
+									const std::filesystem::path& directory,
+									std::vector<MeshRenderData>& renderData,
+									const std::string& modelName,
+                                    int nodeID)
     {
         for (unsigned int i = 0; i < node->mNumMeshes; i++)
         {
@@ -124,22 +123,18 @@ namespace DEngine
                 }
             }
 
-            // Извлекаем индексы в CCW порядке
             std::vector<uint32_t> indices;
             indices.reserve(mesh->mNumFaces * 3);
 
             for (unsigned int f = 0; f < mesh->mNumFaces; f++)
             {
                 aiFace face = mesh->mFaces[f];
-                // CCW порядок: меняем местами второй и третий индекс
                 indices.push_back(face.mIndices[0]);
                 indices.push_back(face.mIndices[1]);
                 indices.push_back(face.mIndices[2]);
             }
 
             // Создаём Mesh как ассет
-            std::string meshName = "mesh" + std::to_string(i);
-            std::filesystem::path meshPath = directory / meshName;
 
 			BufferLayout layout = 
 			{
@@ -149,6 +144,7 @@ namespace DEngine
 				{ShaderDataType::Float3, "a_Tangent"},
 			};
 
+            std::filesystem::path meshPath = ConstructMeshPath(modelName, i, nodeID);
             const AssetHandle meshHandle = AssetManager::CreateMeshAsset(layout, vertices.data(), vertices.size() * sizeof(float), indices.data(), indices.size(), meshPath);
 
             // Загружаем материал
@@ -184,7 +180,34 @@ namespace DEngine
         // Рекурсивно обрабатываем дочерние узлы
         for (unsigned int i = 0; i < node->mNumChildren; i++)
         {
-            ProcessNode(node->mChildren[i], scene, directory, renderData);
+            ProcessNode(node->mChildren[i], scene, directory, renderData, modelName, i + 1);
         }
+    }
+
+    std::string ModelImporter::GetModelName(const std::filesystem::path& path)
+    {
+        std::string filePath = path.string();
+
+        auto lastSlash = filePath.find_last_of("/\\");
+        lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+
+        auto lastDot = filePath.rfind(".");
+        auto count = lastDot == std::string::npos ? filePath.size() - lastSlash : lastDot - lastSlash;
+
+        std::string name = filePath.substr(lastSlash, count);
+        return name;
+    }
+
+    std::filesystem::path ModelImporter::ConstructMeshPath(const std::string& modelName, int meshInd, int nodeInd)
+    {
+		std::string meshName = MESH_FILE_NAME + "_" + modelName + "_node_" + std::to_string(nodeInd) + "_mesh_" + std::to_string(meshInd) + DMESH_FILE_EXT;
+		std::filesystem::path meshPath = Project::GetResourcesRegistryPath() / MODELS_DIR_NAME / modelName / MESHES_DIR_NAME;
+		if (!std::filesystem::exists(meshPath))
+		{
+			std::filesystem::create_directories(meshPath);
+			D_CORE_INFO("Created directory: {0}", meshPath.string());
+		}
+		meshPath = meshPath / meshName;
+        return meshPath;
     }
 }

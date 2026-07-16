@@ -19,5 +19,12 @@ namespace DEngine
 			
 			return exePath / "assets";
 		}
+
+		static std::filesystem::path GetResourcesRegistryPath()
+		{
+			std::filesystem::path exePath = std::filesystem::current_path();
+			
+			return exePath / "resources";
+		}
 	};
 }

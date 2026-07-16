@@ -21,7 +21,6 @@ namespace DEngine
 
 		std::vector<LightData> lights;
 
-
 		for (auto [entity, light, lightTrans] : lightComps.each()) // TODO: в будущем надо обрабатывать разные light, но пока есть только DirectLight
 		{
 			lights.push_back({ lightTrans.GetForward(), light.color });

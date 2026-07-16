@@ -13,9 +13,11 @@ namespace DEngine
 {
 	using AssetMap = std::unordered_map<AssetHandle, Ref<Asset>>;
 
+	//Нужные какие-то методы для очистки ресурсов при уничтожении всех объектов, ссылающихся на них
 	class BaseAssetManager
 	{
 	public:
+		virtual const AssetHandle& CreateAsset(const std::filesystem::path& path) = 0;
 		virtual const AssetHandle& CreateAsset(AssetMetadata metadata) = 0;
 
 		virtual const AssetHandle& CreateMeshAsset(const BufferLayout& layout, 

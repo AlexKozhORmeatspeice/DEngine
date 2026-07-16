@@ -17,6 +17,8 @@ namespace DEngine
 	public:
 		EditorAssetManager();
 
+		void InitAssetDir();
+		virtual const AssetHandle& CreateAsset(const std::filesystem::path& path) override;
 		const AssetHandle& CreateAsset(AssetMetadata metadata) override;
 		virtual const AssetHandle& CreateMeshAsset(const BufferLayout& layout, 
 												   float* verts, uint32_t vertsSize, 

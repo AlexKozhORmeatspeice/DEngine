@@ -20,7 +20,12 @@ namespace DEngine
 	private:
         static void ProcessNode(aiNode* node, const aiScene* scene, 
                                 const std::filesystem::path& directory,
-                                std::vector<MeshRenderData>& renderData);
+                                std::vector<MeshRenderData>& renderData,
+								const std::string& modelName,
+								int nodeID);
+
+		static std::string GetModelName(const std::filesystem::path& path);
+		static std::filesystem::path ConstructMeshPath(const std::string& modelName, int meshInd, int nodeInd);
 	};
 }
 

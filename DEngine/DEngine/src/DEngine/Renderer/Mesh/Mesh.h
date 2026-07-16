@@ -8,10 +8,27 @@
 
 namespace DEngine
 {
+	struct MeshData
+	{
+		MeshData() = default;
+		MeshData(const MeshData& other)
+		{
+			verts = other.verts;
+			vertSize = other.vertSize;
+			inds = other.inds;
+			indsSize = other.indsSize;
+		}
+
+		float* verts;
+		uint32_t vertSize;
+		uint32_t* inds;
+		uint32_t indsSize;
+	};
+
 	class Mesh : public Asset
 	{
 	public:
-		Mesh(const BufferLayout& layout, float* verts, uint32_t vertsSize, uint32_t* inds, uint32_t indsSize);
+		Mesh(const BufferLayout& layout, const MeshData& data);
 
 		void Bind();
 		void Unbind();
@@ -21,7 +38,11 @@ namespace DEngine
 		static AssetType GetStaticType() { return AssetType::Mesh; }
 		virtual AssetType GetType() const override { return GetStaticType(); }
 
+		const BufferLayout& GetLayout() const { return m_Layout; }
+
 	private:
+		const BufferLayout m_Layout;
+
 		Ref<VertexArray> m_VertexArray;
 		Ref<VertexBuffer> m_VertexBuffer;
 		Ref<IndexBuffer> m_IndexBuffer;

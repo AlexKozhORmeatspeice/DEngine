@@ -2,9 +2,13 @@
 #include "MeshGenerator.h"
 
 #include "DEngine/Core.h"
+#include "DEngine/Asset/Serializer/MeshSerializer.h"
+#include "DEngine/Project/Project.h"
 
 namespace DEngine
 {
+	const std::string PRIMITIVES_DIR_NAME = "primitives";
+
 	Ref<Mesh> MeshGenerator::CreatePrimitive(PrimitiveType type)
 	{
 		switch (type)
@@ -16,9 +20,26 @@ namespace DEngine
 		return nullptr;
 	}
 
+	std::filesystem::path MeshGenerator::ConstructPrimitivePath(PrimitiveType type)
+	{
+		std::filesystem::path meshPrimitivePath = Project::GetResourcesRegistryPath();
+		meshPrimitivePath = meshPrimitivePath / PRIMITIVES_DIR_NAME;
+
+		if (!std::filesystem::exists(meshPrimitivePath))
+		{
+			std::filesystem::create_directories(meshPrimitivePath);
+			D_CORE_INFO("Created directory: {0}", meshPrimitivePath.string());
+		}
+
+		std::string primitiveName = PrimitiveTypeToString(type) + DMESH_FILE_EXT;
+		meshPrimitivePath = meshPrimitivePath / primitiveName;
+
+		return meshPrimitivePath;
+	}
+
 	Ref<Mesh> MeshGenerator::CreateCube()
 	{
-		BufferLayout layout = 
+		BufferLayout layout =
 		{
 			{ShaderDataType::Float3, "a_Position"},
 			{ShaderDataType::Float3, "a_Normal"},
@@ -52,17 +73,17 @@ namespace DEngine
 			 0.5f,  0.5f,  0.5f,   1.0f,  0.0f,  0.0f,   1.0f, 1.0f,   0.0f,  0.0f,  1.0f, // 14
 			 0.5f, -0.5f,  0.5f,   1.0f,  0.0f,  0.0f,   0.0f, 1.0f,   0.0f,  0.0f,  1.0f, // 15
 
-			// Верхняя грань (Y+)
-			-0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f,   0.0f, 0.0f,   1.0f,  0.0f,  0.0f, // 16
-			 0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f,   1.0f, 0.0f,   1.0f,  0.0f,  0.0f, // 17
-			 0.5f,  0.5f,  0.5f,   0.0f,  1.0f,  0.0f,   1.0f, 1.0f,   1.0f,  0.0f,  0.0f, // 18
-			-0.5f,  0.5f,  0.5f,   0.0f,  1.0f,  0.0f,   0.0f, 1.0f,   1.0f,  0.0f,  0.0f, // 19
+			 // Верхняя грань (Y+)
+			 -0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f,   0.0f, 0.0f,   1.0f,  0.0f,  0.0f, // 16
+			  0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f,   1.0f, 0.0f,   1.0f,  0.0f,  0.0f, // 17
+			  0.5f,  0.5f,  0.5f,   0.0f,  1.0f,  0.0f,   1.0f, 1.0f,   1.0f,  0.0f,  0.0f, // 18
+			 -0.5f,  0.5f,  0.5f,   0.0f,  1.0f,  0.0f,   0.0f, 1.0f,   1.0f,  0.0f,  0.0f, // 19
 
-			// Нижняя грань (Y-)
-			-0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f,   0.0f, 0.0f,   1.0f,  0.0f,  0.0f, // 20
-			 0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f,   1.0f, 0.0f,   1.0f,  0.0f,  0.0f, // 21
-			 0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f,   1.0f, 1.0f,   1.0f,  0.0f,  0.0f, // 22
-			-0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f,   0.0f, 1.0f,   1.0f,  0.0f,  0.0f, // 23
+			 // Нижняя грань (Y-)
+			 -0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f,   0.0f, 0.0f,   1.0f,  0.0f,  0.0f, // 20
+			  0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f,   1.0f, 0.0f,   1.0f,  0.0f,  0.0f, // 21
+			  0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f,   1.0f, 1.0f,   1.0f,  0.0f,  0.0f, // 22
+			 -0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f,   0.0f, 1.0f,   1.0f,  0.0f,  0.0f, // 23
 		};
 
 		uint32_t inds[36] = {
@@ -86,7 +107,18 @@ namespace DEngine
 			22, 23, 20,
 		};
 
-		Ref<Mesh> mesh = CreateRef<Mesh>(layout, verts, sizeof(verts), inds, sizeof(inds) / sizeof(uint32_t));
+		MeshData data;
+		data.verts = verts;
+		data.vertSize = sizeof(verts);
+		data.inds = inds;
+		data.indsSize = sizeof(inds) / sizeof(uint32_t);
+
+		Ref<Mesh> mesh = CreateRef<Mesh>(layout, data);
+
+		AssetHandle handle;
+		auto& path = ConstructPrimitivePath(PrimitiveType::Cube);
+
+		MeshSerializer::Serialize(handle, mesh, data, path);
 
 		return mesh;
 	}

@@ -9,12 +9,15 @@
 #include "DEngine/Renderer/Mesh/Mesh.h"
 #include "DEngine/Renderer/Texture/Texture.h"
 #include "DEngine/Asset/Asset.h"
+#include "DEngine/Asset/Serializer/MeshSerializer.h"
 
 #include "fstream"
 #include "yaml-cpp/yaml.h"
 
 namespace DEngine
 {
+	const std::string MESHES_DIR_NAME = "meshes";
+
 	const std::string HANDLE_NAME = "Handle";
 	const std::string FILEPATH_NAME = "Filepath";
 	const std::string TYPE_NAME = "Type";
@@ -32,58 +35,9 @@ namespace DEngine
 		SetupFileWatcher();
 	}
 
-	void EditorAssetManager::SetupFileWatcher()
+	void EditorAssetManager::InitAssetDir()
 	{
-		auto assetsPath = Project::GetAssetRegistryPath();
 		
-		if (!std::filesystem::exists(assetsPath))
-		{
-			D_CORE_WARN("EditorAssetManager: Assets directory {0} doesn't exist", assetsPath.string());
-			return;
-		}
-
-		// Рекурсивно добавляем все существующие файлы в watch
-		for (const auto& entry : std::filesystem::recursive_directory_iterator(assetsPath))
-		{
-			if (entry.is_regular_file())
-			{
-				auto path = entry.path();
-				m_FileWatcher.AddWatchPath(path, [this](const std::filesystem::path& changedPath) {
-					OnFileChanged(changedPath);
-				});
-			}
-		}
-
-		D_CORE_INFO("EditorAssetManager: FileWatcher setup complete, watching {0}", assetsPath.string());
-	}
-
-	void EditorAssetManager::OnFileChanged(const std::filesystem::path& path)
-	{
-		if (!m_HotReloadEnabled)
-			return;
-
-		// Проверяем, зарегистрирован ли этот файл
-		auto it = m_PathToHandle.find(path);
-		if (it != m_PathToHandle.end())
-		{
-			AssetHandle handle = it->second;
-			
-			// Проверяем, не загружен ли ассет в данный момент
-			auto loadIt = m_AssetLastLoadTime.find(handle);
-			if (loadIt != m_AssetLastLoadTime.end())
-			{
-				// Если файл был изменен во время загрузки, пропускаем
-				auto currentWrite = std::filesystem::last_write_time(path);
-				if (currentWrite <= loadIt->second)
-					return;
-			}
-
-			D_CORE_INFO("Hot reload: File {0} changed, reloading asset", path.string());
-			ReloadAsset(handle);
-			
-			// Обновляем время загрузки
-			m_AssetLastLoadTime[handle] = std::filesystem::last_write_time(path);
-		}
 	}
 
 	void EditorAssetManager::Update()
@@ -180,13 +134,51 @@ namespace DEngine
 		}
 	}
 
+	const AssetHandle& EditorAssetManager::CreateAsset(const std::filesystem::path& path)
+	{
+		AssetType type = AssetType::None;
+
+		// Определяем тип ресурса по расширению файла
+		std::string extension = path.extension().string();
+		
+		if (extension == ".png" || extension == ".jpg" || extension == ".jpeg" || 
+			extension == ".bmp" || extension == ".tga" || extension == ".psd")
+		{
+			type = AssetType::Texture2D;
+		}
+		else if (extension == ".obj" || extension == ".fbx" || extension == ".gltf" || 
+				 extension == ".glb" || extension == ".3ds" || extension == ".dae")
+		{
+			type = AssetType::Model;
+		}
+		else if (extension == ".glsl" || extension == ".vert" || extension == ".frag" || 
+				 extension == ".comp" || extension == ".geom" || extension == ".tesc" || 
+				 extension == ".tese")
+		{
+			type = AssetType::Shader;
+		}
+		else
+		{
+			D_CORE_ERROR("EditorAssetManager::CreateAsset: unsupported file type: {0}", extension);
+			type = AssetType::None;
+		}
+
+		//TODO: дописать для остальных типов ресурсов, когда они будут готовы
+
+		AssetHandle handle = CreateAsset({ type, path });
+
+		return handle;
+	}
+
 	const AssetHandle& EditorAssetManager::CreateAsset(AssetMetadata metadata)
 	{
+		if (metadata.Type == AssetType::None) return AssetHandle::Invalid();
+
 		AssetHandle handle;
 		m_AssetRegistry[handle] = metadata;
 
 		// Добавляем файл в watcher если путь указан
-		if (!metadata.FilePath.empty() && std::filesystem::exists(metadata.FilePath))
+		if (!metadata.FilePath.empty() && std::filesystem::exists(metadata.FilePath) && metadata.Type != AssetType::Mesh)
 		{
 			m_PathToHandle[metadata.FilePath] = handle;
 			m_HandleToPath[handle] = metadata.FilePath;
@@ -205,19 +197,31 @@ namespace DEngine
 														   const std::filesystem::path& path)
 	{
 		AssetHandle handle;
-		m_AssetRegistry[handle] = { AssetType::Mesh, path };
-		m_LoadedAssets[handle] = CreateRef<Mesh>(layout, verts, vertsSize, inds, indsSize);
+		Ref<Mesh> mesh = nullptr;
 
-		// Сохраняем соответствие путь->handle
-		if (!path.empty() && std::filesystem::exists(path))
+		//Пробуем десериализовать существующий файл мэша
+		const DeserializeMeshResult& deserMeshRes = MeshSerializer::Deserialize(path);
+		if (deserMeshRes.isSuccessful)
 		{
-			m_PathToHandle[path] = handle;
-			m_HandleToPath[handle] = path;
-			
-			m_FileWatcher.AddWatchPath(path, [this](const std::filesystem::path& changedPath) {
-				OnFileChanged(changedPath);
-			});
+			handle = deserMeshRes.handle;
+			mesh = deserMeshRes.mesh;
 		}
+		else // Если файла еще не существует - создаем и сериализуем
+		{
+			MeshData meshData;
+
+			meshData.verts = verts;
+			meshData.vertSize = vertsSize;
+			meshData.inds = inds;
+			meshData.indsSize = indsSize;
+
+			mesh = CreateRef<Mesh>(layout, meshData);
+
+			MeshSerializer::Serialize(handle, mesh, meshData, path);
+		}
+
+		m_AssetRegistry[handle] = { AssetType::Mesh, path };
+		m_LoadedAssets[handle] = mesh;
 
 		return handle;
 	}
@@ -228,7 +232,7 @@ namespace DEngine
 
 		if (metadata.Type == AssetType::None)
 			return nullptr;
-			
+		
 		Ref<Asset> asset;
 		if (!IsAssetLoaded(handle))
 		{
@@ -363,10 +367,79 @@ namespace DEngine
 	const AssetHandle& EditorAssetManager::CreateMeshPrimitive(PrimitiveType type)
 	{
 		AssetHandle handle;
-		m_AssetRegistry[handle] = { AssetType::Mesh, "" };
-		m_LoadedAssets[handle] = MeshGenerator::CreatePrimitive(type);
+		Ref<Mesh> mesh;
 
-		// Примитивы не имеют файлов, поэтому не добавляем в FileWatcher
+		std::filesystem::path meshPrimitivePath = MeshGenerator::ConstructPrimitivePath(type);
+		const DeserializeMeshResult& deserRes = MeshSerializer::Deserialize(meshPrimitivePath);
+
+		if (deserRes.isSuccessful)
+		{
+			handle = deserRes.handle;
+			mesh = deserRes.mesh;
+		}
+		else
+		{
+			mesh = MeshGenerator::CreatePrimitive(type);
+		}
+
+		m_AssetRegistry[handle] = { AssetType::Mesh, meshPrimitivePath };
+		m_LoadedAssets[handle] = mesh;
+		m_MeshPrimitives[type] = handle;
+
 		return handle;
+	}
+
+	void EditorAssetManager::SetupFileWatcher()
+	{
+		auto assetsPath = Project::GetAssetRegistryPath();
+		
+		if (!std::filesystem::exists(assetsPath))
+		{
+			D_CORE_WARN("EditorAssetManager: Assets directory {0} doesn't exist", assetsPath.string());
+			return;
+		}
+
+		// Рекурсивно добавляем все существующие файлы в watch
+		for (const auto& entry : std::filesystem::recursive_directory_iterator(assetsPath))
+		{
+			if (entry.is_regular_file())
+			{
+				auto path = entry.path();
+				m_FileWatcher.AddWatchPath(path, [this](const std::filesystem::path& changedPath) {
+					OnFileChanged(changedPath);
+				});
+			}
+		}
+
+		D_CORE_INFO("EditorAssetManager: FileWatcher setup complete, watching {0}", assetsPath.string());
+	}
+
+	void EditorAssetManager::OnFileChanged(const std::filesystem::path& path)
+	{
+		if (!m_HotReloadEnabled)
+			return;
+
+		// Проверяем, зарегистрирован ли этот файл
+		auto it = m_PathToHandle.find(path);
+		if (it != m_PathToHandle.end())
+		{
+			AssetHandle handle = it->second;
+			
+			// Проверяем, не загружен ли ассет в данный момент
+			auto loadIt = m_AssetLastLoadTime.find(handle);
+			if (loadIt != m_AssetLastLoadTime.end())
+			{
+				// Если файл был изменен во время загрузки, пропускаем
+				auto currentWrite = std::filesystem::last_write_time(path);
+				if (currentWrite <= loadIt->second)
+					return;
+			}
+
+			D_CORE_INFO("Hot reload: File {0} changed, reloading asset", path.string());
+			ReloadAsset(handle);
+			
+			// Обновляем время загрузки
+			m_AssetLastLoadTime[handle] = std::filesystem::last_write_time(path);
+		}
 	}
 }

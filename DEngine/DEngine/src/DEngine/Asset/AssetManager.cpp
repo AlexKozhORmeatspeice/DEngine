@@ -22,6 +22,12 @@ namespace DEngine
 		}
 	}
 
+	const AssetHandle& AssetManager::CreateAsset(const std::filesystem::path& path)
+	{
+		auto& handle = m_AssetManager->CreateAsset(path);
+		return handle;
+	}
+
 	const AssetHandle& AssetManager::CreateAsset(const AssetMetadata& metadata)
 	{
 		auto& handle = m_AssetManager->CreateAsset(metadata);
