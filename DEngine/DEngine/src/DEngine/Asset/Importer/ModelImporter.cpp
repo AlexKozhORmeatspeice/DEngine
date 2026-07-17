@@ -8,6 +8,8 @@
 #include "DEngine/Renderer/Material/Material.h"
 #include "DEngine/Project/Project.h"
 
+#include "DEngine/Asset/Serializer/ModelSerializer.h"
+
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -17,6 +19,7 @@ namespace DEngine
 {
     const std::string MODELS_DIR_NAME = "models";
     const std::string MESHES_DIR_NAME = "meshes";
+    const std::string MATERIALS_DIR_NAME = "materials";
     const std::string MESH_FILE_NAME = "mesh";
 
     Ref<Model> ModelImporter::ImportModel(AssetHandle handle, const AssetMetadata& metadata)
@@ -33,24 +36,17 @@ namespace DEngine
         }
 
         std::string name = GetModelName(path);
+        std::filesystem::path modelPath = ConstructModelPath(name, path);
 
-        Assimp::Importer importer;
-        const aiScene* scene = importer.ReadFile(
-            path.string(), 
-            aiProcess_CalcTangentSpace |
-            aiProcess_GenNormals
-        );
-
-        if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+        //Пробуем десериализовать существующий ресурс
+        DeserializeModelResult& deserRes = ModelSerializer::Deserialize(modelPath);
+        if (deserRes.isSuccessful)
         {
-            D_CORE_ERROR("ModelImporter: assimp error: {0}", importer.GetErrorString());
-            return nullptr;
+            return deserRes.model;
         }
 
-        std::vector<MeshRenderData> renderData;
-        auto directory = path.parent_path();
-
-        ProcessNode(scene->mRootNode, scene, directory, renderData, name, 0);
+        //Если ресурс не был найден - конструируем данные через assimp
+        const std::vector<MeshRenderData>& renderData = CreateDataFromAsimp(path);
 
         if (renderData.empty())
         {
@@ -58,9 +54,36 @@ namespace DEngine
             return nullptr;
         }
 
-
+        //Если данные были получены - сериализуем наши ресурсы и загружаем в ассеты
         auto model = CreateRef<Model>(renderData, name);
+        AssetManager::CreateModelAsset(model, modelPath);
+
         return model;
+    }
+
+    const std::vector<MeshRenderData> ModelImporter::CreateDataFromAsimp(const std::filesystem::path& path)
+    {
+        Assimp::Importer importer;
+        const aiScene* scene = importer.ReadFile(
+            path.string(), 
+            aiProcess_CalcTangentSpace |
+            aiProcess_GenNormals
+        );
+
+        std::string name = GetModelName(path);
+        std::vector<MeshRenderData> renderData;
+
+        if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+        {
+            D_CORE_ERROR("ModelImporter: assimp error: {0}", importer.GetErrorString());
+            return renderData;
+        }
+
+        auto directory = path.parent_path();
+
+        ProcessNode(scene->mRootNode, scene, directory, renderData, name, 0);
+
+        return std::move(renderData);
     }
 
     void ModelImporter::ProcessNode(aiNode* node, const aiScene* scene,
@@ -135,7 +158,6 @@ namespace DEngine
             }
 
             // Создаём Mesh как ассет
-
 			BufferLayout layout = 
 			{
 				{ShaderDataType::Float3, "a_Position"},
@@ -148,17 +170,14 @@ namespace DEngine
             const AssetHandle meshHandle = AssetManager::CreateMeshAsset(layout, vertices.data(), vertices.size() * sizeof(float), indices.data(), indices.size(), meshPath);
 
             // Загружаем материал
-            std::string matName = "material" + std::to_string(i);
-            std::filesystem::path matPath = directory / matName;
-            AssetHandle materialHandle = AssetManager::CreateAsset({AssetType::Material, matPath});
+            AssetHandle baseShaderHandle = AssetManager::GetBaseRendererShaderHandle();
+            Ref<Material> material = CreateRef<Material>(baseShaderHandle);
 
             // Загружаем albedo текстуру в материал
             if (mesh->mMaterialIndex >= 0)
             {
                 aiMaterial* aiMat = scene->mMaterials[mesh->mMaterialIndex];
                 
-                // Получаем Ref<Material>
-                Ref<Material> material = AssetManager::GetAsset<Material>(materialHandle);
                 if (material)
                 {
                     aiString aiPath;
@@ -173,6 +192,10 @@ namespace DEngine
                     }
                 }
             }
+
+            //Инитим материал в ресурс
+            std::filesystem::path matPath = ConstructMaterialPath(modelName, i, nodeID);
+            AssetHandle materialHandle = AssetManager::CreateMaterialAsset(material, matPath);
 
             renderData.push_back({ meshHandle, materialHandle });
         }
@@ -198,6 +221,13 @@ namespace DEngine
         return name;
     }
 
+    std::filesystem::path ModelImporter::ConstructModelPath(const std::string& modelName, const std::filesystem::path& path)
+    {
+        std::string name = modelName + DMODEl_FILE_EXT;
+
+        return path / name;
+    }
+
     std::filesystem::path ModelImporter::ConstructMeshPath(const std::string& modelName, int meshInd, int nodeInd)
     {
 		std::string meshName = MESH_FILE_NAME + "_" + modelName + "_node_" + std::to_string(nodeInd) + "_mesh_" + std::to_string(meshInd) + DMESH_FILE_EXT;
@@ -209,5 +239,19 @@ namespace DEngine
 		}
 		meshPath = meshPath / meshName;
         return meshPath;
+    }
+
+    std::filesystem::path ModelImporter::ConstructMaterialPath(const std::string& modelName, int materialInd, int nodeInd)
+    {
+		std::string meshName = MESH_FILE_NAME + "_" + modelName + "_node_" + std::to_string(nodeInd) + "_material_" + std::to_string(materialInd) + DMAT_FILE_EXT;
+		std::filesystem::path meshPath = Project::GetResourcesRegistryPath() / MODELS_DIR_NAME / modelName / MATERIALS_DIR_NAME;
+		if (!std::filesystem::exists(meshPath))
+		{
+			std::filesystem::create_directories(meshPath);
+			D_CORE_INFO("Created directory: {0}", meshPath.string());
+		}
+		meshPath = meshPath / meshName;
+        return meshPath;
+
     }
 }

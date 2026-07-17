@@ -33,5 +33,6 @@ namespace DEngine
 		std::vector<MeshRenderData> m_RenderDatas;
 
 		std::string m_Name;
+		friend class ModelSerializer;
 	};
 }

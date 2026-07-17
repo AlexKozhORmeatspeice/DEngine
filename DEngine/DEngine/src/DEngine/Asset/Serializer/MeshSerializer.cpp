@@ -6,7 +6,7 @@
 
 namespace DEngine
 {
-    void MeshSerializer::Serialize(const AssetHandle& handle, const Ref<Mesh>& mesh, const MeshData& data, const std::filesystem::path& path)
+    void MeshSerializer::Serialize(const Ref<Mesh>& mesh, const MeshData& data, const std::filesystem::path& path)
     {
         if (!mesh)
         {
@@ -21,15 +21,11 @@ namespace DEngine
             return;
         }
 
-        // 1. Write handle
-        uint64_t handleValue = static_cast<uint64_t>(handle);
-        file.write(reinterpret_cast<const char*>(&handleValue), sizeof(handleValue));
-
-        // 2. Write asset type
+        // 1. Write asset type
         uint16_t assetType = static_cast<uint16_t>(AssetType::Mesh);
         file.write(reinterpret_cast<const char*>(&assetType), sizeof(assetType));
 
-        // 3. Write layout
+        // 2. Write layout
         const auto& layoutElements = mesh->GetLayout().GetElements();
         uint32_t elementCount = static_cast<uint32_t>(layoutElements.size());
         file.write(reinterpret_cast<const char*>(&elementCount), sizeof(elementCount));
@@ -52,18 +48,18 @@ namespace DEngine
             file.write(reinterpret_cast<const char*>(&element.Offset), sizeof(element.Offset));
         }
 
-        // 4. Write stride
+        // 3. Write stride
         uint32_t stride = mesh->GetLayout().GetStride();
         file.write(reinterpret_cast<const char*>(&stride), sizeof(stride));
 
-        // 5. Write vertex data
+        // 4. Write vertex data
         file.write(reinterpret_cast<const char*>(&data.vertSize), sizeof(data.vertSize));
         if (data.vertSize > 0 && data.verts)
         {
             file.write(reinterpret_cast<const char*>(data.verts), data.vertSize);
         }
 
-        // 6. Write index data
+        // 5. Write index data
         file.write(reinterpret_cast<const char*>(&data.indsSize), sizeof(data.indsSize));
         if (data.indsSize > 0 && data.inds)
         {
@@ -81,7 +77,6 @@ namespace DEngine
         DeserializeMeshResult result;
         result.isSuccessful = false;
         result.mesh = nullptr;
-        result.handle = AssetHandle::Invalid();
 
         if (!std::filesystem::exists(path))
         {
@@ -98,12 +93,7 @@ namespace DEngine
 
         try
         {
-            // 1. Read handle
-            uint64_t handleValue;
-            file.read(reinterpret_cast<char*>(&handleValue), sizeof(handleValue));
-            result.handle = static_cast<AssetHandle>(handleValue);
-
-            // 2. Read asset type
+            // 1. Read asset type
             uint16_t assetType;
             file.read(reinterpret_cast<char*>(&assetType), sizeof(assetType));
 
@@ -113,7 +103,7 @@ namespace DEngine
                 return result;
             }
 
-            // 3. Read layout
+            // 2. Read layout
             BufferLayout layout;
             uint32_t elementCount;
             file.read(reinterpret_cast<char*>(&elementCount), sizeof(elementCount));
@@ -143,11 +133,11 @@ namespace DEngine
             }
             layout.CalculateOffsetAndStride();
 
-            // 4. Read stride
+            // 3. Read stride
             uint32_t stride;
             file.read(reinterpret_cast<char*>(&stride), sizeof(stride));
 
-            // 5. Read vertex data
+            // 4. Read vertex data
             uint32_t vertSize;
             file.read(reinterpret_cast<char*>(&vertSize), sizeof(vertSize));
 
@@ -158,7 +148,7 @@ namespace DEngine
                 file.read(reinterpret_cast<char*>(verts), vertSize);
             }
 
-            // 6. Read index data
+            // 5. Read index data
             uint32_t indsSize;
             file.read(reinterpret_cast<char*>(&indsSize), sizeof(indsSize));
 

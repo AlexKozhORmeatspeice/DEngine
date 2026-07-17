@@ -4,6 +4,8 @@
 
 #include "DEngine/Renderer/Mesh/Mesh.h"
 #include "DEngine/Renderer/Mesh/MeshGenerator.h"
+#include "DEngine/Renderer/Material/Material.h"
+#include "DEngine/Renderer/Mesh/Model.h"
 
 #include "AssetMetadata.h"
 #include "unordered_map"
@@ -17,6 +19,7 @@ namespace DEngine
 	class BaseAssetManager
 	{
 	public:
+		virtual void Init() = 0;
 		virtual const AssetHandle& CreateAsset(const std::filesystem::path& path) = 0;
 		virtual const AssetHandle& CreateAsset(AssetMetadata metadata) = 0;
 
@@ -24,6 +27,8 @@ namespace DEngine
 												   float* verts, uint32_t vertsSize, 
 												   uint32_t* inds, uint32_t indsSize, 
 												   const std::filesystem::path& path) = 0;
+		virtual const AssetHandle& CreateMaterialAsset(const Ref<Material>& material, const std::filesystem::path& path) = 0;
+		virtual const AssetHandle& CreateModelAsset(const Ref<Model>& model, const std::filesystem::path& path) = 0;
 
 		virtual Ref<Asset> GetAsset(const AssetHandle& handle) = 0;
 

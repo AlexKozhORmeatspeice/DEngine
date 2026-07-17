@@ -30,6 +30,9 @@ namespace DEngine
 		PropetiesPanel m_PropPanel;
 		AssetsPanel m_AssetsPanel;
 
+		//Scene management
+		SceneSerializer m_SceneSerializer;
+
 		//Objs
 		Ref<Camera> m_EditorCamera;
 		Ref<Framebuffer> m_Framebuffer;

@@ -2,6 +2,7 @@
 #include "MaterialImporter.h"
 
 #include "DEngine/Asset/AssetManager.h"
+#include "DEngine/Asset/Serializer/MaterialSerializer.h"
 
 namespace DEngine
 {
@@ -10,9 +11,21 @@ namespace DEngine
 		return LoadMaterial(metadata.FilePath);
 	}
 
-	//TODO: временно решение. В будущем тут просто должна происходить десериализация из какого-нибудь YAML файла материалов
 	Ref<Material> MaterialImporter::LoadMaterial(const std::filesystem::path& path)
 	{
-		return CreateRef<Material>(AssetManager::GetBaseRendererShaderHandle());
+		DeserializeMaterialResult& desRes = MaterialSerializer::Deserialize(path);
+		Ref<Material> resMat = nullptr;
+
+		if (desRes.isSuccessful)
+		{
+			resMat = desRes.material;
+		}
+		else
+		{
+			resMat = nullptr;
+			D_CORE_ERROR("Couldn't find material by path {0}", path.string());
+		}
+
+		return resMat;
 	}
 }

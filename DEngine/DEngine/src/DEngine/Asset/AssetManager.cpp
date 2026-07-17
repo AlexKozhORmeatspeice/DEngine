@@ -10,6 +10,7 @@ namespace DEngine
 	void AssetManager::Init(const std::shared_ptr<BaseAssetManager>& manager)
 	{
 		m_AssetManager = manager;
+		m_AssetManager->Init();
 	}
 
 	void AssetManager::Update()
@@ -45,6 +46,16 @@ namespace DEngine
 													 const std::filesystem::path& path)
 	{
 		return m_AssetManager->CreateMeshAsset(layout, verts, vertsSize, inds, indsSize, path);
+	}
+
+	const AssetHandle& AssetManager::CreateMaterialAsset(const Ref<Material>& material, const std::filesystem::path& path)
+	{
+		return m_AssetManager->CreateMaterialAsset(material, path);
+	}
+
+	const AssetHandle& AssetManager::CreateModelAsset(const Ref<Model>& model, const std::filesystem::path& path)
+	{
+		return m_AssetManager->CreateModelAsset(model, path);
 	}
 
 	const AssetHandle& AssetManager::GetPrimitiveMesh(PrimitiveType type)

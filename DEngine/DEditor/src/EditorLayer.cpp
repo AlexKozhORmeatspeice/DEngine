@@ -1,5 +1,6 @@
 #include "EditorLayer.h"
 #include "imgui/imgui.h"
+#include "DEngine/Core.h"
 
 namespace DEngine
 {
@@ -19,15 +20,23 @@ namespace DEngine
 
 		//TODO: в будущем мы должны уметь серализовать сцену и загружать ее как ресурс
 		//Set scene
+		m_SceneSerializer = SceneSerializer(m_ActiveScene);
+		//sceneSerializer.Deserialize("assets/scenes/Example.dscene");
+
 		m_ActiveScene = CreateRef<Scene>();
 
 		///Set models
 		const AssetHandle texHandle = AssetManager::CreateAsset("assets/textures/pasha.jpg");
-		const AssetHandle matHandle = AssetManager::CreateAsset({ AssetType::Material, "" });
+
+		Ref<Material> mat = CreateRef<Material>(AssetManager::GetBaseRendererShaderHandle());
+		mat->SetTexture2D("u_Texture", texHandle);
+
+		std::string matName = "basemat";
+		matName += DMAT_FILE_EXT;
+		const AssetHandle matHandle = AssetManager::CreateMaterialAsset(mat, "assets/materials/" + matName);
+
 		const AssetHandle sponzaHandle = AssetManager::CreateAsset({ AssetType::Model, "assets/models/sponza.obj-master/sponza.obj" });
 		const AssetHandle meshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Cube);
-
-		AssetManager::GetAsset<Material>(matHandle)->SetTexture2D("u_Texture", texHandle);
 
 		///Set objs
 		auto& cube = m_ActiveScene->CreateEntity("cube");
@@ -55,8 +64,7 @@ namespace DEngine
 		m_ScenePanel.SetContext(m_ActiveScene);
 
 		//Serialization
-		SceneSerializer sceneSerializer(m_ActiveScene);
-		sceneSerializer.Serialize("assets/scenes/Example.dscene");
+		//m_SceneSerializer.Serialize("assets/scenes/Example.dscene");
 	}
 
 	void EditorLayer::OnUpdate(const Timestep& ts)

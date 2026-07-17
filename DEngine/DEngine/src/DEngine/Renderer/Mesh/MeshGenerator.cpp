@@ -115,10 +115,8 @@ namespace DEngine
 
 		Ref<Mesh> mesh = CreateRef<Mesh>(layout, data);
 
-		AssetHandle handle;
 		auto& path = ConstructPrimitivePath(PrimitiveType::Cube);
-
-		MeshSerializer::Serialize(handle, mesh, data, path);
+		MeshSerializer::Serialize(mesh, data, path);
 
 		return mesh;
 	}

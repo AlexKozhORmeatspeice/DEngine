@@ -17,7 +17,7 @@ namespace DEngine
 
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
 	{
-		glDeleteBuffers(GL_ARRAY_BUFFER, &m_RenderID);
+		glDeleteBuffers(1, &m_RenderID);
 	}
 
 	void OpenGLVertexBuffer::Bind() const
@@ -42,7 +42,7 @@ namespace DEngine
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()
 	{
-		glDeleteBuffers(GL_ARRAY_BUFFER, &m_RenderID);
+		glDeleteBuffers(1, &m_RenderID);
 	}
 
 	void OpenGLIndexBuffer::Bind() const

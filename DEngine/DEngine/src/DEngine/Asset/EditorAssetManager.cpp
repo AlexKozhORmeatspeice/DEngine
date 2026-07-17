@@ -9,10 +9,15 @@
 #include "DEngine/Renderer/Mesh/Mesh.h"
 #include "DEngine/Renderer/Texture/Texture.h"
 #include "DEngine/Asset/Asset.h"
+
 #include "DEngine/Asset/Serializer/MeshSerializer.h"
+#include "DEngine/Asset/Serializer/MaterialSerializer.h"
+#include "DEngine/Asset/Serializer/ModelSerializer.h"
 
 #include "fstream"
 #include "yaml-cpp/yaml.h"
+
+const std::string ASSET_REGISTRY_NAME = ".dassetslist";
 
 namespace DEngine
 {
@@ -35,9 +40,19 @@ namespace DEngine
 		SetupFileWatcher();
 	}
 
-	void EditorAssetManager::InitAssetDir()
+	EditorAssetManager::~EditorAssetManager()
 	{
-		
+		SerializeAssetRegistry();
+	}
+
+	void EditorAssetManager::Init()
+	{
+		DeserializeAssetRegistry();
+
+		AddAssetsInDirectory(Project::GetAssetRegistryPath(), true);
+		AddAssetsInDirectory(Project::GetResourcesRegistryPath(), false);
+
+		SerializeAssetRegistry();
 	}
 
 	void EditorAssetManager::Update()
@@ -79,10 +94,6 @@ namespace DEngine
 		{
 			ReloadShader(handle, metadata);
 		}
-		else if (metadata.Type == AssetType::Mesh)
-		{
-			ReloadMesh(handle, metadata);
-		}
 		else if (metadata.Type == AssetType::Texture2D)
 		{
 			ReloadTexture(handle, metadata);
@@ -95,16 +106,6 @@ namespace DEngine
 	{
 		auto shader = std::dynamic_pointer_cast<Shader>(m_LoadedAssets[handle]);
 		if (shader)
-		{
-			Ref<Asset> asset = AsssetImporter::ImportAsset(handle, metadata);
-			m_LoadedAssets[handle] = asset;
-		}
-	}
-
-	void EditorAssetManager::ReloadMesh(const AssetHandle& handle, const AssetMetadata& metadata)
-	{
-		auto mesh = std::dynamic_pointer_cast<Mesh>(m_LoadedAssets[handle]);
-		if (mesh)
 		{
 			Ref<Asset> asset = AsssetImporter::ImportAsset(handle, metadata);
 			m_LoadedAssets[handle] = asset;
@@ -157,14 +158,28 @@ namespace DEngine
 		{
 			type = AssetType::Shader;
 		}
+		else if (extension == DMAT_FILE_EXT)
+		{
+			type = AssetType::Material;
+		}
+		else if (extension == DMESH_FILE_EXT)
+		{
+			type = AssetType::Mesh;
+		}
 		else
 		{
 			D_CORE_ERROR("EditorAssetManager::CreateAsset: unsupported file type: {0}", extension);
 			type = AssetType::None;
 		}
 
-		//TODO: дописать для остальных типов ресурсов, когда они будут готовы
+		// Проверяем, существует ли уже такой путь в реестре
+		auto it = m_PathToHandle.find(path);
+		if (it != m_PathToHandle.end())
+		{
+			return it->second;
+		}
 
+		//TODO: дописать для остальных типов ресурсов, когда они будут готовы
 		AssetHandle handle = CreateAsset({ type, path });
 
 		return handle;
@@ -174,10 +189,21 @@ namespace DEngine
 	{
 		if (metadata.Type == AssetType::None) return AssetHandle::Invalid();
 
+		// Проверяем, существует ли уже такой путь в реестре
+		if (!metadata.FilePath.empty())
+		{
+			auto it = m_PathToHandle.find(metadata.FilePath);
+			if (it != m_PathToHandle.end())
+			{
+				return it->second;
+			}
+		}
+
 		AssetHandle handle;
 		m_AssetRegistry[handle] = metadata;
 
 		// Добавляем файл в watcher если путь указан
+		//TODO: вместо точечной обработкой типов файлов без HotReload стоит поместить это в какой-то обработчик скорее
 		if (!metadata.FilePath.empty() && std::filesystem::exists(metadata.FilePath) && metadata.Type != AssetType::Mesh)
 		{
 			m_PathToHandle[metadata.FilePath] = handle;
@@ -191,6 +217,7 @@ namespace DEngine
 		return handle;
 	}
 
+
 	const AssetHandle& EditorAssetManager::CreateMeshAsset(const BufferLayout& layout,
 														   float* verts, uint32_t vertsSize,
 														   uint32_t* inds, uint32_t indsSize,
@@ -199,29 +226,38 @@ namespace DEngine
 		AssetHandle handle;
 		Ref<Mesh> mesh = nullptr;
 
-		//Пробуем десериализовать существующий файл мэша
-		const DeserializeMeshResult& deserMeshRes = MeshSerializer::Deserialize(path);
-		if (deserMeshRes.isSuccessful)
-		{
-			handle = deserMeshRes.handle;
-			mesh = deserMeshRes.mesh;
-		}
-		else // Если файла еще не существует - создаем и сериализуем
-		{
-			MeshData meshData;
+		MeshData meshData;
 
-			meshData.verts = verts;
-			meshData.vertSize = vertsSize;
-			meshData.inds = inds;
-			meshData.indsSize = indsSize;
+		meshData.verts = verts;
+		meshData.vertSize = vertsSize;
+		meshData.inds = inds;
+		meshData.indsSize = indsSize;
 
-			mesh = CreateRef<Mesh>(layout, meshData);
+		mesh = CreateRef<Mesh>(layout, meshData);
 
-			MeshSerializer::Serialize(handle, mesh, meshData, path);
-		}
+		MeshSerializer::Serialize(mesh, meshData, path);
 
 		m_AssetRegistry[handle] = { AssetType::Mesh, path };
-		m_LoadedAssets[handle] = mesh;
+
+		return handle;
+	}
+
+	const AssetHandle& EditorAssetManager::CreateMaterialAsset(const Ref<Material>& material, const std::filesystem::path& path)
+	{
+		AssetHandle handle;
+		MaterialSerializer::Serialize(material, path);
+
+		m_AssetRegistry[handle] = { AssetType::Material, path };
+
+		return handle;
+	}
+
+	const AssetHandle& EditorAssetManager::CreateModelAsset(const Ref<Model>& model, const std::filesystem::path& path)
+	{
+		AssetHandle handle;
+		ModelSerializer::Serialize(model, path);
+
+		m_AssetRegistry[handle] = { AssetType::Model, path };
 
 		return handle;
 	}
@@ -239,7 +275,8 @@ namespace DEngine
 			asset = AsssetImporter::ImportAsset(handle, metadata);
 			if (!asset) 
 			{
-				D_CORE_ASSERT(false, "EditorAssetManager::GetAsset: couldn't load {0} by path {1}", AssetTypeToString(metadata.Type), metadata.FilePath.string());
+				D_CORE_ERROR("EditorAssetManager::GetAsset: couldn't load {0} by path {1}", AssetTypeToString(metadata.Type), metadata.FilePath.string());
+				D_CORE_ASSERT(false, "");
 				return nullptr;
 			}
 
@@ -288,61 +325,85 @@ namespace DEngine
 		if (it != m_MeshPrimitives.end())
 			return it->second;
 
-		return CreateMeshPrimitive(type);
+		AssetHandle handle = CreateMeshPrimitive(type);
+		return handle;
 	}
-	
+
 	void EditorAssetManager::SerializeAssetRegistry()
 	{
-		auto path = Project::GetAssetRegistryPath();
+		auto path = GetAssetRegistryFilePath();
 
-		YAML::Emitter out;
-		out << YAML::BeginMap;
-		out << YAML::Key << "AssetRegistry" << YAML::Value;
-		out << YAML::BeginSeq;
+		std::ofstream file(path, std::ios::binary);
+		if (!file.is_open())
+		{
+			D_CORE_ERROR("EditorAssetManager::SerializeAssetRegistry: Could not open file {0}", path.string());
+			return;
+		}
+
+		// Записываем количество ассетов
+		uint32_t count = static_cast<uint32_t>(m_AssetRegistry.size());
+		file.write(reinterpret_cast<const char*>(&count), sizeof(uint32_t));
 
 		for (const auto& [handle, metadata] : m_AssetRegistry)
 		{
-			out << YAML::BeginMap;
-			out << YAML::Key << HANDLE_NAME << YAML::Value << handle;
-			out << YAML::Key << FILEPATH_NAME << YAML::Value << metadata.FilePath.string();
-			out << YAML::Key << TYPE_NAME << YAML::Value << AssetTypeToString(metadata.Type);
-			out << YAML::EndMap;
+			// Записываем handle
+			file.write(reinterpret_cast<const char*>(&handle), sizeof(AssetHandle));
+
+			// Записываем длину строки пути и сам путь
+			std::string pathStr = metadata.FilePath.string();
+			uint32_t pathLen = static_cast<uint32_t>(pathStr.length());
+			file.write(reinterpret_cast<const char*>(&pathLen), sizeof(uint32_t));
+			file.write(pathStr.c_str(), pathLen);
+
+			// Записываем тип ассета
+			uint32_t type = static_cast<uint32_t>(metadata.Type);
+			file.write(reinterpret_cast<const char*>(&type), sizeof(uint32_t));
 		}
 
-		out << YAML::EndSeq;
-		out << YAML::EndMap;
-
-		std::ofstream fout(path);
-		fout << out.c_str();
-		fout.close();
+		file.close();
 	}
 
 	bool EditorAssetManager::DeserializeAssetRegistry()
 	{
-		auto path = Project::GetAssetRegistryPath();
+		auto path = GetAssetRegistryFilePath();
 
-		YAML::Node data;
-		try
+		if (!std::filesystem::exists(path))
 		{
-			data = YAML::LoadFile(path.string());
-		}
-		catch (YAML::ParserException e)
-		{
-			D_CORE_ERROR("Couldn't load file {0}", path.string());
+			D_CORE_WARN("EditorAssetManager::DeserializeAssetRegistry: File {0} doesn't exist", path.string());
 			return false;
 		}
 
-		auto rootNode = data["AssetRegistry"];
-		if (!rootNode)
-			return false;
-
-		for (const auto& node : rootNode)
+		std::ifstream file(path, std::ios::binary);
+		if (!file.is_open())
 		{
-			AssetHandle handle = node[HANDLE_NAME].as<uint64_t>();
+			D_CORE_ERROR("EditorAssetManager::DeserializeAssetRegistry: Could not open file {0}", path.string());
+			return false;
+		}
+
+		// Читаем количество ассетов
+		uint32_t count = 0;
+		file.read(reinterpret_cast<char*>(&count), sizeof(uint32_t));
+
+		for (uint32_t i = 0; i < count; i++)
+		{
+			AssetHandle handle;
+			file.read(reinterpret_cast<char*>(&handle), sizeof(AssetHandle));
+
+			// Читаем длину строки пути
+			uint32_t pathLen = 0;
+			file.read(reinterpret_cast<char*>(&pathLen), sizeof(uint32_t));
+
+			// Читаем сам путь
+			std::string pathStr(pathLen, '\0');
+			file.read(pathStr.data(), pathLen);
+
+			// Читаем тип ассета
+			uint32_t type = 0;
+			file.read(reinterpret_cast<char*>(&type), sizeof(uint32_t));
+
 			auto& metadata = m_AssetRegistry[handle];
-
-			metadata.FilePath = node[FILEPATH_NAME].as<std::string>();
-			metadata.Type = AssetTypeFromString(node[TYPE_NAME].as<std::string>());
+			metadata.FilePath = pathStr;
+			metadata.Type = static_cast<AssetType>(type);
 
 			// Добавляем в FileWatcher при десериализации
 			if (!metadata.FilePath.empty() && std::filesystem::exists(metadata.FilePath))
@@ -356,8 +417,10 @@ namespace DEngine
 			}
 		}
 
+		file.close();
 		return true;
 	}
+	
 
 	void EditorAssetManager::CreateBaseRendererShader()
 	{
@@ -370,21 +433,10 @@ namespace DEngine
 		Ref<Mesh> mesh;
 
 		std::filesystem::path meshPrimitivePath = MeshGenerator::ConstructPrimitivePath(type);
-		const DeserializeMeshResult& deserRes = MeshSerializer::Deserialize(meshPrimitivePath);
-
-		if (deserRes.isSuccessful)
-		{
-			handle = deserRes.handle;
-			mesh = deserRes.mesh;
-		}
-		else
-		{
-			mesh = MeshGenerator::CreatePrimitive(type);
-		}
+		mesh = MeshGenerator::CreatePrimitive(type);
 
 		m_AssetRegistry[handle] = { AssetType::Mesh, meshPrimitivePath };
-		m_LoadedAssets[handle] = mesh;
-		m_MeshPrimitives[type] = handle;
+		m_MeshPrimitives[type] = handle;	
 
 		return handle;
 	}
@@ -442,4 +494,46 @@ namespace DEngine
 			m_AssetLastLoadTime[handle] = std::filesystem::last_write_time(path);
 		}
 	}
+
+	std::filesystem::path EditorAssetManager::GetAssetRegistryFilePath()
+	{
+		auto path = Project::GetAssetRegistryPath() / ASSET_REGISTRY_NAME;
+		return path;
+	}
+
+	void EditorAssetManager::AddAssetsInDirectory(const std::filesystem::path& path, bool isVisibleInEditor)
+	{
+		if (!std::filesystem::exists(path))
+		{
+			D_CORE_WARN("EditorAssetManager::AddAssetsInDirectory: Directory {0} doesn't exist", path.string());
+			return;
+		}
+
+		if (!std::filesystem::is_directory(path))
+		{
+			D_CORE_WARN("EditorAssetManager::AddAssetsInDirectory: {0} is not a directory", path.string());
+			return;
+		}
+
+		for (const auto& entry : std::filesystem::recursive_directory_iterator(path))
+		{
+			if (entry.is_regular_file())
+			{
+				const auto& filePath = entry.path();
+				
+				// TODO: добавить систему обработку ислключений по типам файлов
+				if (filePath.filename() == ASSET_REGISTRY_NAME)
+					continue;
+
+				// Проверяем, не добавлен ли уже этот файл
+				auto it = m_PathToHandle.find(filePath);
+				if (it != m_PathToHandle.end())
+					continue;
+
+				// Создаем ассет
+				CreateAsset(filePath);
+			}
+		}
+	}
+
 }

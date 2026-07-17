@@ -59,5 +59,7 @@ namespace DEngine
         std::vector<uint32_t> m_DirtyMat3s;
         std::vector<uint32_t> m_DirtyMat4s;
         std::vector<uint32_t> m_DirtyTextures;
+
+        friend class MaterialSerializer;
     };
 }

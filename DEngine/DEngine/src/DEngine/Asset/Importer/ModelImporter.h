@@ -18,6 +18,7 @@ namespace DEngine
 		static Ref<Model> ImportModel(AssetHandle handle, const AssetMetadata& metadata);
 		static Ref<Model> LoadModel(const std::filesystem::path& path);
 	private:
+		static const std::vector<MeshRenderData> CreateDataFromAsimp(const std::filesystem::path& path);
         static void ProcessNode(aiNode* node, const aiScene* scene, 
                                 const std::filesystem::path& directory,
                                 std::vector<MeshRenderData>& renderData,
@@ -25,7 +26,9 @@ namespace DEngine
 								int nodeID);
 
 		static std::string GetModelName(const std::filesystem::path& path);
+		static std::filesystem::path ConstructModelPath(const std::string& modelName, const std::filesystem::path& path);
 		static std::filesystem::path ConstructMeshPath(const std::string& modelName, int meshInd, int nodeInd);
+		static std::filesystem::path ConstructMaterialPath(const std::string& modelName, int materialInd, int nodeInd);
 	};
 }
 

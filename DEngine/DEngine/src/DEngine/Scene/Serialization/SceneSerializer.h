@@ -7,6 +7,7 @@ namespace DEngine
 	class SceneSerializer
 	{
 	public:
+		SceneSerializer() = default;
 		SceneSerializer(const Ref<Scene>& scene);
 		
 		void Serialize(const std::string& filepath);
