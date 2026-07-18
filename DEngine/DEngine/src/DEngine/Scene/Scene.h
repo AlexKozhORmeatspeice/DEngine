@@ -3,48 +3,53 @@
 #include "entt.hpp"
 #include "DEngine/Core/Timestep.h"
 #include "DEngine/Events/Event.h"
-
-#include "memory"
+#include <memory>
+#include <vector>
 
 namespace DEngine
 {
-	class Entity;
 	class System;
+	class Entity;
 
-	//Класс содержащий набор сущностей, компонент и систем их обработки
-	class Scene
-	{
-	public:
-		Scene();
-		~Scene();
+    class Scene
+    {
+    public:
+        Scene();
+        ~Scene();
 
-		Entity& CreateEntity(const std::string& name = std::string());
+        Entity CreateEntity(const std::string& name = "");
 
-		template<typename... Components>
-		auto View()
-		{
-			return m_Registry.view<Components...>();
-		}
+        template<typename... Components>
+        auto View()
+        {
+            return m_Registry.view<Components...>();
+        }
 
-		template<typename... Components>
-		auto View() const
-		{
-			return m_Registry.view<Components...>();
-		}
+        template<typename... Components>
+        auto View() const
+        {
+            return m_Registry.view<Components...>();
+        }
 
-		void OnUpdate(const Timestep& ts);
-		void OnRender(const Timestep& ts);
+        void DestroyEntity(Entity entity);
 
-		const std::vector<Entity>& GetAllEntities() const { return m_Entities; }
-	private:
-		void AddSystem(std::shared_ptr<System> sys);
+        void OnUpdate(const Timestep& ts);
+        void OnRender(const Timestep& ts);
 
-		std::vector<std::shared_ptr<System>> m_Systems;
-		std::vector<Entity> m_Entities;
-		entt::registry m_Registry;
+        const std::vector<Entity>& GetAllEntities() const { return m_Entities; }
 
-		friend class Entity;
-		friend class ScenePanel;
-		friend class SceneSerializer;
-	};
+        entt::registry& GetRegistry() { return m_Registry; }
+        const entt::registry& GetRegistry() const { return m_Registry; }
+
+    private:
+        void AddSystem(std::shared_ptr<System> system);
+
+        std::vector<std::shared_ptr<System>> m_Systems;
+        std::vector<Entity> m_Entities;
+        entt::registry m_Registry;
+
+        friend class Entity;
+        friend class ScenePanel;
+        friend class SceneSerializer;
+    };
 }

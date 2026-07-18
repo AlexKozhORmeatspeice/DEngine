@@ -4,6 +4,7 @@
 #include "DEngine.h"
 #include "DEngine/Core.h"
 
+
 namespace DEngine
 {
 	//На все приложение будет только 1 окно с свойствами

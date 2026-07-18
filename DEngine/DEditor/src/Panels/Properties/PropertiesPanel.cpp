@@ -29,7 +29,7 @@ namespace DEngine
 	{
 		if (!entity.HasComponent<TagComponent>()) return;
 
-		auto& tagComp = entity.GetComponent<TagComponent>();
+		TagComponent tagComp = entity.GetComponent<TagComponent>();
 		
 		char buffer[256];
 		memset(buffer, 0, sizeof(buffer));
@@ -46,7 +46,7 @@ namespace DEngine
 		if (!entity.HasComponent<TransformComponent>()) return;
 		if (!ImGui::TreeNodeEx((void*)typeid(TransformComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Transform")) return;
 
-		auto& transComp = entity.GetComponent<TransformComponent>();
+		TransformComponent transComp = entity.GetComponent<TransformComponent>();
 
 		// Position
 		glm::vec3 position = transComp.GetPosition();

@@ -137,7 +137,8 @@ project "Sandbox"
         "DEngine/src",
         "DEngine/vendor",
         "%{IncludeDir.glm}",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.yaml}"
     }
 
     links
@@ -198,7 +199,8 @@ project "DEditor"
         "DEngine/src",
         "DEngine/vendor",
         "%{IncludeDir.glm}",
-        "%{IncludeDir.entt}"
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.yaml}"
     }
 
     links

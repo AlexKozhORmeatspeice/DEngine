@@ -20,7 +20,6 @@ namespace DEngine
 
 		//TODO: в будущем мы должны уметь серализовать сцену и загружать ее как ресурс
 		//Set scene
-		m_SceneSerializer = SceneSerializer(m_ActiveScene);
 		//sceneSerializer.Deserialize("assets/scenes/Example.dscene");
 
 		m_ActiveScene = CreateRef<Scene>();
@@ -64,7 +63,7 @@ namespace DEngine
 		m_ScenePanel.SetContext(m_ActiveScene);
 
 		//Serialization
-		//m_SceneSerializer.Serialize("assets/scenes/Example.dscene");
+		SceneSerializer::Serialize(m_ActiveScene, "assets/scenes/Example.dscene");
 	}
 
 	void EditorLayer::OnUpdate(const Timestep& ts)

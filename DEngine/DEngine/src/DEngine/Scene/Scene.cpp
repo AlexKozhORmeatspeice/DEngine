@@ -3,67 +3,75 @@
 
 #include "Entity.h"
 #include "Components.h"
-
 #include "DEngine/Scene/System.h"
 #include "DEngine/Scene/Systems.h"
 
 namespace DEngine
 {
-	Scene::Scene()
-	{
-		entt::entity entity = m_Registry.create();
+    Scene::Scene()
+    {
+        AddSystem(std::make_shared<MeshRendererSystem>());
+    }
 
-		//Список всех систем подгружаемых в обработчики
-		//При реализации новой системы ее нужно добавлять только сюда в соответствии с примерами ниже
-		//После добавления автоматически будет работать
-		AddSystem(std::make_shared<MeshRendererSystem>());
-	}
+    Scene::~Scene()
+    {
+        m_Entities.clear();
+    }
 
-	Scene::~Scene()
-	{
-		m_Entities.clear();
-	}
+    Entity Scene::CreateEntity(const std::string& name)
+    {
+        entt::entity handle = m_Registry.create();
+        UUID uuid;
 
-	Entity& Scene::CreateEntity(const std::string& name)
-	{
-		m_Entities.emplace_back(m_Registry.create(), this);
-		Entity& entity = m_Entities[m_Entities.size() - 1];
+        m_Entities.emplace_back(handle, this);
 
-		entity.AddComponent<TransformComponent>();
+        Entity& entity = m_Entities[m_Entities.size() - 1];
+        entity.SetUUID(uuid);
 
-		auto& tag = entity.AddComponent<TagComponent>(name);
-		tag.Tag = name.empty() ? "Entity" : name;
+        entity.AddComponent<TransformComponent>();
 
-		return entity;
-	}
+        auto& tag = entity.AddComponent<TagComponent>(name);
+        tag.Tag = name.empty() ? "Entity" : name;
 
-	void Scene::AddSystem(std::shared_ptr<System> system)
-	{
-		for (const auto& sys : m_Systems)
-		{
-			if (typeid(*sys) == typeid(*system))
-			{
-				D_CORE_WARN("System is already setted to scene");
-				return;
-			}
-		}
+        return entity;
+    }
 
-		m_Systems.push_back(system);
-	}
+    void Scene::DestroyEntity(Entity entity)
+    {
+        m_Registry.destroy(entity.GetHandle());
+        auto it = std::find_if(m_Entities.begin(), m_Entities.end(),
+            [&entity](const Entity& e) { return e == entity; });
+        if (it != m_Entities.end())
+            m_Entities.erase(it);
+    }
 
-	void Scene::OnUpdate(const Timestep& ts)
-	{
-		for (auto system : m_Systems)
-		{
-			system->OnUpdate(ts, const_cast<const Scene*>(this));
-		}
-	}
+    void Scene::AddSystem(std::shared_ptr<System> system)
+    {
+        for (const auto& sys : m_Systems)
+        {
+            if (typeid(*sys) == typeid(*system))
+            {
+                D_CORE_WARN("System is already added to scene");
+                return;
+            }
+        }
 
-	void Scene::OnRender(const Timestep& ts)
-	{
-		for (auto system : m_Systems)
-		{
-			system->OnRender(ts, const_cast<const Scene*>(this));
-		}
-	}
+        m_Systems.push_back(system);
+    }
+
+    void Scene::OnUpdate(const Timestep& ts)
+    {
+        for (auto system : m_Systems)
+        {
+            system->OnUpdate(ts, this);
+        }
+    }
+
+    void Scene::OnRender(const Timestep& ts)
+    {
+        for (auto system : m_Systems)
+        {
+            system->OnRender(ts, this);
+        }
+    }
 }
