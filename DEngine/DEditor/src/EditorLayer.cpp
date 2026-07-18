@@ -18,9 +18,7 @@ namespace DEngine
 		Window& win = Application::Get().GetWindow();
 		m_EditorCamera = std::make_shared<PerspectiveCamera>(60.0f, win.GetWidth(), win.GetHeight());
 
-		//TODO: в будущем мы должны уметь серализовать сцену и загружать ее как ресурс
 		//Set scene
-		
 		AssetHandle m_SceneHandle = AssetManager::CreateAsset("assets/scenes/Example.dscene");
 		m_ActiveScene = AssetManager::GetAsset<Scene>(m_SceneHandle);
 		if (!m_ActiveScene)
