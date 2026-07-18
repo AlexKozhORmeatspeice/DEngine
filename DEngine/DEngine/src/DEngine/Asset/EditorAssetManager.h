@@ -48,6 +48,7 @@ namespace DEngine
         void Update();
 
 	private:
+		AssetHandle CheckAssetRegistryForPath(const std::filesystem::path& path);
 		void AddAssetsInDirectory(const std::filesystem::path& path, bool isVisibleInEditor);
 		void SerializeAssetRegistry();
 		bool DeserializeAssetRegistry();

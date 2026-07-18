@@ -173,14 +173,14 @@ namespace DEngine
 		}
 
 		// Проверяем, существует ли уже такой путь в реестре
-		auto it = m_PathToHandle.find(path);
-		if (it != m_PathToHandle.end())
+		AssetHandle handle = CheckAssetRegistryForPath(path);
+		if (handle != AssetHandle::Invalid())
 		{
-			return it->second;
+			return handle;
 		}
 
 		//TODO: дописать для остальных типов ресурсов, когда они будут готовы
-		AssetHandle handle = CreateAsset({ type, path });
+		handle = CreateAsset({ type, path });
 
 		return handle;
 	}
@@ -190,16 +190,13 @@ namespace DEngine
 		if (metadata.Type == AssetType::None) return AssetHandle::Invalid();
 
 		// Проверяем, существует ли уже такой путь в реестре
-		if (!metadata.FilePath.empty())
+		AssetHandle handle = CheckAssetRegistryForPath(metadata.FilePath);
+		if (handle != AssetHandle::Invalid())
 		{
-			auto it = m_PathToHandle.find(metadata.FilePath);
-			if (it != m_PathToHandle.end())
-			{
-				return it->second;
-			}
+			return handle;
 		}
 
-		AssetHandle handle;
+		handle = AssetHandle();
 		m_AssetRegistry[handle] = metadata;
 
 		// Добавляем файл в watcher если путь указан
@@ -223,7 +220,12 @@ namespace DEngine
 														   uint32_t* inds, uint32_t indsSize,
 														   const std::filesystem::path& path)
 	{
-		AssetHandle handle;
+		AssetHandle handle = CheckAssetRegistryForPath(path);
+		if (handle != AssetHandle::Invalid())
+		{
+			return handle;
+		}
+		handle = AssetHandle();
 		Ref<Mesh> mesh = nullptr;
 
 		MeshData meshData;
@@ -244,7 +246,12 @@ namespace DEngine
 
 	const AssetHandle& EditorAssetManager::CreateMaterialAsset(const Ref<Material>& material, const std::filesystem::path& path)
 	{
-		AssetHandle handle;
+		AssetHandle handle = CheckAssetRegistryForPath(path);
+		if (handle != AssetHandle::Invalid())
+		{
+			return handle;
+		}
+		handle = AssetHandle();
 		MaterialSerializer::Serialize(material, path);
 
 		m_AssetRegistry[handle] = { AssetType::Material, path };
@@ -254,7 +261,12 @@ namespace DEngine
 
 	const AssetHandle& EditorAssetManager::CreateModelAsset(const Ref<Model>& model, const std::filesystem::path& path)
 	{
-		AssetHandle handle;
+		AssetHandle handle = CheckAssetRegistryForPath(path);
+		if (handle != AssetHandle::Invalid())
+		{
+			return handle;
+		}
+		handle = AssetHandle();
 		ModelSerializer::Serialize(model, path);
 
 		m_AssetRegistry[handle] = { AssetType::Model, path };
@@ -321,11 +333,21 @@ namespace DEngine
 
 	const AssetHandle& EditorAssetManager::GetPrimitiveMesh(PrimitiveType type)
 	{
+		//Проверяем нет ли уже кэшированного примитива
 		auto it = m_MeshPrimitives.find(type);
 		if (it != m_MeshPrimitives.end())
 			return it->second;
 
-		AssetHandle handle = CreateMeshPrimitive(type);
+		// Проверяем, существует ли путь примитива в реестре
+		std::filesystem::path meshPrimitivePath = MeshGenerator::ConstructPrimitivePath(type);
+		AssetHandle handle = CheckAssetRegistryForPath(meshPrimitivePath);
+		if (handle != AssetHandle::Invalid())
+		{
+			m_MeshPrimitives[type] = handle;
+			return handle;
+		}
+
+		handle = CreateMeshPrimitive(type);
 		return handle;
 	}
 
@@ -404,6 +426,8 @@ namespace DEngine
 			auto& metadata = m_AssetRegistry[handle];
 			metadata.FilePath = pathStr;
 			metadata.Type = static_cast<AssetType>(type);
+
+			D_CORE_INFO("Deserialize asset {0} ({2}) by path {1}", AssetTypeToString(metadata.Type), metadata.FilePath.string(), std::to_string(handle));
 
 			// Добавляем в FileWatcher при десериализации
 			if (!metadata.FilePath.empty() && std::filesystem::exists(metadata.FilePath))
@@ -534,6 +558,19 @@ namespace DEngine
 				CreateAsset(filePath);
 			}
 		}
+	}
+
+	AssetHandle EditorAssetManager::CheckAssetRegistryForPath(const std::filesystem::path& path)
+	{
+		if (path.empty()) return AssetHandle::Invalid();
+
+		auto it = m_PathToHandle.find(path);
+		if (it != m_PathToHandle.end())
+		{
+			return it->second;
+		}
+
+		return AssetHandle::Invalid();
 	}
 
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "yaml-cpp/yaml.h"
+#include "DEngine/Utils/YamlHelper.h"
 #include <string>
 #include "memory"
 

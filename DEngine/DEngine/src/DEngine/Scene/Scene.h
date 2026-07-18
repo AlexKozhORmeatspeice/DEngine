@@ -18,6 +18,7 @@ namespace DEngine
         ~Scene();
 
         Entity CreateEntity(const std::string& name = "");
+        Entity CreateEmptyEntity();
 
         template<typename... Components>
         auto View()

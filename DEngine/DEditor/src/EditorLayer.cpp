@@ -20,40 +20,16 @@ namespace DEngine
 
 		//TODO: в будущем мы должны уметь серализовать сцену и загружать ее как ресурс
 		//Set scene
-		//sceneSerializer.Deserialize("assets/scenes/Example.dscene");
-
-		m_ActiveScene = CreateRef<Scene>();
-
-		///Set models
-		const AssetHandle texHandle = AssetManager::CreateAsset("assets/textures/pasha.jpg");
-
-		Ref<Material> mat = CreateRef<Material>(AssetManager::GetBaseRendererShaderHandle());
-		mat->SetTexture2D("u_Texture", texHandle);
-
-		std::string matName = "basemat";
-		matName += DMAT_FILE_EXT;
-		const AssetHandle matHandle = AssetManager::CreateMaterialAsset(mat, "assets/materials/" + matName);
-
-		const AssetHandle sponzaHandle = AssetManager::CreateAsset({ AssetType::Model, "assets/models/sponza.obj-master/sponza.obj" });
-		const AssetHandle meshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Cube);
-
-		///Set objs
-		auto& cube = m_ActiveScene->CreateEntity("cube");
-		cube.AddComponent<MeshRendererComponent>(meshHandle, matHandle);
-		auto& trans = cube.GetComponent<TransformComponent>();
-		trans.SetScale({ 100.0f, 100.0f, 100.0f });
-		trans.SetPosition({ 100.0f, 100.0f, trans.GetPosition().z });
-
-		auto& directLight = m_ActiveScene->CreateEntity("direct light");
-		directLight.AddComponent<DirectLightComponent>(glm::vec3(1.0f, 1.0f, 1.0f), 1.0f);
-		auto& lightTrans = directLight.GetComponent<TransformComponent>();
-		lightTrans.Rotate(-60.0f, {1.0f, 0.0f, 0.0f});
-		lightTrans.Rotate(90.0f, {0.0f, 1.0f, 0.0f});
-
-		for (const auto& renderData : AssetManager::GetAsset<Model>(sponzaHandle)->GetRenderData())
+		
+		DeserializeSceneResult deserSceneRes = SceneSerializer::Deserialize("assets/scenes/Example.dscene");
+		if (deserSceneRes.isSuccessful)
 		{
-			auto sponzaObj = m_ActiveScene->CreateEntity();
-			sponzaObj.AddComponent<MeshRendererComponent>(renderData.MeshHandle, renderData.second);
+			m_ActiveScene = deserSceneRes.scene;
+		}
+		else
+		{
+			m_ActiveScene = CreateRef<Scene>();
+			SceneSerializer::Serialize(m_ActiveScene, "assets/scenes/Example.dscene");
 		}
 
 		//Set Renderer
@@ -61,9 +37,6 @@ namespace DEngine
 
 		//Set panels
 		m_ScenePanel.SetContext(m_ActiveScene);
-
-		//Serialization
-		SceneSerializer::Serialize(m_ActiveScene, "assets/scenes/Example.dscene");
 	}
 
 	void EditorLayer::OnUpdate(const Timestep& ts)

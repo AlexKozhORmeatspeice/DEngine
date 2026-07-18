@@ -145,7 +145,7 @@ namespace DEngine
         {
             for (auto entityNode : entitiesNode)
             {
-                Entity entity = newScene->CreateEntity();
+                Entity entity = newScene->CreateEmptyEntity();
 
                 if (!DeserializeEntity(entityNode, entity))
                 {

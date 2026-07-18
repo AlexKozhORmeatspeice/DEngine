@@ -1,6 +1,4 @@
 #pragma once
-#pragma once
-
 #include "DEngine/Core.h"
 #include "glm/glm.hpp"
 
@@ -20,8 +18,8 @@ namespace DEngine
 		{ }
 
 		//TODO: доделать сериализацию
-		virtual void Serialize(YAML::Emitter& out) const override {}
-		virtual bool Deserialize(const YAML::Node& node) override { return true; }
+		virtual void Serialize(YAML::Emitter& out) const override;
+		virtual bool Deserialize(const YAML::Node& node) override;
 
 		DECLARE_COMPONENT(DirectLightComponent);
 	};

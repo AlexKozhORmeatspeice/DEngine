@@ -224,8 +224,13 @@ namespace DEngine
     std::filesystem::path ModelImporter::ConstructModelPath(const std::string& modelName, const std::filesystem::path& path)
     {
         std::string name = modelName + DMODEl_FILE_EXT;
-
-        return path / name;
+    
+		// Убираем имя файла из path, оставляем только директорию
+		std::filesystem::path directory = path.parent_path();
+		if (directory.empty())
+			directory = path;
+		
+		return directory / name;
     }
 
     std::filesystem::path ModelImporter::ConstructMeshPath(const std::string& modelName, int meshInd, int nodeInd)

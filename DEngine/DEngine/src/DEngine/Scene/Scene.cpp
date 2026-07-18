@@ -36,6 +36,16 @@ namespace DEngine
         return entity;
     }
 
+    Entity Scene::CreateEmptyEntity()
+    {
+        entt::entity handle = m_Registry.create();
+        m_Entities.emplace_back(handle, this);
+
+        Entity& entity = m_Entities[m_Entities.size() - 1];
+
+        return entity;
+    }
+
     void Scene::DestroyEntity(Entity entity)
     {
         m_Registry.destroy(entity.GetHandle());

@@ -18,8 +18,8 @@ namespace DEngine
 			: meshHandle(_mesh), materialHandle(_mat) { }
 
 		//TODO: доделать сериализацию
-		virtual void Serialize(YAML::Emitter& out) const override {}
-		virtual bool Deserialize(const YAML::Node& node) override { return true; }
+		virtual void Serialize(YAML::Emitter& out) const override;
+		virtual bool Deserialize(const YAML::Node& node) override;
 
 		DECLARE_COMPONENT(MeshRendererComponent);
 	};
