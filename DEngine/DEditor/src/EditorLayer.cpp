@@ -24,7 +24,7 @@ namespace DEngine
 		if (!m_ActiveScene)
 		{
 			m_ActiveScene = CreateRef<Scene>();
-			SceneSerializer::Serialize(m_ActiveScene, "assets/scenes/Example.dscene");
+			AssetManager::CreateSceneAsset(m_ActiveScene, "assets/scenes/Example.dscene");
 		}
 
 		//Set Renderer
