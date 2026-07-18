@@ -6,6 +6,7 @@
 #include "MeshImporter.h"
 #include "MaterialImporter.h"
 #include "ModelImporter.h"
+#include "SceneImporter.h"
 
 #include "unordered_map"
 
@@ -18,6 +19,7 @@ namespace DEngine
 		{AssetType::Mesh, MeshImporter::ImportMesh},
 		{AssetType::Material, MaterialImporter::ImportMaterial},
 		{AssetType::Model, ModelImporter::ImportModel},
+		{AssetType::Scene, SceneImporter::ImportScene},
 	};
 
 	Ref<Asset> AsssetImporter::ImportAsset(AssetHandle assetHandle, const AssetMetadata& metadata)

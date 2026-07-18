@@ -29,6 +29,7 @@ namespace DEngine
 		
 		virtual const AssetHandle& CreateMaterialAsset(const Ref<Material>& material, const std::filesystem::path& path) override;
 		virtual const AssetHandle& CreateModelAsset(const Ref<Model>& model, const std::filesystem::path& path) override;
+		virtual const AssetHandle& CreateSceneAsset(const Ref<Scene>& scene, const std::filesystem::path& path) override;
 
 		virtual Ref<Asset> GetAsset(const AssetHandle& handle) override;
 

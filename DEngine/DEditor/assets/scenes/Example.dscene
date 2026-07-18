@@ -1,6 +1,6 @@
 Scene: Untitled
 Entities:
-  - Entity: 7337829696342101093
+  - Entity: 10568913751175242870
     TagComponent:
       Tag: cube
     TransformComponent:
@@ -8,9 +8,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [100, 100, 100]
     MeshRendererComponent:
-      MeshHandle: 13488675150831597503
-      MaterialHandle: 13557566400971994215
-  - Entity: 23699096587461827
+      MeshHandle: 12202685838003259314
+      MaterialHandle: 13444292872854556201
+  - Entity: 3900050599548551261
     TagComponent:
       Tag: direct light
     TransformComponent:
@@ -20,7 +20,7 @@ Entities:
     DirectLightComponent:
       Color: [1, 1, 1]
       Intensity: 1
-  - Entity: 11175676378944616490
+  - Entity: 15263713704806013013
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -28,9 +28,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1579564781681986305
-      MaterialHandle: 12860008725082682119
-  - Entity: 8970480927178204810
+      MeshHandle: 1995945181773001147
+      MaterialHandle: 11743464951957709995
+  - Entity: 7388543763645542598
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -38,9 +38,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4725461019476933923
-      MaterialHandle: 5377666973603867120
-  - Entity: 12184997446922940795
+      MeshHandle: 8801446206242908603
+      MaterialHandle: 12315761011346427854
+  - Entity: 2444344392465185655
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -48,9 +48,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14860666461359559634
-      MaterialHandle: 17393309977781584575
-  - Entity: 16052359542109866060
+      MeshHandle: 89120610796128078
+      MaterialHandle: 2402792360890227795
+  - Entity: 15445322605173088026
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -58,9 +58,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 7891391994900773102
-      MaterialHandle: 16324487869887093804
-  - Entity: 14735753880619934947
+      MeshHandle: 7879533703191538759
+      MaterialHandle: 10647832455284747782
+  - Entity: 287804966395623624
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -68,9 +68,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8063023407964374222
-      MaterialHandle: 463447616625901620
-  - Entity: 8751293159538226040
+      MeshHandle: 12805087497650328215
+      MaterialHandle: 9204272306836035171
+  - Entity: 15621922064631839139
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -78,9 +78,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8393639926823449969
-      MaterialHandle: 13981461027450858371
-  - Entity: 275506735341024875
+      MeshHandle: 1580917094989015432
+      MaterialHandle: 145350360761459503
+  - Entity: 620335288888183648
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -88,9 +88,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16300432760607802938
-      MaterialHandle: 2046635495179214660
-  - Entity: 16711111918399321875
+      MeshHandle: 13965009083773257783
+      MaterialHandle: 9565019117376035603
+  - Entity: 861306547160208144
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -98,9 +98,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5038061440244548564
-      MaterialHandle: 779899913348132552
-  - Entity: 10916815317775330342
+      MeshHandle: 7803472725348541965
+      MaterialHandle: 10651556916617786821
+  - Entity: 9293149945146829381
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -108,9 +108,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17830033242656343969
-      MaterialHandle: 522494477052878572
-  - Entity: 17775942951240171318
+      MeshHandle: 7585794131861388314
+      MaterialHandle: 13550363860323028959
+  - Entity: 10214387049562145666
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -118,9 +118,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 18344202713641214098
-      MaterialHandle: 17157212999625714972
-  - Entity: 10296995266236128557
+      MeshHandle: 9250379794760828794
+      MaterialHandle: 10714342554834692739
+  - Entity: 12381758481410443545
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -128,9 +128,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3376045624709369914
-      MaterialHandle: 11772246385702143160
-  - Entity: 11481877036114929328
+      MeshHandle: 3685649405582119867
+      MaterialHandle: 17640259531941393134
+  - Entity: 9343411174666122483
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -138,9 +138,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16738420510468066897
-      MaterialHandle: 4829133794174796558
-  - Entity: 11710109465324638284
+      MeshHandle: 304902758837047196
+      MaterialHandle: 8013152867386698654
+  - Entity: 15362303642053867852
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -148,9 +148,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8872716528454943561
-      MaterialHandle: 12583701277755024681
-  - Entity: 2887486996561618355
+      MeshHandle: 5450502800439845718
+      MaterialHandle: 15388684069899366586
+  - Entity: 16054085932183119990
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -158,9 +158,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15567976332128278532
-      MaterialHandle: 2767103714019332878
-  - Entity: 17140642007127031453
+      MeshHandle: 13677842170408326680
+      MaterialHandle: 12930270706643167559
+  - Entity: 13863485390522220458
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -168,9 +168,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14975181897529912661
-      MaterialHandle: 1965598826309577458
-  - Entity: 4345181307023635022
+      MeshHandle: 16140585116347355774
+      MaterialHandle: 15315446568178867053
+  - Entity: 6286590630407223814
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -178,9 +178,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11086975100493986800
-      MaterialHandle: 59131190005574093
-  - Entity: 12479783087058493083
+      MeshHandle: 13376892399079990537
+      MaterialHandle: 16916155032883509096
+  - Entity: 17602040834557093879
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -188,9 +188,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8259488992595242475
-      MaterialHandle: 8023383359976727725
-  - Entity: 15320004072989938786
+      MeshHandle: 8078105700042803441
+      MaterialHandle: 12925889625240564038
+  - Entity: 3888044386764608630
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -198,9 +198,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3576354205000465258
-      MaterialHandle: 7341160301874504640
-  - Entity: 9263710096863926956
+      MeshHandle: 4705008679362693897
+      MaterialHandle: 15128479038437072400
+  - Entity: 3286302778237252186
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -208,9 +208,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2483691637145409337
-      MaterialHandle: 7886960371717405226
-  - Entity: 1630729974291990783
+      MeshHandle: 2699974923771181306
+      MaterialHandle: 13445032311761931369
+  - Entity: 8869720945173155447
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -218,9 +218,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9199102518806020982
-      MaterialHandle: 6798881382345391197
-  - Entity: 12539982402580941151
+      MeshHandle: 4710548270553533498
+      MaterialHandle: 1128321832456693003
+  - Entity: 6060250329874032718
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -228,9 +228,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 795638625504138972
-      MaterialHandle: 11129930012698421208
-  - Entity: 7930478729479782608
+      MeshHandle: 7038968909908456186
+      MaterialHandle: 8217982808393888112
+  - Entity: 15501120622955696305
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -238,9 +238,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 10253541305437379106
-      MaterialHandle: 4320280741747309813
-  - Entity: 15129543088163005346
+      MeshHandle: 12423920872624516737
+      MaterialHandle: 6169727253677397928
+  - Entity: 7160297435677735697
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -248,9 +248,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13790405271422928031
-      MaterialHandle: 12439316894686666940
-  - Entity: 7727139389992543445
+      MeshHandle: 2631947865905182411
+      MaterialHandle: 15760584901755832345
+  - Entity: 2555551457129060048
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -258,9 +258,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6623462764605405582
-      MaterialHandle: 12255209226954252401
-  - Entity: 3607386445107767921
+      MeshHandle: 12486933731255737406
+      MaterialHandle: 3534303536057247936
+  - Entity: 5274348495456906388
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -268,9 +268,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2807573717340892103
-      MaterialHandle: 10337956840524112172
-  - Entity: 6521240188621463348
+      MeshHandle: 6118388086983727708
+      MaterialHandle: 12898005688917714532
+  - Entity: 3112287441138116343
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -278,9 +278,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2163569227317541462
-      MaterialHandle: 12808938241702992223
-  - Entity: 4077574916791522507
+      MeshHandle: 10086202825895104782
+      MaterialHandle: 7553373640654146767
+  - Entity: 10966367189794373896
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -288,9 +288,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13295279703631764846
-      MaterialHandle: 8814165682451723626
-  - Entity: 8418831943469829628
+      MeshHandle: 855922128416050253
+      MaterialHandle: 93928681871867968
+  - Entity: 18262630343231335468
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -298,9 +298,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1672753060737439873
-      MaterialHandle: 17351752689275496334
-  - Entity: 599886109793232712
+      MeshHandle: 10498496886659026900
+      MaterialHandle: 13884726969692913964
+  - Entity: 16238544828718043839
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -308,9 +308,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 18245287058312340592
-      MaterialHandle: 8718077230719506514
-  - Entity: 402884565379964608
+      MeshHandle: 15984889529955819563
+      MaterialHandle: 302041795992663123
+  - Entity: 6596101892508070072
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -318,9 +318,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4670966772065008736
-      MaterialHandle: 9527345855179402589
-  - Entity: 13071299031484807172
+      MeshHandle: 1057092221509658716
+      MaterialHandle: 17041823810244114293
+  - Entity: 7015689683283388540
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -328,9 +328,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9533787286944215915
-      MaterialHandle: 16232562185725301322
-  - Entity: 17259505744773008597
+      MeshHandle: 12633871383384050208
+      MaterialHandle: 15248005058590218572
+  - Entity: 17011983824658195919
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -338,9 +338,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6507885691389255815
-      MaterialHandle: 6569156320663638751
-  - Entity: 14239314383848269373
+      MeshHandle: 14440245847713272819
+      MaterialHandle: 1340889217017631818
+  - Entity: 13496414818516189421
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -348,9 +348,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16739459894554290397
-      MaterialHandle: 6877304508602677318
-  - Entity: 8321359736115420514
+      MeshHandle: 12423092401279642771
+      MaterialHandle: 14350314983439315221
+  - Entity: 16176680953258548392
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -358,9 +358,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3335009904605426015
-      MaterialHandle: 12059182622977855305
-  - Entity: 5162678078815650501
+      MeshHandle: 13127698591538704342
+      MaterialHandle: 17285778413244743162
+  - Entity: 10141636483331534277
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -368,9 +368,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 7525150123773121736
-      MaterialHandle: 18142415795990079801
-  - Entity: 10062888780029569570
+      MeshHandle: 3312721094225386354
+      MaterialHandle: 1945586269400588611
+  - Entity: 12733837853850918292
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -378,9 +378,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4901049727039009008
-      MaterialHandle: 12467095611583424897
-  - Entity: 12703079514717761310
+      MeshHandle: 5251048471270041794
+      MaterialHandle: 3364954813915599401
+  - Entity: 6174249016752111377
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -388,9 +388,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2326344144982456032
-      MaterialHandle: 8339215735434681437
-  - Entity: 2880995280954660140
+      MeshHandle: 12957193768529150694
+      MaterialHandle: 522570908616229581
+  - Entity: 15301862932043198053
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -398,9 +398,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8156064922591277505
-      MaterialHandle: 18195164779193015221
-  - Entity: 16818257110653446580
+      MeshHandle: 5329338972006110423
+      MaterialHandle: 284921694240386457
+  - Entity: 3364629693643955844
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -408,9 +408,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4595248439903168139
-      MaterialHandle: 16634029254929948345
-  - Entity: 6751244065472212940
+      MeshHandle: 9643094860679587683
+      MaterialHandle: 5288938990321168874
+  - Entity: 7690889907002837170
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -418,9 +418,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16442623129956141228
-      MaterialHandle: 13030129186899869624
-  - Entity: 3855333829314743404
+      MeshHandle: 1109366737840231425
+      MaterialHandle: 8737288614324246860
+  - Entity: 1069771342259764302
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -428,9 +428,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15162845248134704961
-      MaterialHandle: 9031887538400469797
-  - Entity: 1140854258883146830
+      MeshHandle: 14993991988575883345
+      MaterialHandle: 14508726606218063602
+  - Entity: 17465569296736241642
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -438,9 +438,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9897438652141856056
-      MaterialHandle: 4429836097909853544
-  - Entity: 4017890725953533105
+      MeshHandle: 138699271769482830
+      MaterialHandle: 7643022110491940165
+  - Entity: 15087993578055825114
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -448,9 +448,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11322745591867458088
-      MaterialHandle: 964585612828808354
-  - Entity: 2534652738976045381
+      MeshHandle: 15638379046659029351
+      MaterialHandle: 12335622305225471218
+  - Entity: 7039451621054691525
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -458,9 +458,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5528003433922037817
-      MaterialHandle: 3268220528801673710
-  - Entity: 14212882348812106534
+      MeshHandle: 10381059803546456572
+      MaterialHandle: 11645586046378467095
+  - Entity: 15088244951076067729
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -468,9 +468,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2512549560921577308
-      MaterialHandle: 11724332153956063598
-  - Entity: 13473708988312520031
+      MeshHandle: 684235399873320135
+      MaterialHandle: 4830973180977329419
+  - Entity: 12880505893126498705
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -478,9 +478,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14052149061713372925
-      MaterialHandle: 9905554258342531978
-  - Entity: 12123146850151033067
+      MeshHandle: 13638903305493685239
+      MaterialHandle: 11206341399477653543
+  - Entity: 11809154175809195615
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -488,9 +488,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1852254894815041087
-      MaterialHandle: 7437805101566430053
-  - Entity: 4279546374651261735
+      MeshHandle: 1373210724373480210
+      MaterialHandle: 7429238815901686145
+  - Entity: 10755396202028847067
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -498,9 +498,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9333361842544952531
-      MaterialHandle: 278511974534167294
-  - Entity: 15685612899871208297
+      MeshHandle: 10541087974410030629
+      MaterialHandle: 13002827085074307435
+  - Entity: 14055562103114619747
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -508,9 +508,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9562303756101437624
-      MaterialHandle: 18007073578864413389
-  - Entity: 6124902761499045058
+      MeshHandle: 11777771003137187586
+      MaterialHandle: 16543030830166715442
+  - Entity: 11254335580286094925
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -518,9 +518,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3309012937989655178
-      MaterialHandle: 10987210278642846640
-  - Entity: 7482491337639218492
+      MeshHandle: 16730432706222195091
+      MaterialHandle: 16591161904869894716
+  - Entity: 5251017575294126381
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -528,9 +528,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3960038235095783691
-      MaterialHandle: 12316599263545992723
-  - Entity: 5541058668784863935
+      MeshHandle: 7250035223087322590
+      MaterialHandle: 17722309008642246566
+  - Entity: 16736018266167705592
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -538,9 +538,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14176574884315868979
-      MaterialHandle: 729272344373910828
-  - Entity: 3436634988898610827
+      MeshHandle: 18255678674121579183
+      MaterialHandle: 17399378222562602335
+  - Entity: 17069987880537327591
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -548,9 +548,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 7016926712038570396
-      MaterialHandle: 5494492499176839350
-  - Entity: 15372416278368907845
+      MeshHandle: 5593408248417139759
+      MaterialHandle: 5437946614991929095
+  - Entity: 4490885943811086557
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -558,9 +558,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13700916133927261649
-      MaterialHandle: 3852229940570616241
-  - Entity: 16781148365539383841
+      MeshHandle: 7551410901883317985
+      MaterialHandle: 2376113401113561794
+  - Entity: 9770603050744568332
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -568,9 +568,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3274541671094967611
-      MaterialHandle: 16307631870004364505
-  - Entity: 5549765145236667698
+      MeshHandle: 11166277576515384225
+      MaterialHandle: 1199392470068337553
+  - Entity: 16747599210509653985
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -578,9 +578,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16426862452774142464
-      MaterialHandle: 17392643935838115943
-  - Entity: 850370567026315663
+      MeshHandle: 5611163163409990420
+      MaterialHandle: 2231607074820122874
+  - Entity: 18379246772075339797
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -588,9 +588,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9996425560540187976
-      MaterialHandle: 10522411338069041571
-  - Entity: 10127026566498457535
+      MeshHandle: 10355994825950123038
+      MaterialHandle: 10501483537104523950
+  - Entity: 17863917412176130302
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -598,9 +598,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8439186689194987080
-      MaterialHandle: 15783131483577405879
-  - Entity: 1686606966258393699
+      MeshHandle: 15109899312104168267
+      MaterialHandle: 10280429896854014667
+  - Entity: 15304181401317658995
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -608,9 +608,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5025062482143286063
-      MaterialHandle: 11189362348355136140
-  - Entity: 5457854458773096760
+      MeshHandle: 14977217766429537665
+      MaterialHandle: 7172229279178486388
+  - Entity: 14215942591396490494
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -618,9 +618,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14034134619629499249
-      MaterialHandle: 7303430639939448418
-  - Entity: 10909536743278026378
+      MeshHandle: 13961020540461355986
+      MaterialHandle: 14456759106828116151
+  - Entity: 6674686830864455143
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -628,9 +628,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2956834802126442590
-      MaterialHandle: 1640121042619538564
-  - Entity: 14436251466627052863
+      MeshHandle: 226092337677518513
+      MaterialHandle: 10224318064200759637
+  - Entity: 7232945308336204956
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -638,9 +638,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4931614301922259913
-      MaterialHandle: 1343496233710487725
-  - Entity: 4109721200564830617
+      MeshHandle: 8767994406978276108
+      MaterialHandle: 3018041205059375193
+  - Entity: 16567114450173426248
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -648,9 +648,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 18388487325616741172
-      MaterialHandle: 12025632306844648653
-  - Entity: 6966655096039221564
+      MeshHandle: 16096754340256908812
+      MaterialHandle: 14720654762818189797
+  - Entity: 17184812520423338769
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -658,9 +658,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11172759799383522721
-      MaterialHandle: 18192998498615382574
-  - Entity: 10822626372093923727
+      MeshHandle: 17585150213878158130
+      MaterialHandle: 1312168247870567447
+  - Entity: 16494752022030462694
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -668,9 +668,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5306935376087047624
-      MaterialHandle: 14905547281222866049
-  - Entity: 11482548535861723951
+      MeshHandle: 4125680808584793230
+      MaterialHandle: 3311106847740944665
+  - Entity: 8367697884654461087
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -678,9 +678,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16307326227883407243
-      MaterialHandle: 16129347968445265223
-  - Entity: 5537199906656451496
+      MeshHandle: 16390632588083227799
+      MaterialHandle: 17345961095671574420
+  - Entity: 6297556258689692816
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -688,9 +688,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4148829465266424226
-      MaterialHandle: 15857485968930100607
-  - Entity: 1263086489091332345
+      MeshHandle: 1127233518769413926
+      MaterialHandle: 8156312229212977389
+  - Entity: 15612627248166399449
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -698,9 +698,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1948312864866144572
-      MaterialHandle: 890228286415111360
-  - Entity: 5049777400733738249
+      MeshHandle: 14253735695252654382
+      MaterialHandle: 14068059311625049623
+  - Entity: 13056398398808830098
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -708,9 +708,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11140445135422073188
-      MaterialHandle: 17693973493916936636
-  - Entity: 12158681759315973745
+      MeshHandle: 15679929334272713768
+      MaterialHandle: 1645625063650363837
+  - Entity: 18329173207020512305
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -718,9 +718,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 10545769776865222355
-      MaterialHandle: 4383562529841290344
-  - Entity: 1680901798151128982
+      MeshHandle: 12401230018451058084
+      MaterialHandle: 9181717218389983873
+  - Entity: 1641768778560275444
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -728,9 +728,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17476537882262090304
-      MaterialHandle: 15169815534222111961
-  - Entity: 6098027357453023420
+      MeshHandle: 7269759868701444344
+      MaterialHandle: 10255774138442279591
+  - Entity: 2078403514453804317
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -738,9 +738,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14247982529394439788
-      MaterialHandle: 17541954138494293075
-  - Entity: 6019711527785830034
+      MeshHandle: 8677053421757484551
+      MaterialHandle: 5346708346020219154
+  - Entity: 2908844067823774537
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -748,9 +748,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1820960571280830520
-      MaterialHandle: 17406777411682398792
-  - Entity: 14575052004721815961
+      MeshHandle: 1954699386868156048
+      MaterialHandle: 15175776217143855864
+  - Entity: 14414982529824055040
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -758,9 +758,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 7571606359414897475
-      MaterialHandle: 15551136122482108260
-  - Entity: 17791360067487142904
+      MeshHandle: 15672237165800406070
+      MaterialHandle: 16531064862783046448
+  - Entity: 2732235446218605910
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -768,9 +768,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13784093208636931571
-      MaterialHandle: 13420785105935596161
-  - Entity: 8755225061832841511
+      MeshHandle: 4948634876796600431
+      MaterialHandle: 9394176290527981939
+  - Entity: 12420328942286861813
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -778,9 +778,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3046013696358689809
-      MaterialHandle: 15135760755709632214
-  - Entity: 6042542898576843098
+      MeshHandle: 17287575965721035168
+      MaterialHandle: 14378684341507525736
+  - Entity: 559271872196419696
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -788,9 +788,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14378920457177393592
-      MaterialHandle: 14320342289799367640
-  - Entity: 17198839674391805562
+      MeshHandle: 17315406958139447607
+      MaterialHandle: 15811213950390557092
+  - Entity: 15231282658738831967
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -798,9 +798,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12925266881709455367
-      MaterialHandle: 12333634507778361871
-  - Entity: 18344645679353460377
+      MeshHandle: 13103536334684404010
+      MaterialHandle: 12142709755509269359
+  - Entity: 3674336473140614243
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -808,9 +808,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9244238526402249592
-      MaterialHandle: 12088000257627154998
-  - Entity: 11730421453715610868
+      MeshHandle: 11393230465260622415
+      MaterialHandle: 302321725750142532
+  - Entity: 244435583185736516
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -818,9 +818,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17173205141077791504
-      MaterialHandle: 4339624481682383896
-  - Entity: 1053636732225087396
+      MeshHandle: 4106249750504358557
+      MaterialHandle: 16845218637997840314
+  - Entity: 11450161031287133671
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -828,9 +828,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3844651986838637473
-      MaterialHandle: 14102371287734335351
-  - Entity: 3280816650543659209
+      MeshHandle: 9224744218759961836
+      MaterialHandle: 9245363563398748417
+  - Entity: 2325923785140901453
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -838,9 +838,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6515036955326090799
-      MaterialHandle: 17874697705817085728
-  - Entity: 10518694646376174456
+      MeshHandle: 10339012040867711602
+      MaterialHandle: 689628171733118626
+  - Entity: 15427199344784289784
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -848,9 +848,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9138754586395182307
-      MaterialHandle: 465131821904404462
-  - Entity: 16698985491603545305
+      MeshHandle: 1216685132435622457
+      MaterialHandle: 14476174660445532216
+  - Entity: 4871090272789061567
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -858,9 +858,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6162546656417346542
-      MaterialHandle: 10575364235346170025
-  - Entity: 12258146151677140424
+      MeshHandle: 3105048857621136327
+      MaterialHandle: 5693863742577455587
+  - Entity: 2377081073199273138
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -868,9 +868,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2407297860695568960
-      MaterialHandle: 14325164156290286821
-  - Entity: 7079687690046103329
+      MeshHandle: 2790789911711922747
+      MaterialHandle: 14041745088572472095
+  - Entity: 8474976852031875570
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -878,9 +878,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12966730506060336395
-      MaterialHandle: 1534507589458101859
-  - Entity: 4781790753277679277
+      MeshHandle: 7792495291026361267
+      MaterialHandle: 3051206584259476664
+  - Entity: 15132241594873839863
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -888,9 +888,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14072786728595376758
-      MaterialHandle: 278164210476229511
-  - Entity: 13923686471571481686
+      MeshHandle: 973280774535166223
+      MaterialHandle: 12196847756280063205
+  - Entity: 3520567720747501854
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -898,9 +898,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16182970997695431750
-      MaterialHandle: 2891269954453540827
-  - Entity: 18323988772037061377
+      MeshHandle: 17732729415988319751
+      MaterialHandle: 10293352657736150835
+  - Entity: 7507320008651744237
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -908,9 +908,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2939646360035013664
-      MaterialHandle: 7705283815323441558
-  - Entity: 9136977255286834073
+      MeshHandle: 3222370458393063966
+      MaterialHandle: 9015372227582053990
+  - Entity: 17578582772274194726
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -918,9 +918,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 729892469474598130
-      MaterialHandle: 18337779445591483421
-  - Entity: 2699120945205899164
+      MeshHandle: 8073603255853595300
+      MaterialHandle: 18151960718719701554
+  - Entity: 1369273107868320465
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -928,9 +928,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3309854768157902013
-      MaterialHandle: 7542374908614368518
-  - Entity: 1014367386589688226
+      MeshHandle: 10877229699010669532
+      MaterialHandle: 13253356749911514045
+  - Entity: 18022977268997256746
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -938,9 +938,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1229592656544401767
-      MaterialHandle: 12052613164097910768
-  - Entity: 11798459787127511015
+      MeshHandle: 13998294203398804374
+      MaterialHandle: 2519533959736121809
+  - Entity: 9176134221282566115
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -948,9 +948,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 7149924362531677972
-      MaterialHandle: 15587888019797721090
-  - Entity: 8305996475743235748
+      MeshHandle: 5265647272809520721
+      MaterialHandle: 12335285251928058533
+  - Entity: 5953389611366944129
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -958,9 +958,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17799911391859132788
-      MaterialHandle: 7260489013674926435
-  - Entity: 4332126205111370379
+      MeshHandle: 264132203878482883
+      MaterialHandle: 11998161535587212297
+  - Entity: 6087128788915469574
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -968,9 +968,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17858287901670505613
-      MaterialHandle: 5647050856020500799
-  - Entity: 5991713597090154678
+      MeshHandle: 6357507932444727853
+      MaterialHandle: 10430916112113743388
+  - Entity: 4002124905732504424
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -978,9 +978,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 10100908191688264893
-      MaterialHandle: 15996274246713059950
-  - Entity: 2428183322321031487
+      MeshHandle: 3045692398827638592
+      MaterialHandle: 9593883544591563060
+  - Entity: 13490137375438837170
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -988,9 +988,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8384816986531125554
-      MaterialHandle: 1562481615596582190
-  - Entity: 13697194566903822152
+      MeshHandle: 7963621041366332323
+      MaterialHandle: 12335324884879432189
+  - Entity: 2067262987588358077
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -998,9 +998,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1825478180147229807
-      MaterialHandle: 10895855687276869481
-  - Entity: 12759734407804578080
+      MeshHandle: 17740810380313056113
+      MaterialHandle: 7753043775654174364
+  - Entity: 7291542838845082570
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1008,9 +1008,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12551281292767798158
-      MaterialHandle: 12998476656512029107
-  - Entity: 11613704334077895832
+      MeshHandle: 17670202553903782494
+      MaterialHandle: 8631554765262170652
+  - Entity: 13136893186010629889
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1018,9 +1018,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17931491551438576099
-      MaterialHandle: 6382313738182772723
-  - Entity: 182638372886650628
+      MeshHandle: 11067725720134694617
+      MaterialHandle: 14422743468451730316
+  - Entity: 10146400715888850000
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1028,9 +1028,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13081551008054886537
-      MaterialHandle: 17629825953705385810
-  - Entity: 4126462779960865715
+      MeshHandle: 2946591214477511269
+      MaterialHandle: 8045351907254800550
+  - Entity: 1469461232092344146
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1038,9 +1038,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6266373446720188887
-      MaterialHandle: 14258784556157985460
-  - Entity: 13087679117281838303
+      MeshHandle: 6119887113063007765
+      MaterialHandle: 8655328709409082056
+  - Entity: 17119537539335306358
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1048,9 +1048,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 538686011617979443
-      MaterialHandle: 10365630994166887559
-  - Entity: 16373726370953761420
+      MeshHandle: 5782416448315452099
+      MaterialHandle: 2995538160129356645
+  - Entity: 8205984311209713696
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1058,9 +1058,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 725522160663460788
-      MaterialHandle: 15633447361616504653
-  - Entity: 17273238222895288222
+      MeshHandle: 5607824399111759926
+      MaterialHandle: 9848912158024792766
+  - Entity: 6201624652339785833
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1068,9 +1068,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12624934021318415835
-      MaterialHandle: 5595750207178835266
-  - Entity: 5071406640502822154
+      MeshHandle: 12696808020722142638
+      MaterialHandle: 10207970166208987737
+  - Entity: 3172999722323299120
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1078,9 +1078,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5431923867984531694
-      MaterialHandle: 10511891947143257628
-  - Entity: 10421443689792968398
+      MeshHandle: 9706872870453293851
+      MaterialHandle: 17776514487403505118
+  - Entity: 16079023605370208586
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1088,9 +1088,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 10226228226202850154
-      MaterialHandle: 4734444829268690165
-  - Entity: 14594479959120704397
+      MeshHandle: 9615674361314288802
+      MaterialHandle: 801649967903997670
+  - Entity: 13386765047368992128
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1098,9 +1098,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9429447691957499748
-      MaterialHandle: 12494749765019261576
-  - Entity: 18253923880070192483
+      MeshHandle: 15478617179869169612
+      MaterialHandle: 3746973213145248764
+  - Entity: 2394925683281993271
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1108,9 +1108,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16315553583446229287
-      MaterialHandle: 14832556531973548716
-  - Entity: 10833593326720389440
+      MeshHandle: 7549859613516410936
+      MaterialHandle: 1079900134751436321
+  - Entity: 691303674838305262
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1118,9 +1118,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 18231982123204369839
-      MaterialHandle: 12900571635463931476
-  - Entity: 8155661989262908117
+      MeshHandle: 8666067293723876846
+      MaterialHandle: 3431387991008132044
+  - Entity: 539092017357475227
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1128,9 +1128,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 10059179437168791020
-      MaterialHandle: 15331305712993006128
-  - Entity: 12689343818391813354
+      MeshHandle: 1966070084150505222
+      MaterialHandle: 4595435560067942070
+  - Entity: 618628293557349921
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1138,9 +1138,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12088899854984536177
-      MaterialHandle: 2208366173360679153
-  - Entity: 4103074905733843703
+      MeshHandle: 12253974779619421209
+      MaterialHandle: 151451272423404359
+  - Entity: 4052075552373899723
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1148,9 +1148,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12481567526863222362
-      MaterialHandle: 2267208891567380213
-  - Entity: 18260391854075830307
+      MeshHandle: 4011508070073330856
+      MaterialHandle: 2595160077376635953
+  - Entity: 8422249985426332883
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1158,9 +1158,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17808016629873639930
-      MaterialHandle: 1845881869781578504
-  - Entity: 10678720511886112188
+      MeshHandle: 18174069296200759281
+      MaterialHandle: 586032661254150876
+  - Entity: 8938518416074060811
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1168,9 +1168,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15054139607232821283
-      MaterialHandle: 9077341341583443284
-  - Entity: 17747158226534447716
+      MeshHandle: 9469971005535722399
+      MaterialHandle: 4875929265717603803
+  - Entity: 125430809887371951
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1178,9 +1178,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2158333872540861096
-      MaterialHandle: 14650260438911474564
-  - Entity: 13078797289236927269
+      MeshHandle: 3290437846795853637
+      MaterialHandle: 748629479144265976
+  - Entity: 11779823546448273961
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1188,9 +1188,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15275997536180135237
-      MaterialHandle: 9316737540658237768
-  - Entity: 16838479927458475070
+      MeshHandle: 17840298782873507355
+      MaterialHandle: 11571982276580065360
+  - Entity: 916678024119883055
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1198,9 +1198,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4392600197070031332
-      MaterialHandle: 1629917500368749439
-  - Entity: 12606544222216675444
+      MeshHandle: 15502356447656086380
+      MaterialHandle: 1419217213757684420
+  - Entity: 7539243343785684200
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1208,9 +1208,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8845809134344647051
-      MaterialHandle: 16679894954545574291
-  - Entity: 5417073923807625474
+      MeshHandle: 3799472502478808083
+      MaterialHandle: 468817130457065963
+  - Entity: 12836536594396319406
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1218,9 +1218,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5904611187613980606
-      MaterialHandle: 7693447800029911100
-  - Entity: 12191939125099547124
+      MeshHandle: 6529309771213792919
+      MaterialHandle: 17803108826201569210
+  - Entity: 13923178264134913834
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1228,9 +1228,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17520065279299189196
-      MaterialHandle: 2625367131904977027
-  - Entity: 16686795171990061257
+      MeshHandle: 5038272117174400743
+      MaterialHandle: 17701646353763490792
+  - Entity: 17637324179587588864
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1238,9 +1238,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3702991435503967268
-      MaterialHandle: 4501391553243407908
-  - Entity: 3830625471534959216
+      MeshHandle: 9742156224769394452
+      MaterialHandle: 3334052019791571997
+  - Entity: 6142942283407593324
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1248,9 +1248,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16679403038324715011
-      MaterialHandle: 15855814044181798345
-  - Entity: 425897184805996081
+      MeshHandle: 18327894218466689012
+      MaterialHandle: 17130108949053088274
+  - Entity: 9803826079995233813
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1258,9 +1258,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17176058001661962165
-      MaterialHandle: 8597863146966362892
-  - Entity: 780628685002601157
+      MeshHandle: 5852949775599504949
+      MaterialHandle: 13285603292378039351
+  - Entity: 12643698112406147231
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1268,9 +1268,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12894824343973296172
-      MaterialHandle: 17641210543117019407
-  - Entity: 16479460679268236149
+      MeshHandle: 11495281483087872704
+      MaterialHandle: 6749333395669682979
+  - Entity: 1677537399265583087
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1278,9 +1278,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5797392425513324348
-      MaterialHandle: 7696852506909353577
-  - Entity: 12838611150091096446
+      MeshHandle: 5509002917617887440
+      MaterialHandle: 13678797726523992503
+  - Entity: 9796300267885000647
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1288,9 +1288,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16094483409021836030
-      MaterialHandle: 7679759752031248610
-  - Entity: 4740173892481239731
+      MeshHandle: 6610719102525657718
+      MaterialHandle: 9925167715196621451
+  - Entity: 9709676515409794035
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1298,9 +1298,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2413133885645215205
-      MaterialHandle: 12514267202492124239
-  - Entity: 7196085392624284480
+      MeshHandle: 5102059188496403637
+      MaterialHandle: 2093058812712280763
+  - Entity: 12096689214022186966
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1308,9 +1308,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13064271719880207332
-      MaterialHandle: 6838751018254192583
-  - Entity: 10557520042051990862
+      MeshHandle: 14572616776037225269
+      MaterialHandle: 17779409241031833183
+  - Entity: 2701763909472990261
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1318,9 +1318,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 7041800620843060322
-      MaterialHandle: 15420185485509852240
-  - Entity: 14222622500366907452
+      MeshHandle: 12623003664019052407
+      MaterialHandle: 16588216820803001545
+  - Entity: 17572576822977999535
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1328,9 +1328,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12463067520950095392
-      MaterialHandle: 11611032596981612477
-  - Entity: 17417961873708638832
+      MeshHandle: 7282187339092204567
+      MaterialHandle: 9158128684856656880
+  - Entity: 7357253866862171457
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1338,9 +1338,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3634130100261313926
-      MaterialHandle: 8793377279392444974
-  - Entity: 1896469862228028560
+      MeshHandle: 1331798771266076195
+      MaterialHandle: 5664338108839194927
+  - Entity: 7705151093713057735
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1348,9 +1348,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16044848586280314689
-      MaterialHandle: 14933785985071285680
-  - Entity: 13269361220996115705
+      MeshHandle: 16792292819394739393
+      MaterialHandle: 1473811309082852960
+  - Entity: 5407916461891707598
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1358,9 +1358,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14177270661121437796
-      MaterialHandle: 5342721582665307486
-  - Entity: 2590718760592187598
+      MeshHandle: 5128764493315479428
+      MaterialHandle: 10221685874309444881
+  - Entity: 11831353004189482446
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1368,9 +1368,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1609447667715837112
-      MaterialHandle: 11065932884454480256
-  - Entity: 9731074861533516778
+      MeshHandle: 16181345806835211876
+      MaterialHandle: 1960823646731240463
+  - Entity: 17424259214378205012
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1378,9 +1378,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2638794083365153123
-      MaterialHandle: 2720030591755218861
-  - Entity: 9151202376703956333
+      MeshHandle: 7179481769481726489
+      MaterialHandle: 12891342077169142916
+  - Entity: 2710514139323522354
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1388,9 +1388,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9397131468928476251
-      MaterialHandle: 17018977556286746949
-  - Entity: 17624831808011547012
+      MeshHandle: 11189046727962905859
+      MaterialHandle: 4101160532819568036
+  - Entity: 975177672102589592
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1398,9 +1398,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11307955438022639428
-      MaterialHandle: 13639220407629394590
-  - Entity: 5107096270922564869
+      MeshHandle: 8684471146478683362
+      MaterialHandle: 15259206375463973166
+  - Entity: 4458537506358591328
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1408,9 +1408,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12166625591506510801
-      MaterialHandle: 18127035461585442684
-  - Entity: 1862630124722494005
+      MeshHandle: 16714298119035577602
+      MaterialHandle: 12043813903114557093
+  - Entity: 7988590454417110626
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1418,9 +1418,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6856427178847428189
-      MaterialHandle: 3171698964404706618
-  - Entity: 17203060016121416320
+      MeshHandle: 5030700645742870877
+      MaterialHandle: 11038201440465435576
+  - Entity: 10178194038565493993
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1428,9 +1428,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13763103274912942114
-      MaterialHandle: 8274404082927841011
-  - Entity: 17865722490893184346
+      MeshHandle: 3229401525746257015
+      MaterialHandle: 8971822457209247395
+  - Entity: 12834150238731078589
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1438,9 +1438,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 440071413792516501
-      MaterialHandle: 11225463021959158018
-  - Entity: 12951122356425308191
+      MeshHandle: 18314545173748344417
+      MaterialHandle: 68936442216979400
+  - Entity: 15822330410829808675
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1448,9 +1448,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16316288370798531987
-      MaterialHandle: 7422639324483927617
-  - Entity: 6673358948762689461
+      MeshHandle: 17663342564912127273
+      MaterialHandle: 5630911561535765736
+  - Entity: 7265102521494089940
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1458,9 +1458,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4901762656891695848
-      MaterialHandle: 4142716399769195571
-  - Entity: 9507350859119497564
+      MeshHandle: 13462882063584073990
+      MaterialHandle: 14704033936398800189
+  - Entity: 4884393713907096003
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1468,9 +1468,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 838014113967317100
-      MaterialHandle: 8658724250321181380
-  - Entity: 2138180087086078561
+      MeshHandle: 15682546665926794039
+      MaterialHandle: 12048531950842530597
+  - Entity: 12689584893001624751
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1478,9 +1478,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13724079742974799357
-      MaterialHandle: 2967558292396336313
-  - Entity: 4456401373398787928
+      MeshHandle: 17868328134513000746
+      MaterialHandle: 17350966241178771514
+  - Entity: 5940665966314969471
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1488,9 +1488,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8813489532302425180
-      MaterialHandle: 11088092200424667642
-  - Entity: 10204953495581665745
+      MeshHandle: 13488773270260026984
+      MaterialHandle: 2263497278053549303
+  - Entity: 11486541135974054919
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1498,9 +1498,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1563965653551309585
-      MaterialHandle: 2581187953617170053
-  - Entity: 7239855928720411935
+      MeshHandle: 5634133110504332881
+      MaterialHandle: 10865709771568940687
+  - Entity: 748712519881713850
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1508,9 +1508,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1969846814617766985
-      MaterialHandle: 8595532320731374730
-  - Entity: 3184156484230093818
+      MeshHandle: 9877272709612279272
+      MaterialHandle: 11727449446114229153
+  - Entity: 3713978878317603607
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1518,9 +1518,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14057343113050643442
-      MaterialHandle: 7704492544550453447
-  - Entity: 4834047855422017057
+      MeshHandle: 3393859786449004649
+      MaterialHandle: 8309229920380054422
+  - Entity: 16868899001977476747
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1528,9 +1528,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9008598724422855794
-      MaterialHandle: 4752763961139943797
-  - Entity: 11970323109024614933
+      MeshHandle: 2766412904089373225
+      MaterialHandle: 2442390206988854626
+  - Entity: 8382865718244402606
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1538,9 +1538,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1114462154207010035
-      MaterialHandle: 14337126525593191308
-  - Entity: 12247372944171978967
+      MeshHandle: 11839861886963578598
+      MaterialHandle: 10103702880086049405
+  - Entity: 7687082968541734281
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1548,9 +1548,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2653715598724125862
-      MaterialHandle: 15275837981760787797
-  - Entity: 3993841357826719505
+      MeshHandle: 4015645935476844023
+      MaterialHandle: 10716418461830672344
+  - Entity: 2770096095362518207
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1558,9 +1558,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 678112671192672550
-      MaterialHandle: 17934800116409872289
-  - Entity: 9782206267191258627
+      MeshHandle: 15969029189747098161
+      MaterialHandle: 4234409297396055552
+  - Entity: 4388609575053650263
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1568,9 +1568,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 318580390581823373
-      MaterialHandle: 8575613913739945345
-  - Entity: 4211208469233475607
+      MeshHandle: 18108650191129572329
+      MaterialHandle: 727412205344918793
+  - Entity: 9232115000389193156
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1578,9 +1578,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11978419335234448113
-      MaterialHandle: 4758762558951035335
-  - Entity: 16443779510314347870
+      MeshHandle: 5279837823580441972
+      MaterialHandle: 6161410940584423005
+  - Entity: 12787554912443854561
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1588,9 +1588,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5013718866750277772
-      MaterialHandle: 16130861189384378329
-  - Entity: 7074236759326215314
+      MeshHandle: 10596629194397288623
+      MaterialHandle: 8320243850474580260
+  - Entity: 11400662878936499855
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1598,9 +1598,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17911712833708548063
-      MaterialHandle: 334712849074783848
-  - Entity: 3611601210677525701
+      MeshHandle: 15181331120218515392
+      MaterialHandle: 2002651564866481993
+  - Entity: 5474279604490931953
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1608,9 +1608,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11125899401564557987
-      MaterialHandle: 10680774861953259760
-  - Entity: 18236502970800011218
+      MeshHandle: 8305773209236385028
+      MaterialHandle: 1178897574047676720
+  - Entity: 1714800730368441694
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1618,9 +1618,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11525349640189087639
-      MaterialHandle: 4130340850070343788
-  - Entity: 17070355670780895676
+      MeshHandle: 11662009460067741788
+      MaterialHandle: 1801581336127950858
+  - Entity: 6842725518878766637
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1628,9 +1628,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3931354627580199023
-      MaterialHandle: 3826216525329577543
-  - Entity: 571599493066381382
+      MeshHandle: 5311048565050801481
+      MaterialHandle: 15678844704812703974
+  - Entity: 8644207541493905997
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1638,9 +1638,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1647327911219928784
-      MaterialHandle: 1830666440761435256
-  - Entity: 10637362334437465810
+      MeshHandle: 9988212308572795171
+      MaterialHandle: 9871452341191015937
+  - Entity: 12740082478390510179
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1648,9 +1648,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13924808178135508939
-      MaterialHandle: 13306435033243322509
-  - Entity: 11424446691741308217
+      MeshHandle: 551504034228038415
+      MaterialHandle: 10560608879587253117
+  - Entity: 9307263341972029661
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1658,9 +1658,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16515780629277669594
-      MaterialHandle: 11142461596364572310
-  - Entity: 15689071161802869945
+      MeshHandle: 1637454048064559207
+      MaterialHandle: 1479824224244598744
+  - Entity: 14861116971171307052
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1668,9 +1668,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5521211894021932032
-      MaterialHandle: 2962382983738472186
-  - Entity: 2078734882005656602
+      MeshHandle: 14732842458834651145
+      MaterialHandle: 10891188456771143318
+  - Entity: 3268764493128616116
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1678,9 +1678,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8923252383557509842
-      MaterialHandle: 11681496552686923591
-  - Entity: 14318292282777771929
+      MeshHandle: 15065768789887778383
+      MaterialHandle: 2827613817970830705
+  - Entity: 1268170174133260722
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1688,9 +1688,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3547415133504905450
-      MaterialHandle: 4472422654779132755
-  - Entity: 14471953624236588566
+      MeshHandle: 129436344450723967
+      MaterialHandle: 15576628253690878644
+  - Entity: 6591299399893583275
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1698,9 +1698,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15510655065286811774
-      MaterialHandle: 10003679220702984030
-  - Entity: 10332743388133793163
+      MeshHandle: 5615256487502212648
+      MaterialHandle: 3647502054192258278
+  - Entity: 17152017130182102233
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1708,9 +1708,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1562741781440963580
-      MaterialHandle: 7880811961295017138
-  - Entity: 15629422524250456379
+      MeshHandle: 6655093305635358160
+      MaterialHandle: 9341197082754608580
+  - Entity: 2571678195479035481
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1718,9 +1718,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2046228674041082744
-      MaterialHandle: 17958444357708417458
-  - Entity: 1099549877974042760
+      MeshHandle: 11128781586841194067
+      MaterialHandle: 9063962917181134471
+  - Entity: 17292906449715778318
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1728,9 +1728,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 844565429497291496
-      MaterialHandle: 6195059105955899809
-  - Entity: 6550750218180652808
+      MeshHandle: 7190593871768110493
+      MaterialHandle: 6063500670666608602
+  - Entity: 13822629726973021408
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1738,9 +1738,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1436183180890269449
-      MaterialHandle: 2608922299609343342
-  - Entity: 6434040696402354670
+      MeshHandle: 6409339242202641660
+      MaterialHandle: 3957880155920549406
+  - Entity: 5625264514798071957
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1748,9 +1748,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9876022009704185953
-      MaterialHandle: 16317413273973891918
-  - Entity: 1647470092183829983
+      MeshHandle: 2214861963239413684
+      MaterialHandle: 717930359783186127
+  - Entity: 2649774824349186059
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1758,9 +1758,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 10918279928086430291
-      MaterialHandle: 13247485378530417521
-  - Entity: 2490163104765041467
+      MeshHandle: 10958686968853745537
+      MaterialHandle: 247356716376844431
+  - Entity: 13620484180913847678
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1768,9 +1768,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15857017518030228320
-      MaterialHandle: 7883480568476344276
-  - Entity: 11885383662264958782
+      MeshHandle: 259740254898722876
+      MaterialHandle: 17660746486220912596
+  - Entity: 17065160825037095291
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1778,9 +1778,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 10925802980905360802
-      MaterialHandle: 15751573496939352606
-  - Entity: 17680720962601034552
+      MeshHandle: 2125734728968120929
+      MaterialHandle: 12694633889683795112
+  - Entity: 14503770813389771197
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1788,9 +1788,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1794153427851849841
-      MaterialHandle: 13970267006305750065
-  - Entity: 1952526213474189317
+      MeshHandle: 8642561960302599300
+      MaterialHandle: 18266513993560918150
+  - Entity: 12937692240860492480
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1798,9 +1798,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1872781186411308271
-      MaterialHandle: 4848292047295078315
-  - Entity: 16198641601144957767
+      MeshHandle: 2082695699946269695
+      MaterialHandle: 10993442040849761567
+  - Entity: 10489301904697455291
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1808,9 +1808,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4805708303738928352
-      MaterialHandle: 10570710061473665360
-  - Entity: 1535766145327856195
+      MeshHandle: 15249791075850569938
+      MaterialHandle: 11158132675195030560
+  - Entity: 15433813305936252352
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1818,9 +1818,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1984877404103628955
-      MaterialHandle: 9580010420923993606
-  - Entity: 8287384207085528194
+      MeshHandle: 98020639920268206
+      MaterialHandle: 15450267479001872190
+  - Entity: 4621487743586253687
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1828,9 +1828,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14513121637337830072
-      MaterialHandle: 13417582459672668051
-  - Entity: 12029616644987557971
+      MeshHandle: 9855656401032470998
+      MaterialHandle: 3409640881287473178
+  - Entity: 10836006669172149752
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1838,9 +1838,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15122015717511886373
-      MaterialHandle: 9142810470875618703
-  - Entity: 12457480169725690556
+      MeshHandle: 12103702143410587593
+      MaterialHandle: 14372443922994479318
+  - Entity: 11993125247014086676
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1848,9 +1848,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 222276862346282495
-      MaterialHandle: 17360048223826907125
-  - Entity: 4376899594934998438
+      MeshHandle: 13293780329909222080
+      MaterialHandle: 6427018348632459986
+  - Entity: 225646303975576779
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1858,9 +1858,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12942145469826121384
-      MaterialHandle: 17071216580330921624
-  - Entity: 4067674196571715722
+      MeshHandle: 11310423409450229952
+      MaterialHandle: 4061669621155061051
+  - Entity: 11693977780006607663
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1868,9 +1868,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15817452357504947516
-      MaterialHandle: 17338729121023720391
-  - Entity: 5533729428783964209
+      MeshHandle: 13360902749014633359
+      MaterialHandle: 15037078338386610000
+  - Entity: 9842927419640315326
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1878,9 +1878,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1279826660589750327
-      MaterialHandle: 9694467877310681165
-  - Entity: 10295366681235513723
+      MeshHandle: 4605797600395731179
+      MaterialHandle: 13365125523626627600
+  - Entity: 6362675319699967087
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1888,9 +1888,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16709159030664591224
-      MaterialHandle: 9677619357842320891
-  - Entity: 7625188159095028471
+      MeshHandle: 15684980545530626567
+      MaterialHandle: 9011408310974301303
+  - Entity: 2612454299581125557
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1898,9 +1898,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16227892497809819904
-      MaterialHandle: 1555265855244141150
-  - Entity: 14978113999556222137
+      MeshHandle: 6202843721510185545
+      MaterialHandle: 6563814307236038665
+  - Entity: 809726528624871014
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1908,9 +1908,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15388446386800351739
-      MaterialHandle: 10823844763784761988
-  - Entity: 6276717524718631236
+      MeshHandle: 3298686652485317780
+      MaterialHandle: 9263369387305486377
+  - Entity: 18123141899738325649
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1918,9 +1918,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1368462602424159411
-      MaterialHandle: 6096247398784060514
-  - Entity: 9449789292979567021
+      MeshHandle: 10290353631574105667
+      MaterialHandle: 7234315526463348123
+  - Entity: 5883018623268549367
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1928,9 +1928,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1713328636511286528
-      MaterialHandle: 14817688901468296800
-  - Entity: 12890709811756158901
+      MeshHandle: 15244179570003348841
+      MaterialHandle: 17262847176486417032
+  - Entity: 13315198017078247024
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1938,9 +1938,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12030315526139648175
-      MaterialHandle: 1924991107159873816
-  - Entity: 8923164747496530420
+      MeshHandle: 2164612036254486846
+      MaterialHandle: 3556798920623072644
+  - Entity: 17465554121774004115
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1948,9 +1948,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17796230656296964306
-      MaterialHandle: 9092104740190680580
-  - Entity: 10850161549139366268
+      MeshHandle: 6668351976091245521
+      MaterialHandle: 11865985427848214172
+  - Entity: 7304575555270288824
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1958,9 +1958,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6393488037544763047
-      MaterialHandle: 6537073222578726556
-  - Entity: 11998342855118621420
+      MeshHandle: 6218504669434754109
+      MaterialHandle: 1750431266952591646
+  - Entity: 17092480701577597733
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1968,9 +1968,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3614060614369890268
-      MaterialHandle: 12627466549586700366
-  - Entity: 12518682803590811519
+      MeshHandle: 6363650262254048513
+      MaterialHandle: 490013538032311951
+  - Entity: 11541750225672038972
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1978,9 +1978,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5350126686963607812
-      MaterialHandle: 1250649131301431575
-  - Entity: 16638617088452865674
+      MeshHandle: 2139480815388766054
+      MaterialHandle: 2294740697851751519
+  - Entity: 8933647690379622780
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1988,9 +1988,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16622812001251413877
-      MaterialHandle: 7986579746738233707
-  - Entity: 1666497031062132621
+      MeshHandle: 13223166722985492860
+      MaterialHandle: 9563664907216168911
+  - Entity: 17705660685264384045
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -1998,9 +1998,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14852073817309920356
-      MaterialHandle: 11594558991372890607
-  - Entity: 2635082418223277281
+      MeshHandle: 11797637295474327269
+      MaterialHandle: 18012911690222340302
+  - Entity: 7620162765748113971
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2008,9 +2008,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3780247526807181647
-      MaterialHandle: 5059781465226105306
-  - Entity: 8925574466066646990
+      MeshHandle: 15148843307269497233
+      MaterialHandle: 11246850110968694927
+  - Entity: 7149322279987192062
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2018,9 +2018,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14436319962343723787
-      MaterialHandle: 3830397565169859767
-  - Entity: 681401195993227228
+      MeshHandle: 2979700724134879559
+      MaterialHandle: 7308940408315089355
+  - Entity: 10049524352628171864
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2028,9 +2028,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11178873006567054930
-      MaterialHandle: 14512716208132065445
-  - Entity: 6336105442928320704
+      MeshHandle: 1463128784040410601
+      MaterialHandle: 16193862827580284494
+  - Entity: 17221634244743772198
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2038,9 +2038,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 7171964976972950163
-      MaterialHandle: 4543533215784557819
-  - Entity: 12454737848124141587
+      MeshHandle: 12260619704380793503
+      MaterialHandle: 14291701340892445746
+  - Entity: 10723391056866291086
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2048,9 +2048,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3498740333089673213
-      MaterialHandle: 7922438046556983858
-  - Entity: 16781138121546197272
+      MeshHandle: 16346868548411833720
+      MaterialHandle: 3764312329036441353
+  - Entity: 2335175853374310598
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2058,9 +2058,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5656891584652845354
-      MaterialHandle: 17818894399683181862
-  - Entity: 6800009946209146337
+      MeshHandle: 6333490284356309371
+      MaterialHandle: 10360600108126536908
+  - Entity: 15214391377105067023
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2068,9 +2068,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8589280968605521930
-      MaterialHandle: 11830839348041345114
-  - Entity: 2719381156429028361
+      MeshHandle: 15881301073177995418
+      MaterialHandle: 15955600705061190452
+  - Entity: 2553905669984208565
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2078,9 +2078,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8056723000933731360
-      MaterialHandle: 15850356656013879248
-  - Entity: 12656574854044022486
+      MeshHandle: 8036409203989088675
+      MaterialHandle: 5154869604305359515
+  - Entity: 3631261820123883292
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2088,9 +2088,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14587766559880981964
-      MaterialHandle: 15328423882557905299
-  - Entity: 16921363161035750523
+      MeshHandle: 8601790180039899760
+      MaterialHandle: 15024328131386796639
+  - Entity: 307340329332156512
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2098,9 +2098,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9091049547761729748
-      MaterialHandle: 10655495652709060410
-  - Entity: 2887434703049783871
+      MeshHandle: 9400092369325538793
+      MaterialHandle: 15815075761427421757
+  - Entity: 14776902476534214413
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2108,9 +2108,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13460436455587396006
-      MaterialHandle: 4972263017452989529
-  - Entity: 6255526217763424950
+      MeshHandle: 14552389986879230784
+      MaterialHandle: 12038773885090067534
+  - Entity: 9840794748557217298
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2118,9 +2118,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4670499278453743551
-      MaterialHandle: 13467743786455016786
-  - Entity: 5456104701582006119
+      MeshHandle: 15714460244032038257
+      MaterialHandle: 11176552922009249668
+  - Entity: 14566425589900409655
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2128,9 +2128,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5604165321358261180
-      MaterialHandle: 3281432947066965618
-  - Entity: 15439685571067888292
+      MeshHandle: 17938154560758569729
+      MaterialHandle: 6234412263747003246
+  - Entity: 11376245279585085954
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2138,9 +2138,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 7039908819608330704
-      MaterialHandle: 8726803011072537925
-  - Entity: 5674956590233491634
+      MeshHandle: 17448589121115363761
+      MaterialHandle: 498942724948453195
+  - Entity: 2445488190638978711
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2148,9 +2148,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 7050905091384429329
-      MaterialHandle: 669516156848475035
-  - Entity: 7269457173845814404
+      MeshHandle: 5873107165690359983
+      MaterialHandle: 17799644600760330025
+  - Entity: 14504403370529885816
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2158,9 +2158,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 7867135308564134184
-      MaterialHandle: 4065047711364196879
-  - Entity: 12157101891332390715
+      MeshHandle: 2660211267134884600
+      MaterialHandle: 11433595994615730493
+  - Entity: 16060078546147656539
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2168,9 +2168,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17237986862581938405
-      MaterialHandle: 6321865165062836109
-  - Entity: 8651482481956353217
+      MeshHandle: 5560122612880837278
+      MaterialHandle: 2342555191207145346
+  - Entity: 14184870949722589738
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2178,9 +2178,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11450699418351359969
-      MaterialHandle: 742447017291398790
-  - Entity: 908654896068053350
+      MeshHandle: 5202639002014847284
+      MaterialHandle: 12723524537145243871
+  - Entity: 15535700193715861534
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2188,9 +2188,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3607633725848353596
-      MaterialHandle: 17923258179909169485
-  - Entity: 12185491749140353878
+      MeshHandle: 15861831954489264533
+      MaterialHandle: 13109576518814080653
+  - Entity: 4528482217470127589
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2198,9 +2198,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3758174510596144720
-      MaterialHandle: 870881831611156088
-  - Entity: 5654671287935888046
+      MeshHandle: 1864561697279229670
+      MaterialHandle: 16002185286698834409
+  - Entity: 13453422723469411310
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2208,9 +2208,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5220053722449336273
-      MaterialHandle: 12263770997650065875
-  - Entity: 17011035509215067331
+      MeshHandle: 1966804127043452791
+      MaterialHandle: 13604190361729957512
+  - Entity: 744934141835082288
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2218,9 +2218,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4244849527074279987
-      MaterialHandle: 12271421889831067723
-  - Entity: 18141416054769418481
+      MeshHandle: 2744280627659636613
+      MaterialHandle: 7739868779473167444
+  - Entity: 6478682023136748917
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2228,9 +2228,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 187441587618892116
-      MaterialHandle: 885120377391306798
-  - Entity: 4185073365126264554
+      MeshHandle: 16973925987601843867
+      MaterialHandle: 6424428781360375407
+  - Entity: 11651311443391051184
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2238,9 +2238,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8518012537097348491
-      MaterialHandle: 16596792741994400051
-  - Entity: 16765248954530092912
+      MeshHandle: 12990885931464912964
+      MaterialHandle: 11050099721185859953
+  - Entity: 5596984527792282073
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2248,9 +2248,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13069681206777264276
-      MaterialHandle: 4684046326248113610
-  - Entity: 4587321412451030042
+      MeshHandle: 10616921169609581397
+      MaterialHandle: 16279257416639359542
+  - Entity: 12974375419840122467
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2258,9 +2258,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11894689174518490724
-      MaterialHandle: 1909275741971035094
-  - Entity: 6020275929899844920
+      MeshHandle: 11973855572412641935
+      MaterialHandle: 5137738546632544379
+  - Entity: 7169586963586546261
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2268,9 +2268,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 18184844295330967700
-      MaterialHandle: 8467044394404307281
-  - Entity: 12874331077147775192
+      MeshHandle: 10943865516497660821
+      MaterialHandle: 10974468341226185076
+  - Entity: 6710795346087965147
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2278,9 +2278,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16236902676669522047
-      MaterialHandle: 8843614076407247208
-  - Entity: 11800946880424598414
+      MeshHandle: 6604784939130486690
+      MaterialHandle: 16268166880732051943
+  - Entity: 2525966534872145016
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2288,9 +2288,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14713866568886886762
-      MaterialHandle: 15558489375039283864
-  - Entity: 14400729984338027310
+      MeshHandle: 758339387144966404
+      MaterialHandle: 939965315116390400
+  - Entity: 5257642752940370254
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2298,9 +2298,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 7870799605089691040
-      MaterialHandle: 9705288130923463867
-  - Entity: 4895600033778526565
+      MeshHandle: 1405488602112825639
+      MaterialHandle: 14409896379534071561
+  - Entity: 653270048098612210
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2308,9 +2308,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16720360134215530353
-      MaterialHandle: 12506898644296379081
-  - Entity: 14261068262223230131
+      MeshHandle: 12176637918891304133
+      MaterialHandle: 3855785744661459328
+  - Entity: 15856354517420039047
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2318,9 +2318,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12643836710399010602
-      MaterialHandle: 768718826367971512
-  - Entity: 7882246998861323593
+      MeshHandle: 15473722349642578631
+      MaterialHandle: 14589631213067949404
+  - Entity: 17326765733063541369
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2328,9 +2328,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 7087627131320049264
-      MaterialHandle: 5565414211192662310
-  - Entity: 3794153127005278921
+      MeshHandle: 1216496486216695987
+      MaterialHandle: 5993369048881581050
+  - Entity: 4759339211041313614
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2338,9 +2338,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11092597523852449562
-      MaterialHandle: 9192492968270055265
-  - Entity: 8236853241468148485
+      MeshHandle: 7621634339810027704
+      MaterialHandle: 8305264545258495929
+  - Entity: 18101433581207346923
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2348,9 +2348,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9525078424081498805
-      MaterialHandle: 2582203686716423228
-  - Entity: 13124909648781112955
+      MeshHandle: 16056890609406805937
+      MaterialHandle: 8913910746480196120
+  - Entity: 1061578797994215298
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2358,9 +2358,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 18015168106405187341
-      MaterialHandle: 11349581254681013034
-  - Entity: 3310863015159043871
+      MeshHandle: 5617753088875849042
+      MaterialHandle: 16345114750894785765
+  - Entity: 16018044129533416471
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2368,9 +2368,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5692217769114834240
-      MaterialHandle: 16509016272046300006
-  - Entity: 12598936464464807025
+      MeshHandle: 12135119628083503961
+      MaterialHandle: 17747270246339737856
+  - Entity: 13726298337382315722
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2378,9 +2378,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12746892974477585401
-      MaterialHandle: 6236958713900370829
-  - Entity: 7210182059209817279
+      MeshHandle: 17515212452071956476
+      MaterialHandle: 1508045410173922232
+  - Entity: 6922944244821564235
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2388,9 +2388,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 687812090641269646
-      MaterialHandle: 10424096853989697450
-  - Entity: 7298975231693856721
+      MeshHandle: 13030457018611853513
+      MaterialHandle: 6429936526621652265
+  - Entity: 10630061129265130769
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2398,9 +2398,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2737361053669222422
-      MaterialHandle: 8676385209551285407
-  - Entity: 15395831899672951333
+      MeshHandle: 521999316965253788
+      MaterialHandle: 14464797249151341570
+  - Entity: 10501520728069539671
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2408,9 +2408,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17787544492206110869
-      MaterialHandle: 8483728123187410825
-  - Entity: 12980309173641853074
+      MeshHandle: 17675568023617013822
+      MaterialHandle: 16636655541824181412
+  - Entity: 5087518741523861185
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2418,9 +2418,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13447464775351047767
-      MaterialHandle: 595576427474844287
-  - Entity: 11816093178469295879
+      MeshHandle: 8648485491260858930
+      MaterialHandle: 5023088924409589228
+  - Entity: 7720865880766364694
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2428,9 +2428,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12348230579048007299
-      MaterialHandle: 285204430621918049
-  - Entity: 18112425623498124950
+      MeshHandle: 11758944873895738216
+      MaterialHandle: 4934504776883230540
+  - Entity: 13500255746226410300
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2438,9 +2438,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3882151597423541664
-      MaterialHandle: 4420680231478858103
-  - Entity: 4447006552967340996
+      MeshHandle: 362647582689498040
+      MaterialHandle: 6906939573325349768
+  - Entity: 12764708941389098014
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2448,9 +2448,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2676765080933899038
-      MaterialHandle: 9715360118489021150
-  - Entity: 9919555989913999302
+      MeshHandle: 4540437172376917537
+      MaterialHandle: 6857594421377600802
+  - Entity: 14682379986128033205
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2458,9 +2458,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15769799199314586693
-      MaterialHandle: 1088394728327612965
-  - Entity: 467301095980506398
+      MeshHandle: 933185866148537102
+      MaterialHandle: 8295070399229344694
+  - Entity: 14842959082956608640
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2468,9 +2468,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5797545061338423176
-      MaterialHandle: 7534976667087890308
-  - Entity: 8877340079319481755
+      MeshHandle: 15203840751361145146
+      MaterialHandle: 10397491014047600601
+  - Entity: 4301342303838776145
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2478,9 +2478,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17759620240101835305
-      MaterialHandle: 13124654671242578767
-  - Entity: 8936216905517079839
+      MeshHandle: 9124991970474205603
+      MaterialHandle: 6596876479420384144
+  - Entity: 4092572174207162211
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2488,9 +2488,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11516397094385558076
-      MaterialHandle: 11402522384771839257
-  - Entity: 9475513642995827299
+      MeshHandle: 342047543257090375
+      MaterialHandle: 15341950901033851478
+  - Entity: 14789642169840608282
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2498,9 +2498,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 18200008555252325669
-      MaterialHandle: 5626489454230780997
-  - Entity: 17202306053332974427
+      MeshHandle: 16044252753301544855
+      MaterialHandle: 7985314063271013453
+  - Entity: 16385352025942776809
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2508,9 +2508,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4542656817823887068
-      MaterialHandle: 6129105235610827190
-  - Entity: 1268934116195716654
+      MeshHandle: 2285619884759110603
+      MaterialHandle: 5763262224049916600
+  - Entity: 2538380451067665960
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2518,9 +2518,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15720350087937004492
-      MaterialHandle: 1104528799063332223
-  - Entity: 871834754845252677
+      MeshHandle: 4527019669404854322
+      MaterialHandle: 18060828540624686691
+  - Entity: 2272885595090590567
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2528,9 +2528,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11589899426295731315
-      MaterialHandle: 5412675518663423342
-  - Entity: 13941531147119618274
+      MeshHandle: 16225102372205670383
+      MaterialHandle: 11510786196222669367
+  - Entity: 1065994665757240241
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2538,9 +2538,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9079307120675836672
-      MaterialHandle: 6204765982670678978
-  - Entity: 7196920735935573315
+      MeshHandle: 9867660957358075660
+      MaterialHandle: 18425742091116319096
+  - Entity: 8327677613257671363
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2548,9 +2548,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6049378857170408589
-      MaterialHandle: 12008182089274277146
-  - Entity: 6247657489731944801
+      MeshHandle: 12948180907889363474
+      MaterialHandle: 15147803167445772769
+  - Entity: 2991899390436508394
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2558,9 +2558,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1937573770106108431
-      MaterialHandle: 16444071974488168136
-  - Entity: 3248130356992928960
+      MeshHandle: 18168667102408729554
+      MaterialHandle: 13806884844250787933
+  - Entity: 6093713454015178589
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2568,9 +2568,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17902700181166315556
-      MaterialHandle: 10839797745990014686
-  - Entity: 1044086829509813665
+      MeshHandle: 17684274220031533642
+      MaterialHandle: 8662397312962109384
+  - Entity: 2219553965721292606
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2578,9 +2578,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13558750277876219648
-      MaterialHandle: 9651872064963722046
-  - Entity: 2102257357257910508
+      MeshHandle: 342958684640443855
+      MaterialHandle: 1636021304685607002
+  - Entity: 17265039270086933185
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2588,9 +2588,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17473873094782113222
-      MaterialHandle: 14009571893549284193
-  - Entity: 15155904073956189433
+      MeshHandle: 13216568243049820249
+      MaterialHandle: 3911896766170684355
+  - Entity: 17358722769146918696
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2598,9 +2598,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15281036667000332766
-      MaterialHandle: 11743000029337992499
-  - Entity: 12148046364602390186
+      MeshHandle: 8672482319573093016
+      MaterialHandle: 9075385544648800898
+  - Entity: 5055517659336665740
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2608,9 +2608,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1211013630613122730
-      MaterialHandle: 360939501528265121
-  - Entity: 15586053390837608332
+      MeshHandle: 17504757506032611247
+      MaterialHandle: 7978721675100459741
+  - Entity: 3357161939616603420
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2618,9 +2618,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13690532113079991526
-      MaterialHandle: 2910829439094021372
-  - Entity: 6844062196788815908
+      MeshHandle: 1731142315829367010
+      MaterialHandle: 11164745262701781888
+  - Entity: 16310226741882038298
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2628,9 +2628,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14608533204500793209
-      MaterialHandle: 5655801890050333803
-  - Entity: 6043345299405415058
+      MeshHandle: 39203339394534287
+      MaterialHandle: 2983410009015745891
+  - Entity: 5089794198589088588
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2638,9 +2638,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 10096979629533813504
-      MaterialHandle: 8398681965680834981
-  - Entity: 4120498875801918288
+      MeshHandle: 16248497770727494927
+      MaterialHandle: 6996149945633617647
+  - Entity: 18144688328644725747
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2648,9 +2648,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3612957081737962935
-      MaterialHandle: 15173669883020961552
-  - Entity: 12906934487911524055
+      MeshHandle: 16214450234822825447
+      MaterialHandle: 4999629781428334071
+  - Entity: 5433725371727312335
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2658,9 +2658,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5016148413443445346
-      MaterialHandle: 13338927330118861633
-  - Entity: 10625231933042919319
+      MeshHandle: 4959518570469771577
+      MaterialHandle: 14698940510457300366
+  - Entity: 7109629446013780780
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2668,9 +2668,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6381223310443889334
-      MaterialHandle: 11055369497525719554
-  - Entity: 14944121389494043431
+      MeshHandle: 12023812763623832444
+      MaterialHandle: 82206666387968974
+  - Entity: 15848212988814081753
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2678,9 +2678,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17721743844921478588
-      MaterialHandle: 1364074984884651201
-  - Entity: 14629601044844051403
+      MeshHandle: 8114827037560463241
+      MaterialHandle: 9499988791697290097
+  - Entity: 10577223854744513940
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2688,9 +2688,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9550189982246458574
-      MaterialHandle: 2135528727101731204
-  - Entity: 3069113118488395255
+      MeshHandle: 8653598346946944494
+      MaterialHandle: 6895323143872584920
+  - Entity: 7322933852777270657
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2698,9 +2698,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2116314519180144082
-      MaterialHandle: 6046313370520245528
-  - Entity: 7126376571869021418
+      MeshHandle: 10216868562055736440
+      MaterialHandle: 10906650314769033047
+  - Entity: 14923895448638130642
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2708,9 +2708,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11379372977328738411
-      MaterialHandle: 6101670769429973830
-  - Entity: 12309918860377250467
+      MeshHandle: 6372062216525139282
+      MaterialHandle: 7710889233127357672
+  - Entity: 14079537524451647031
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2718,9 +2718,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4960937750990162853
-      MaterialHandle: 9451154119472588096
-  - Entity: 10911993277379053249
+      MeshHandle: 10674834654317714908
+      MaterialHandle: 15004680585743175905
+  - Entity: 4491439545833340942
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2728,9 +2728,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1477514702007676130
-      MaterialHandle: 8163023331983510330
-  - Entity: 3596428090593224536
+      MeshHandle: 8468302209539653466
+      MaterialHandle: 2305867880138336146
+  - Entity: 1163853530167153982
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2738,9 +2738,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4845454684458709035
-      MaterialHandle: 13460785629445622630
-  - Entity: 1189236705040439747
+      MeshHandle: 5770709550545608713
+      MaterialHandle: 10369681859915605542
+  - Entity: 6878962740405277954
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2748,9 +2748,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1800932667498009770
-      MaterialHandle: 8588356578551329094
-  - Entity: 4526432155887965094
+      MeshHandle: 5267915072972990730
+      MaterialHandle: 4689949399573148459
+  - Entity: 451004442070994415
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2758,9 +2758,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15077746374045064737
-      MaterialHandle: 12169049097410805199
-  - Entity: 5620040455985669597
+      MeshHandle: 1041436273211840873
+      MaterialHandle: 13102082948958364371
+  - Entity: 13514342415347880642
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2768,9 +2768,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 10011142750230451906
-      MaterialHandle: 15529542762924647811
-  - Entity: 1196228486023324696
+      MeshHandle: 3438628346674569757
+      MaterialHandle: 12329019587984802955
+  - Entity: 754005638268189837
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2778,9 +2778,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 676289520877290399
-      MaterialHandle: 16573723490705237632
-  - Entity: 14873528105501022382
+      MeshHandle: 7069051761180176448
+      MaterialHandle: 16381940761500186384
+  - Entity: 10809796357000313019
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2788,9 +2788,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8674751587038606619
-      MaterialHandle: 5100538212608481145
-  - Entity: 16936959558069326800
+      MeshHandle: 3701414326725029270
+      MaterialHandle: 1895691925650131384
+  - Entity: 8042477096809667288
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2798,9 +2798,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9937865725203182942
-      MaterialHandle: 13747313989457961565
-  - Entity: 1972986962412614942
+      MeshHandle: 17715824652260624363
+      MaterialHandle: 10798834533442094844
+  - Entity: 17458675142356938288
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2808,9 +2808,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3603846348191661845
-      MaterialHandle: 17590519580531236672
-  - Entity: 5624208975890059564
+      MeshHandle: 17372267190216200949
+      MaterialHandle: 2618176635473983023
+  - Entity: 17403388664554727030
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2818,9 +2818,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 102927716497122517
-      MaterialHandle: 2716267507782677521
-  - Entity: 7775239394422499494
+      MeshHandle: 8339142102162534071
+      MaterialHandle: 5959642101721802404
+  - Entity: 8537095549000945593
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2828,9 +2828,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6090604480504716724
-      MaterialHandle: 10058541314340482777
-  - Entity: 7490774655511890144
+      MeshHandle: 2310997493593867839
+      MaterialHandle: 5008249374942798039
+  - Entity: 12020544342834451107
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2838,9 +2838,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14858674160433558514
-      MaterialHandle: 2899860856644322323
-  - Entity: 16080339984136705638
+      MeshHandle: 11958725439029861111
+      MaterialHandle: 17503391011694816192
+  - Entity: 8748220979702033438
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2848,9 +2848,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5330804306663204356
-      MaterialHandle: 13989710836895811494
-  - Entity: 12174430513036773684
+      MeshHandle: 10084129705247275562
+      MaterialHandle: 16441361180172419173
+  - Entity: 1404689069835903068
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2858,9 +2858,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14395583881710754894
-      MaterialHandle: 12004679850473746128
-  - Entity: 17746288756523249491
+      MeshHandle: 13568801957120959260
+      MaterialHandle: 7672309694311610691
+  - Entity: 14826934775000352069
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2868,9 +2868,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4481644482458672935
-      MaterialHandle: 3426075796967140431
-  - Entity: 438305590995631305
+      MeshHandle: 14108977150610160359
+      MaterialHandle: 14551640756848601361
+  - Entity: 8974844641095344637
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2878,9 +2878,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 87582018498589067
-      MaterialHandle: 6472155138494179142
-  - Entity: 6429533319221008550
+      MeshHandle: 15711480603096748881
+      MaterialHandle: 18033947853123539892
+  - Entity: 7336390302942225512
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2888,9 +2888,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2985745067394237271
-      MaterialHandle: 13738319296687722604
-  - Entity: 13874915366475561492
+      MeshHandle: 15395838648755574186
+      MaterialHandle: 1866590190606368222
+  - Entity: 10705055366927997083
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2898,9 +2898,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3832662974544815699
-      MaterialHandle: 17208178840095028852
-  - Entity: 17614153309592085829
+      MeshHandle: 1752273505167018889
+      MaterialHandle: 13230833957986053844
+  - Entity: 10599865253868076225
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2908,9 +2908,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1310387364586042985
-      MaterialHandle: 9871069816564198884
-  - Entity: 10032720965933256502
+      MeshHandle: 9399135377482821493
+      MaterialHandle: 1389946489583960747
+  - Entity: 15383278480222507144
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2918,9 +2918,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3822735958807025181
-      MaterialHandle: 12635816960015566697
-  - Entity: 2455527218246195601
+      MeshHandle: 4062957147711435049
+      MaterialHandle: 6740986498247467238
+  - Entity: 3467722475287677056
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2928,9 +2928,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6644144248481388339
-      MaterialHandle: 775452099944862203
-  - Entity: 17551524971944403334
+      MeshHandle: 26229709680020139
+      MaterialHandle: 2335356944242319957
+  - Entity: 12910877931148866824
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2938,9 +2938,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15766406560469100387
-      MaterialHandle: 12108744337730573589
-  - Entity: 592153274265410477
+      MeshHandle: 3582721967431920846
+      MaterialHandle: 3854257260335229095
+  - Entity: 17294799268578714003
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2948,9 +2948,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3294908498685229280
-      MaterialHandle: 12615328526145340488
-  - Entity: 3333370686361172871
+      MeshHandle: 16573797946582680466
+      MaterialHandle: 16466306482576437861
+  - Entity: 17431936034151481132
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2958,9 +2958,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13399856275002941849
-      MaterialHandle: 7748976659935957332
-  - Entity: 8843330079060735676
+      MeshHandle: 3008877926708756275
+      MaterialHandle: 5876270379395250986
+  - Entity: 12260721041066031250
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2968,9 +2968,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11615124842336617038
-      MaterialHandle: 18257424531906979044
-  - Entity: 2760623109191440671
+      MeshHandle: 1238584645451621890
+      MaterialHandle: 11380810323349909741
+  - Entity: 12126459923319513757
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2978,9 +2978,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5644487429183760613
-      MaterialHandle: 3817472382570500365
-  - Entity: 6566141551205164707
+      MeshHandle: 9951283587657724570
+      MaterialHandle: 9608107685054663564
+  - Entity: 18379024579618772767
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2988,9 +2988,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3817500723287056925
-      MaterialHandle: 13105795356390154681
-  - Entity: 13969436361519771354
+      MeshHandle: 336161742202043739
+      MaterialHandle: 656811114643186712
+  - Entity: 15229095355118564591
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -2998,9 +2998,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 106743382954578218
-      MaterialHandle: 17146216264643860385
-  - Entity: 7021105076389376347
+      MeshHandle: 6579602465673741994
+      MaterialHandle: 8326736941959604079
+  - Entity: 11460087265997414047
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3008,9 +3008,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4210403708767374292
-      MaterialHandle: 7307385039681776700
-  - Entity: 7998907810028927859
+      MeshHandle: 5043837438737938669
+      MaterialHandle: 12907011936054368000
+  - Entity: 7263436214678405617
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3018,9 +3018,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13679707490477786782
-      MaterialHandle: 10289758628818148987
-  - Entity: 15268980619311862619
+      MeshHandle: 12331278861934363291
+      MaterialHandle: 16707056992289136040
+  - Entity: 411592768967292446
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3028,9 +3028,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13272242046771509462
-      MaterialHandle: 1056772555126454711
-  - Entity: 1357378019135386811
+      MeshHandle: 13678141926018743294
+      MaterialHandle: 16330499426173554438
+  - Entity: 14649724899084794311
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3038,9 +3038,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9597808684152957490
-      MaterialHandle: 33607371062411214
-  - Entity: 15736432992726304702
+      MeshHandle: 473816234394658613
+      MaterialHandle: 16551249472174950350
+  - Entity: 16050491902782565607
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3048,9 +3048,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2731860870953850926
-      MaterialHandle: 17945186622554628668
-  - Entity: 16239593918729816504
+      MeshHandle: 7452221308495961967
+      MaterialHandle: 13549465141933400565
+  - Entity: 626230579608098685
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3058,9 +3058,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9739591857026307671
-      MaterialHandle: 3965860658115362471
-  - Entity: 1711739998005693979
+      MeshHandle: 9194839471306264820
+      MaterialHandle: 17846192721497662703
+  - Entity: 11460393053031148315
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3068,9 +3068,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 18123295201906491274
-      MaterialHandle: 2042244205865986914
-  - Entity: 5096816911355024582
+      MeshHandle: 12304473764446482156
+      MaterialHandle: 12563063046652348322
+  - Entity: 8823434832359440726
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3078,9 +3078,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 494306847575362727
-      MaterialHandle: 988703727765703808
-  - Entity: 16561060788392247407
+      MeshHandle: 7150803040090854691
+      MaterialHandle: 8316125287935712314
+  - Entity: 18411150418421864939
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3088,9 +3088,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3762742399876412369
-      MaterialHandle: 12387366787585299987
-  - Entity: 8614807845048577823
+      MeshHandle: 2446943693602151851
+      MaterialHandle: 2602246793229255949
+  - Entity: 5389922437079630638
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3098,9 +3098,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8278556961846421850
-      MaterialHandle: 11440761542101384290
-  - Entity: 8256056212971958345
+      MeshHandle: 10592606728087539200
+      MaterialHandle: 2044163428821067442
+  - Entity: 7308268301978396075
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3108,9 +3108,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 517468793654431356
-      MaterialHandle: 5123216068425415921
-  - Entity: 18349525089904612468
+      MeshHandle: 178298639047579126
+      MaterialHandle: 16079052428430755483
+  - Entity: 4513814363922140314
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3118,9 +3118,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15034793858334870025
-      MaterialHandle: 8951055997699189749
-  - Entity: 3519286364306480158
+      MeshHandle: 15174855796104539760
+      MaterialHandle: 825100038070652941
+  - Entity: 8322455583660604254
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3128,9 +3128,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4902638856068480419
-      MaterialHandle: 11715789482946315758
-  - Entity: 17827838704188692556
+      MeshHandle: 7080982883651571585
+      MaterialHandle: 15079634408573301087
+  - Entity: 3374522756746531976
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3138,9 +3138,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17193581662315461216
-      MaterialHandle: 14932899959496884207
-  - Entity: 1944593143973615909
+      MeshHandle: 10992660368740909921
+      MaterialHandle: 10263066779577313529
+  - Entity: 12265581002112298660
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3148,9 +3148,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8882064357824027035
-      MaterialHandle: 12448251131410988484
-  - Entity: 17184661169055826448
+      MeshHandle: 8373381359804385765
+      MaterialHandle: 6491183195946833479
+  - Entity: 7322134537549897681
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3158,9 +3158,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 10232702411001232270
-      MaterialHandle: 1254455047986899110
-  - Entity: 8214128771994024007
+      MeshHandle: 6985416066168740364
+      MaterialHandle: 9365933275375836318
+  - Entity: 4625622859825247361
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3168,9 +3168,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13973401762981264843
-      MaterialHandle: 3351024490727080561
-  - Entity: 17225779997097947486
+      MeshHandle: 8510814672182868617
+      MaterialHandle: 4407247992286057993
+  - Entity: 14707082601649024910
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3178,9 +3178,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2523741559521642948
-      MaterialHandle: 16183863401890872938
-  - Entity: 3586869644197756139
+      MeshHandle: 1388714829782310647
+      MaterialHandle: 11031744641250974265
+  - Entity: 16762236675507349636
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3188,9 +3188,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 410454366848621871
-      MaterialHandle: 12542053384582887908
-  - Entity: 7698626341159438128
+      MeshHandle: 4996419327769576165
+      MaterialHandle: 4589065796496768070
+  - Entity: 8804067942781972930
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3198,9 +3198,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9831157576676701983
-      MaterialHandle: 11191411958801580996
-  - Entity: 12905138250224883430
+      MeshHandle: 2877968260379660304
+      MaterialHandle: 7239677479466376026
+  - Entity: 8691687823043549110
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3208,9 +3208,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11412448752030028579
-      MaterialHandle: 17358917567560484093
-  - Entity: 15994358386622737428
+      MeshHandle: 15691167231905872216
+      MaterialHandle: 16421263860725508691
+  - Entity: 16770614129956544701
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3218,9 +3218,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 7314089020030647832
-      MaterialHandle: 14493947503097521315
-  - Entity: 18197227834970625501
+      MeshHandle: 1504209389145904323
+      MaterialHandle: 3654927580422835514
+  - Entity: 15094064461171854773
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3228,9 +3228,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6008827177180108639
-      MaterialHandle: 2693710150121348462
-  - Entity: 14443657031565244385
+      MeshHandle: 10599827294623242527
+      MaterialHandle: 12325335586948314617
+  - Entity: 8332379226780840240
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3238,9 +3238,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1748749700220485016
-      MaterialHandle: 1706796010828171617
-  - Entity: 14681014841450822157
+      MeshHandle: 2113238437888556842
+      MaterialHandle: 17932988681430147411
+  - Entity: 4942125687123640
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3248,9 +3248,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15045576569557286469
-      MaterialHandle: 7326076824867270341
-  - Entity: 1030285751643540081
+      MeshHandle: 14657997503913775910
+      MaterialHandle: 13521883669753829414
+  - Entity: 13989970015817597744
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3258,9 +3258,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 322642143965244029
-      MaterialHandle: 1626840487529762927
-  - Entity: 16278244699534856263
+      MeshHandle: 826390662155266474
+      MaterialHandle: 14412533867710147965
+  - Entity: 14747048820758587626
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3268,9 +3268,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 567586191242357218
-      MaterialHandle: 17131189515592831466
-  - Entity: 11009292520562141135
+      MeshHandle: 1265159819204991200
+      MaterialHandle: 15143601734742270226
+  - Entity: 17965901841353939413
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3278,9 +3278,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14969972089368371489
-      MaterialHandle: 14869731794497416996
-  - Entity: 11781660418950115849
+      MeshHandle: 7344223398654585106
+      MaterialHandle: 13960614133611379905
+  - Entity: 8898717876860744443
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3288,9 +3288,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3106054696122437490
-      MaterialHandle: 11664211395154302320
-  - Entity: 4928045384590085488
+      MeshHandle: 15581604129798674859
+      MaterialHandle: 6726890661987663599
+  - Entity: 16331320020793511377
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3298,9 +3298,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9910963952652162272
-      MaterialHandle: 3028081151805550522
-  - Entity: 11947286379861029300
+      MeshHandle: 14877388347763201422
+      MaterialHandle: 3733459877752072259
+  - Entity: 11892572059767425658
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3308,9 +3308,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3665098172310701062
-      MaterialHandle: 2778651449172652767
-  - Entity: 644525439252090092
+      MeshHandle: 16633558837682976135
+      MaterialHandle: 12158063412368320597
+  - Entity: 10957769261834346819
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3318,9 +3318,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12364012047068380605
-      MaterialHandle: 17918087190424539822
-  - Entity: 15300952417517228995
+      MeshHandle: 6063432082402340193
+      MaterialHandle: 8139251607605597430
+  - Entity: 15988253228124252127
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3328,9 +3328,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 7479722493010221144
-      MaterialHandle: 5394516442463210185
-  - Entity: 12392342612814820909
+      MeshHandle: 6264903441350848677
+      MaterialHandle: 841593103498883553
+  - Entity: 13480087883995511162
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3338,9 +3338,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1233039209754735215
-      MaterialHandle: 5367309945041319774
-  - Entity: 13210722088955061781
+      MeshHandle: 7498199364603805449
+      MaterialHandle: 9083789046883608855
+  - Entity: 3306119453936841285
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3348,9 +3348,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14670203805180872320
-      MaterialHandle: 5147081951513771058
-  - Entity: 13658986710170696925
+      MeshHandle: 4250105340791896185
+      MaterialHandle: 9268449343731950103
+  - Entity: 4401377815028339964
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3358,9 +3358,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 907966341339518494
-      MaterialHandle: 4996529814153838671
-  - Entity: 16452862591721549004
+      MeshHandle: 2612590691458195347
+      MaterialHandle: 5816751758611732694
+  - Entity: 6359227028894873520
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3368,9 +3368,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16022543769929531399
-      MaterialHandle: 18214115931304009430
-  - Entity: 13961571780624386613
+      MeshHandle: 2851813745525505852
+      MaterialHandle: 8223309118022354387
+  - Entity: 16745909794342828322
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3378,9 +3378,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3296558141829590907
-      MaterialHandle: 9978334981589188014
-  - Entity: 15723886964613232969
+      MeshHandle: 13183356366297950416
+      MaterialHandle: 10665321080447652279
+  - Entity: 17832452530662776728
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3388,9 +3388,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16225383924612302908
-      MaterialHandle: 14892583471084009300
-  - Entity: 9584314699882452637
+      MeshHandle: 16391504621257054545
+      MaterialHandle: 2631751242529449786
+  - Entity: 6243309676384038058
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3398,9 +3398,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 402297920241674452
-      MaterialHandle: 6484246838872071060
-  - Entity: 2738161570116997746
+      MeshHandle: 7224572886578000992
+      MaterialHandle: 12842488096590089428
+  - Entity: 5965990413564947603
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3408,9 +3408,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 10311210054365869853
-      MaterialHandle: 9452152244426061866
-  - Entity: 99631607877200129
+      MeshHandle: 372683218654868465
+      MaterialHandle: 5865720501410850831
+  - Entity: 799626015780869626
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3418,9 +3418,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9256494250123791673
-      MaterialHandle: 9583936373108113491
-  - Entity: 4000746048479534066
+      MeshHandle: 16724317806354180376
+      MaterialHandle: 17674519075773879440
+  - Entity: 11438751865967101644
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3428,9 +3428,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9334355724979001796
-      MaterialHandle: 5632583847311761759
-  - Entity: 14233621082261979370
+      MeshHandle: 18328737701074683496
+      MaterialHandle: 10195516272056598912
+  - Entity: 11866779888961606387
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3438,9 +3438,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3666747219370288002
-      MaterialHandle: 13932465028281588215
-  - Entity: 447635066781520411
+      MeshHandle: 13261290673919832745
+      MaterialHandle: 1909756295465499591
+  - Entity: 16799404272133809273
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3448,9 +3448,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8946229398175545238
-      MaterialHandle: 4528104730622781517
-  - Entity: 11531582366155658767
+      MeshHandle: 14330262846058387333
+      MaterialHandle: 10861065751136879412
+  - Entity: 3984908997960235638
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3458,9 +3458,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14155397010770675361
-      MaterialHandle: 2409286636051253505
-  - Entity: 3577999113057221086
+      MeshHandle: 17113728949261176984
+      MaterialHandle: 11549266823994525859
+  - Entity: 6714498763123904725
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3468,9 +3468,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 16007141497109983900
-      MaterialHandle: 6170532010961693969
-  - Entity: 2145576491129514852
+      MeshHandle: 16575531383418906739
+      MaterialHandle: 1714867982595152370
+  - Entity: 2338767544351179779
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3478,9 +3478,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9863872168876171142
-      MaterialHandle: 16101455712128648729
-  - Entity: 5771779482311343070
+      MeshHandle: 9308925153745061685
+      MaterialHandle: 11059923526222216308
+  - Entity: 18222843175086036671
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3488,9 +3488,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 10495940046571427981
-      MaterialHandle: 18368525789642950659
-  - Entity: 14639719064621942188
+      MeshHandle: 16961922412053126008
+      MaterialHandle: 11031159540977869607
+  - Entity: 18181341232785650985
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3498,9 +3498,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13833963742779207919
-      MaterialHandle: 4623629320278510626
-  - Entity: 9214911729851359247
+      MeshHandle: 4702865022457301442
+      MaterialHandle: 18074161975843812530
+  - Entity: 7972682006126971152
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3508,9 +3508,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9024758746943314955
-      MaterialHandle: 10577057540551355541
-  - Entity: 13566096870200528850
+      MeshHandle: 2051475708172137420
+      MaterialHandle: 6731318361622415584
+  - Entity: 7082106214010600553
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3518,9 +3518,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17801254377080703168
-      MaterialHandle: 17009586316739126040
-  - Entity: 16612646166154294217
+      MeshHandle: 13027506222161777915
+      MaterialHandle: 17569514449890688032
+  - Entity: 7468465044102081890
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3528,9 +3528,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1714197390011096783
-      MaterialHandle: 11989371177188970850
-  - Entity: 15509372626174049734
+      MeshHandle: 11471815619519886883
+      MaterialHandle: 5080644005615775228
+  - Entity: 1204480252490331701
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3538,9 +3538,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1374005442048525216
-      MaterialHandle: 4495343480658264787
-  - Entity: 4286175465679480087
+      MeshHandle: 7892095828494582962
+      MaterialHandle: 1002954501621902261
+  - Entity: 5977414282495842301
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3548,9 +3548,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11455044467991284657
-      MaterialHandle: 6451609458851421937
-  - Entity: 492770454152753734
+      MeshHandle: 11454671447016740226
+      MaterialHandle: 14444718573627585647
+  - Entity: 3389984532240182454
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3558,9 +3558,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15599970911723761895
-      MaterialHandle: 15860797610695938371
-  - Entity: 11672485216454022803
+      MeshHandle: 16152207229467348280
+      MaterialHandle: 12520386358353793408
+  - Entity: 8923524297955960251
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3568,9 +3568,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14838787128471549890
-      MaterialHandle: 9865588090277727344
-  - Entity: 3520643495433405681
+      MeshHandle: 18094115176017744827
+      MaterialHandle: 7960846608108435571
+  - Entity: 776226047231783824
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3578,9 +3578,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14917848219191559098
-      MaterialHandle: 1420899649483442615
-  - Entity: 9536253020119861050
+      MeshHandle: 9268601588196595486
+      MaterialHandle: 12621021615619258917
+  - Entity: 3859456168218296167
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3588,9 +3588,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14486491685192575286
-      MaterialHandle: 7534663617738583385
-  - Entity: 18318647516443595652
+      MeshHandle: 15225688910235448903
+      MaterialHandle: 1769284916699791889
+  - Entity: 4446213562583641226
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3598,9 +3598,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11135335634326896343
-      MaterialHandle: 3371125964051825004
-  - Entity: 8258345337240424695
+      MeshHandle: 1148689711787159816
+      MaterialHandle: 16318729611362734109
+  - Entity: 16145763341879915564
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3608,9 +3608,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17239955083518344462
-      MaterialHandle: 3983458226483378373
-  - Entity: 12956799061918268107
+      MeshHandle: 2442900007366958115
+      MaterialHandle: 1304887640371931809
+  - Entity: 8414958745375504921
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3618,9 +3618,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13680119516846856254
-      MaterialHandle: 7574401668012821512
-  - Entity: 17017813640180439502
+      MeshHandle: 13646041768938280514
+      MaterialHandle: 8671003219700470104
+  - Entity: 12946109633551921169
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3628,9 +3628,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17573054963803235617
-      MaterialHandle: 17702887079766884373
-  - Entity: 7211010920616857876
+      MeshHandle: 14761869692313309389
+      MaterialHandle: 14266215075080499788
+  - Entity: 13292045595553743381
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3638,9 +3638,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6006414174855058834
-      MaterialHandle: 3560569709056762792
-  - Entity: 18175544146848589494
+      MeshHandle: 1683091523515166375
+      MaterialHandle: 6360498436136154460
+  - Entity: 438396704444435422
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3648,9 +3648,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1047630129505871978
-      MaterialHandle: 2722716020544066833
-  - Entity: 12365910673944818132
+      MeshHandle: 5335111774604884821
+      MaterialHandle: 11201113942029130153
+  - Entity: 16242978172762473747
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3658,9 +3658,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3103729456801874064
-      MaterialHandle: 3699443092877875935
-  - Entity: 16131280073929500048
+      MeshHandle: 8710675951818496090
+      MaterialHandle: 146939489667298984
+  - Entity: 17271706319675361140
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3668,9 +3668,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14782505719624284056
-      MaterialHandle: 2922906440960877232
-  - Entity: 3918570595202412805
+      MeshHandle: 8978686652491595340
+      MaterialHandle: 15195798750271652713
+  - Entity: 8164999322863461670
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3678,9 +3678,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15308967373951188298
-      MaterialHandle: 1039699832282209021
-  - Entity: 5994923684105140389
+      MeshHandle: 15342410768189516824
+      MaterialHandle: 14958536919028750575
+  - Entity: 6503288341968691741
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3688,9 +3688,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3567281394643139533
-      MaterialHandle: 16389606311569619943
-  - Entity: 12961557391703448570
+      MeshHandle: 899661427824190409
+      MaterialHandle: 15543426418730263329
+  - Entity: 2432165449422792402
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3698,9 +3698,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6980548834213646551
-      MaterialHandle: 6698788186376410845
-  - Entity: 8813168821996246643
+      MeshHandle: 5945465684124943514
+      MaterialHandle: 8170900278460206707
+  - Entity: 13273125681693845531
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3708,9 +3708,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15283040970405538416
-      MaterialHandle: 9349937670752536042
-  - Entity: 9467061733742748522
+      MeshHandle: 10901625236200880257
+      MaterialHandle: 4865488136788056967
+  - Entity: 807926017989070282
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3718,9 +3718,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12914468532046190625
-      MaterialHandle: 1122339318585165384
-  - Entity: 17455252861950950389
+      MeshHandle: 12390636665801250835
+      MaterialHandle: 9628248657538970390
+  - Entity: 9034156795748368363
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3728,9 +3728,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9826826035694844751
-      MaterialHandle: 7091982038945814241
-  - Entity: 15267024463038077359
+      MeshHandle: 11287993596365532253
+      MaterialHandle: 3790694647958004181
+  - Entity: 4332780014242232307
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3738,9 +3738,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14195538714715905463
-      MaterialHandle: 2721986265433448297
-  - Entity: 7323653129554826069
+      MeshHandle: 4470056726925541383
+      MaterialHandle: 16509684726075945563
+  - Entity: 11060380942984142401
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3748,9 +3748,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 2481449135622821389
-      MaterialHandle: 16663775541266222820
-  - Entity: 5972855447824755900
+      MeshHandle: 572608235469764267
+      MaterialHandle: 9370866043451901622
+  - Entity: 13404889598243765097
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3758,9 +3758,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 15261634252723197075
-      MaterialHandle: 15736429490103865513
-  - Entity: 4401347884401850679
+      MeshHandle: 9519254355491621784
+      MaterialHandle: 13999852182383027533
+  - Entity: 10120152478087667834
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3768,9 +3768,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 4168267592726957221
-      MaterialHandle: 6793675570513907448
-  - Entity: 10269500550037579531
+      MeshHandle: 14082342167518270646
+      MaterialHandle: 10522712143184475859
+  - Entity: 17221781652630505865
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3778,9 +3778,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1726418845408308832
-      MaterialHandle: 1355902383314202607
-  - Entity: 10411385458652608137
+      MeshHandle: 11184936647138960236
+      MaterialHandle: 16586230779872475793
+  - Entity: 14286885779509369410
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3788,9 +3788,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 13035532558159061918
-      MaterialHandle: 12853003351060039719
-  - Entity: 2422900934619880628
+      MeshHandle: 3537134578981894718
+      MaterialHandle: 13551981426003558212
+  - Entity: 7610518794076807831
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3798,9 +3798,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 1467262077609316747
-      MaterialHandle: 16764828671385438976
-  - Entity: 7935831331640476223
+      MeshHandle: 8019544621433922353
+      MaterialHandle: 11578408263428352381
+  - Entity: 3471899078274551279
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3808,9 +3808,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17788987951213988319
-      MaterialHandle: 721300495010718537
-  - Entity: 16141692451650267114
+      MeshHandle: 7195919458895672978
+      MaterialHandle: 6252694528224081700
+  - Entity: 6388442296868898900
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3818,9 +3818,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 3380837078435130913
-      MaterialHandle: 13985513905646667958
-  - Entity: 12498081300610570331
+      MeshHandle: 9013546791784140915
+      MaterialHandle: 8509983754313203387
+  - Entity: 11577653854406304959
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3828,9 +3828,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9637747868158739154
-      MaterialHandle: 10708356741507410527
-  - Entity: 1028703010827363698
+      MeshHandle: 7828834901930214589
+      MaterialHandle: 12421687804830108324
+  - Entity: 8020246171227023981
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3838,9 +3838,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14507795464925372221
-      MaterialHandle: 7953283290862475174
-  - Entity: 3627607307174250462
+      MeshHandle: 13992349224851464317
+      MaterialHandle: 4116602984068556770
+  - Entity: 6960222990563484999
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3848,9 +3848,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 11689881979175003917
-      MaterialHandle: 2930535830143046770
-  - Entity: 17099127823222590267
+      MeshHandle: 4430390100565068139
+      MaterialHandle: 4237473116567955448
+  - Entity: 17074540122933080108
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3858,9 +3858,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9891373898240825326
-      MaterialHandle: 1161346975139047752
-  - Entity: 5414977139488612619
+      MeshHandle: 9414057886717795198
+      MaterialHandle: 3743809782077347666
+  - Entity: 9026000849249973066
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3868,9 +3868,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 17994532426617578143
-      MaterialHandle: 1560075596027707297
-  - Entity: 4447388738119854841
+      MeshHandle: 7050752816069473090
+      MaterialHandle: 5372701528412613780
+  - Entity: 6512389206674996942
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3878,9 +3878,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9041016190879658667
-      MaterialHandle: 17321494901659404090
-  - Entity: 5427038344198131200
+      MeshHandle: 12201753432929368462
+      MaterialHandle: 4744218885944794095
+  - Entity: 1446895655319872121
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3888,9 +3888,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 14252347791200017292
-      MaterialHandle: 8680772985348859144
-  - Entity: 17211229649519053220
+      MeshHandle: 9514158085282073413
+      MaterialHandle: 15168987008729356303
+  - Entity: 13024340240096035947
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3898,9 +3898,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 6381290517734568048
-      MaterialHandle: 2385516725165346689
-  - Entity: 15460018444813389954
+      MeshHandle: 12658955932050128822
+      MaterialHandle: 13609740352178533356
+  - Entity: 11541088233026787754
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3908,9 +3908,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 8476342446174650556
-      MaterialHandle: 9282102687676929257
-  - Entity: 1936865003252284303
+      MeshHandle: 1975231652802747498
+      MaterialHandle: 10449289671521370035
+  - Entity: 3784830404725814693
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3918,9 +3918,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 9096024662762938321
-      MaterialHandle: 1332366894773533850
-  - Entity: 17783625369315832427
+      MeshHandle: 137435968047503118
+      MaterialHandle: 14181694123910751719
+  - Entity: 915236832274870453
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3928,9 +3928,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 12189544262539912340
-      MaterialHandle: 13330831203618541785
-  - Entity: 5676899573264524888
+      MeshHandle: 2324060435797674303
+      MaterialHandle: 5995722316851223960
+  - Entity: 8786870449684946728
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3938,9 +3938,9 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 5774344281085825917
-      MaterialHandle: 18309941655451788480
-  - Entity: 12354613033739170006
+      MeshHandle: 9848594863556526393
+      MaterialHandle: 6524484444235278364
+  - Entity: 8458170077058096867
     TagComponent:
       Tag: Entity
     TransformComponent:
@@ -3948,5 +3948,5 @@ Entities:
       Rot: [0, 0, 0]
       Scale: [1, 1, 1]
     MeshRendererComponent:
-      MeshHandle: 18408303718041044248
-      MaterialHandle: 2580843342849519034
+      MeshHandle: 2069685390768105470
+      MaterialHandle: 4631597932210797348

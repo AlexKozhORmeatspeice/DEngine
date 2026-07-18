@@ -3,6 +3,7 @@
 #include "entt.hpp"
 #include "DEngine/Core/Timestep.h"
 #include "DEngine/Events/Event.h"
+#include "DEngine/Asset/Asset.h"
 #include <memory>
 #include <vector>
 
@@ -11,7 +12,7 @@ namespace DEngine
 	class System;
 	class Entity;
 
-    class Scene
+    class Scene : public Asset
     {
     public:
         Scene();
@@ -42,6 +43,8 @@ namespace DEngine
         entt::registry& GetRegistry() { return m_Registry; }
         const entt::registry& GetRegistry() const { return m_Registry; }
 
+		static AssetType GetStaticType() { return AssetType::Scene; }
+		virtual AssetType GetType() const override { return GetStaticType(); }
     private:
         void AddSystem(std::shared_ptr<System> system);
 

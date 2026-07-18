@@ -21,12 +21,9 @@ namespace DEngine
 		//TODO: в будущем мы должны уметь серализовать сцену и загружать ее как ресурс
 		//Set scene
 		
-		DeserializeSceneResult deserSceneRes = SceneSerializer::Deserialize("assets/scenes/Example.dscene");
-		if (deserSceneRes.isSuccessful)
-		{
-			m_ActiveScene = deserSceneRes.scene;
-		}
-		else
+		AssetHandle m_SceneHandle = AssetManager::CreateAsset("assets/scenes/Example.dscene");
+		m_ActiveScene = AssetManager::GetAsset<Scene>(m_SceneHandle);
+		if (!m_ActiveScene)
 		{
 			m_ActiveScene = CreateRef<Scene>();
 			SceneSerializer::Serialize(m_ActiveScene, "assets/scenes/Example.dscene");

@@ -33,6 +33,7 @@
 #define DMAT_FILE_EXT	".dmat"
 #define DACTOR_FILE_EXT	".dactor"
 #define DMODEl_FILE_EXT	".dmodel"
+#define DSCENE_FILE_EXT	".dscene"
 
 namespace DEngine
 {

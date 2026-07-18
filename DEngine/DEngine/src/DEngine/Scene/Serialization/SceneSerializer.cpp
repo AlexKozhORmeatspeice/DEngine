@@ -71,7 +71,7 @@ namespace DEngine
         return DeserializeComponents<ComponentList>(entityNode, entity);
     }
 
-    void SceneSerializer::Serialize(const Ref<Scene>& scene, const std::string& filepath)
+    void SceneSerializer::Serialize(const Ref<Scene>& scene, const std::filesystem::path& path)
     {
         if (scene == nullptr)
         {
@@ -95,10 +95,10 @@ namespace DEngine
         out << YAML::EndSeq;
         out << YAML::EndMap;
 
-        std::ofstream fout(filepath);
+        std::ofstream fout(path);
         if (!fout.is_open())
         {
-            D_CORE_ERROR("Failed to open file for writing: {0}", filepath);
+            D_CORE_ERROR("Failed to open file for writing: {0}", path.string());
             return;
         }
 
@@ -106,21 +106,21 @@ namespace DEngine
         fout.close();
     }
 
-    void SceneSerializer::SerializeRuntime(const Ref<Scene>& scene, const std::string& filepath)
+    void SceneSerializer::SerializeRuntime(const Ref<Scene>& scene, const std::filesystem::path& path)
     {
         D_CORE_ASSERT(false, "SceneSerializer::SerializeRuntime: No implemented logic for runtime scene serialization");
     }
 
-    DeserializeSceneResult SceneSerializer::Deserialize(const std::string& filepath)
+    DeserializeSceneResult SceneSerializer::Deserialize(const std::filesystem::path& path)
     {
         DeserializeSceneResult result;
         result.isSuccessful = false;
         result.scene = nullptr;
 
-        std::ifstream fin(filepath);
+        std::ifstream fin(path);
         if (!fin.is_open())
         {
-            D_CORE_ERROR("Failed to open file for reading: {0}", filepath);
+            D_CORE_ERROR("Failed to open file for reading: {0}", path.string());
             return result;
         }
 
@@ -162,7 +162,7 @@ namespace DEngine
         return result;
     }
 
-    DeserializeSceneResult SceneSerializer::DeserializeRuntime(const std::string& filepath)
+    DeserializeSceneResult SceneSerializer::DeserializeRuntime(const std::filesystem::path& path)
     {
         D_CORE_ASSERT(false, "SceneSerializer::DeserializeRuntime: No implemented logic for runtime scene deserialization");
         

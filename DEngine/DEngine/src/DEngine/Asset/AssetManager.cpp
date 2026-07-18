@@ -58,6 +58,11 @@ namespace DEngine
 		return m_AssetManager->CreateModelAsset(model, path);
 	}
 
+	const AssetHandle& AssetManager::CreateSceneAsset(const Ref<Scene>& scene, const std::filesystem::path& path)
+	{
+		return m_AssetManager->CreateSceneAsset(scene, path);
+	}
+
 	const AssetHandle& AssetManager::GetPrimitiveMesh(PrimitiveType type)
 	{
 		return m_AssetManager->GetPrimitiveMesh(type);

@@ -13,6 +13,7 @@
 #include "DEngine/Asset/Serializer/MeshSerializer.h"
 #include "DEngine/Asset/Serializer/MaterialSerializer.h"
 #include "DEngine/Asset/Serializer/ModelSerializer.h"
+#include "DEngine/Scene/Serialization/SceneSerializer.h"
 
 #include "fstream"
 #include "yaml-cpp/yaml.h"
@@ -147,7 +148,7 @@ namespace DEngine
 		{
 			type = AssetType::Texture2D;
 		}
-		else if (extension == ".obj" || extension == ".fbx" || extension == ".gltf" || 
+		else if (extension == DMODEl_FILE_EXT || extension == ".obj" || extension == ".fbx" || extension == ".gltf" || 
 				 extension == ".glb" || extension == ".3ds" || extension == ".dae")
 		{
 			type = AssetType::Model;
@@ -165,6 +166,10 @@ namespace DEngine
 		else if (extension == DMESH_FILE_EXT)
 		{
 			type = AssetType::Mesh;
+		}
+		else if (extension == DSCENE_FILE_EXT)
+		{
+			type = AssetType::Scene;
 		}
 		else
 		{
@@ -272,6 +277,22 @@ namespace DEngine
 		m_AssetRegistry[handle] = { AssetType::Model, path };
 
 		return handle;
+	}
+
+	const AssetHandle& EditorAssetManager::CreateSceneAsset(const Ref<Scene>& scene, const std::filesystem::path& path)
+	{
+		AssetHandle handle = CheckAssetRegistryForPath(path);
+		if (handle != AssetHandle::Invalid())
+		{
+			return handle;
+		}
+		handle = AssetHandle();
+		SceneSerializer::Serialize(scene, path);
+
+		m_AssetRegistry[handle] = { AssetType::Scene, path };
+
+		return handle;
+
 	}
 
 	Ref<Asset> EditorAssetManager::GetAsset(const AssetHandle& handle)

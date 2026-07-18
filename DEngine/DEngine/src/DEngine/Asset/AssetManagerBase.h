@@ -6,6 +6,7 @@
 #include "DEngine/Renderer/Mesh/MeshGenerator.h"
 #include "DEngine/Renderer/Material/Material.h"
 #include "DEngine/Renderer/Mesh/Model.h"
+#include "DEngine/Scene/Scene.h"
 
 #include "AssetMetadata.h"
 #include "unordered_map"
@@ -29,6 +30,7 @@ namespace DEngine
 												   const std::filesystem::path& path) = 0;
 		virtual const AssetHandle& CreateMaterialAsset(const Ref<Material>& material, const std::filesystem::path& path) = 0;
 		virtual const AssetHandle& CreateModelAsset(const Ref<Model>& model, const std::filesystem::path& path) = 0;
+		virtual const AssetHandle& CreateSceneAsset(const Ref<Scene>& model, const std::filesystem::path& path) = 0;
 
 		virtual Ref<Asset> GetAsset(const AssetHandle& handle) = 0;
 

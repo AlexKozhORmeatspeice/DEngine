@@ -7,6 +7,8 @@
 #include "DEngine/Scene/Entity.h"
 #include "DEngine/Scene/Components.h"
 
+#include "filesystem"
+
 namespace DEngine
 {
     //Сюда добавляем новые компоненты которые нужно сериализовать
@@ -21,11 +23,11 @@ namespace DEngine
     class SceneSerializer
     {
     public:
-        static void Serialize(const Ref<Scene>& scene, const std::string& filepath);
-        static void SerializeRuntime(const Ref<Scene>& scene, const std::string& filepath);
+        static void Serialize(const Ref<Scene>& scene, const std::filesystem::path& path);
+        static void SerializeRuntime(const Ref<Scene>& scene, const std::filesystem::path& path);
         
-        static DeserializeSceneResult Deserialize(const std::string& filepath);
-        static DeserializeSceneResult DeserializeRuntime(const std::string& filepath);
+        static DeserializeSceneResult Deserialize(const std::filesystem::path& path);
+        static DeserializeSceneResult DeserializeRuntime(const std::filesystem::path& path);
 
     private:
         template<typename T>
