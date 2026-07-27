@@ -14,12 +14,16 @@ namespace DEngine
 		void OnImGuiRender();
 
 		static void SetSelectedContext(Entity& entity) { m_SelectedEntity = entity; }
+		void SetContext(const Ref<Scene>& scene);
 
 	private:
-		void DrawComponents(const Entity& entity);
+		void DrawComponents(Entity& entity);
 
 		void DrawTag(const Entity& entity);
-		void DrawTransform(const Entity& entity);
+		void DrawTransform(Entity& entity);
+		void DrawAdditionalData(Entity& entity);
+
+		Ref<Scene> m_Context;
 		static Entity m_SelectedEntity;
 	};
 }

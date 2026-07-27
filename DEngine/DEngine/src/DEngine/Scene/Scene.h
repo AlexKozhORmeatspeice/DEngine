@@ -19,6 +19,7 @@ namespace DEngine
         ~Scene();
 
         Entity CreateEntity(const std::string& name = "");
+        void DestroyEntity(Entity& entity);
         Entity CreateEmptyEntity();
 
         template<typename... Components>
@@ -32,8 +33,6 @@ namespace DEngine
         {
             return m_Registry.view<Components...>();
         }
-
-        void DestroyEntity(Entity entity);
 
         void OnUpdate(const Timestep& ts);
         void OnRender(const Timestep& ts);

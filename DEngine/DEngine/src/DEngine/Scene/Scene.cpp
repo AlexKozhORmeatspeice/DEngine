@@ -46,7 +46,7 @@ namespace DEngine
         return entity;
     }
 
-    void Scene::DestroyEntity(Entity entity)
+    void Scene::DestroyEntity(Entity& entity)
     {
         m_Registry.destroy(entity.GetHandle());
         auto it = std::find_if(m_Entities.begin(), m_Entities.end(),

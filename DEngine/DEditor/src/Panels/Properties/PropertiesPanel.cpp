@@ -19,10 +19,16 @@ namespace DEngine
 		ImGui::End();
 	}
 
-	void PropetiesPanel::DrawComponents(const Entity& entity)
+	void PropetiesPanel::SetContext(const Ref<Scene>& scene)
+	{
+		m_Context = scene;
+	}
+
+	void PropetiesPanel::DrawComponents(Entity& entity)
 	{
 		DrawTag(entity);
 		DrawTransform(entity);
+		DrawAdditionalData(entity);
 	}
 
 	void PropetiesPanel::DrawTag(const Entity& entity)
@@ -41,12 +47,12 @@ namespace DEngine
 		}
 	}
 	
-	void PropetiesPanel::DrawTransform(const Entity& entity)
+	void PropetiesPanel::DrawTransform(Entity& entity)
 	{
 		if (!entity.HasComponent<TransformComponent>()) return;
 		if (!ImGui::TreeNodeEx((void*)typeid(TransformComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Transform")) return;
 
-		TransformComponent transComp = entity.GetComponent<TransformComponent>();
+		TransformComponent& transComp = entity.GetComponent<TransformComponent>();
 
 		// Position
 		glm::vec3 position = transComp.GetPosition();
@@ -76,5 +82,19 @@ namespace DEngine
 		}
 
 		ImGui::TreePop();
+	}
+
+	void PropetiesPanel::DrawAdditionalData(Entity& entity)
+	{
+		if (ImGui::Button("Add component"))
+		{
+			ImGui::OpenPopup("Add component");
+		}
+
+		if (ImGui::BeginPopup("AddComponent"))
+		{
+			//WIP: надо доделать сюда список добовляемых компонент, когда их можно будет менять ручками
+			ImGui::EndPopup();
+		}
 	}
 }

@@ -65,6 +65,7 @@ namespace DEngine
         bool operator==(const Entity& other) const { return m_Handle == other.m_Handle && m_Scene == other.m_Scene; }
         bool operator!=(const Entity& other) const { return m_Handle != other.m_Handle || m_Scene != other.m_Scene; }
         operator uint32_t() const { return static_cast<uint32_t>(m_Handle); }
+        operator entt::entity() const { return m_Handle; }
 
         entt::entity GetHandle() const { return m_Handle; }
         Scene* GetScene() const { return m_Scene; }

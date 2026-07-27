@@ -2,6 +2,8 @@
 #include "imgui/imgui.h"
 #include "DEngine/Core.h"
 
+#define BASE_SCENE_PATH "assets/scenes/Example.dscene"
+
 namespace DEngine
 {
 	EditorLayer::EditorLayer() 
@@ -19,12 +21,12 @@ namespace DEngine
 		m_EditorCamera = std::make_shared<PerspectiveCamera>(60.0f, win.GetWidth(), win.GetHeight());
 
 		//Set scene
-		AssetHandle m_SceneHandle = AssetManager::CreateAsset("assets/scenes/Example.dscene");
+		AssetHandle m_SceneHandle = AssetManager::CreateAsset(BASE_SCENE_PATH);
 		m_ActiveScene = AssetManager::GetAsset<Scene>(m_SceneHandle);
 		if (!m_ActiveScene)
 		{
 			m_ActiveScene = CreateRef<Scene>();
-			AssetManager::CreateSceneAsset(m_ActiveScene, "assets/scenes/Example.dscene");
+			AssetManager::CreateSceneAsset(m_ActiveScene, BASE_SCENE_PATH);
 		}
 
 		//Set Renderer
@@ -32,6 +34,7 @@ namespace DEngine
 
 		//Set panels
 		m_ScenePanel.SetContext(m_ActiveScene);
+		m_PropPanel.SetContext(m_ActiveScene);
 	}
 
 	void EditorLayer::OnUpdate(const Timestep& ts)
@@ -85,6 +88,28 @@ namespace DEngine
 		m_ScenePanel.OnImGuiRender();
 		m_PropPanel.OnImGuiRender();
 		m_AssetsPanel.OnImGuiRender();
+
+		//Менюшка
+		if (ImGui::BeginMenuBar())
+		{
+			if (ImGui::BeginMenu("File"))
+			{
+				if (ImGui::MenuItem("Serialize"))
+				{
+					SceneSerializer::Serialize(m_ActiveScene, BASE_SCENE_PATH);
+				}
+				
+				if (ImGui::MenuItem("Deserialize"))
+				{
+					AssetHandle m_SceneHandle = AssetManager::CreateAsset(BASE_SCENE_PATH);
+					m_ActiveScene = AssetManager::GetAsset<Scene>(m_SceneHandle);
+				}
+
+				ImGui::EndMenu();
+			}
+
+			ImGui::EndMenuBar();
+		}
 
 		//Профайлинг
 		ImGui::Begin("Profile data");

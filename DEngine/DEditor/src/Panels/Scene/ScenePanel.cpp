@@ -25,6 +25,24 @@ namespace DEngine
 			DrawEntityNode(entity);
 		}
 
+		if (ImGui::BeginPopupContextWindow(0, 1))
+		{
+			if (ImGui::MenuItem("Create empty entity"))
+			{
+				m_Context->CreateEntity();
+			}
+			ImGui::EndPopup();
+		}
+
+		if (ImGui::BeginPopupContextItem())
+		{
+			if (ImGui::MenuItem("Delete entity"))
+			{
+				m_Context->DestroyEntity(m_SelectionContext);
+			}
+			ImGui::EndPopup();
+		}
+
 		ImGui::End();
 	}
 	

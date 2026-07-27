@@ -22,6 +22,21 @@ namespace DEngine
 			return std::dynamic_pointer_cast<T>(m_AssetManager->GetAsset(handle));
 		}
 
+		template<typename T>
+		static std::shared_ptr<T> Get()
+		{
+			if (!m_AssetManager)
+				return nullptr;
+
+			auto result = std::static_pointer_cast<T>(m_AssetManager);
+            if (!result)
+            {
+                D_CORE_ERROR("AssetManager::Get: failed to cast to requested type!");
+            }
+
+            return result;
+		}
+
 		static const AssetHandle& CreateMeshAsset(const BufferLayout& layout, 
 												  float* verts, uint32_t vertsSize, 
 												  uint32_t* inds, uint32_t indsSize, 

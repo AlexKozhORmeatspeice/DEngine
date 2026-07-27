@@ -46,6 +46,8 @@ namespace DEngine
         void EnableHotReload(bool enable) { m_HotReloadEnabled = enable; }
         bool IsHotReloadEnabled() const { return m_HotReloadEnabled; }
 
+		const AssetRegistry& GetAssetRegistry() const { return m_AssetRegistry; }
+
         void Update();
 
 	private:
