@@ -11,7 +11,6 @@ namespace DEngine
 	public:
 		EditorLayer();
 
-
 		virtual void Init() override;
 		virtual void OnUpdate(const Timestep& ts) override;
 		virtual void OnRender(const Timestep& ts) override;
