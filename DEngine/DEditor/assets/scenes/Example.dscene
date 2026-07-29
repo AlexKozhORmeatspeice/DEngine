@@ -15,8 +15,8 @@ Entities:
       Tag: direct light
     TransformComponent:
       Pos: [0, 0, 0]
-      Rot: [-60.0000038, 89.972023, 0]
-      Scale: [0.999999881, 0.999999821, 0.999999762]
+      Rot: [300, 30.5720005, 0]
+      Scale: [0.999999642, 1.00000024, 1.00000012]
     DirectLightComponent:
       Color: [1, 1, 1]
       Intensity: 1
