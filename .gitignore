@@ -37,7 +37,6 @@ cmake-build-*/
 *.dylib
 *.dll
 *.dll.a
-!DEngine/vendor/Premake/premake5.exe
 *.exe
 *.out
 *.app
@@ -88,3 +87,5 @@ Thumbs.db
 .idea/
 *.iml
 .DS_Store
+
+!DEngine/vendor/Premake/premake5.exe
