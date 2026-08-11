@@ -9,10 +9,10 @@ echo.
 :: ============================================
 :: 1. ПРОВЕРКА НАЛИЧИЯ PREMAKE
 :: ============================================
-if not exist "vendor\bin\premake\premake5.exe" (
+if not exist "vendor\premake\premake5.exe" (
     echo [ERROR] Premake not found!
     echo.
-    echo Expected path: vendor\bin\premake\premake5.exe
+    echo Expected path: vendor\premake\premake5.exe
     echo.
     PAUSE
     exit /b 1
@@ -134,7 +134,7 @@ echo.
 :: 3. ЗАПУСК PREMAKE
 :: ============================================
 echo [INFO] Generating project files...
-call vendor\bin\premake\premake5.exe !VS_VERSION!
+call vendor\premake\premake5.exe !VS_VERSION!
 
 :: ============================================
 :: 4. ПРОВЕРКА РЕЗУЛЬТАТА

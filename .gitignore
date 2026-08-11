@@ -37,6 +37,7 @@ cmake-build-*/
 *.dylib
 *.dll
 *.dll.a
+!DEngine/vendor/Premake/premake5.exe
 *.exe
 *.out
 *.app
