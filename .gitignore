@@ -89,3 +89,5 @@ Thumbs.db
 .DS_Store
 
 !DEngine/vendor/Premake/premake5.exe
+!DEngine/DEngine/vendor/assimp/dll/assimp-vc143-mt.dll
+!DEngine/DEngine/vendor/assimp/lib/assimp-vc143-mt.lib
