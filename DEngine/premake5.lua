@@ -158,7 +158,10 @@ project "Sandbox"
 
         postbuildcommands
         {
-            "{COPY} %{wks.location}/DEngine/vendor/assimp/dll/assimp-vc143-mt.dll %{cfg.targetdir}"
+            "mkdir \"%{cfg.targetdir}/assets\" 2>nul",
+            "mkdir \"%{cfg.targetdir}/resources\" 2>nul",
+            
+			"{COPY} %{wks.location}/DEngine/vendor/assimp/dll/assimp-vc143-mt.dll %{cfg.targetdir}",
         }
 
     filter "configurations:Debug"
@@ -220,7 +223,12 @@ project "DEditor"
 
         postbuildcommands
         {
-            "{COPY} %{wks.location}/DEngine/vendor/assimp/dll/assimp-vc143-mt.dll %{cfg.targetdir}"
+            "mkdir \"%{cfg.targetdir}/assets\" 2>nul",
+            "mkdir \"%{cfg.targetdir}/resources\" 2>nul",
+
+			"{COPY} %{wks.location}/DEngine/vendor/assimp/dll/assimp-vc143-mt.dll %{cfg.targetdir}",
+            "{COPY} %{wks.location}/DEditor/assets %{cfg.targetdir}/assets",
+            "{COPY} %{wks.location}/DEditor/resources %{cfg.targetdir}/resources"
         }
 
     filter "configurations:Debug"

@@ -13,9 +13,16 @@ namespace DEngine
 		AssetHandle materialHandle;
 
 		MeshRendererComponent() = default;
-		MeshRendererComponent(const MeshRendererComponent&) = default;
+		MeshRendererComponent(const MeshRendererComponent& comp)
+		{
+			meshHandle = comp.meshHandle;
+			materialHandle = comp.materialHandle;
+		}
+
 		MeshRendererComponent(const AssetHandle& _mesh, const AssetHandle& _mat)
-			: meshHandle(_mesh), materialHandle(_mat) { }
+			: meshHandle(_mesh), materialHandle(_mat)
+		{
+		}
 
 		//TODO: доделать сериализацию
 		virtual void Serialize(YAML::Emitter& out) const override;

@@ -4,19 +4,19 @@ Entities:
     TagComponent:
       Tag: cube
     TransformComponent:
-      Pos: [36.5999985, 0, -271.299988]
+      Pos: [0, 0, -180.5]
       Rot: [0, 0, 0]
       Scale: [100, 100, 100]
     MeshRendererComponent:
-      MeshHandle: 12202685838003259314
-      MaterialHandle: 13444292872854556201
+      MeshHandle: 12221975128098555080
+      MaterialHandle: 13099197756806562449
   - Entity: 0
     TagComponent:
       Tag: direct light
     TransformComponent:
       Pos: [0, 0, 0]
-      Rot: [300, 30.5720005, 0]
-      Scale: [0.999999642, 1.00000024, 1.00000012]
+      Rot: [0, 61.972, 0]
+      Scale: [0.99999976, 0.99999976, 0.99999976]
     DirectLightComponent:
       Color: [1, 1, 1]
       Intensity: 1

@@ -37,8 +37,6 @@ namespace DEngine
 
 	EditorAssetManager::EditorAssetManager()
 	{
-		CreateBaseRendererShader();
-		SetupFileWatcher();
 	}
 
 	EditorAssetManager::~EditorAssetManager()
@@ -54,6 +52,9 @@ namespace DEngine
 		AddAssetsInDirectory(Project::GetResourcesRegistryPath(), false);
 
 		SerializeAssetRegistry();
+
+		CreateBaseRendererShader();
+		SetupFileWatcher();
 	}
 
 	void EditorAssetManager::Update()
@@ -309,7 +310,6 @@ namespace DEngine
 			if (!asset) 
 			{
 				D_CORE_ERROR("EditorAssetManager::GetAsset: couldn't load {0} by path {1}", AssetTypeToString(metadata.Type), metadata.FilePath.string());
-				D_CORE_ASSERT(false, "");
 				return nullptr;
 			}
 

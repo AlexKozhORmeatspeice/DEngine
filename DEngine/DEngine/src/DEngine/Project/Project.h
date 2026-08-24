@@ -15,16 +15,20 @@ namespace DEngine
 		//TODO: в будущем должна вытаскивать путь для определенного проекта, а не просто assets
 		static std::filesystem::path GetAssetRegistryPath()
 		{
-			std::filesystem::path exePath = std::filesystem::current_path();
+			std::filesystem::path absPath = std::filesystem::current_path() / "assets";
+			std::filesystem::path basePath = std::filesystem::current_path();
 			
-			return exePath / "assets";
+			// Преобразуем абсолютный путь в относительный
+			return "assets";
 		}
 
 		static std::filesystem::path GetResourcesRegistryPath()
 		{
-			std::filesystem::path exePath = std::filesystem::current_path();
+			std::filesystem::path absPath = std::filesystem::current_path() / "resources";
+			std::filesystem::path basePath = std::filesystem::current_path();
 			
-			return exePath / "resources";
+			// Преобразуем абсолютный путь в относительный
+			return "resources";
 		}
 	};
 }
