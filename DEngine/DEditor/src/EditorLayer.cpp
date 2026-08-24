@@ -23,6 +23,8 @@ namespace DEngine
 		//Set scene
 		AssetHandle m_SceneHandle = AssetManager::CreateAsset(BASE_SCENE_PATH);
 		m_ActiveScene = AssetManager::GetAsset<Scene>(m_SceneHandle);
+
+		//Создание сцены, если она еще не была создана
 		if (!m_ActiveScene)
 		{
 			m_ActiveScene = CreateRef<Scene>();
@@ -33,9 +35,14 @@ namespace DEngine
 			Ref<Material> mat = CreateRef<Material>(AssetManager::GetBaseRendererShaderHandle());
 			mat->SetTexture2D("u_Texture", texHandle);
 
+			Ref<Material> mat2 = CreateRef<Material>(AssetManager::GetBaseRendererShaderHandle());
+
 			std::string matName = "basemat";
+			std::string matName2 = "basemat2";
 			matName += DMAT_FILE_EXT;
+			matName2 += DMAT_FILE_EXT;
 			const AssetHandle matHandle = AssetManager::CreateMaterialAsset(mat, "assets/materials/" + matName);
+			const AssetHandle matHandle2 = AssetManager::CreateMaterialAsset(mat2, "assets/materials/" + matName2);
 
 			const AssetHandle sponzaHandle = AssetManager::CreateAsset({ AssetType::Model, "assets/models/sponza.obj-master/sponza.obj" });
 			const AssetHandle meshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Cube);
@@ -43,15 +50,26 @@ namespace DEngine
 			///Set objs
 			auto& cube = m_ActiveScene->CreateEntity("cube");
 			cube.AddComponent<MeshRendererComponent>(meshHandle, matHandle);
+			cube.AddComponent<RigidbodyComponent>();
+			cube.AddComponent<ColliderComponent>();
+
 			auto& trans = cube.GetComponent<TransformComponent>();
 			trans.SetScale({ 100.0f, 100.0f, 100.0f });
-			trans.SetPosition({ 100.0f, 100.0f, trans.GetPosition().z });
+			trans.SetPosition({ 0.0f, 0.0f, -200.0f });
+
+			auto& cube2 = m_ActiveScene->CreateEntity("cube2");
+			cube2.AddComponent<MeshRendererComponent>(meshHandle, matHandle2);
+			cube2.AddComponent<RigidbodyComponent>();
+			cube2.AddComponent<ColliderComponent>();
+
+			auto& trans2 = cube2.GetComponent<TransformComponent>();
+			trans2.SetScale({ 400.0f, 50.0f, 400.0f });
+			trans2.SetPosition({ 0.0f, -100.0f, 0.0f});
 
 			auto& directLight = m_ActiveScene->CreateEntity("direct light");
 			directLight.AddComponent<DirectLightComponent>(glm::vec3(1.0f, 1.0f, 1.0f), 1.0f);
 			auto& lightTrans = directLight.GetComponent<TransformComponent>();
-			lightTrans.Rotate(-60.0f, {1.0f, 0.0f, 0.0f});
-			lightTrans.Rotate(90.0f, {0.0f, 1.0f, 0.0f});
+			lightTrans.Rotate(70.0f, {0.0f, 1.0f, 0.0f});
 
 			AssetManager::CreateSceneAsset(m_ActiveScene, BASE_SCENE_PATH);
 		}
@@ -185,6 +203,7 @@ namespace DEngine
 
 	void EditorLayer::Shutdown()
 	{
+		AssetManager::Shutdown();
 	}
 
 	bool EditorLayer::OnKeyPressedEv(KeyPressedEvent& event)

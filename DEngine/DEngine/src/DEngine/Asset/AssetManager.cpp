@@ -13,6 +13,11 @@ namespace DEngine
 		m_AssetManager->Init();
 	}
 
+	void AssetManager::Shutdown()
+	{
+		m_AssetManager->Shutdown();
+	}
+
 	void AssetManager::Update()
 	{
 		//Добавление Hot Reload доступно только в editor
@@ -38,6 +43,11 @@ namespace DEngine
 	const AssetHandle& AssetManager::GetBaseRendererShaderHandle()
 	{
 		return m_AssetManager->GetBaseRendererShader();
+	}
+
+	const AssetHandle& AssetManager::GetEmptyTextureHandle()
+	{
+		return m_AssetManager->GetEmptyTextureHandle();
 	}
 	
 	const AssetHandle& AssetManager::CreateMeshAsset(const BufferLayout& layout,

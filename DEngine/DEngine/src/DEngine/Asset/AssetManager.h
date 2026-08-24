@@ -11,6 +11,8 @@ namespace DEngine
 	{
 	public:
 		static void Init(const std::shared_ptr<BaseAssetManager>& manager);
+		static void Shutdown();
+
 		static const AssetHandle& CreateAsset(const std::filesystem::path& path);
 		static const AssetHandle& CreateAsset(const AssetMetadata& metadata);
 
@@ -43,6 +45,7 @@ namespace DEngine
 												  const std::filesystem::path& path);
 
 		static const AssetHandle& GetBaseRendererShaderHandle();
+		static const AssetHandle& GetEmptyTextureHandle();
 		static const AssetHandle& GetPrimitiveMesh(PrimitiveType type);
 		static const AssetHandle& CreateMaterialAsset(const Ref<Material>& material, const std::filesystem::path& path);
 		static const AssetHandle& CreateModelAsset(const Ref<Model>& model, const std::filesystem::path& path);

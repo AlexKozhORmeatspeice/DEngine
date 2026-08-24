@@ -41,7 +41,6 @@ namespace DEngine
 
 	EditorAssetManager::~EditorAssetManager()
 	{
-		SerializeAssetRegistry();
 	}
 
 	void EditorAssetManager::Init()
@@ -54,6 +53,7 @@ namespace DEngine
 		SerializeAssetRegistry();
 
 		CreateBaseRendererShader();
+		CreateEmptyTexture();
 		SetupFileWatcher();
 	}
 
@@ -63,6 +63,12 @@ namespace DEngine
 		{
 			m_FileWatcher.Update();
 		}
+	}
+
+
+	void EditorAssetManager::Shutdown()
+	{
+		SerializeAssetRegistry();
 	}
 
 	void EditorAssetManager::ReloadAsset(const AssetHandle& handle)
@@ -261,6 +267,8 @@ namespace DEngine
 		MaterialSerializer::Serialize(material, path);
 
 		m_AssetRegistry[handle] = { AssetType::Material, path };
+
+		//SerializeAssetRegistry();
 
 		return handle;
 	}
@@ -470,6 +478,11 @@ namespace DEngine
 	void EditorAssetManager::CreateBaseRendererShader()
 	{
 		m_BaseShaderHandle = CreateAsset({AssetType::Shader, "assets/shaders/Base.glsl"});
+	}
+
+	void EditorAssetManager::CreateEmptyTexture()
+	{
+		m_EmptyTextureHandle = CreateAsset({ AssetType::Texture2D, "assets/textures/white_square.png" });
 	}
 
 	const AssetHandle& EditorAssetManager::CreateMeshPrimitive(PrimitiveType type)

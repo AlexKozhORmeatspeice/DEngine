@@ -21,6 +21,7 @@ namespace DEngine
 	{
 	public:
 		virtual void Init() = 0;
+		virtual void Shutdown() = 0;
 		virtual const AssetHandle& CreateAsset(const std::filesystem::path& path) = 0;
 		virtual const AssetHandle& CreateAsset(AssetMetadata metadata) = 0;
 
@@ -35,6 +36,7 @@ namespace DEngine
 		virtual Ref<Asset> GetAsset(const AssetHandle& handle) = 0;
 
 		virtual const AssetHandle& GetBaseRendererShader() const = 0;
+		virtual inline const AssetHandle& GetEmptyTextureHandle() const = 0;
 
 		virtual const AssetHandle& GetPrimitiveMesh(PrimitiveType type) = 0;
 

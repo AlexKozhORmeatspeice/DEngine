@@ -11,6 +11,7 @@ namespace DEngine
     Scene::Scene()
     {
         AddSystem(std::make_shared<MeshRendererSystem>());
+        AddSystem(std::make_shared<PhysicsSystem>());
     }
 
     Scene::~Scene()

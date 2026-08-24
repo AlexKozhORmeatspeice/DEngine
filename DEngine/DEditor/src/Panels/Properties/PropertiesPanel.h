@@ -21,6 +21,8 @@ namespace DEngine
 
 		void DrawTag(const Entity& entity);
 		void DrawTransform(Entity& entity);
+		void DrawRigidbody(Entity& entity);
+		void DrawCollider(Entity& entity);
 		void DrawAdditionalData(Entity& entity);
 
 		Ref<Scene> m_Context;

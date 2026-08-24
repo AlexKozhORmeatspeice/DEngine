@@ -28,6 +28,8 @@ namespace DEngine
 	{
 		DrawTag(entity);
 		DrawTransform(entity);
+		DrawRigidbody(entity);
+		DrawCollider(entity);
 		DrawAdditionalData(entity);
 	}
 
@@ -96,5 +98,120 @@ namespace DEngine
 			//WIP: надо доделать сюда список добовляемых компонент, когда их можно будет менять ручками
 			ImGui::EndPopup();
 		}
+	}
+
+	void PropetiesPanel::DrawRigidbody(Entity& entity)
+	{
+		if (!entity.HasComponent<RigidbodyComponent>()) return;
+		if (!ImGui::TreeNodeEx((void*)typeid(RigidbodyComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Rigidbody")) return;
+
+		RigidbodyComponent& rb = entity.GetComponent<RigidbodyComponent>();
+
+		// Mass
+		float mass = rb.mass;
+		if (ImGui::DragFloat("Mass", &mass, 0.1f, 0.01f, 1000.0f))
+		{
+			rb.mass = mass;
+		}
+
+		// Velocity
+		glm::vec3 velocity = rb.velocity;
+		if (ImGui::DragFloat3("Velocity", glm::value_ptr(velocity), 0.1f))
+		{
+			rb.velocity = velocity;
+		}
+
+		// Acceleration
+		glm::vec3 acceleration = rb.acceleration;
+		if (ImGui::DragFloat3("Acceleration", glm::value_ptr(acceleration), 0.1f))
+		{
+			rb.acceleration = acceleration;
+		}
+
+		// Force
+		glm::vec3 force = rb.force;
+		if (ImGui::DragFloat3("Force", glm::value_ptr(force), 0.1f))
+		{
+			rb.force = force;
+		}
+
+		// Use Gravity
+		bool useGravity = rb.useGravity;
+		if (ImGui::Checkbox("Use Gravity", &useGravity))
+		{
+			rb.useGravity = useGravity;
+		}
+
+		// Is Kinematic
+		bool isKinematic = rb.isKinematic;
+		if (ImGui::Checkbox("Is Kinematic", &isKinematic))
+		{
+			rb.isKinematic = isKinematic;
+		}
+
+		ImGui::TreePop();
+	}
+
+	// В PropertiesPanel.cpp:
+	void PropetiesPanel::DrawCollider(Entity& entity)
+	{
+		if (!entity.HasComponent<ColliderComponent>()) return;
+		if (!ImGui::TreeNodeEx((void*)typeid(ColliderComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Collider")) return;
+
+		ColliderComponent& collider = entity.GetComponent<ColliderComponent>();
+
+		// Collider Type
+		const char* colliderTypes[] = { "None", "Box", "Sphere", "Capsule", "Mesh" };
+		int currentType = static_cast<int>(collider.type);
+		if (ImGui::Combo("Type", &currentType, colliderTypes, IM_ARRAYSIZE(colliderTypes)))
+		{
+			collider.type = static_cast<ColliderType>(currentType);
+		}
+
+		// Size (для Box)
+		if (collider.type == ColliderType::Box)
+		{
+			glm::vec3 size = collider.size;
+			if (ImGui::DragFloat3("Size", glm::value_ptr(size), 0.1f, 0.01f, 100.0f))
+			{
+				collider.size = size;
+			}
+		}
+
+		// Radius (для Sphere и Capsule)
+		if (collider.type == ColliderType::Sphere || collider.type == ColliderType::Capsule)
+		{
+			float radius = collider.radius;
+			if (ImGui::DragFloat("Radius", &radius, 0.1f, 0.01f, 100.0f))
+			{
+				collider.radius = radius;
+			}
+		}
+
+		// Height (для Capsule)
+		if (collider.type == ColliderType::Capsule)
+		{
+			float height = collider.height;
+			if (ImGui::DragFloat("Height", &height, 0.1f, 0.01f, 100.0f))
+			{
+				collider.height = height;
+			}
+		}
+
+		// Offset (для всех типов)
+		glm::vec3 offset = collider.offset;
+		if (ImGui::DragFloat3("Offset", glm::value_ptr(offset), 0.1f))
+		{
+			collider.offset = offset;
+		}
+
+		// Is Trigger
+		bool isTrigger = collider.isTrigger;
+		if (ImGui::Checkbox("Is Trigger", &isTrigger))
+		{
+			collider.isTrigger = isTrigger;
+		}
+
+		ImGui::TreePop();
 	}
 }

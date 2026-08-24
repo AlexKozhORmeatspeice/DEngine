@@ -6,3 +6,5 @@
 #include "Components/TransformComponent.h"
 #include "Components/TagComponent.h"
 #include "Components/DirectLightComponent.h"
+#include "Components/RigidbodyComponent.h"
+#include "Components/ColliderComponent.h"

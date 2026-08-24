@@ -20,8 +20,9 @@ namespace DEngine
 		}
 
 		MeshRendererComponent(const AssetHandle& _mesh, const AssetHandle& _mat)
-			: meshHandle(_mesh), materialHandle(_mat)
 		{
+			meshHandle = _mesh;
+			materialHandle = _mat;
 		}
 
 		//TODO: доделать сериализацию

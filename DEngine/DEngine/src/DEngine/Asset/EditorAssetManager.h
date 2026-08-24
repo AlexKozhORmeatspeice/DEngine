@@ -10,6 +10,15 @@
 
 namespace DEngine
 {
+	//TODO: есть какой-то баг с инициализация материалов
+	//Для воспроизведения:
+	//1. Удаляем сцену и все материалы
+	//2. С помощью функции CreateMaterialAsset создаем новый ассет и подключаем его сразу к MeshRendererComponent
+	//3. Сцена запускается корректно 
+	//4. При повторном запуске сцене будет вызываться ошибка.
+	//Суть в том, что почему то AssetHandle материала перезаписывается AssetManager-ом при новом запуске, потому что почему то не происходит его сериализация сразу
+	//Как исправить пока не нашел, но если стлокнетесь - пишите Саше. Если что постараюсь пофиксить
+
 	using AssetRegistry = std::unordered_map<AssetHandle, AssetMetadata>;
 
 	class EditorAssetManager : public BaseAssetManager
@@ -19,6 +28,8 @@ namespace DEngine
 		~EditorAssetManager();
 
 		virtual void Init() override;
+		virtual void Shutdown() override;
+
 		virtual const AssetHandle& CreateAsset(const std::filesystem::path& path) override;
 		const AssetHandle& CreateAsset(AssetMetadata metadata) override;
 
@@ -39,6 +50,7 @@ namespace DEngine
 		const AssetMetadata& GetMetadata(const AssetHandle& handle);
 
 		virtual inline const AssetHandle& GetBaseRendererShader() const override { return m_BaseShaderHandle; }
+		virtual inline const AssetHandle& GetEmptyTextureHandle() const override { return m_EmptyTextureHandle; }
 		virtual const AssetHandle& GetPrimitiveMesh(PrimitiveType type) override;
 
         void ReloadAsset(const AssetHandle& handle);
@@ -58,6 +70,7 @@ namespace DEngine
 		std::filesystem::path GetAssetRegistryFilePath();
 
 		void CreateBaseRendererShader();
+		void CreateEmptyTexture();
 		const AssetHandle& CreateMeshPrimitive(PrimitiveType type);
 
         void SetupFileWatcher();
@@ -68,6 +81,7 @@ namespace DEngine
 	private:
 		std::unordered_map<PrimitiveType, AssetHandle> m_MeshPrimitives;
 		AssetHandle m_BaseShaderHandle;
+		AssetHandle m_EmptyTextureHandle;
 
 		AssetRegistry m_AssetRegistry;
 		AssetMap m_LoadedAssets;

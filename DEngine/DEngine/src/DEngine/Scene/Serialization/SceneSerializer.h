@@ -12,7 +12,7 @@
 namespace DEngine
 {
     //Сюда добавляем новые компоненты которые нужно сериализовать
-    using ComponentList = std::tuple<TagComponent, TransformComponent, MeshRendererComponent, DirectLightComponent>;
+    using ComponentList = std::tuple<TagComponent, TransformComponent, MeshRendererComponent, DirectLightComponent, RigidbodyComponent, ColliderComponent>;
 
     struct DeserializeSceneResult
     {

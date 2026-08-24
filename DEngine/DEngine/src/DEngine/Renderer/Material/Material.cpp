@@ -92,6 +92,11 @@ namespace DEngine
 
 		UpdateDirtyValues();
 
+		if (m_TextureValues.empty())
+		{
+			AssetManager::GetAsset<Texture2D>(AssetManager::GetEmptyTextureHandle())->Bind();
+		}
+
 		for (const auto& [id, textureHandle] : m_TextureValues)
 		{
 			auto texture = AssetManager::GetAsset<Texture2D>(textureHandle);
