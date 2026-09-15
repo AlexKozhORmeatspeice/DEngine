@@ -1,9 +1,9 @@
 #pragma once
 
-#include "entt.hpp"
 #include "DEngine/Core/Timestep.h"
 #include "DEngine/Events/Event.h"
 #include "DEngine/Asset/Asset.h"
+#include "DEngine/Scene/Registry.h"
 #include <memory>
 #include <vector>
 
@@ -39,8 +39,8 @@ namespace DEngine
 
         const std::vector<Entity>& GetAllEntities() const { return m_Entities; }
 
-        entt::registry& GetRegistry() { return m_Registry; }
-        const entt::registry& GetRegistry() const { return m_Registry; }
+        Registry& GetRegistry() { return m_Registry; }
+        const Registry& GetRegistry() const { return m_Registry; }
 
 		static AssetType GetStaticType() { return AssetType::Scene; }
 		virtual AssetType GetType() const override { return GetStaticType(); }
@@ -49,7 +49,7 @@ namespace DEngine
 
         std::vector<std::shared_ptr<System>> m_Systems;
         std::vector<Entity> m_Entities;
-        entt::registry m_Registry;
+        Registry m_Registry;
 
         friend class Entity;
         friend class ScenePanel;

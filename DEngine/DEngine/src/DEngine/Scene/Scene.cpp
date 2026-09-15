@@ -5,6 +5,7 @@
 #include "Components.h"
 #include "DEngine/Scene/System.h"
 #include "DEngine/Scene/Systems.h"
+#include "DEngine/Scene/EntityHandle.h"
 
 namespace DEngine
 {
@@ -21,7 +22,7 @@ namespace DEngine
 
     Entity Scene::CreateEntity(const std::string& name)
     {
-        entt::entity handle = m_Registry.create();
+        EntityHandle handle = m_Registry.create();
         UUID uuid;
 
         m_Entities.emplace_back(handle, this);
@@ -39,7 +40,7 @@ namespace DEngine
 
     Entity Scene::CreateEmptyEntity()
     {
-        entt::entity handle = m_Registry.create();
+        EntityHandle handle = m_Registry.create();
         m_Entities.emplace_back(handle, this);
 
         Entity& entity = m_Entities[m_Entities.size() - 1];

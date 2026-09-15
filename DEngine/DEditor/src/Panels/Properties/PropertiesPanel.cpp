@@ -3,9 +3,43 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
+
+
 namespace DEngine
 {
 	Entity PropetiesPanel::m_SelectedEntity = {};
+
+	struct ComponentInfo
+	{
+		const char* name;
+		std::function<bool(Entity&)> has;
+		std::function<void(Entity&)> add;
+		std::function<void(Entity&)> remove;
+		std::function<void(Entity&)> draw;
+	};
+
+	static std::vector<ComponentInfo>& GetComponentList()
+	{
+		static std::vector<ComponentInfo> list = {
+			{
+				"Rigidbody",
+				[](Entity& e) { return e.HasComponent<RigidbodyComponent>(); },
+				[](Entity& e) { e.AddComponent<RigidbodyComponent>(); }
+			},
+			{
+				"Collider",
+				[](Entity& e) { return e.HasComponent<ColliderComponent>(); },
+				[](Entity& e) { e.AddComponent<ColliderComponent>(); }
+			},
+			// сюда просто добавляем новые компоненты
+			// {
+			//     "MeshRenderer",
+			//     [](Entity& e) { return e.HasComponent<MeshRendererComponent>(); },
+			//     [](Entity& e) { e.AddComponent<MeshRendererComponent>(); }
+			// },
+		};
+		return list;
+	}
 
 	void PropetiesPanel::OnImGuiRender()
 	{
@@ -90,12 +124,40 @@ namespace DEngine
 	{
 		if (ImGui::Button("Add component"))
 		{
-			ImGui::OpenPopup("Add component");
+			ImGui::OpenPopup("AddComponent");
 		}
 
 		if (ImGui::BeginPopup("AddComponent"))
 		{
-			//WIP: надо доделать сюда список добовляемых компонент, когда их можно будет менять ручками
+			static char searchBuffer[128] = "";
+			ImGui::InputText("##SearchComponent", searchBuffer, sizeof(searchBuffer));
+			ImGui::Separator();
+
+			std::string filter = searchBuffer;
+			// можно сделать lower-case, если хочешь поиск без учёта регистра
+
+			for (auto& info : GetComponentList())
+			{
+				// уже есть — не показываем
+				if (info.has(entity))
+					continue;
+
+				// фильтр по имени
+				if (!filter.empty())
+				{
+					std::string name = info.name;
+					if (name.find(filter) == std::string::npos)
+						continue;
+				}
+
+				if (ImGui::MenuItem(info.name))
+				{
+					info.add(entity);
+					searchBuffer[0] = '\0'; // очистить поиск
+					ImGui::CloseCurrentPopup();
+				}
+			}
+
 			ImGui::EndPopup();
 		}
 	}
