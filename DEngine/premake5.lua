@@ -19,6 +19,8 @@ IncludeDir["stb_image"] = "DEngine/vendor/stb_image"
 IncludeDir["entt"] = "DEngine/vendor/entt/include"
 IncludeDir["yaml"] = "DEngine/vendor/yaml-cpp/include"
 IncludeDir["assimp"] = "DEngine/vendor/assimp/include"
+-- FROM MAXOS
+IncludeDir["ImGuizmo"] = "DEngine/vendor/ImGuizmo"
 
 group "Dependencies"
     include "DEngine/vendor/GLFW"
@@ -33,20 +35,23 @@ project "DEngine"
     language "C++"
     cppdialect "C++17"
     staticruntime "on"
-    
+
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
     pchheader "dpch.h"
     pchsource "DEngine/src/dpch.cpp"
 
-    files 
+    files
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
         "%{prj.name}/vendor/stb_image/**.cpp",
         "%{prj.name}/vendor/glm/glm/**.hpp",
-        "%{prj.name}/vendor/glm/glm/**.inl"
+        "%{prj.name}/vendor/glm/glm/**.inl",
+        -- FROM MAXOS
+        "%{prj.name}/vendor/ImGuizmo/ImGuizmo.h",
+        "%{prj.name}/vendor/ImGuizmo/ImGuizmo.cpp"
     }
 
     includedirs
@@ -60,7 +65,9 @@ project "DEngine"
         "%{IncludeDir.stb_image}",
         "%{IncludeDir.entt}",
         "%{IncludeDir.yaml}",
-        "%{IncludeDir.assimp}"
+        "%{IncludeDir.assimp}",
+    -- FROM MAXOS
+        "%{IncludeDir.ImGuizmo}",
     }
 
     libdirs
@@ -76,7 +83,10 @@ project "DEngine"
         "yaml-cpp",
         "assimp-vc143-mt"
     }
-    
+
+    filter "files:vendor/ImGuizmo/**.cpp"
+        flags {"NoPCH"}
+
     filter "system:windows"
         systemversion "latest"
 
@@ -108,7 +118,7 @@ project "DEngine"
         defines "D_RELEASE"
         runtime "Release"
         optimize "on"
-        
+
     filter "configurations:Dist"
         defines "D_DIST"
         runtime "Release"
@@ -120,11 +130,11 @@ project "Sandbox"
     language "C++"
     cppdialect "C++17"
     staticruntime "on"
-    
+
     targetdir ("bin/" ..outputdir.. "/%{prj.name}")
     objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
 
-    files 
+    files
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp"
@@ -145,7 +155,7 @@ project "Sandbox"
     {
         "DEngine"
     }
-    
+
     filter "system:windows"
         systemversion "latest"
 
@@ -160,7 +170,7 @@ project "Sandbox"
         {
             "mkdir \"%{cfg.targetdir}/assets\" 2>nul",
             "mkdir \"%{cfg.targetdir}/resources\" 2>nul",
-            
+
 			"{COPY} %{wks.location}/DEngine/vendor/assimp/dll/assimp-vc143-mt.dll %{cfg.targetdir}",
         }
 
@@ -173,7 +183,7 @@ project "Sandbox"
         defines "D_RELEASE"
         runtime "Release"
         optimize "on"
-        
+
     filter "configurations:Dist"
         defines "D_DIST"
         runtime "Release"
@@ -185,11 +195,11 @@ project "DEditor"
     language "C++"
     cppdialect "C++17"
     staticruntime "on"
-    
+
     targetdir ("bin/" ..outputdir.. "/%{prj.name}")
     objdir ("bin-int/" ..outputdir.. "/%{prj.name}")
 
-    files 
+    files
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp"
@@ -210,7 +220,7 @@ project "DEditor"
     {
         "DEngine"
     }
-    
+
     filter "system:windows"
         systemversion "latest"
 
@@ -240,7 +250,7 @@ project "DEditor"
         defines "D_RELEASE"
         runtime "Release"
         optimize "on"
-        
+
     filter "configurations:Dist"
         defines "D_DIST"
         runtime "Release"
