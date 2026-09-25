@@ -23,6 +23,13 @@ if not exist "vendor\premake\premake5.exe" (
 :: ============================================
 set VS_VERSION=
 
+:: Проверяем Visual Studio 2026 Insiders (У меня такая)
+if exist "C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\devenv.exe" (
+    set VS_VERSION=vs2026
+    echo [INFO] Found Visual Studio 2022 (Community)
+    goto :found_vs
+)
+
 :: Проверяем Visual Studio 2022
 if exist "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.exe" (
     set VS_VERSION=vs2022
@@ -86,23 +93,23 @@ if !ERRORLEVEL! EQU 0 (
     for /f "usebackq tokens=*" %%i in (`vswhere -latest -property installationPath`) do (
         set VS_PATH=%%i
     )
-    
+
     if not "!VS_PATH!"=="" (
         echo [INFO] Found Visual Studio via vswhere: !VS_PATH!
-        
+
         :: Определяем версию по пути
         echo !VS_PATH! | findstr /i "2022" >nul
         if !ERRORLEVEL! EQU 0 (
             set VS_VERSION=vs2022
             goto :found_vs
         )
-        
+
         echo !VS_PATH! | findstr /i "2019" >nul
         if !ERRORLEVEL! EQU 0 (
             set VS_VERSION=vs2019
             goto :found_vs
         )
-        
+
         echo !VS_PATH! | findstr /i "2017" >nul
         if !ERRORLEVEL! EQU 0 (
             set VS_VERSION=vs2017
