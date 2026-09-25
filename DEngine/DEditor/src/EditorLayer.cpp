@@ -2,6 +2,8 @@
 #include "imgui/imgui.h"
 #include "DEngine/Core.h"
 
+#include "ImGuizmo.cpp"
+
 #define BASE_SCENE_PATH "assets/scenes/Example.dscene"
 
 namespace DEngine
@@ -77,6 +79,7 @@ namespace DEngine
 		//Set Renderer
 		m_Framebuffer = Framebuffer::Create({ win.GetWidth(), win.GetHeight() });
 
+
 		//Set panels
 		m_ScenePanel.SetContext(m_ActiveScene);
 		m_PropPanel.SetContext(m_ActiveScene);
@@ -134,6 +137,9 @@ namespace DEngine
 		m_PropPanel.OnImGuiRender();
 		m_AssetsPanel.OnImGuiRender();
 
+		// Begin ImGuizmo
+		ImGuizmo::BeginFrame();
+
 		//Менюшка
 		if (ImGui::BeginMenuBar())
 		{
@@ -182,6 +188,25 @@ namespace DEngine
 
 		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{viewportSize.x, viewportSize.y}, ImVec2{ 0, 1 }, ImVec2{1, 0});
 
+		// ============================= Gizmos stuff ===============================
+
+		Entity* selected_entity = m_ScenePanel.getSelectedEntity();
+		if (selected_entity != nullptr)
+		{
+			ImVec2 winpos = ImGui::GetWindowPos();
+			float windowWidth = (float)ImGui::GetWindowWidth();
+			float windowHeight = (float)ImGui::GetWindowHeight();
+
+			ImGuizmo::SetOrthographic(false);
+			ImGuizmo::SetDrawlist();
+			ImGuizmo::SetRect(winpos.x, winpos.y, windowWidth, windowHeight);
+		}
+		else
+		{
+
+		}
+
+		// ======================== End of gizmos stuff ===============================
 		ImGui::End();
 		ImGui::PopStyleVar();
 	}

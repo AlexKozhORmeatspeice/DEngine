@@ -203,9 +203,6 @@ project "DEditor"
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
-        -- FROM MAXOS
-        "%{prj.name}/vendor/ImGuizmo/ImGuizmo.h",
-        "%{prj.name}/vendor/ImGuizmo/ImGuizmo.cpp"
     }
 
     includedirs
@@ -225,10 +222,6 @@ project "DEditor"
     {
         "DEngine"
     }
-
-
-    filter "files:vendor/ImGuizmo/**.cpp"
-        flags {"NoPCH"}
 
 
     filter "system:windows"

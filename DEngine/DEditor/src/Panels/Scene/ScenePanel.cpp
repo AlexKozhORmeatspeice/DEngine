@@ -4,6 +4,8 @@
 #include "DEngine.h"
 #include "Panels/Properties/PropertiesPanel.h"
 
+#include "ImGuizmo.h"
+
 namespace DEngine
 {
 	ScenePanel::ScenePanel(const Ref<Scene>& scene)
@@ -14,6 +16,11 @@ namespace DEngine
 	void ScenePanel::SetContext(const Ref<Scene>& scene)
 	{
 		m_Context = scene;
+	}
+
+	Entity* ScenePanel::getSelectedEntity()
+	{
+		return &m_SelectionContext;
 	}
 
 	void ScenePanel::OnImGuiRender()

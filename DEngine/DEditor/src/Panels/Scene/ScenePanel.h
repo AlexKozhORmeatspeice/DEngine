@@ -14,6 +14,7 @@ namespace DEngine
 		ScenePanel(const Ref<Scene>& scene);
 
 		void SetContext(const Ref<Scene>& scene);
+		Entity* getSelectedEntity();
 
 		void OnImGuiRender();
 	private:
