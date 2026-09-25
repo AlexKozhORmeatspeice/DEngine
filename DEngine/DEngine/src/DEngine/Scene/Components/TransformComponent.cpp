@@ -96,6 +96,11 @@ namespace DEngine
         return trans;
     }
 
+    glm::mat4& TransformComponent::GetModelMatrixLink()
+    {
+        return trans;
+    }
+
     glm::vec3 TransformComponent::GetForward() const
     {
         return glm::normalize(glm::vec3(trans * glm::vec4(0.0f, 0.0f, -1.0f, 0.0f)));

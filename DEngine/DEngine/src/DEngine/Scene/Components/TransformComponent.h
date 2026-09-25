@@ -38,6 +38,7 @@ namespace DEngine
         void RotateGlobal(float angle, const glm::vec3& axis);
 
         glm::mat4 GetModelMatrix() const;
+        glm::mat4& GetModelMatrixLink();
 
         glm::vec3 GetForward() const;
         glm::vec3 GetRight() const;

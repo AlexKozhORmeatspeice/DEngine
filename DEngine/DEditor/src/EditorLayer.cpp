@@ -207,16 +207,14 @@ namespace DEngine
 				glm::mat4 camViewMat = m_EditorCamera->GetViewMat();
 				glm::mat4 camProjMat = m_EditorCamera->GetProjMat();
 
-				glm::mat4 entityTransform = selected_entity.GetComponent<TransformComponent>().GetModelMatrix();
+				auto& entityTransform = selected_entity.GetComponent<TransformComponent>().GetModelMatrixLink();
 
 				ImGuizmo::Manipulate(glm::value_ptr(camViewMat), glm::value_ptr(camProjMat),
 					ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::LOCAL, glm::value_ptr(entityTransform));
-
 			}
 		}
-
-
 		// ======================== End of gizmos stuff ===============================
+
 		ImGui::End();
 		ImGui::PopStyleVar();
 	}
