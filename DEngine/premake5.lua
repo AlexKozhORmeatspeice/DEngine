@@ -202,7 +202,10 @@ project "DEditor"
     files
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        -- FROM MAXOS
+        "%{prj.name}/vendor/ImGuizmo/ImGuizmo.h",
+        "%{prj.name}/vendor/ImGuizmo/ImGuizmo.cpp"
     }
 
     includedirs
@@ -213,13 +216,20 @@ project "DEditor"
         "DEngine/vendor",
         "%{IncludeDir.glm}",
         "%{IncludeDir.entt}",
-        "%{IncludeDir.yaml}"
+        "%{IncludeDir.yaml}",
+        -- FROM MAXOS
+        "%{IncludeDir.ImGuizmo}",
     }
 
     links
     {
         "DEngine"
     }
+
+
+    filter "files:vendor/ImGuizmo/**.cpp"
+        flags {"NoPCH"}
+
 
     filter "system:windows"
         systemversion "latest"
