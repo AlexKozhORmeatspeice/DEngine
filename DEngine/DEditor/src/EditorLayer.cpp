@@ -3,6 +3,7 @@
 #include "DEngine/Core.h"
 
 #include "ImGuizmo.cpp"
+#include <glm/gtc/type_ptr.hpp>
 
 #define BASE_SCENE_PATH "assets/scenes/Example.dscene"
 
@@ -149,7 +150,7 @@ namespace DEngine
 				{
 					SceneSerializer::Serialize(m_ActiveScene, BASE_SCENE_PATH);
 				}
-				
+
 				if (ImGui::MenuItem("Deserialize"))
 				{
 					AssetHandle m_SceneHandle = AssetManager::CreateAsset(BASE_SCENE_PATH);
@@ -186,25 +187,34 @@ namespace DEngine
 			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
 
-		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{viewportSize.x, viewportSize.y}, ImVec2{ 0, 1 }, ImVec2{1, 0});
+		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{ viewportSize.x, viewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
 		// ============================= Gizmos stuff ===============================
 
-		Entity* selected_entity = m_ScenePanel.getSelectedEntity();
-		if (selected_entity != nullptr)
+		if (m_PropPanel.getSelectedEntity()) 
 		{
-			ImVec2 winpos = ImGui::GetWindowPos();
-			float windowWidth = (float)ImGui::GetWindowWidth();
-			float windowHeight = (float)ImGui::GetWindowHeight();
+			Entity selected_entity = m_PropPanel.getSelectedEntity();
+			if (selected_entity)
+			{
+				ImVec2 winpos = ImGui::GetWindowPos();
+				float windowWidth = (float)ImGui::GetWindowWidth();
+				float windowHeight = (float)ImGui::GetWindowHeight();
 
-			ImGuizmo::SetOrthographic(false);
-			ImGuizmo::SetDrawlist();
-			ImGuizmo::SetRect(winpos.x, winpos.y, windowWidth, windowHeight);
-		}
-		else
-		{
+				ImGuizmo::SetOrthographic(false);
+				ImGuizmo::SetDrawlist();
+				ImGuizmo::SetRect(winpos.x, winpos.y, windowWidth, windowHeight);
 
+				glm::mat4 camViewMat = m_EditorCamera->GetViewMat();
+				glm::mat4 camProjMat = m_EditorCamera->GetProjMat();
+
+				glm::mat4 entityTransform = selected_entity.GetComponent<TransformComponent>().GetModelMatrix();
+
+				ImGuizmo::Manipulate(glm::value_ptr(camViewMat), glm::value_ptr(camProjMat),
+					ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::LOCAL, glm::value_ptr(entityTransform));
+
+			}
 		}
+
 
 		// ======================== End of gizmos stuff ===============================
 		ImGui::End();

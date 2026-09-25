@@ -18,11 +18,6 @@ namespace DEngine
 		m_Context = scene;
 	}
 
-	Entity* ScenePanel::getSelectedEntity()
-	{
-		return &m_SelectionContext;
-	}
-
 	void ScenePanel::OnImGuiRender()
 	{
 		ImGui::Begin("Scene");

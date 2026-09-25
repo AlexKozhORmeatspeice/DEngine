@@ -14,6 +14,9 @@ namespace DEngine
 		void OnImGuiRender();
 
 		static void SetSelectedContext(Entity& entity) { m_SelectedEntity = entity; }
+
+		Entity& getSelectedEntity();
+
 		void SetContext(const Ref<Scene>& scene);
 
 	private:

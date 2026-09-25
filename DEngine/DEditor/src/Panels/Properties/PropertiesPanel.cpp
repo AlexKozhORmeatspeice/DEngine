@@ -53,6 +53,12 @@ namespace DEngine
 		ImGui::End();
 	}
 
+
+	Entity& PropetiesPanel::getSelectedEntity()
+	{
+		return m_SelectedEntity;
+	}
+
 	void PropetiesPanel::SetContext(const Ref<Scene>& scene)
 	{
 		m_Context = scene;
