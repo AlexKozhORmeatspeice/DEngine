@@ -4,7 +4,7 @@ Entities:
     TagComponent:
       Tag: cube
     TransformComponent:
-      Pos: [0, 0, -200]
+      Pos: [74.49678, 55.34655, -200]
       Rot: [0, 0, 0]
       Scale: [100, 100, 100]
     MeshRendererComponent:
@@ -54,7 +54,7 @@ Entities:
     TransformComponent:
       Pos: [0, 0, 0]
       Rot: [0, 70.000015, 47.1]
-      Scale: [0.9999995, 0.9999981, 0.99999857]
+      Scale: [0.99999946, 0.9999981, 0.9999985]
     DirectLightComponent:
       Color: [1, 1, 1]
       Intensity: 1

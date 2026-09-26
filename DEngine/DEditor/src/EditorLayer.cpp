@@ -30,51 +30,7 @@ namespace DEngine
 		//Создание сцены, если она еще не была создана
 		if (!m_ActiveScene)
 		{
-			m_ActiveScene = CreateRef<Scene>();
-
-			///Set models
-			const AssetHandle texHandle = AssetManager::CreateAsset("assets/textures/pasha.jpg");
-
-			Ref<Material> mat = CreateRef<Material>(AssetManager::GetBaseRendererShaderHandle());
-			mat->SetTexture2D("u_Texture", texHandle);
-
-			Ref<Material> mat2 = CreateRef<Material>(AssetManager::GetBaseRendererShaderHandle());
-
-			std::string matName = "basemat";
-			std::string matName2 = "basemat2";
-			matName += DMAT_FILE_EXT;
-			matName2 += DMAT_FILE_EXT;
-			const AssetHandle matHandle = AssetManager::CreateMaterialAsset(mat, "assets/materials/" + matName);
-			const AssetHandle matHandle2 = AssetManager::CreateMaterialAsset(mat2, "assets/materials/" + matName2);
-
-			const AssetHandle sponzaHandle = AssetManager::CreateAsset({ AssetType::Model, "assets/models/sponza.obj-master/sponza.obj" });
-			const AssetHandle meshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Cube);
-
-			///Set objs
-			auto& cube = m_ActiveScene->CreateEntity("cube");
-			cube.AddComponent<MeshRendererComponent>(meshHandle, matHandle);
-			cube.AddComponent<RigidbodyComponent>();
-			cube.AddComponent<ColliderComponent>();
-
-			auto& trans = cube.GetComponent<TransformComponent>();
-			trans.SetScale({ 100.0f, 100.0f, 100.0f });
-			trans.SetPosition({ 0.0f, 0.0f, -200.0f });
-
-			auto& cube2 = m_ActiveScene->CreateEntity("cube2");
-			cube2.AddComponent<MeshRendererComponent>(meshHandle, matHandle2);
-			cube2.AddComponent<RigidbodyComponent>();
-			cube2.AddComponent<ColliderComponent>();
-
-			auto& trans2 = cube2.GetComponent<TransformComponent>();
-			trans2.SetScale({ 400.0f, 50.0f, 400.0f });
-			trans2.SetPosition({ 0.0f, -100.0f, 0.0f});
-
-			auto& directLight = m_ActiveScene->CreateEntity("direct light");
-			directLight.AddComponent<DirectLightComponent>(glm::vec3(1.0f, 1.0f, 1.0f), 1.0f);
-			auto& lightTrans = directLight.GetComponent<TransformComponent>();
-			lightTrans.Rotate(70.0f, {0.0f, 1.0f, 0.0f});
-
-			AssetManager::CreateSceneAsset(m_ActiveScene, BASE_SCENE_PATH);
+			LoadScene();
 		}
 
 		//Set Renderer
@@ -84,6 +40,61 @@ namespace DEngine
 		//Set panels
 		m_ScenePanel.SetContext(m_ActiveScene);
 		m_PropPanel.SetContext(m_ActiveScene);
+	}
+
+	void EditorLayer::LoadScene() 
+	{
+		m_ActiveScene = CreateRef<Scene>();
+
+		///Set models
+		const AssetHandle texHandle = AssetManager::CreateAsset("assets/textures/pasha.jpg");
+
+		Ref<Material> mat = CreateRef<Material>(AssetManager::GetBaseRendererShaderHandle());
+		mat->SetTexture2D("u_Texture", texHandle);
+
+		Ref<Material> mat2 = CreateRef<Material>(AssetManager::GetBaseRendererShaderHandle());
+
+		std::string matName = "basemat";
+		std::string matName2 = "basemat2";
+		matName += DMAT_FILE_EXT;
+		matName2 += DMAT_FILE_EXT;
+		const AssetHandle matHandle = AssetManager::CreateMaterialAsset(mat, "assets/materials/" + matName);
+		const AssetHandle matHandle2 = AssetManager::CreateMaterialAsset(mat2, "assets/materials/" + matName2);
+
+		const AssetHandle sponzaHandle = AssetManager::CreateAsset({ AssetType::Model, "assets/models/sponza.obj-master/sponza.obj" });
+		const AssetHandle meshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Cube);
+
+		///Set objs
+		auto& cube = m_ActiveScene->CreateEntity("cube");
+		cube.AddComponent<MeshRendererComponent>(meshHandle, matHandle);
+		cube.AddComponent<RigidbodyComponent>();
+		cube.AddComponent<ColliderComponent>();
+
+		auto& trans = cube.GetComponent<TransformComponent>();
+		trans.SetScale({ 100.0f, 100.0f, 100.0f });
+		trans.SetPosition({ 0.0f, 0.0f, -200.0f });
+
+		auto& cube2 = m_ActiveScene->CreateEntity("cube2");
+		cube2.AddComponent<MeshRendererComponent>(meshHandle, matHandle2);
+		cube2.AddComponent<RigidbodyComponent>();
+		cube2.AddComponent<ColliderComponent>();
+
+		auto& trans2 = cube2.GetComponent<TransformComponent>();
+		trans2.SetScale({ 400.0f, 50.0f, 400.0f });
+		trans2.SetPosition({ 0.0f, -100.0f, 0.0f });
+
+		auto& directLight = m_ActiveScene->CreateEntity("direct light");
+		directLight.AddComponent<DirectLightComponent>(glm::vec3(1.0f, 1.0f, 1.0f), 1.0f);
+		auto& lightTrans = directLight.GetComponent<TransformComponent>();
+		lightTrans.Rotate(70.0f, { 0.0f, 1.0f, 0.0f });
+
+		AssetManager::CreateSceneAsset(m_ActiveScene, BASE_SCENE_PATH);
+	}
+
+	void EditorLayer::ReloadScene()
+	{
+		D_INFO("RELOAD SCENE");
+
 	}
 
 	void EditorLayer::OnUpdate(const Timestep& ts)
@@ -125,6 +136,18 @@ namespace DEngine
 				m_TabJustPressed = false;
 			}
 
+			if(Input::IsKeyPressed(D_KEY_0))
+			{
+				if (!m_ReloadJustPressed)
+				{
+					m_ReloadJustPressed = true;
+					ReloadScene();
+				}
+			}
+			else 
+			{
+				m_ReloadJustPressed = false;
+			}
 
 			m_EditorCamera->SetPos(m_CamPos);
 			m_EditorCamera->SetRot(m_CamRot);
@@ -179,9 +202,23 @@ namespace DEngine
 		//Профайлинг
 		ImGui::Begin("Profile data");
 		char fpsLabel[50];
-		strcpy(fpsLabel, std::to_string((int)Application::Get().GetFPS()).c_str());
+		char spfLabel[50];
+		int fps = (int)Application::Get().GetFPS();
+		float spf = 1 / (fps+0.0001);
+		strcpy(fpsLabel, std::to_string(fps).c_str());
+		strcpy(spfLabel, std::to_string(spf).c_str());
 		strcat(fpsLabel, " FPS");
+		strcat(spfLabel, " SPF");
 		ImGui::Text(fpsLabel);
+		ImGui::Text(spfLabel);
+		ImGui::End();
+
+		ImGui::Begin("Scene info");
+		int objCount = m_ActiveScene->GetAllEntities().size();
+		char objCountLabel[50];
+		strcpy(objCountLabel, std::to_string(objCount).c_str());
+		strcat(objCountLabel, " Objects on scene");
+		ImGui::Text(objCountLabel);
 		ImGui::End();
 
 		//Viewport
@@ -263,6 +300,28 @@ namespace DEngine
 	void EditorLayer::Shutdown()
 	{
 		AssetManager::Shutdown();
+	}
+
+	void EditorLayer::SetGameMode(GameMode gm)
+	{
+		if (gm != m_CurrentGameMode)
+		{
+			m_CurrentGameMode = gm;
+			OnGameModeChanged();
+		}
+	}
+
+	void EditorLayer::OnGameModeChanged()
+	{
+		switch (m_CurrentGameMode)
+		{
+		case DEngine::EDITOR:
+			break;
+		case DEngine::GAME:
+			break;
+		default:
+			break;
+		}
 	}
 
 	bool EditorLayer::OnKeyPressedEv(KeyPressedEvent& event)

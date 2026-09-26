@@ -8,6 +8,11 @@
 
 namespace DEngine
 {
+	enum GameMode {
+		EDITOR,
+		GAME
+	};
+
 	class EditorLayer : public Layer
 	{
 	public:
@@ -19,6 +24,11 @@ namespace DEngine
 		virtual void OnRender(const Timestep& ts) override;
 		void OnRenderDocker();
 		virtual void Shutdown() override;
+
+		void SetGameMode(GameMode gm);
+		void OnGameModeChanged();
+		void LoadScene();
+		void ReloadScene();
 
 		virtual void OnEvent(Event& event) override;
 
@@ -41,6 +51,9 @@ namespace DEngine
 
 		//Objs
 		Ref<Camera> m_EditorCamera;
+
+		Ref<Camera> m_GameCamera;
+
 		Ref<Framebuffer> m_Framebuffer;
 		Ref<Scene> m_ActiveScene;
 
@@ -58,8 +71,10 @@ namespace DEngine
 
 		glm::vec3 m_SquarePos;
 
+		GameMode m_CurrentGameMode = GameMode::EDITOR;
 		bool m_ControllingCameraWithMouse = false;
 		bool m_TabJustPressed = false;
+		bool m_ReloadJustPressed = false;
 		ImGuizmo::OPERATION m_GuizmoType = ImGuizmo::OPERATION::TRANSLATE;
 
 	};
