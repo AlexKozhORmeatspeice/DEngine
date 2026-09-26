@@ -4,6 +4,8 @@
 #include "Panels/Properties/PropertiesPanel.h"
 #include "Panels/AssetsPanel/AssetsPanel.h"
 
+#include "ImGuizmo.h"
+
 namespace DEngine
 {
 	class EditorLayer : public Layer
@@ -19,6 +21,10 @@ namespace DEngine
 		virtual void Shutdown() override;
 
 		virtual void OnEvent(Event& event) override;
+
+		bool OnMouseEvent(MouseButtonPressedEvent& event);
+		bool OnMouseMovedEvent(MouseMovedEvent& event);
+
 		bool OnKeyPressedEv(KeyPressedEvent& event);
 
 		virtual void OnImGuiRenderer() override;
@@ -51,5 +57,10 @@ namespace DEngine
 		const float TIME_BETWEEN_ASSETS_HOT_RELOAD = 1.0f;
 
 		glm::vec3 m_SquarePos;
+
+		bool m_ControllingCameraWithMouse = false;
+		bool m_TabJustPressed = false;
+		ImGuizmo::OPERATION m_GuizmoType = ImGuizmo::OPERATION::TRANSLATE;
+
 	};
 }

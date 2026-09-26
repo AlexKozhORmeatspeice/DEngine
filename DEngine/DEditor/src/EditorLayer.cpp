@@ -1,9 +1,9 @@
 #include "EditorLayer.h"
 #include "imgui/imgui.h"
 #include "DEngine/Core.h"
-
-#include "ImGuizmo.cpp"
 #include <glm/gtc/type_ptr.hpp>
+
+#include "DEngine/Input/MouseButtonCodes.h"
 
 #define BASE_SCENE_PATH "assets/scenes/Example.dscene"
 
@@ -113,6 +113,19 @@ namespace DEngine
 			if (Input::IsKeyPressed(D_KEY_S))
 				m_CamRot.x -= m_CamRotSpeed * ts;
 
+			if (Input::IsKeyPressed(D_KEY_TAB)) {
+				if (!m_TabJustPressed)
+				{
+					m_TabJustPressed = true;
+					m_GuizmoType = m_GuizmoType == ImGuizmo::OPERATION::TRANSLATE ? ImGuizmo::OPERATION::ROTATE : m_GuizmoType == ImGuizmo::OPERATION::ROTATE ? ImGuizmo::OPERATION::SCALE : ImGuizmo::OPERATION::TRANSLATE;
+				}
+			}
+			else
+			{
+				m_TabJustPressed = false;
+			}
+
+
 			m_EditorCamera->SetPos(m_CamPos);
 			m_EditorCamera->SetRot(m_CamRot);
 		}
@@ -190,7 +203,6 @@ namespace DEngine
 		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{ viewportSize.x, viewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
 		// ============================= Gizmos stuff ===============================
-
 		if (m_PropPanel.getSelectedEntity()) 
 		{
 			Entity selected_entity = m_PropPanel.getSelectedEntity();
@@ -210,7 +222,7 @@ namespace DEngine
 				auto& entityTransform = selected_entity.GetComponent<TransformComponent>().GetModelMatrixLink();
 
 				ImGuizmo::Manipulate(glm::value_ptr(camViewMat), glm::value_ptr(camProjMat),
-					ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::LOCAL, glm::value_ptr(entityTransform));
+					(ImGuizmo::OPERATION)m_GuizmoType, ImGuizmo::WORLD, glm::value_ptr(entityTransform));
 			}
 		}
 		// ======================== End of gizmos stuff ===============================
@@ -223,6 +235,9 @@ namespace DEngine
 	{
 		EventDispatcher dis(event);
 		dis.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(EditorLayer::OnKeyPressedEv));
+		dis.Dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(EditorLayer::OnMouseEvent));
+
+		dis.Dispatch<MouseMovedEvent>(BIND_EVENT_FN(EditorLayer::OnMouseMovedEvent));
 
 		if (event.GetEventType() == EventType::WindowResize)
 		{
@@ -232,6 +247,17 @@ namespace DEngine
 
 			m_EditorCamera->ChangeSize(width, height);
 		}
+	}
+
+	bool EditorLayer::OnMouseEvent(MouseButtonPressedEvent& event)
+	{
+		return false;
+	}
+
+	bool EditorLayer::OnMouseMovedEvent(MouseMovedEvent& event)
+	{
+		D_INFO("MOVED");
+		return false;
 	}
 
 	void EditorLayer::Shutdown()
