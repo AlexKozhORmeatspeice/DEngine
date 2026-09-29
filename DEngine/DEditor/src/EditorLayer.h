@@ -30,6 +30,9 @@ namespace DEngine
 		void LoadScene();
 		void ReloadScene();
 
+		void UpdateEditorCamera(const Timestep& ts);
+		void UpdateGameCamera(const Timestep& ts);
+
 		virtual void OnEvent(Event& event) override;
 
 		bool OnMouseEvent(MouseButtonPressedEvent& event);
@@ -51,8 +54,8 @@ namespace DEngine
 
 		//Objs
 		Ref<Camera> m_EditorCamera;
-
 		Ref<Camera> m_GameCamera;
+		Ref<Camera> m_ActiveCamera;
 
 		Ref<Framebuffer> m_Framebuffer;
 		Ref<Scene> m_ActiveScene;
@@ -75,6 +78,7 @@ namespace DEngine
 		bool m_ControllingCameraWithMouse = false;
 		bool m_TabJustPressed = false;
 		bool m_ReloadJustPressed = false;
+		float m_DrawTime;
 		ImGuizmo::OPERATION m_GuizmoType = ImGuizmo::OPERATION::TRANSLATE;
 
 	};

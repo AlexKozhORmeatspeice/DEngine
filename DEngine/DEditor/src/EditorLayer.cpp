@@ -22,6 +22,8 @@ namespace DEngine
 		///Set camera
 		Window& win = Application::Get().GetWindow();
 		m_EditorCamera = std::make_shared<PerspectiveCamera>(60.0f, win.GetWidth(), win.GetHeight());
+		m_GameCamera = std::make_shared<PerspectiveCamera>(60.0f, win.GetWidth(), win.GetHeight());
+		m_ActiveCamera = m_EditorCamera;
 
 		//Set scene
 		AssetHandle m_SceneHandle = AssetManager::CreateAsset(BASE_SCENE_PATH);
@@ -93,7 +95,21 @@ namespace DEngine
 
 	void EditorLayer::ReloadScene()
 	{
-		D_INFO("RELOAD SCENE");
+		m_CurrentGameMode = m_CurrentGameMode == GAME ? EDITOR : GAME;
+		switch (m_CurrentGameMode)
+		{
+		case DEngine::EDITOR:
+			D_INFO("SWITCHED TO EDITOR CAMERA");
+			m_ActiveCamera = m_EditorCamera;
+			break;
+		case DEngine::GAME:
+			D_INFO("SWITCHED TO GAME CAMERA");
+			m_ActiveCamera = m_GameCamera;
+			break;
+		default:
+			D_ERROR("UNKNOWN GAME MODE");
+			break;
+		}
 
 	}
 
@@ -101,9 +117,46 @@ namespace DEngine
 	{
 		UpdateAssets(ts);
 
+		m_DrawTime = ts.GetSeconds();
 		m_ActiveScene->OnUpdate(ts);
 
 		//TODO: перенести код управления камерой в отдельный класс
+		if (m_CurrentGameMode == EDITOR)
+		{
+			UpdateEditorCamera(ts);
+		}
+
+
+		// ОБРАБОТКА ОСТАЛЬНОГО ИНПУТА
+		if (Input::IsKeyPressed(D_KEY_TAB)) {
+			if (!m_TabJustPressed)
+			{
+				m_TabJustPressed = true;
+				m_GuizmoType = m_GuizmoType == ImGuizmo::OPERATION::TRANSLATE ? ImGuizmo::OPERATION::ROTATE : m_GuizmoType == ImGuizmo::OPERATION::ROTATE ? ImGuizmo::OPERATION::SCALE : ImGuizmo::OPERATION::TRANSLATE;
+			}
+		}
+		else
+		{
+			m_TabJustPressed = false;
+		}
+
+		if (Input::IsKeyPressed(D_KEY_0))
+		{
+			if (!m_ReloadJustPressed)
+			{
+				m_ReloadJustPressed = true;
+				ReloadScene();
+			}
+		}
+		else
+		{
+			m_ReloadJustPressed = false;
+		}
+
+	}
+
+	void EditorLayer::UpdateEditorCamera(const Timestep& ts)
+	{
 		if (m_ViewportFocused)
 		{
 			if (Input::IsKeyPressed(D_KEY_LEFT))
@@ -124,34 +177,15 @@ namespace DEngine
 			if (Input::IsKeyPressed(D_KEY_S))
 				m_CamRot.x -= m_CamRotSpeed * ts;
 
-			if (Input::IsKeyPressed(D_KEY_TAB)) {
-				if (!m_TabJustPressed)
-				{
-					m_TabJustPressed = true;
-					m_GuizmoType = m_GuizmoType == ImGuizmo::OPERATION::TRANSLATE ? ImGuizmo::OPERATION::ROTATE : m_GuizmoType == ImGuizmo::OPERATION::ROTATE ? ImGuizmo::OPERATION::SCALE : ImGuizmo::OPERATION::TRANSLATE;
-				}
-			}
-			else
-			{
-				m_TabJustPressed = false;
-			}
-
-			if(Input::IsKeyPressed(D_KEY_0))
-			{
-				if (!m_ReloadJustPressed)
-				{
-					m_ReloadJustPressed = true;
-					ReloadScene();
-				}
-			}
-			else 
-			{
-				m_ReloadJustPressed = false;
-			}
-
 			m_EditorCamera->SetPos(m_CamPos);
 			m_EditorCamera->SetRot(m_CamRot);
 		}
+	}
+
+	void EditorLayer::UpdateGameCamera(const Timestep& ts)
+	{
+		//m_GameCamera->SetPos();
+		m_GameCamera->SetRot(glm::vec3(0,0,0));
 	}
 
 	void EditorLayer::OnRender(const Timestep& ts)
@@ -159,7 +193,7 @@ namespace DEngine
 		m_Framebuffer->Bind();
 		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.15f, 1.0f });
 		RenderCommand::Clear();
-		Renderer::BeginScene(m_EditorCamera);
+		Renderer::BeginScene(m_ActiveCamera);
 
 		m_ActiveScene->OnRender(ts);
 
@@ -206,7 +240,7 @@ namespace DEngine
 		int fps = (int)Application::Get().GetFPS();
 		float spf = 1 / (fps+0.0001);
 		strcpy(fpsLabel, std::to_string(fps).c_str());
-		strcpy(spfLabel, std::to_string(spf).c_str());
+		strcpy(spfLabel, std::to_string(m_DrawTime).c_str());
 		strcat(fpsLabel, " FPS");
 		strcat(spfLabel, " SPF");
 		ImGui::Text(fpsLabel);
