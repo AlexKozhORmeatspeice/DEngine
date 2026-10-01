@@ -6,20 +6,20 @@ Entities:
     TransformComponent:
       Pos: [0, 0, -200]
       Rot: [0, 0, 0]
-      Scale: [100, 100, 100]
+      Scale: [99.99998, 100, 99.99998]
     MeshRendererComponent:
       MeshHandle: 1631867460065474903
       MaterialHandle: 10930974697266740461
     RigidbodyComponent:
-      Mass: 1
-      Velocity: [0, 0, 0]
-      Acceleration: [0, 0, 0]
+      Mass: 20
+      Velocity: [0, 0.029839247, 0]
+      Acceleration: [0, -9.81, 0]
       Force: [0, 0, 0]
       UseGravity: true
-      IsKinematic: false
+      IsKinematic: true
     ColliderComponent:
       Type: 1
-      Size: [1, 1, 1]
+      Size: [100, 100, 100]
       Offset: [0, 0, 0]
       Radius: 0.5
       Height: 1
@@ -43,7 +43,7 @@ Entities:
       IsKinematic: true
     ColliderComponent:
       Type: 1
-      Size: [1, 1, 1]
+      Size: [400, 50, 400]
       Offset: [0, 0, 0]
       Radius: 0.5
       Height: 1
@@ -54,7 +54,7 @@ Entities:
     TransformComponent:
       Pos: [0, 0, 0]
       Rot: [0, 70.000015, 47.1]
-      Scale: [0.9999995, 0.9999981, 0.99999857]
+      Scale: [0.99999946, 0.9999981, 0.9999984]
     DirectLightComponent:
       Color: [1, 1, 1]
       Intensity: 1

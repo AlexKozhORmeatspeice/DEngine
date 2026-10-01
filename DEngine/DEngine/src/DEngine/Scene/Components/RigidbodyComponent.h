@@ -14,6 +14,11 @@ namespace DEngine
 		glm::vec3 velocity = glm::vec3(0.0f);
 		glm::vec3 acceleration = glm::vec3(0.0f);
 		glm::vec3 force = glm::vec3(0.0f);
+		glm::vec3 angVel = glm::vec3(0.0f);
+		glm::vec3 angAcc = glm::vec3(0.0f);
+		glm::vec3 torque = glm::vec3(0.0f);
+		glm::mat3 inertia = glm::mat3(1.0f);
+		glm::mat3 inertia_inv = glm::inverse(inertia);
 		bool useGravity = true;
 		bool isKinematic = false;
 
@@ -49,9 +54,19 @@ namespace DEngine
 			force += _force;
 		}
 
+		void ApplyTorque(const glm::vec3& _torque)
+		{
+			torque += _torque;
+		}
+
 		void ClearForces()
 		{
 			force = glm::vec3(0.0f);
+		}
+
+		void ClearTorque()
+		{
+			torque = glm::vec3(0.0f);
 		}
 
 		virtual void Serialize(YAML::Emitter& out) const override;
