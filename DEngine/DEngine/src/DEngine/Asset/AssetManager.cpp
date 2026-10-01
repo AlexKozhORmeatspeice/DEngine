@@ -45,6 +45,11 @@ namespace DEngine
 		return m_AssetManager->GetBaseRendererShader();
 	}
 
+	const AssetHandle& AssetManager::GetBaseRendererMaterialWireframeHandle()
+	{
+		return m_AssetManager->GetBaseRendererMaterialWireframeHandle();
+	}
+
 	const AssetHandle& AssetManager::GetEmptyTextureHandle()
 	{
 		return m_AssetManager->GetEmptyTextureHandle();

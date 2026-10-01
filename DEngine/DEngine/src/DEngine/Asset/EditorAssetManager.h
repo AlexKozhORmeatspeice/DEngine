@@ -50,6 +50,7 @@ namespace DEngine
 		const AssetMetadata& GetMetadata(const AssetHandle& handle);
 
 		virtual inline const AssetHandle& GetBaseRendererShader() const override { return m_BaseShaderHandle; }
+		virtual const AssetHandle& GetBaseRendererMaterialWireframeHandle() const override { return m_BaseMaterialWireframe; }
 		virtual inline const AssetHandle& GetEmptyTextureHandle() const override { return m_EmptyTextureHandle; }
 		virtual const AssetHandle& GetPrimitiveMesh(PrimitiveType type) override;
 
@@ -70,6 +71,9 @@ namespace DEngine
 		std::filesystem::path GetAssetRegistryFilePath();
 
 		void CreateBaseRendererShader();
+		void CreateWireframeShader();
+		void CreateBaseRendererMaterialWireframe();
+
 		void CreateEmptyTexture();
 		const AssetHandle& CreateMeshPrimitive(PrimitiveType type);
 
@@ -81,6 +85,8 @@ namespace DEngine
 	private:
 		std::unordered_map<PrimitiveType, AssetHandle> m_MeshPrimitives;
 		AssetHandle m_BaseShaderHandle;
+		AssetHandle m_WireframeShaderHandle;
+		AssetHandle m_BaseMaterialWireframe;
 		AssetHandle m_EmptyTextureHandle;
 
 		AssetRegistry m_AssetRegistry;

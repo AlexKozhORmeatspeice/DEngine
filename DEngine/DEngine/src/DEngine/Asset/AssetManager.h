@@ -45,13 +45,17 @@ namespace DEngine
 												  const std::filesystem::path& path);
 
 		static const AssetHandle& GetBaseRendererShaderHandle();
+		static const AssetHandle& GetBaseRendererMaterialWireframeHandle();
+
 		static const AssetHandle& GetEmptyTextureHandle();
 		static const AssetHandle& GetPrimitiveMesh(PrimitiveType type);
 		static const AssetHandle& CreateMaterialAsset(const Ref<Material>& material, const std::filesystem::path& path);
+
 		static const AssetHandle& CreateModelAsset(const Ref<Model>& model, const std::filesystem::path& path);
 		static const AssetHandle& CreateSceneAsset(const Ref<Scene>& scene, const std::filesystem::path& path);
 
 	private:
 		static std::shared_ptr<BaseAssetManager> m_AssetManager;
+		
 	};
 }

@@ -34,6 +34,10 @@ namespace DEngine
 		{
 			s_RendererAPI->DrawIndexed(vertexArray);
 		}
+		inline static void DrawIndexedWireframe(const DEngine::Ref<VertexArray>& vertexArray)
+		{
+			s_RendererAPI->DrawIndexedWireframe(vertexArray);
+		}
 
 	public:
 		static RendererAPI* s_RendererAPI;

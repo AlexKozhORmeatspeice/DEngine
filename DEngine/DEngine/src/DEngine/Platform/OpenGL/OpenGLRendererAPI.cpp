@@ -40,4 +40,9 @@ namespace DEngine
 		vertArr->Bind();
 		glDrawElements(GL_TRIANGLES, vertArr->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
+	void OpenGLRendererAPI::DrawIndexedWireframe(const DEngine::Ref<VertexArray> vertArr)
+	{
+		vertArr->Bind();
+		glDrawElements(GL_LINES, vertArr->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+	}
 }

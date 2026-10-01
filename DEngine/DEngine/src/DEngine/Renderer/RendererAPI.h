@@ -21,6 +21,7 @@ namespace DEngine
 		virtual void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height) = 0;
 
 		virtual void DrawIndexed(const DEngine::Ref<VertexArray> vertArr) = 0;
+		virtual void DrawIndexedWireframe(const DEngine::Ref<VertexArray> vertArr) = 0;
 
 		static API GetAPI() { return s_API; }
 

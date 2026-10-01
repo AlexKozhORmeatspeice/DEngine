@@ -10,6 +10,10 @@
 
 #include "glm/glm.hpp"
 
+enum RenderMode {
+	SOLID, WIREFRAME
+};
+
 namespace DEngine
 {
 	class D_API Renderer
@@ -21,7 +25,7 @@ namespace DEngine
 
 		static void OnWindowResize(uint32_t width, uint32_t height);
 
-		static void Submit(const Ref<Mesh>& mesh, const Ref<Material>& mat, const glm::mat4& trans);
+		static void Submit(const Ref<Mesh>& mesh, const Ref<Material>& mat, const glm::mat4& trans, RenderMode mode = RenderMode::SOLID);
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	private:

@@ -7,6 +7,10 @@
 
 #define BASE_SCENE_PATH "assets/scenes/Example.dscene"
 
+static const int WIN_HEIGHT = 720;
+static const int WIN_WIDTH = 1280;
+
+
 namespace DEngine
 {
 	EditorLayer::EditorLayer() 
@@ -22,11 +26,12 @@ namespace DEngine
 		///Set camera
 		Window& win = Application::Get().GetWindow();
 		m_EditorCamera = std::make_shared<PerspectiveCamera>(60.0f, win.GetWidth(), win.GetHeight());
-		m_GameCamera = std::make_shared<PerspectiveCamera>(60.0f, win.GetWidth(), win.GetHeight());
+		m_GameCamera = std::make_shared<PerspectiveCamera>(60.0f, WIN_WIDTH, WIN_HEIGHT);
 		m_ActiveCamera = m_EditorCamera;
 
 		//Set scene
 		AssetHandle m_SceneHandle = AssetManager::CreateAsset(BASE_SCENE_PATH);
+		//m_ActiveScene = SceneSerializer::Deserialize(BASE_SCENE_PATH).scene;
 		m_ActiveScene = AssetManager::GetAsset<Scene>(m_SceneHandle);
 
 		//Создание сцены, если она еще не была создана
@@ -96,11 +101,13 @@ namespace DEngine
 	void EditorLayer::ReloadScene()
 	{
 		m_CurrentGameMode = m_CurrentGameMode == GAME ? EDITOR : GAME;
+		AssetHandle m_SceneHandle = AssetManager::CreateAsset(BASE_SCENE_PATH);
 		switch (m_CurrentGameMode)
 		{
 		case DEngine::EDITOR:
 			D_INFO("SWITCHED TO EDITOR CAMERA");
 			m_ActiveCamera = m_EditorCamera;
+			DeserializeScene();
 			break;
 		case DEngine::GAME:
 			D_INFO("SWITCHED TO GAME CAMERA");
@@ -111,7 +118,10 @@ namespace DEngine
 			break;
 		}
 
+		RecalculateFrameBuffer(m_ViewportSize);
 	}
+
+
 
 	void EditorLayer::OnUpdate(const Timestep& ts)
 	{
@@ -188,6 +198,18 @@ namespace DEngine
 		m_GameCamera->SetRot(glm::vec3(0,0,0));
 	}
 
+	void EditorLayer::DeserializeScene()
+	{
+		m_ScenePanel.SetContext(nullptr);
+		AssetHandle m_SceneHandle = AssetManager::CreateAsset(BASE_SCENE_PATH);
+		m_ActiveScene = SceneSerializer::Deserialize(BASE_SCENE_PATH).scene;
+
+		m_ScenePanel.SetContext(m_ActiveScene);
+		m_PropPanel.SetContext(m_ActiveScene);
+		Entity entity = m_ActiveScene->GetAllEntities()[0];
+		m_PropPanel.SetSelectedContext(entity);
+	}
+
 	void EditorLayer::OnRender(const Timestep& ts)
 	{
 		m_Framebuffer->Bind();
@@ -223,8 +245,7 @@ namespace DEngine
 
 				if (ImGui::MenuItem("Deserialize"))
 				{
-					AssetHandle m_SceneHandle = AssetManager::CreateAsset(BASE_SCENE_PATH);
-					m_ActiveScene = AssetManager::GetAsset<Scene>(m_SceneHandle);
+					DeserializeScene();
 				}
 
 				ImGui::EndMenu();
@@ -260,21 +281,48 @@ namespace DEngine
 		ImGui::Begin("Viewport");
 
 		m_ViewportFocused = ImGui::IsWindowFocused();
-		m_ViewportFocused = ImGui::IsWindowHovered();
+		m_ViewportHovered = ImGui::IsWindowHovered();
 		Application::Get().GetImGuiLayer()->SetBlockEvents(!m_ViewportFocused || !m_ViewportHovered);
 
 		ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+
+		float aspratio = viewportSize.x / viewportSize.y;
+		glm::vec2 res = glm::vec2(viewportSize.x * aspratio, WIN_HEIGHT);
+
 		if (m_ViewportSize != *((glm::vec2*)&viewportSize))
 		{
 			m_ViewportSize = { viewportSize.x, viewportSize.y };
-			m_EditorCamera->ChangeSize(viewportSize.x, viewportSize.y);
-			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			RecalculateFrameBuffer(m_ViewportSize);
+		}
+		if (m_CurrentGameMode == GameMode::EDITOR)
+		{
+			ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{ viewportSize.x, viewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		}
+		else
+		{
+			ImVec2 cursor = ImGui::GetCursorPos();
+			ImGui::SetCursorPos(ImVec2(
+				cursor.x + (viewportSize.x - res.x) * 0.5f,
+				cursor.y + (viewportSize.y - res.y) * 0.5f
+			));
+			ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{ res.x, res.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 		}
 
-		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{ viewportSize.x, viewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 
-		// ============================= Gizmos stuff ===============================
-		if (m_PropPanel.getSelectedEntity()) 
+		// ============================= Gizmos stuff =================================
+		if (m_CurrentGameMode == GameMode::EDITOR)
+		{
+			RenderImGuizmo();
+		}
+		// ======================== End of gizmos stuff ===============================
+
+		ImGui::End();
+		ImGui::PopStyleVar();
+	}
+
+	void EditorLayer::RenderImGuizmo()
+	{
+		if (m_PropPanel.getSelectedEntity())
 		{
 			Entity selected_entity = m_PropPanel.getSelectedEntity();
 			if (selected_entity)
@@ -287,8 +335,8 @@ namespace DEngine
 				ImGuizmo::SetDrawlist();
 				ImGuizmo::SetRect(winpos.x, winpos.y, windowWidth, windowHeight);
 
-				glm::mat4 camViewMat = m_EditorCamera->GetViewMat();
-				glm::mat4 camProjMat = m_EditorCamera->GetProjMat();
+				glm::mat4 camViewMat = m_ActiveCamera->GetViewMat();
+				glm::mat4 camProjMat = m_ActiveCamera->GetProjMat();
 
 				auto& entityTransform = selected_entity.GetComponent<TransformComponent>().GetModelMatrixLink();
 
@@ -296,10 +344,6 @@ namespace DEngine
 					(ImGuizmo::OPERATION)m_GuizmoType, ImGuizmo::WORLD, glm::value_ptr(entityTransform));
 			}
 		}
-		// ======================== End of gizmos stuff ===============================
-
-		ImGui::End();
-		ImGui::PopStyleVar();
 	}
 
 	void EditorLayer::OnEvent(Event& event)
@@ -327,7 +371,6 @@ namespace DEngine
 
 	bool EditorLayer::OnMouseMovedEvent(MouseMovedEvent& event)
 	{
-		D_INFO("MOVED");
 		return false;
 	}
 
@@ -336,27 +379,24 @@ namespace DEngine
 		AssetManager::Shutdown();
 	}
 
-	void EditorLayer::SetGameMode(GameMode gm)
+	void EditorLayer::RecalculateFrameBuffer(glm::vec2 viewportSize)
 	{
-		if (gm != m_CurrentGameMode)
-		{
-			m_CurrentGameMode = gm;
-			OnGameModeChanged();
-		}
+		float aspratio = viewportSize.y / viewportSize.x;
+		glm::vec2 res = glm::vec2(viewportSize.x, WIN_HEIGHT * aspratio);
+
+			m_ActiveCamera->ChangeSize(viewportSize.x, viewportSize.y);
+			if (m_CurrentGameMode == GameMode::EDITOR)
+			{
+				m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+			}
+			else
+			{
+				m_Framebuffer->Resize((uint32_t)res.x, (uint32_t)res.y);
+				m_ActiveCamera->ChangeSize(res.x, res.y);
+			}
+		
 	}
 
-	void EditorLayer::OnGameModeChanged()
-	{
-		switch (m_CurrentGameMode)
-		{
-		case DEngine::EDITOR:
-			break;
-		case DEngine::GAME:
-			break;
-		default:
-			break;
-		}
-	}
 
 	bool EditorLayer::OnKeyPressedEv(KeyPressedEvent& event)
 	{

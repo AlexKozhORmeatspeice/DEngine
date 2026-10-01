@@ -36,6 +36,8 @@ namespace DEngine
 		virtual Ref<Asset> GetAsset(const AssetHandle& handle) = 0;
 
 		virtual const AssetHandle& GetBaseRendererShader() const = 0;
+		virtual const AssetHandle& GetBaseRendererMaterialWireframeHandle() const = 0;
+
 		virtual inline const AssetHandle& GetEmptyTextureHandle() const = 0;
 
 		virtual const AssetHandle& GetPrimitiveMesh(PrimitiveType type) = 0;

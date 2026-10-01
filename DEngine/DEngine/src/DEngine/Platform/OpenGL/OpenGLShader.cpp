@@ -119,83 +119,98 @@ namespace DEngine
 
 	void OpenGLShader::UploadUniformInt(const std::string& name, int val)
 	{
+		this->Bind();
 		GLint u_loc = glGetUniformLocation(m_RendererID, name.c_str());
 		UploadUniformInt(u_loc, val);
 	}
 
 	void OpenGLShader::UploadUniformInt(const uint32_t& u_loc, int val)
 	{
+		this->Bind();
 		glUniform1i(u_loc, val);
 	}
 	
 	void OpenGLShader::UploadUniformFloat(const std::string& name, float val)
 	{
+		this->Bind();
 		GLint u_loc = glGetUniformLocation(m_RendererID, name.c_str());
 		UploadUniformFloat(u_loc, val);
 	}
 
 	void OpenGLShader::UploadUniformFloat(const uint32_t& u_loc, float val)
 	{
+		this->Bind();
 		glUniform1f(u_loc, val);
 	}
 
 	void OpenGLShader::UploadUniformFloat2(const std::string& name, const glm::vec2& val)
 	{
+		this->Bind();
 		GLint u_loc = glGetUniformLocation(m_RendererID, name.c_str());
 		UploadUniformFloat2(u_loc, val);
 	}
 
 	void OpenGLShader::UploadUniformFloat2(const uint32_t& u_loc, const glm::vec2& val)
 	{
+		this->Bind();
 		glUniform2f(u_loc, val.x, val.y);
 	}
 
 	void OpenGLShader::UploadUniformFloat3(const std::string& name, const glm::vec3& val)
 	{
+		this->Bind();
 		GLint u_loc = glGetUniformLocation(m_RendererID, name.c_str());
 		UploadUniformFloat3(u_loc, val);
 	}
 
 	void OpenGLShader::UploadUniformFloat3(const uint32_t& u_loc, const glm::vec3& val)
 	{
+		this->Bind();
 		glUniform3f(u_loc, val.x, val.y, val.z);
 	}
 
 	void OpenGLShader::UploadUniformFloat4(const std::string& name, const glm::vec4& val)
 	{
+		this->Bind();
 		GLint u_loc = glGetUniformLocation(m_RendererID, name.c_str());
 		UploadUniformFloat4(u_loc, val);
 	}
 
 	void OpenGLShader::UploadUniformFloat4(const uint32_t& u_loc, const glm::vec4& val)
 	{
+		this->Bind();
 		glUniform4f(u_loc, val.x, val.y, val.z, val.w);
 	}
 
 	void OpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& mat)
 	{
+		this->Bind();
 		GLint u_loc = glGetUniformLocation(m_RendererID, name.c_str());
 		UploadUniformMat3(u_loc, mat);
 	}
 
 	void OpenGLShader::UploadUniformMat3(const uint32_t& u_loc, const glm::mat3& mat)
 	{
+		this->Bind();
 		glUniformMatrix3fv(u_loc, 1, GL_FALSE, glm::value_ptr(mat));
 	}
 
 	void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& mat)
 	{
+		this->Bind();
 		GLint u_loc = glGetUniformLocation(m_RendererID, name.c_str());
 		UploadUniformMat4(u_loc, mat);
 	}
 
 	void OpenGLShader::UploadUniformMat4(const uint32_t& u_loc, const glm::mat4& mat)
 	{
+		this->Bind();
 		glUniformMatrix4fv(u_loc, 1, GL_FALSE, glm::value_ptr(mat));
 	}
 
 	uint32_t OpenGLShader::GetUniformLocation(const std::string& name)
 	{
+		this->Bind();
 		GLint u_loc = glGetUniformLocation(m_RendererID, name.c_str());
 		D_CORE_ASSERT(u_loc != -1, "Can't find value for material uniform");
 

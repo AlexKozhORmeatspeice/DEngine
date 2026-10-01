@@ -2,6 +2,8 @@
 #include "EditorAssetManager.h"
 #include "Importer/AssetImporter.h"
 
+#include "DEngine/Core.h"
+
 #include "DEngine/Project/Project.h"
 #include "DEngine/Asset/FileWatcher.h"
 
@@ -54,6 +56,10 @@ namespace DEngine
 
 		CreateBaseRendererShader();
 		CreateEmptyTexture();
+
+		CreateWireframeShader();
+		CreateBaseRendererMaterialWireframe();
+
 		SetupFileWatcher();
 	}
 
@@ -478,6 +484,18 @@ namespace DEngine
 	void EditorAssetManager::CreateBaseRendererShader()
 	{
 		m_BaseShaderHandle = CreateAsset({AssetType::Shader, "assets/shaders/Base.glsl"});
+	}
+
+	void EditorAssetManager::CreateWireframeShader()
+	{
+		m_WireframeShaderHandle = CreateAsset({ AssetType::Shader, "assets/shaders/wireframe.glsl" });
+	}
+
+	void EditorAssetManager::CreateBaseRendererMaterialWireframe()
+	{
+		Ref<Material> mat = CreateRef<Material>(m_WireframeShaderHandle);
+		std::string filename = std::string("assets/materials/wireframe") + DMAT_FILE_EXT;
+		m_BaseMaterialWireframe = CreateMaterialAsset(mat, filename);
 	}
 
 	void EditorAssetManager::CreateEmptyTexture()

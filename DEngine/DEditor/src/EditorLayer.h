@@ -25,13 +25,15 @@ namespace DEngine
 		void OnRenderDocker();
 		virtual void Shutdown() override;
 
-		void SetGameMode(GameMode gm);
-		void OnGameModeChanged();
+		void RecalculateFrameBuffer(glm::vec2 viewportSize);
+		void RenderImGuizmo();
+
 		void LoadScene();
 		void ReloadScene();
 
 		void UpdateEditorCamera(const Timestep& ts);
 		void UpdateGameCamera(const Timestep& ts);
+		void DeserializeScene();
 
 		virtual void OnEvent(Event& event) override;
 

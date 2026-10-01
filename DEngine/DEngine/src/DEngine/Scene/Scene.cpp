@@ -13,6 +13,7 @@ namespace DEngine
     {
         AddSystem(std::make_shared<MeshRendererSystem>());
         AddSystem(std::make_shared<PhysicsSystem>());
+        AddSystem(std::make_shared<DebugRendererSystem>());
     }
 
     Scene::~Scene()
@@ -31,6 +32,7 @@ namespace DEngine
         entity.SetUUID(uuid);
 
         entity.AddComponent<TransformComponent>();
+        entity.AddComponent<DebugComponent>();
 
         auto& tag = entity.AddComponent<TagComponent>(name);
         tag.Tag = name.empty() ? "Entity" : name;

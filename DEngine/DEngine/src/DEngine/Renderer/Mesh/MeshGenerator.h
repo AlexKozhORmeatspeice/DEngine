@@ -7,7 +7,7 @@
 
 namespace DEngine
 {
-	enum class PrimitiveType { Cube };
+	enum class PrimitiveType { Cube, Sphere };
 
 	static std::string PrimitiveTypeToString(PrimitiveType type)
 	{
@@ -15,6 +15,8 @@ namespace DEngine
 		{
 			case PrimitiveType::Cube:
 				return "CubePrimitive";
+			case PrimitiveType::Sphere:
+				return "SpherePrimitive";
 		}
 
 		return "UnkownPrimitive";
@@ -27,5 +29,6 @@ namespace DEngine
 		static std::filesystem::path ConstructPrimitivePath(PrimitiveType type);
 	private:
 		static Ref<Mesh> CreateCube();
+		static Ref<Mesh> CreateSphere();
 	};
 }

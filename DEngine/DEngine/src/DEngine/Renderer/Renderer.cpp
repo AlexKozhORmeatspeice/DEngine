@@ -26,7 +26,7 @@ namespace DEngine
 		RenderCommand::SetViewport(width, height);
 	}
 
-	void Renderer::Submit(const Ref<Mesh>& mesh, const Ref<Material>& mat, const glm::mat4& trans)
+	void Renderer::Submit(const Ref<Mesh>& mesh, const Ref<Material>& mat, const glm::mat4& trans, RenderMode mode)
 	{
 		mat->SetMat4("u_ViewProj", s_SceneData->viewProjMat);
 		mat->SetMat4("u_ModelMat", trans);
@@ -36,7 +36,16 @@ namespace DEngine
 
 		mesh->Bind();
 
-		RenderCommand::DrawIndexed(mesh->GetVertexArray());
+		switch (mode)
+		{
+			case WIREFRAME:
+				RenderCommand::DrawIndexedWireframe(mesh->GetVertexArray());
+				break;
+			case SOLID:
+			default:
+				RenderCommand::DrawIndexed(mesh->GetVertexArray());
+				break;
+		}
 
 		mat->Unbind();
 		mesh->Unbind();

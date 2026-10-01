@@ -50,6 +50,8 @@ namespace DEngine
 	
 	void ScenePanel::DrawEntityNode(const Entity& entity)
 	{
+		if (!entity) return;
+
 		auto& tc = entity.GetComponent<TagComponent>();
 
 		ImGuiTreeNodeFlags flags = (m_SelectionContext == entity ? ImGuiTreeNodeFlags_OpenOnArrow : 0) | ImGuiTreeNodeFlags_Selected;
@@ -57,12 +59,27 @@ namespace DEngine
 		bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, tc.Tag.c_str());
 		if (ImGui::IsItemClicked())
 		{
+			if (m_SelectionContext)
+			{
+				m_SelectionContext.GetComponent<DebugComponent>().debugOn = false;
+			}
+
 			m_SelectionContext = entity;
+
+			if (m_SelectionContext.HasComponent<DebugComponent>())
+			{
+				m_SelectionContext.GetComponent<DebugComponent>().debugOn = true;
+			}
+
 			PropetiesPanel::SetSelectedContext(m_SelectionContext);
 		}
 
 		if (ImGui::IsWindowHovered() && ImGui::IsMouseDown(0))
 		{
+			if (m_SelectionContext.HasComponent<DebugComponent>())
+			{
+				m_SelectionContext.GetComponent<DebugComponent>().debugOn = false;
+			}
 			m_SelectionContext = {};
 			PropetiesPanel::SetSelectedContext(m_SelectionContext);
 		}

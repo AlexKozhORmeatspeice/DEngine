@@ -8,3 +8,5 @@
 #include "Components/DirectLightComponent.h"
 #include "Components/RigidbodyComponent.h"
 #include "Components/ColliderComponent.h"
+#include "Components/DebugComponent.h"
+
