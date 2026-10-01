@@ -71,24 +71,56 @@ namespace DEngine
 		const AssetHandle sponzaHandle = AssetManager::CreateAsset({ AssetType::Model, "assets/models/sponza.obj-master/sponza.obj" });
 		const AssetHandle meshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Cube);
 
+		const AssetHandle sphereMeshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Sphere);
+
 		///Set objs
 		auto& cube = m_ActiveScene->CreateEntity("cube");
 		cube.AddComponent<MeshRendererComponent>(meshHandle, matHandle);
-		cube.AddComponent<RigidbodyComponent>();
+		cube.AddComponent<RigidbodyComponent>().isKinematic = true;
 		cube.AddComponent<ColliderComponent>();
 
 		auto& trans = cube.GetComponent<TransformComponent>();
 		trans.SetScale({ 100.0f, 100.0f, 100.0f });
 		trans.SetPosition({ 0.0f, 0.0f, -200.0f });
+		
 
 		auto& cube2 = m_ActiveScene->CreateEntity("cube2");
 		cube2.AddComponent<MeshRendererComponent>(meshHandle, matHandle2);
-		cube2.AddComponent<RigidbodyComponent>();
+		cube2.AddComponent<RigidbodyComponent>().isKinematic = true;
 		cube2.AddComponent<ColliderComponent>();
 
 		auto& trans2 = cube2.GetComponent<TransformComponent>();
 		trans2.SetScale({ 400.0f, 50.0f, 400.0f });
 		trans2.SetPosition({ 0.0f, -100.0f, 0.0f });
+
+
+		auto& cube3 = m_ActiveScene->CreateEntity("cube3");
+		cube3.AddComponent<MeshRendererComponent>(meshHandle, matHandle);
+		cube3.AddComponent<RigidbodyComponent>().isKinematic = true;
+		cube3.AddComponent<ColliderComponent>();
+
+		auto& trans3 = cube3.GetComponent<TransformComponent>();
+		trans3.SetScale({ 100.0f, 100.0f, 100.0f });
+		trans3.SetPosition({ 0.0f, 500.0f, -200.0f });
+
+
+		auto& sphere1 = m_ActiveScene->CreateEntity("sphere1");
+		sphere1.AddComponent<MeshRendererComponent>(sphereMeshHandle, matHandle);
+		sphere1.AddComponent<RigidbodyComponent>().isKinematic = true;
+		sphere1.AddComponent<ColliderComponent>();
+
+		auto& sphere1trans = sphere1.GetComponent<TransformComponent>();
+		sphere1trans.SetScale({ 100.0f, 100.0f, 100.0f });
+		sphere1trans.SetPosition({ 50.0f, 200.0f, -100.0f });
+
+		auto& sphere2 = m_ActiveScene->CreateEntity("sphere2");
+		sphere2.AddComponent<MeshRendererComponent>(sphereMeshHandle, matHandle);
+		sphere2.AddComponent<RigidbodyComponent>().isKinematic = true;
+		sphere2.AddComponent<ColliderComponent>();
+
+		auto& sphere2trans = sphere2.GetComponent<TransformComponent>();
+		sphere2trans.SetScale({ 100.0f, 100.0f, 100.0f });
+		sphere2trans.SetPosition({ 50.0f, 400.0f, -100.0f });
 
 		auto& directLight = m_ActiveScene->CreateEntity("direct light");
 		directLight.AddComponent<DirectLightComponent>(glm::vec3(1.0f, 1.0f, 1.0f), 1.0f);
@@ -105,11 +137,14 @@ namespace DEngine
 		switch (m_CurrentGameMode)
 		{
 		case DEngine::EDITOR:
+			DisablePhysics();
 			D_INFO("SWITCHED TO EDITOR CAMERA");
 			m_ActiveCamera = m_EditorCamera;
 			DeserializeScene();
 			break;
 		case DEngine::GAME:
+			CaptureCameraPos();
+			EnablePhysics();
 			D_INFO("SWITCHED TO GAME CAMERA");
 			m_ActiveCamera = m_GameCamera;
 			break;
@@ -119,6 +154,32 @@ namespace DEngine
 		}
 
 		RecalculateFrameBuffer(m_ViewportSize);
+	}
+
+	void EditorLayer::EnablePhysics()
+	{
+		auto comps = m_ActiveScene->View<TagComponent>();
+
+		for (auto [entity, tagcomp] : comps.each())
+		{
+			tagcomp.isEnabled = true;
+		}
+	}
+
+	void EditorLayer::DisablePhysics()
+	{
+		auto comps = m_ActiveScene->View<TagComponent>();
+
+		for (auto [entity, tagcomp] : comps.each())
+		{
+			tagcomp.isEnabled = false;
+		}
+	}
+
+	void EditorLayer::CaptureCameraPos()
+	{
+		m_GameCamera->SetPos(m_EditorCamera->GetPos());
+		m_GameCamera->SetRot(m_EditorCamera->GetRot());
 	}
 
 
@@ -150,7 +211,7 @@ namespace DEngine
 			m_TabJustPressed = false;
 		}
 
-		if (Input::IsKeyPressed(D_KEY_0))
+		if (Input::IsKeyPressed(D_KEY_E))
 		{
 			if (!m_ReloadJustPressed)
 			{

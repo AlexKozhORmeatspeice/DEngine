@@ -45,7 +45,7 @@ namespace DEngine
 
 				transform = glm::translate(glm::mat4(1.0f), collider.offset + trans.GetPosition()) *
 					glm::toMat4(trans.GetRotation()) *
-					glm::scale(glm::mat4(1.0f), glm::vec3(collider.radius));
+					glm::scale(glm::mat4(1.0f), glm::vec3(collider.radius * 2.));
 
 				meshObj = AssetManager::GetAsset<Mesh>(handle);
 				break;

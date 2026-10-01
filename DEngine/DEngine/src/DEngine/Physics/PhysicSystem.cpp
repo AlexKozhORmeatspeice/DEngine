@@ -457,14 +457,16 @@ namespace DEngine
 
     void PhysicsSystem::OnUpdate(const Timestep& ts, const Scene* scene)
     {
-        auto physicsComponents = scene->View<ColliderComponent, RigidbodyComponent, TransformComponent>();
+        auto physicsComponents = scene->View<ColliderComponent, RigidbodyComponent, TransformComponent, TagComponent>();
         float dt = ts.GetSeconds();
 
         // ========================================================
         //  PASS 1: integration
         // ========================================================
-        for (auto [entity, collider, rigidbody, transform] : physicsComponents.each())
+        for (auto [entity, collider, rigidbody, transform, tagcomp] : physicsComponents.each())
         {
+            if (!tagcomp.isEnabled) continue;
+
             if (rigidbody.isKinematic)
                 continue;
 
@@ -521,9 +523,11 @@ namespace DEngine
         std::unordered_set<EntityHandle> inContact;
         std::unordered_set<EntityHandle> visitedEntities;
 
-        for (auto [entityA, colliderA, rigidbodyA, transformA] : physicsComponents.each())
+        for (auto [entityA, colliderA, rigidbodyA, transformA, tagcompA] : physicsComponents.each())
         {
-            for (auto [entityB, colliderB, rigidbodyB, transformB] : physicsComponents.each())
+            if (!tagcompA.isEnabled) continue;
+
+            for (auto [entityB, colliderB, rigidbodyB, transformB, tagcompB] : physicsComponents.each())
             {
                 if (visitedEntities.find(entityB) == visitedEntities.end()) continue;
                 if (entityA == entityB) continue;
@@ -576,8 +580,10 @@ namespace DEngine
         // ========================================================
         //  PASS 3: contact damping + sleep
         // ========================================================
-        for (auto [entity, collider, rigidbody, transform] : physicsComponents.each())
+        for (auto [entity, collider, rigidbody, transform, tagcomp] : physicsComponents.each())
         {
+            if (!tagcomp.isEnabled) continue;
+
             if (rigidbody.isKinematic) continue;
 
             const bool touching = inContact.find(entity) != inContact.end();

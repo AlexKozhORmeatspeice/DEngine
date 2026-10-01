@@ -1,58 +1,136 @@
 Scene: Untitled
 Entities:
-  - Entity: 9138464504502875268
+  - Entity: 0
     TagComponent:
       Tag: cube
     TransformComponent:
-      Pos: [0, 0, -200]
-      Rot: [0, 0, 0]
-      Scale: [100, 100, 100]
+      Pos: [-16.591703, -2911.2253, -133.52379]
+      Rot: [0.005167426, -0.67994076, 0.005081124]
+      Scale: [99.9999, 100.00003, 100.00002]
     MeshRendererComponent:
-      MeshHandle: 9335573211974037412
-      MaterialHandle: 4511876146735459739
+      MeshHandle: 5265563757585502321
+      MaterialHandle: 7996858785094387731
     RigidbodyComponent:
       Mass: 1
       Velocity: [0, 0, 0]
-      Acceleration: [0, 0, 0]
+      Acceleration: [0, -9.81, 0]
       Force: [0, 0, 0]
       UseGravity: true
       IsKinematic: false
     ColliderComponent:
       Type: 1
-      Size: [1, 1, 1]
+      Size: [101, 101, 101]
       Offset: [0, 0, 0]
       Radius: 0.5
       Height: 1
       IsTrigger: false
     DebugComponent:
       {}
-  - Entity: 10054143031707347267
+  - Entity: 0
     TagComponent:
       Tag: cube2
     TransformComponent:
-      Pos: [0, -100, 0]
-      Rot: [0, 0, 0]
-      Scale: [400, 50, 400]
+      Pos: [0, -2987.2332, -139.0044]
+      Rot: [0, -0, 0]
+      Scale: [700, 50, 700]
     MeshRendererComponent:
-      MeshHandle: 9335573211974037412
-      MaterialHandle: 67725931068417522
+      MeshHandle: 5265563757585502321
+      MaterialHandle: 7677640191632097926
     RigidbodyComponent:
       Mass: 1
       Velocity: [0, 0, 0]
       Acceleration: [0, 0, 0]
       Force: [0, 0, 0]
       UseGravity: true
-      IsKinematic: false
+      IsKinematic: true
     ColliderComponent:
       Type: 1
-      Size: [1, 1, 1]
+      Size: [701, 51, 701]
       Offset: [0, 0, 0]
       Radius: 0.5
       Height: 1
       IsTrigger: false
     DebugComponent:
       {}
-  - Entity: 7759267786064847899
+  - Entity: 0
+    TagComponent:
+      Tag: cube3
+    TransformComponent:
+      Pos: [10.298113, -2911.2258, -287.21176]
+      Rot: [-89.9946, -7.16465, -0.0051259543]
+      Scale: [99.99961, 100.01391, 100.01391]
+    MeshRendererComponent:
+      MeshHandle: 5265563757585502321
+      MaterialHandle: 7996858785094387731
+    RigidbodyComponent:
+      Mass: 1
+      Velocity: [0, 0, 0]
+      Acceleration: [0, -9.81, 0]
+      Force: [0, 0, 0]
+      UseGravity: true
+      IsKinematic: false
+    ColliderComponent:
+      Type: 1
+      Size: [101, 101, 101]
+      Offset: [0, 0, 0]
+      Radius: 0.5
+      Height: 1
+      IsTrigger: false
+    DebugComponent:
+      {}
+  - Entity: 0
+    TagComponent:
+      Tag: sphere1
+    TransformComponent:
+      Pos: [405.91238, -2968.5112, -82.2351]
+      Rot: [-18.280245, -22.477003, 17.608555]
+      Scale: [100.01483, 100.01372, 100.0007]
+    MeshRendererComponent:
+      MeshHandle: 14790834731678286767
+      MaterialHandle: 7996858785094387731
+    RigidbodyComponent:
+      Mass: 1
+      Velocity: [7.7478666, -27.588152, 0.009381542]
+      Acceleration: [0, -9.81, 0]
+      Force: [0, 0, 0]
+      UseGravity: true
+      IsKinematic: false
+    ColliderComponent:
+      Type: 2
+      Size: [1, 1, 1]
+      Offset: [0, 0, 0]
+      Radius: 50
+      Height: 1
+      IsTrigger: false
+    DebugComponent:
+      {}
+  - Entity: 0
+    TagComponent:
+      Tag: sphere2
+    TransformComponent:
+      Pos: [-141.47395, -2911.7346, -32.58532]
+      Rot: [-9.099628, 2.759757, -11.54495]
+      Scale: [100.00015, 100.00052, 100.00005]
+    MeshRendererComponent:
+      MeshHandle: 14790834731678286767
+      MaterialHandle: 7996858785094387731
+    RigidbodyComponent:
+      Mass: 1
+      Velocity: [0, 0, 0]
+      Acceleration: [0, -9.81, 0]
+      Force: [0, 0, 0]
+      UseGravity: true
+      IsKinematic: false
+    ColliderComponent:
+      Type: 2
+      Size: [1, 1, 1]
+      Offset: [0, 0, 0]
+      Radius: 50
+      Height: 1
+      IsTrigger: false
+    DebugComponent:
+      {}
+  - Entity: 0
     TagComponent:
       Tag: direct light
     TransformComponent:

@@ -30,6 +30,10 @@ namespace DEngine
 
 		void LoadScene();
 		void ReloadScene();
+		void EnablePhysics();
+		void DisablePhysics();
+
+		void CaptureCameraPos();
 
 		void UpdateEditorCamera(const Timestep& ts);
 		void UpdateGameCamera(const Timestep& ts);

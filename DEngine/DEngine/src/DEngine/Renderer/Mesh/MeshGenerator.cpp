@@ -201,8 +201,8 @@ namespace DEngine
 				uint32_t c = (i + 1) * vertsPerStack + j;   // следующая параллель, текущий меридиан
 				uint32_t d = c + 1;                          // следующая параллель, следующий меридиан
 
-				inds.push_back(a); inds.push_back(c); inds.push_back(b);
-				inds.push_back(b); inds.push_back(c); inds.push_back(d);
+				inds.push_back(b); inds.push_back(c); inds.push_back(a);
+				inds.push_back(d); inds.push_back(c); inds.push_back(b);
 			}
 		}
 
