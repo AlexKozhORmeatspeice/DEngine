@@ -137,12 +137,14 @@ namespace DEngine
 		switch (m_CurrentGameMode)
 		{
 		case DEngine::EDITOR:
+			EnableSelectedEntityDebug();
 			DisablePhysics();
 			D_INFO("SWITCHED TO EDITOR CAMERA");
 			m_ActiveCamera = m_EditorCamera;
 			DeserializeScene();
 			break;
 		case DEngine::GAME:
+			DisableSelectedEntityDebug();
 			CaptureCameraPos();
 			EnablePhysics();
 			D_INFO("SWITCHED TO GAME CAMERA");
@@ -173,6 +175,26 @@ namespace DEngine
 		for (auto [entity, tagcomp] : comps.each())
 		{
 			tagcomp.isEnabled = false;
+		}
+	}
+
+	void EditorLayer::DisableSelectedEntityDebug()
+	{
+		Entity selection = m_PropPanel.getSelectedEntity();
+		if (selection && selection.HasComponent<DebugComponent>())
+		{
+			auto& debug = selection.GetComponent<DebugComponent>();
+			debug.debugOn = false;
+		}
+	}
+
+	void EditorLayer::EnableSelectedEntityDebug()
+	{
+		Entity selection = m_PropPanel.getSelectedEntity();
+		if (selection && selection.HasComponent<DebugComponent>())
+		{
+			auto& debug = selection.GetComponent<DebugComponent>();
+			debug.debugOn = true;
 		}
 	}
 
@@ -320,7 +342,6 @@ namespace DEngine
 		char fpsLabel[50];
 		char spfLabel[50];
 		int fps = (int)Application::Get().GetFPS();
-		float spf = 1 / (fps+0.0001);
 		strcpy(fpsLabel, std::to_string(fps).c_str());
 		strcpy(spfLabel, std::to_string(m_DrawTime).c_str());
 		strcat(fpsLabel, " FPS");

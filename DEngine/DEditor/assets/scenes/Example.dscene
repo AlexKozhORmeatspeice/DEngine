@@ -4,8 +4,8 @@ Entities:
     TagComponent:
       Tag: cube
     TransformComponent:
-      Pos: [-16.591703, -2911.2253, -133.52379]
-      Rot: [0.005167426, -0.67994076, 0.005081124]
+      Pos: [-16.591703, 56.052498, -133.52379]
+      Rot: [0.005167557, -0.67997277, 0.0050811223]
       Scale: [99.9999, 100.00003, 100.00002]
     MeshRendererComponent:
       MeshHandle: 5265563757585502321
@@ -30,7 +30,7 @@ Entities:
     TagComponent:
       Tag: cube2
     TransformComponent:
-      Pos: [0, -2987.2332, -139.0044]
+      Pos: [0, -152.59692, -139.0044]
       Rot: [0, -0, 0]
       Scale: [700, 50, 700]
     MeshRendererComponent:
@@ -56,8 +56,8 @@ Entities:
     TagComponent:
       Tag: cube3
     TransformComponent:
-      Pos: [10.298113, -2911.2258, -287.21176]
-      Rot: [-89.9946, -7.16465, -0.0051259543]
+      Pos: [10.298113, 198.71686, -221.61993]
+      Rot: [-89.9946, -7.164651, -0.005126384]
       Scale: [99.99961, 100.01391, 100.01391]
     MeshRendererComponent:
       MeshHandle: 5265563757585502321
@@ -82,15 +82,15 @@ Entities:
     TagComponent:
       Tag: sphere1
     TransformComponent:
-      Pos: [405.91238, -2968.5112, -82.2351]
-      Rot: [-18.280245, -22.477003, 17.608555]
-      Scale: [100.01483, 100.01372, 100.0007]
+      Pos: [113.83287, 233.19958, -121.14163]
+      Rot: [-24.775557, -22.478727, 13.547182]
+      Scale: [100.01494, 100.013855, 100.00084]
     MeshRendererComponent:
       MeshHandle: 14790834731678286767
       MaterialHandle: 7996858785094387731
     RigidbodyComponent:
       Mass: 1
-      Velocity: [7.7478666, -27.588152, 0.009381542]
+      Velocity: [0.45653802, 0, 0.0005528104]
       Acceleration: [0, -9.81, 0]
       Force: [0, 0, 0]
       UseGravity: true
@@ -108,8 +108,8 @@ Entities:
     TagComponent:
       Tag: sphere2
     TransformComponent:
-      Pos: [-141.47395, -2911.7346, -32.58532]
-      Rot: [-9.099628, 2.759757, -11.54495]
+      Pos: [-67.82182, 173.34564, -55.036858]
+      Rot: [-9.099629, 2.7597563, -11.544951]
       Scale: [100.00015, 100.00052, 100.00005]
     MeshRendererComponent:
       MeshHandle: 14790834731678286767
@@ -135,8 +135,8 @@ Entities:
       Tag: direct light
     TransformComponent:
       Pos: [0, 0, 0]
-      Rot: [0, 70.000015, 0]
-      Scale: [1, 1, 1]
+      Rot: [292.9, 47.1, 0]
+      Scale: [0.9999976, 0.99999744, 0.99999326]
     DirectLightComponent:
       Color: [1, 1, 1]
       Intensity: 1

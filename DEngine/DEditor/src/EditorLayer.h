@@ -32,6 +32,8 @@ namespace DEngine
 		void ReloadScene();
 		void EnablePhysics();
 		void DisablePhysics();
+		void DisableSelectedEntityDebug();
+		void EnableSelectedEntityDebug();
 
 		void CaptureCameraPos();
 
@@ -85,6 +87,8 @@ namespace DEngine
 		bool m_TabJustPressed = false;
 		bool m_ReloadJustPressed = false;
 		float m_DrawTime;
+
+
 		ImGuizmo::OPERATION m_GuizmoType = ImGuizmo::OPERATION::TRANSLATE;
 
 	};
