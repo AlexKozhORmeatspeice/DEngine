@@ -43,8 +43,10 @@ namespace DEngine
 
 		virtual void OnEvent(Event& event) override;
 
-		bool OnMouseEvent(MouseButtonPressedEvent& event);
+		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& event);
+		bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& event);
 		bool OnMouseMovedEvent(MouseMovedEvent& event);
+		bool OnMouseScrolledEvent(MouseScrolledEvent& event);
 
 		bool OnKeyPressedEv(KeyPressedEvent& event);
 
@@ -75,7 +77,6 @@ namespace DEngine
 		glm::vec3 m_CamPos;
 		glm::vec3 m_CamRot;
 		float m_CamSpeed = 200.0f;
-		float m_CamRotSpeed = 100.0f;
 
 		float timeUpdateAssetsSum = 0.0f;
 		const float TIME_BETWEEN_ASSETS_HOT_RELOAD = 1.0f;
@@ -88,6 +89,11 @@ namespace DEngine
 		bool m_ReloadJustPressed = false;
 		float m_DrawTime;
 
+		float m_LastMouseX = 0.0f;
+		float m_LastMouseY = 0.0f;
+		bool m_FirstMouseMove = true;
+
+		float m_MouseSensitivity = 0.15f;
 
 		ImGuizmo::OPERATION m_GuizmoType = ImGuizmo::OPERATION::TRANSLATE;
 

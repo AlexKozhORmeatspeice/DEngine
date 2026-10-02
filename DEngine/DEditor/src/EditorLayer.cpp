@@ -2,6 +2,8 @@
 #include "imgui/imgui.h"
 #include "DEngine/Core.h"
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 #include "DEngine/Input/MouseButtonCodes.h"
 
@@ -31,7 +33,6 @@ namespace DEngine
 
 		//Set scene
 		AssetHandle m_SceneHandle = AssetManager::CreateAsset(BASE_SCENE_PATH);
-		//m_ActiveScene = SceneSerializer::Deserialize(BASE_SCENE_PATH).scene;
 		m_ActiveScene = AssetManager::GetAsset<Scene>(m_SceneHandle);
 
 		//Создание сцены, если она еще не была создана
@@ -205,7 +206,6 @@ namespace DEngine
 	}
 
 
-
 	void EditorLayer::OnUpdate(const Timestep& ts)
 	{
 		UpdateAssets(ts);
@@ -252,23 +252,14 @@ namespace DEngine
 	{
 		if (m_ViewportFocused)
 		{
-			if (Input::IsKeyPressed(D_KEY_LEFT))
-				m_CamPos = m_CamPos - m_EditorCamera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
-			if (Input::IsKeyPressed(D_KEY_RIGHT))
-				m_CamPos = m_CamPos + m_EditorCamera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
-			if (Input::IsKeyPressed(D_KEY_UP))
-				m_CamPos = m_CamPos + m_EditorCamera->GetForwardDir() * m_CamSpeed * ts.GetSeconds();
-			if (Input::IsKeyPressed(D_KEY_DOWN))
-				m_CamPos = m_CamPos - m_EditorCamera->GetForwardDir() * m_CamSpeed * ts.GetSeconds();
-
-			if (Input::IsKeyPressed(D_KEY_A))
-				m_CamRot.y += m_CamRotSpeed * ts;
-			if (Input::IsKeyPressed(D_KEY_D))
-				m_CamRot.y -= m_CamRotSpeed * ts;
 			if (Input::IsKeyPressed(D_KEY_W))
-				m_CamRot.x += m_CamRotSpeed * ts;
+				m_CamPos = m_CamPos + m_EditorCamera->GetForwardDir() * m_CamSpeed * ts.GetSeconds();
 			if (Input::IsKeyPressed(D_KEY_S))
-				m_CamRot.x -= m_CamRotSpeed * ts;
+				m_CamPos = m_CamPos - m_EditorCamera->GetForwardDir() * m_CamSpeed * ts.GetSeconds();
+			if (Input::IsKeyPressed(D_KEY_A))
+				m_CamPos = m_CamPos - m_EditorCamera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
+			if (Input::IsKeyPressed(D_KEY_D))
+				m_CamPos = m_CamPos + m_EditorCamera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
 
 			m_EditorCamera->SetPos(m_CamPos);
 			m_EditorCamera->SetRot(m_CamRot);
@@ -277,7 +268,6 @@ namespace DEngine
 
 	void EditorLayer::UpdateGameCamera(const Timestep& ts)
 	{
-		//m_GameCamera->SetPos();
 		m_GameCamera->SetRot(glm::vec3(0,0,0));
 	}
 
@@ -432,9 +422,10 @@ namespace DEngine
 	{
 		EventDispatcher dis(event);
 		dis.Dispatch<KeyPressedEvent>(BIND_EVENT_FN(EditorLayer::OnKeyPressedEv));
-		dis.Dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(EditorLayer::OnMouseEvent));
-
+		dis.Dispatch<MouseButtonPressedEvent>(BIND_EVENT_FN(EditorLayer::OnMouseButtonPressedEvent));
+		dis.Dispatch<MouseButtonReleasedEvent>(BIND_EVENT_FN(EditorLayer::OnMouseButtonReleasedEvent));
 		dis.Dispatch<MouseMovedEvent>(BIND_EVENT_FN(EditorLayer::OnMouseMovedEvent));
+		dis.Dispatch<MouseScrolledEvent>(BIND_EVENT_FN(EditorLayer::OnMouseScrolledEvent));
 
 		if (event.GetEventType() == EventType::WindowResize)
 		{
@@ -446,14 +437,75 @@ namespace DEngine
 		}
 	}
 
-	bool EditorLayer::OnMouseEvent(MouseButtonPressedEvent& event)
+	bool EditorLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& event)
 	{
+		if (event.GetMouseButton() == D_MOUSE_BUTTON_RIGHT)
+		{
+			m_ControllingCameraWithMouse = true;
+			m_FirstMouseMove = true;
+			return true;
+		}
+
+		return false;
+	}
+
+	bool EditorLayer::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& event)
+	{
+		if (event.GetMouseButton() == D_MOUSE_BUTTON_RIGHT)
+		{
+			m_ControllingCameraWithMouse = false;
+			m_FirstMouseMove = true;
+			return true;
+		}
+
 		return false;
 	}
 
 	bool EditorLayer::OnMouseMovedEvent(MouseMovedEvent& event)
 	{
-		return false;
+		if (m_CurrentGameMode != EDITOR) return false;
+		if (!m_ViewportFocused || !m_ViewportHovered) return false;
+		if (!m_ControllingCameraWithMouse) return false;
+
+		float x = event.GetX();
+		float y = event.GetY();
+
+		if (m_FirstMouseMove)
+		{
+			m_LastMouseX = x;
+			m_LastMouseY = y;
+			m_FirstMouseMove = false;
+			return false;
+		}
+
+		float deltaX = x - m_LastMouseX;
+		float deltaY = y - m_LastMouseY;
+
+		m_LastMouseX = x;
+		m_LastMouseY = y;
+
+		m_CamRot.y += deltaX * m_MouseSensitivity;
+		m_CamRot.x += deltaY * m_MouseSensitivity;
+
+		// Ограничиваем pitch, чтобы камера не переворачивалась
+		m_CamRot.x = glm::clamp(m_CamRot.x, -89.0f, 89.0f);
+
+		m_EditorCamera->SetRot(m_CamRot);
+
+		return true;
+	}
+
+	bool EditorLayer::OnMouseScrolledEvent(MouseScrolledEvent& event)
+	{
+		if (m_CurrentGameMode != EDITOR) return false;
+		if (!m_ViewportFocused || !m_ViewportHovered) return false;
+
+		float offset = event.GetYOffset();
+		m_CamPos += m_EditorCamera->GetForwardDir() * offset * 20.0f;
+
+		m_EditorCamera->SetPos(m_CamPos);
+
+		return true;
 	}
 
 	void EditorLayer::Shutdown()
@@ -535,8 +587,6 @@ namespace DEngine
 		{
 			if (ImGui::BeginMenu("File"))
 			{
-				// Disabling fullscreen would allow the window to be moved to the front of other windows,
-				// which we can't undo at the moment without finer window depth/z control.
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
 			}

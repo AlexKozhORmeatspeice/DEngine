@@ -17,8 +17,8 @@ namespace DEngine
 
 		glm::mat3 GetInertia(ColliderComponent collider, RigidbodyComponent rigidbody);
 
-		// Применить крутящий момент к телу (в мировых осях).
-		// Можно вызывать из игрового кода/скриптов до OnUpdate.
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ (пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ).
+		// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ OnUpdate.
 		static void ApplyTorque(RigidbodyComponent& rigidbody, const glm::vec3& torque);
 
 		virtual void OnUpdate(const Timestep& ts, const Scene* scene) override;
