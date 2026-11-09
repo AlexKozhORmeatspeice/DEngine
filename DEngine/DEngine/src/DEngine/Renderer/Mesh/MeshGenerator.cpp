@@ -2,6 +2,7 @@
 #include "MeshGenerator.h"
 
 #include "DEngine/Core.h"
+#include "DEngine/Asset/AssetHelper.h"
 #include "DEngine/Asset/Serializer/MeshSerializer.h"
 #include "DEngine/Project/Project.h"
 
@@ -35,7 +36,7 @@ namespace DEngine
 			D_CORE_INFO("Created directory: {0}", meshPrimitivePath.string());
 		}
 
-		std::string primitiveName = PrimitiveTypeToString(type) + DMESH_FILE_EXT;
+		std::string primitiveName = PrimitiveTypeToString(type) + std::string(AssetHelper::NativeExtension(AssetType::Mesh));
 		meshPrimitivePath = meshPrimitivePath / primitiveName;
 
 		return meshPrimitivePath;

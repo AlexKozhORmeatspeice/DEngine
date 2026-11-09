@@ -12,7 +12,7 @@
 namespace DEngine
 {
     //Сюда добавляем новые компоненты которые нужно сериализовать
-    using ComponentList = std::tuple<TagComponent, TransformComponent, MeshRendererComponent, DirectLightComponent, RigidbodyComponent, ColliderComponent, DebugComponent>;
+    using ComponentList = std::tuple<TagComponent, TransformComponent, MeshRendererComponent, DirectLightComponent, RigidbodyComponent, ColliderComponent, DebugComponent, CameraComponent>;
 
     struct DeserializeSceneResult
     {
@@ -24,9 +24,11 @@ namespace DEngine
     {
     public:
         static void Serialize(const Ref<Scene>& scene, const std::filesystem::path& path);
+        static std::string SerializeToString(const Ref<Scene>& scene);
         static void SerializeRuntime(const Ref<Scene>& scene, const std::filesystem::path& path);
         
         static DeserializeSceneResult Deserialize(const std::filesystem::path& path);
+        static DeserializeSceneResult DeserializeFromString(const std::string& yaml);
         static DeserializeSceneResult DeserializeRuntime(const std::filesystem::path& path);
 
     private:

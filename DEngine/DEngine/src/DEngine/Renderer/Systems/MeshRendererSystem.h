@@ -11,8 +11,8 @@ namespace DEngine
 		virtual ~MeshRendererSystem() {}
 
 		virtual void Start() override {}
-		virtual void OnUpdate(const Timestep& ts, const Scene* scene) override {}
-		virtual void OnRender(const Timestep& ts, const Scene* scene) override;
+		virtual void OnUpdate(const Timestep& ts, Scene* scene) override {}
+		virtual void OnRender(const Timestep& ts, Scene* scene) override;
 		virtual void Shutdown() override {}
 	};
 }

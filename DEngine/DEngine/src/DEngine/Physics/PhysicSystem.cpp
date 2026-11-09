@@ -32,8 +32,9 @@ namespace DEngine
     OBB MakeOBB(const TransformComponent& transform, const ColliderComponent& collider)
     {
         OBB o;
-        o.center = transform.GetPosition() + transform.GetRotation() * collider.offset;
-        o.halfExtents = collider.size * 0.5f;
+        const glm::vec3 scale = transform.GetScale();
+        o.center = transform.GetPosition() + transform.GetRotation() * (collider.offset * scale);
+        o.halfExtents = collider.size * scale * 0.5f;
         o.rotation = glm::mat3_cast(transform.GetRotation());
         return o;
     }
@@ -227,7 +228,13 @@ namespace DEngine
     // ============================================================
     static glm::vec3 SphereCenter(const TransformComponent& tr, const ColliderComponent& col)
     {
-        return tr.GetPosition() + tr.GetRotation() * col.offset;
+        return tr.GetPosition() + tr.GetRotation() * (col.offset * tr.GetScale());
+    }
+
+    static float WorldRadius(const TransformComponent& tr, float radius)
+    {
+        const glm::vec3 scale = tr.GetScale();
+        return radius * glm::max(scale.x, glm::max(scale.y, scale.z));
     }
 
     // Sphere vs sphere. Normal points from A to B.
@@ -308,17 +315,17 @@ namespace DEngine
         const bool sphB = colB.type == ColliderType::Sphere;
 
         if (sphA && sphB)
-            return TestSphereSphere(SphereCenter(trA, colA), colA.radius, SphereCenter(trB, colB), colB.radius);
+            return TestSphereSphere(SphereCenter(trA, colA), WorldRadius(trA, colA.radius), SphereCenter(trB, colB), WorldRadius(trB, colB.radius));
 
         if (sphA)
         {
-            CollisionResult r = TestSphereOBB(SphereCenter(trA, colA), colA.radius, MakeOBB(trB, colB));
+            CollisionResult r = TestSphereOBB(SphereCenter(trA, colA), WorldRadius(trA, colA.radius), MakeOBB(trB, colB));
             r.normal = -r.normal; // box->sphere  ==>  sphere(A)->box(B)
             return r;
         }
 
         if (sphB)
-            return TestSphereOBB(SphereCenter(trB, colB), colB.radius, MakeOBB(trA, colA));
+            return TestSphereOBB(SphereCenter(trB, colB), WorldRadius(trB, colB.radius), MakeOBB(trA, colA));
 
         return TestOBB(MakeOBB(trA, colA), MakeOBB(trB, colB));
     }
@@ -455,7 +462,7 @@ namespace DEngine
         rigidbody.torque += torque;
     }
 
-    void PhysicsSystem::OnUpdate(const Timestep& ts, const Scene* scene)
+    void PhysicsSystem::OnUpdate(const Timestep& ts, Scene* scene)
     {
         auto physicsComponents = scene->View<ColliderComponent, RigidbodyComponent, TransformComponent, TagComponent>();
         float dt = ts.GetSeconds();
@@ -520,8 +527,8 @@ namespace DEngine
             std::vector<glm::vec3> points;
         };
         std::vector<Contact> contacts;
-        std::unordered_set<EntityHandle> inContact;
-        std::unordered_set<EntityHandle> visitedEntities;
+        std::unordered_set<entt::entity> inContact;
+        std::unordered_set<entt::entity> visitedEntities;
 
         for (auto [entityA, colliderA, rigidbodyA, transformA, tagcompA] : physicsComponents.each())
         {

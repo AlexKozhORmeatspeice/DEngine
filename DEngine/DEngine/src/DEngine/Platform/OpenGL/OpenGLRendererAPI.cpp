@@ -43,6 +43,22 @@ namespace DEngine
 	void OpenGLRendererAPI::DrawIndexedWireframe(const DEngine::Ref<VertexArray> vertArr)
 	{
 		vertArr->Bind();
-		glDrawElements(GL_LINES, vertArr->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+		// Triangle indexes are not line pairs. Draw the mesh edges, on top of the solid object.
+		glDisable(GL_CULL_FACE);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glEnable(GL_POLYGON_OFFSET_LINE);
+		glPolygonOffset(-1.0f, -1.0f);
+		GLint depthFunc = GL_LESS;
+		glGetIntegerv(GL_DEPTH_FUNC, &depthFunc);
+		glDepthFunc(GL_LEQUAL);
+
+		glDrawElements(GL_TRIANGLES, vertArr->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+		glDepthFunc(depthFunc);
+		glDisable(GL_POLYGON_OFFSET_LINE);
+		glPolygonOffset(0.0f, 0.0f);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glEnable(GL_CULL_FACE);
 	}
 }

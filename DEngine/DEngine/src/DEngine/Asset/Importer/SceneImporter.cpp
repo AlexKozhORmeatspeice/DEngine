@@ -12,7 +12,7 @@ namespace DEngine
 
 	Ref<Scene> SceneImporter::LoadScene(const std::filesystem::path& path)
 	{
-		DeserializeSceneResult& desRes = SceneSerializer::Deserialize(path);
+		DeserializeSceneResult desRes = SceneSerializer::Deserialize(path);
 		Ref<Scene> resScene = nullptr;
 
 		if (desRes.isSuccessful)

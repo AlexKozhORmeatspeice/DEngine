@@ -28,6 +28,9 @@ namespace DEngine
 
 	void Renderer::Submit(const Ref<Mesh>& mesh, const Ref<Material>& mat, const glm::mat4& trans, RenderMode mode)
 	{
+		if (!mesh || !mat)
+			return;
+
 		mat->SetMat4("u_ViewProj", s_SceneData->viewProjMat);
 		mat->SetMat4("u_ModelMat", trans);
 		mat->SetFloat3("u_ViewPos", s_SceneData->cam->GetPos());

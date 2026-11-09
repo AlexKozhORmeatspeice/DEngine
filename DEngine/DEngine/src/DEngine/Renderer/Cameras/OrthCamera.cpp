@@ -9,33 +9,44 @@ namespace DEngine
 		: Camera()
 	{
 		z_Near = 0.1f;
-		z_Far = 100.0f;
-
-		m_ProjMat = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, z_Near, z_Far);
-		m_ViewMat = glm::mat4(1.0f);
-		m_ViewProjMat = m_ProjMat * m_ViewMat;
+		z_Far = 3000.0f;
+		RecalcProj();
+		RecalcViewMat();
 	}
 
-	OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top, float z_near, float z_far)
-		: Camera()
+	OrthographicCamera::OrthographicCamera(float size, float aspect, float nearClip, float farClip)
+		: Camera(), m_Size(size), m_Aspect(aspect)
 	{
-		z_Near = z_near;
-		z_Far = z_far;
-
-		m_ProjMat = glm::ortho(left, right, bottom, top, z_Near, z_Far);
-		m_ViewMat = glm::mat4(1.0f);
-		m_ViewProjMat = m_ProjMat * m_ViewMat;
+		z_Near = nearClip;
+		z_Far = farClip;
+		RecalcProj();
+		RecalcViewMat();
 	}
 
-	void OrthographicCamera::RecalcViewMat()
+	void OrthographicCamera::SetSize(float size)
 	{
-		glm::mat4 trans = glm::mat4(1.0f);
-		trans = glm::translate(trans, m_Pos);
-		trans = glm::rotate(trans, glm::radians(m_Rot.x), glm::vec3(1.0f, 0.0f, 0.0f));
-		trans = glm::rotate(trans, glm::radians(m_Rot.y), glm::vec3(0.0f, 1.0f, 0.0f));
-		trans = glm::rotate(trans, glm::radians(m_Rot.z), glm::vec3(0.0f, 0.0f, 1.0f));
+		m_Size = size < 0.01f ? 0.01f : size;
+		RecalcProj();
+	}
 
-		m_ViewMat = glm::inverse(trans);
+	void OrthographicCamera::ChangeSize(uint32_t width, uint32_t height)
+	{
+		if (width == 0 || height == 0)
+			return;
+
+		m_Aspect = (float)width / (float)height;
+		RecalcProj();
+		RecalcViewMat();
+	}
+
+	void OrthographicCamera::RecalcProj()
+	{
+		if (m_Aspect <= 0.0f)
+			m_Aspect = 1.0f;
+
+		float halfHeight = m_Size;
+		float halfWidth = m_Size * m_Aspect;
+		m_ProjMat = glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, z_Near, z_Far);
 		m_ViewProjMat = m_ProjMat * m_ViewMat;
 	}
 }

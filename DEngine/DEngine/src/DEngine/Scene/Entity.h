@@ -2,8 +2,9 @@
 
 #include "DEngine/Core.h"
 #include "Scene.h"
+#include "entt.hpp"
 #include "DEngine/Scene/Component.h"
-#include "DEngine/Scene/EntityHandle.h"     
+
 #include <unordered_map>
 #include <memory>
 
@@ -14,8 +15,8 @@ namespace DEngine
     class Entity
     {
     public:
-        Entity() : m_Handle(EntityHandle::Invalid()), m_Scene(nullptr) {}
-        Entity(EntityHandle handle, Scene* scene) : m_Handle(handle), m_Scene(scene) {}
+        Entity() : m_Handle(entt::null), m_Scene(nullptr) {}
+        Entity(entt::entity handle, Scene* scene) : m_Handle(handle), m_Scene(scene) {}
         ~Entity() = default;
 
         template<typename T>
@@ -30,7 +31,7 @@ namespace DEngine
         {
             static_assert(std::is_base_of_v<Component, T>, "T must be a Component");
             D_CORE_ASSERT(!HasComponent<T>(), "Entity already has component");
-            
+
             return m_Scene->m_Registry.emplace<T>(m_Handle, std::forward<Args>(args)...);
         }
 
@@ -61,16 +62,17 @@ namespace DEngine
         uint64_t GetUUID() const { return m_UUID; }
         void SetUUID(uint64_t uuid) { m_UUID = uuid; }
 
+        operator bool() const { return m_Handle != entt::null && m_Scene != nullptr; }
         bool operator==(const Entity& other) const { return m_Handle == other.m_Handle && m_Scene == other.m_Scene; }
         bool operator!=(const Entity& other) const { return m_Handle != other.m_Handle || m_Scene != other.m_Scene; }
         operator uint32_t() const { return static_cast<uint32_t>(m_Handle); }
-        operator bool() const { return static_cast<bool>(m_Handle) && m_Scene != nullptr; }
+        operator entt::entity() const { return m_Handle; }
 
-        EntityHandle GetHandle() const { return m_Handle; }
+        entt::entity GetHandle() const { return m_Handle; }
         Scene* GetScene() const { return m_Scene; }
 
     private:
-        EntityHandle m_Handle = EntityHandle::Invalid();
+        entt::entity m_Handle{ entt::null };
         Scene* m_Scene = nullptr;
         uint64_t m_UUID = 0;
     };

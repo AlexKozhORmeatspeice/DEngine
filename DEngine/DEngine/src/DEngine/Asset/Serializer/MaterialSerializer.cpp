@@ -269,7 +269,10 @@ namespace DEngine
     {
         std::ofstream stream(path, std::ios::binary);
         if (!stream.is_open())
+        {
+            D_CORE_ERROR("MaterialSerializer::Serialize: failed to open {0}", path.string());
             return;
+        }
 
         // Запись заголовка файла
         uint32_t magic = 0x4D4154; // "MAT"

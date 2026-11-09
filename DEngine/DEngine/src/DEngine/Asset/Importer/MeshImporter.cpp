@@ -12,7 +12,7 @@ namespace DEngine
 
 	Ref<Mesh> MeshImporter::LoadMesh(const std::filesystem::path& path)
 	{
-		DeserializeMeshResult& desRes = MeshSerializer::Deserialize(path);
+		DeserializeMeshResult desRes = MeshSerializer::Deserialize(path);
 		Ref<Mesh> resMesh = nullptr;
 
 		if (desRes.isSuccessful)

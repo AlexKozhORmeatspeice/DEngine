@@ -5,15 +5,16 @@
 #include "Components.h"
 #include "DEngine/Scene/System.h"
 #include "DEngine/Scene/Systems.h"
-#include "DEngine/Scene/EntityHandle.h"
+
 
 namespace DEngine
 {
     Scene::Scene()
     {
+        AddSystem(std::make_shared<CameraSystem>());
         AddSystem(std::make_shared<MeshRendererSystem>());
-        AddSystem(std::make_shared<PhysicsSystem>());
         AddSystem(std::make_shared<DebugRendererSystem>());
+        AddSystem(std::make_shared<PhysicsSystem>());
     }
 
     Scene::~Scene()
@@ -23,7 +24,7 @@ namespace DEngine
 
     Entity Scene::CreateEntity(const std::string& name)
     {
-        EntityHandle handle = m_Registry.create();
+        entt::entity handle = m_Registry.create();
         UUID uuid;
 
         m_Entities.emplace_back(handle, this);
@@ -32,7 +33,6 @@ namespace DEngine
         entity.SetUUID(uuid);
 
         entity.AddComponent<TransformComponent>();
-        entity.AddComponent<DebugComponent>();
 
         auto& tag = entity.AddComponent<TagComponent>(name);
         tag.Tag = name.empty() ? "Entity" : name;
@@ -42,7 +42,7 @@ namespace DEngine
 
     Entity Scene::CreateEmptyEntity()
     {
-        EntityHandle handle = m_Registry.create();
+        entt::entity handle = m_Registry.create();
         m_Entities.emplace_back(handle, this);
 
         Entity& entity = m_Entities[m_Entities.size() - 1];

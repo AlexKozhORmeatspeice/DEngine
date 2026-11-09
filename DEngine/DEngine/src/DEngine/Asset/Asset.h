@@ -17,9 +17,6 @@ namespace DEngine
 		Shader
 	};
 
-	std::string_view AssetTypeToString(AssetType type);
-	AssetType AssetTypeFromString(std::string_view str);
-
 	class Asset
 	{
 	public:

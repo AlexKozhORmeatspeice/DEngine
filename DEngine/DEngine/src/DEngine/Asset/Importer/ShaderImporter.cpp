@@ -68,16 +68,23 @@ namespace DEngine
 		size_t pos = source.find(typeToken, 0);
 		while (pos != std::string::npos)
 		{
-			size_t eol = source.find("\r\n", pos);
-			D_CORE_ASSERT(eol != std::string::npos, "Shader syntax error");
-			
-			size_t begin = pos + typeTokenLenght + 1;
-			std::string type = source.substr(begin, eol - begin);
-			D_CORE_ASSERT(ShaderTypeFromString(type) != ShaderType::None, "Invalid shader type");
+			size_t lineEnd = source.find('\n', pos);
+			D_CORE_ASSERT(lineEnd != std::string::npos, "Shader syntax error");
 
-			size_t nextLinePos = source.find("\r\n", eol);
+			size_t typeEnd = lineEnd;
+			if (typeEnd > pos && source[typeEnd - 1] == '\r')
+				--typeEnd;
+
+			size_t begin = pos + typeTokenLenght + 1;
+			D_CORE_ASSERT(begin <= typeEnd, "Shader syntax error");
+			std::string type = source.substr(begin, typeEnd - begin);
+			ShaderType shaderType = ShaderTypeFromString(type);
+			D_CORE_ASSERT(shaderType != ShaderType::None, "Invalid shader type");
+
+			size_t nextLinePos = lineEnd + 1;
 			pos = source.find(typeToken, nextLinePos);
-			shaderSources[ShaderTypeFromString(type)] = source.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
+			size_t sourceEnd = pos == std::string::npos ? source.size() : pos;
+			shaderSources[shaderType] = source.substr(nextLinePos, sourceEnd - nextLinePos);
 		}
 
 		return shaderSources;

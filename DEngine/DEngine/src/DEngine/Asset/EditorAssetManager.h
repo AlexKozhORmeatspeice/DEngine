@@ -10,15 +10,6 @@
 
 namespace DEngine
 {
-	//TODO: есть какой-то баг с инициализация материалов
-	//Для воспроизведения:
-	//1. Удаляем сцену и все материалы
-	//2. С помощью функции CreateMaterialAsset создаем новый ассет и подключаем его сразу к MeshRendererComponent
-	//3. Сцена запускается корректно 
-	//4. При повторном запуске сцене будет вызываться ошибка.
-	//Суть в том, что почему то AssetHandle материала перезаписывается AssetManager-ом при новом запуске, потому что почему то не происходит его сериализация сразу
-	//Как исправить пока не нашел, но если стлокнетесь - пишите Саше. Если что постараюсь пофиксить
-
 	using AssetRegistry = std::unordered_map<AssetHandle, AssetMetadata>;
 
 	class EditorAssetManager : public BaseAssetManager
@@ -48,6 +39,7 @@ namespace DEngine
 		virtual bool IsAssetLoaded(const AssetHandle& handle) const override;
 
 		const AssetMetadata& GetMetadata(const AssetHandle& handle);
+		AssetHandle GetHandleByPath(const std::filesystem::path& path);
 
 		virtual inline const AssetHandle& GetBaseRendererShader() const override { return m_BaseShaderHandle; }
 		virtual const AssetHandle& GetBaseRendererMaterialWireframeHandle() const override { return m_BaseMaterialWireframe; }
@@ -64,7 +56,10 @@ namespace DEngine
         void Update();
 
 	private:
-		AssetHandle CheckAssetRegistryForPath(const std::filesystem::path& path);
+		// Handle stored in the registry. Null when this path is not registered.
+		const AssetHandle* FindHandleByPath(const std::filesystem::path& path);
+		// Inserts or updates the registry and returns the handle stored there.
+		const AssetHandle& EmplaceAsset(AssetHandle handle, const AssetMetadata& metadata, const Ref<Asset>& loaded);
 		void AddAssetsInDirectory(const std::filesystem::path& path, bool isVisibleInEditor);
 		void SerializeAssetRegistry();
 		bool DeserializeAssetRegistry();

@@ -177,7 +177,6 @@ inline const std::string& Node::Scalar() const {
   return m_pNode ? m_pNode->scalar() : detail::node_data::empty_scalar();
 }
 
-YAML_ATTRIBUTE_NO_SANITIZE_ADDRESS
 inline const std::string& Node::UninstrumentedScalarForTesting() const {
   if (m_isValid && m_pMemory != nullptr && m_pNode != nullptr)
     throw InvalidNode("use-after-free");

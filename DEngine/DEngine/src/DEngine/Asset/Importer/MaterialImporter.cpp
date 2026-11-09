@@ -13,7 +13,7 @@ namespace DEngine
 
 	Ref<Material> MaterialImporter::LoadMaterial(const std::filesystem::path& path)
 	{
-		DeserializeMaterialResult& desRes = MaterialSerializer::Deserialize(path);
+		DeserializeMaterialResult desRes = MaterialSerializer::Deserialize(path);
 		Ref<Material> resMat = nullptr;
 
 		if (desRes.isSuccessful)

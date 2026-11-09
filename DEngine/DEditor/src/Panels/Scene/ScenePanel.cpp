@@ -3,6 +3,7 @@
 #include "entt/include/entt.hpp"
 #include "DEngine.h"
 #include "Panels/Properties/PropertiesPanel.h"
+#include "Panels/AssetDragDrop.h"
 
 #include "ImGuizmo.h"
 
@@ -16,6 +17,7 @@ namespace DEngine
 	void ScenePanel::SetContext(const Ref<Scene>& scene)
 	{
 		m_Context = scene;
+		m_SelectionContext = {};
 	}
 
 	void ScenePanel::OnImGuiRender()
@@ -25,6 +27,23 @@ namespace DEngine
 		for (const Entity& entity : m_Context->GetAllEntities())
 		{
 			DrawEntityNode(entity);
+		}
+
+		if (ImGui::IsMouseClicked(0) && ImGui::IsWindowHovered() && !ImGui::IsAnyItemHovered())
+			SetSelected({});
+
+		const ImGuiHoveredFlags hover = ImGuiHoveredFlags_AllowWhenBlockedByActiveItem;
+		if (ImGui::IsWindowHovered(hover) && ImGui::IsMouseReleased(ImGuiMouseButton_Left))
+		{
+			if (const ImGuiPayload* payload = ImGui::GetDragDropPayload())
+			{
+				if (payload->IsDataType(AssetPayloadType()))
+				{
+					const auto* data = static_cast<const AssetDragPayload*>(payload->Data);
+					if (data && static_cast<AssetType>(data->Type) == AssetType::Model)
+						SpawnModelInScene(m_Context, data->Handle);
+				}
+			}
 		}
 
 		if (ImGui::BeginPopupContextWindow(0, 1))
@@ -54,39 +73,41 @@ namespace DEngine
 
 		auto& tc = entity.GetComponent<TagComponent>();
 
-		ImGuiTreeNodeFlags flags = (m_SelectionContext == entity ? ImGuiTreeNodeFlags_OpenOnArrow : 0) | ImGuiTreeNodeFlags_Selected;
+		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
+		if (m_SelectionContext == entity)
+			flags |= ImGuiTreeNodeFlags_Selected;
 
 		bool opened = ImGui::TreeNodeEx((void*)(uint64_t)(uint32_t)entity, flags, tc.Tag.c_str());
 		if (ImGui::IsItemClicked())
-		{
-			if (m_SelectionContext)
-			{
-				m_SelectionContext.GetComponent<DebugComponent>().debugOn = false;
-			}
-
-			m_SelectionContext = entity;
-
-			if (m_SelectionContext.HasComponent<DebugComponent>())
-			{
-				m_SelectionContext.GetComponent<DebugComponent>().debugOn = true;
-			}
-
-			PropetiesPanel::SetSelectedContext(m_SelectionContext);
-		}
-
-		if (ImGui::IsWindowHovered() && ImGui::IsMouseDown(0))
-		{
-			if (m_SelectionContext.HasComponent<DebugComponent>())
-			{
-				m_SelectionContext.GetComponent<DebugComponent>().debugOn = false;
-			}
-			m_SelectionContext = {};
-			PropetiesPanel::SetSelectedContext(m_SelectionContext);
-		}
+			SetSelected(entity);
 
 		if (opened)
 		{
 			ImGui::TreePop();
 		}
+	}
+
+	void ScenePanel::SetSelected(Entity entity)
+	{
+		if (m_Context)
+		{
+			auto debugView = m_Context->View<DebugComponent>();
+			for (auto [handle, debug] : debugView.each())
+			{
+				(void)handle;
+				debug.debugOn = false;
+			}
+		}
+
+		m_SelectionContext = entity;
+
+		if (m_SelectionContext && m_SelectionContext.HasComponent<ColliderComponent>())
+		{
+			if (!m_SelectionContext.HasComponent<DebugComponent>())
+				m_SelectionContext.AddComponent<DebugComponent>();
+			m_SelectionContext.GetComponent<DebugComponent>().debugOn = true;
+		}
+
+		PropetiesPanel::SetSelectedContext(m_SelectionContext);
 	}
 }

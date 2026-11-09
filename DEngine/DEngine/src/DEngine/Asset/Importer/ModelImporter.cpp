@@ -1,6 +1,7 @@
 #include "dpch.h"
 #include "ModelImporter.h"
 #include "DEngine/Asset/AssetManager.h"
+#include "DEngine/Asset/AssetHelper.h"
 #include "DEngine/Asset/AssetManagerBase.h"
 #include "DEngine/Asset/Importer/TextureImporter.h"
 
@@ -39,7 +40,7 @@ namespace DEngine
         std::filesystem::path modelPath = ConstructModelPath(name, path);
 
         //Пробуем десериализовать существующий ресурс
-        DeserializeModelResult& deserRes = ModelSerializer::Deserialize(modelPath);
+        DeserializeModelResult deserRes = ModelSerializer::Deserialize(modelPath);
         if (deserRes.isSuccessful)
         {
             return deserRes.model;
@@ -223,7 +224,7 @@ namespace DEngine
 
     std::filesystem::path ModelImporter::ConstructModelPath(const std::string& modelName, const std::filesystem::path& path)
     {
-        std::string name = modelName + DMODEl_FILE_EXT;
+        std::string name = modelName + std::string(AssetHelper::NativeExtension(AssetType::Model));
     
 		// Убираем имя файла из path, оставляем только директорию
 		std::filesystem::path directory = path.parent_path();
@@ -235,7 +236,7 @@ namespace DEngine
 
     std::filesystem::path ModelImporter::ConstructMeshPath(const std::string& modelName, int meshInd, int nodeInd)
     {
-		std::string meshName = MESH_FILE_NAME + "_" + modelName + "_node_" + std::to_string(nodeInd) + "_mesh_" + std::to_string(meshInd) + DMESH_FILE_EXT;
+		std::string meshName = MESH_FILE_NAME + "_" + modelName + "_node_" + std::to_string(nodeInd) + "_mesh_" + std::to_string(meshInd) + std::string(AssetHelper::NativeExtension(AssetType::Mesh));
 		std::filesystem::path meshPath = Project::GetResourcesRegistryPath() / MODELS_DIR_NAME / modelName / MESHES_DIR_NAME;
 		if (!std::filesystem::exists(meshPath))
 		{
@@ -248,7 +249,7 @@ namespace DEngine
 
     std::filesystem::path ModelImporter::ConstructMaterialPath(const std::string& modelName, int materialInd, int nodeInd)
     {
-		std::string meshName = MESH_FILE_NAME + "_" + modelName + "_node_" + std::to_string(nodeInd) + "_material_" + std::to_string(materialInd) + DMAT_FILE_EXT;
+		std::string meshName = MESH_FILE_NAME + "_" + modelName + "_node_" + std::to_string(nodeInd) + "_material_" + std::to_string(materialInd) + std::string(AssetHelper::NativeExtension(AssetType::Material));
 		std::filesystem::path meshPath = Project::GetResourcesRegistryPath() / MODELS_DIR_NAME / modelName / MATERIALS_DIR_NAME;
 		if (!std::filesystem::exists(meshPath))
 		{

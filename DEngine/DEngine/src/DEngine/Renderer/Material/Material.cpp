@@ -88,31 +88,45 @@ namespace DEngine
 
 	void Material::Bind()
 	{
-		AssetManager::GetAsset<Shader>(m_ShaderHandle)->Bind();
+		Ref<Shader> shader = AssetManager::GetAsset<Shader>(m_ShaderHandle);
+		if (!shader)
+		{
+			D_CORE_ERROR("Material::Bind: shader {0} is not loaded", static_cast<uint64_t>(m_ShaderHandle));
+			return;
+		}
+
+		shader->Bind();
 
 		UpdateDirtyValues();
 
-		if (m_TextureValues.empty())
+		auto bindTexture = [](const AssetHandle& textureHandle)
 		{
-			AssetManager::GetAsset<Texture2D>(AssetManager::GetEmptyTextureHandle())->Bind();
-		}
+			Ref<Texture2D> texture = AssetManager::GetAsset<Texture2D>(textureHandle);
+			if (!texture)
+				texture = AssetManager::GetAsset<Texture2D>(AssetManager::GetEmptyTextureHandle());
+			if (texture)
+				texture->Bind();
+		};
+
+		if (m_TextureValues.empty())
+			bindTexture(AssetManager::GetEmptyTextureHandle());
 
 		for (const auto& [id, textureHandle] : m_TextureValues)
-		{
-			auto texture = AssetManager::GetAsset<Texture2D>(textureHandle);
-
-			texture->Bind();
-		}
+			bindTexture(textureHandle);
 	}
 
 	void Material::Unbind()
 	{
-		AssetManager::GetAsset<Shader>(m_ShaderHandle)->Unbind();
+		Ref<Shader> shader = AssetManager::GetAsset<Shader>(m_ShaderHandle);
+		if (shader)
+			shader->Unbind();
 	}
 
 	void Material::UpdateDirtyValues()
 	{
 		Ref<Shader> shader = AssetManager::GetAsset<Shader>(m_ShaderHandle);
+		if (!shader)
+			return;
 
 		for (uint32_t id : m_DirtyInts)
 			shader->UploadUniformInt(id, m_IntValues[id]);
@@ -154,6 +168,9 @@ namespace DEngine
 			return it->second;
 		
 		Ref<Shader> shader = AssetManager::GetAsset<Shader>(m_ShaderHandle);
+		if (!shader)
+			return UINT32_MAX;
+
 		uint32_t id = shader->GetUniformLocation(name);
 
 		if (id != UINT32_MAX)

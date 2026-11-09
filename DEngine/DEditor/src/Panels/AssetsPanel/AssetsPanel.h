@@ -4,47 +4,33 @@
 #include "DEngine.h"
 #include "DEngine/Core.h"
 
-#include "map"
-#include "unordered_map"
-#include "vector"
-#include "memory"
+#include "filesystem"
 
 namespace DEngine
 {
-	struct TreeNode
+	class AssetsPanel
 	{
-		std::filesystem::path Path;
-		std::set<TreeNode*> Children;
-		TreeNode* Parent = nullptr;
+	public:
+		AssetsPanel();
 
-		TreeNode(const std::filesystem::path& path)
-			: Path(path)
-		{
-		}
+		void SetContext(const Ref<Scene>& scene) { m_Scene = scene; }
+		void OnImGuiRender();
+
+	private:
+		void DrawDirectoryEntry(const std::filesystem::path& path, bool isDirectory);
+		Ref<Texture2D> IconFor(AssetType type) const;
+		AssetHandle HandleFor(const std::filesystem::path& path, AssetType& outType) const;
+
+	private:
+		Ref<Scene> m_Scene;
+		std::filesystem::path m_BaseDir;
+		std::filesystem::path m_CurrentDir;
+
+		Ref<Texture2D> m_FolderIcon;
+		Ref<Texture2D> m_FileIcon;
+		Ref<Texture2D> m_TextureIcon;
+		Ref<Texture2D> m_MaterialIcon;
+		Ref<Texture2D> m_ModelIcon;
+		Ref<Texture2D> m_SceneIcon;
 	};
-
-    class AssetsPanel
-    {
-    public:
-        AssetsPanel();
-
-        void OnImGuiRender();
-    private:
-        void RefreshAssetTree();
-        void BuildAssetCache(const std::shared_ptr<EditorAssetManager>& editorAssets);
-        void ClearTree(TreeNode& node);
-    private:
-        std::filesystem::path m_BaseDir;
-        std::filesystem::path m_CurrentDir;
-
-        TreeNode m_RootNode;
-
-        std::unordered_map<std::filesystem::path, std::vector<AssetMetadata>> m_CachedAssets;
-        std::vector<std::filesystem::path> m_CurrentDirs;
-        std::vector<AssetMetadata> m_CurrentAssets;
-
-        Ref<Texture2D> m_DirIcon;
-        Ref<Texture2D> m_FileIcon;
-        bool m_NeedsRefresh = true;
-    };
 }

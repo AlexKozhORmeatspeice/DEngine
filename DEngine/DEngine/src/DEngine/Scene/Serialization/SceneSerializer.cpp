@@ -5,6 +5,7 @@
 #include "DEngine/Scene/Components.h"
 
 #include "fstream"
+#include "sstream"
 #include "yaml-cpp/yaml.h"
 
 namespace DEngine
@@ -71,12 +72,12 @@ namespace DEngine
         return DeserializeComponents<ComponentList>(entityNode, entity);
     }
 
-    void SceneSerializer::Serialize(const Ref<Scene>& scene, const std::filesystem::path& path)
+    std::string SceneSerializer::SerializeToString(const Ref<Scene>& scene)
     {
         if (scene == nullptr)
         {
             D_CORE_ERROR("Try to serialize null scene object");
-            return;
+            return {};
         }
 
         YAML::Emitter out;
@@ -95,6 +96,15 @@ namespace DEngine
         out << YAML::EndSeq;
         out << YAML::EndMap;
 
+        return out.c_str();
+    }
+
+    void SceneSerializer::Serialize(const Ref<Scene>& scene, const std::filesystem::path& path)
+    {
+        const std::string yaml = SerializeToString(scene);
+        if (yaml.empty())
+            return;
+
         std::ofstream fout(path);
         if (!fout.is_open())
         {
@@ -102,7 +112,7 @@ namespace DEngine
             return;
         }
 
-        fout << out.c_str();
+        fout << yaml;
         fout.close();
     }
 
@@ -128,7 +138,22 @@ namespace DEngine
         ss << fin.rdbuf();
         fin.close();
 
-        YAML::Node data = YAML::Load(ss.str());
+        return DeserializeFromString(ss.str());
+    }
+
+    DeserializeSceneResult SceneSerializer::DeserializeFromString(const std::string& yaml)
+    {
+        DeserializeSceneResult result;
+        result.isSuccessful = false;
+        result.scene = nullptr;
+
+        if (yaml.empty())
+        {
+            D_CORE_ERROR("Scene YAML is empty");
+            return result;
+        }
+
+        YAML::Node data = YAML::Load(yaml);
         if (!data["Scene"])
         {
             D_CORE_ERROR("Invalid scene file: missing 'Scene' root node");

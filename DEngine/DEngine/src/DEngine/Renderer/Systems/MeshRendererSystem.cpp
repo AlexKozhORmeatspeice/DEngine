@@ -8,7 +8,7 @@
 
 namespace DEngine
 {
-	void MeshRendererSystem::OnRender(const Timestep& ts, const Scene* scene)
+	void MeshRendererSystem::OnRender(const Timestep& ts, Scene* scene)
 	{
 		auto lightComps = scene->View<DirectLightComponent, TransformComponent>();
 		auto comps = scene->View<MeshRendererComponent, TransformComponent>();
@@ -30,6 +30,8 @@ namespace DEngine
 		{
 			auto mat = AssetManager::GetAsset<Material>(mesh.materialHandle);
 			auto meshObj = AssetManager::GetAsset<Mesh>(mesh.meshHandle);
+			if (!mat || !meshObj)
+				continue;
 
 			if (lights.size() > 0)
 			{

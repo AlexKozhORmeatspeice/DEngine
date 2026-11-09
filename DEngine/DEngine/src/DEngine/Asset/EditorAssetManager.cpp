@@ -11,6 +11,7 @@
 #include "DEngine/Renderer/Mesh/Mesh.h"
 #include "DEngine/Renderer/Texture/Texture.h"
 #include "DEngine/Asset/Asset.h"
+#include "DEngine/Asset/AssetHelper.h"
 
 #include "DEngine/Asset/Serializer/MeshSerializer.h"
 #include "DEngine/Asset/Serializer/MaterialSerializer.h"
@@ -24,6 +25,11 @@ const std::string ASSET_REGISTRY_NAME = ".dassetslist";
 
 namespace DEngine
 {
+	namespace
+	{
+		const AssetHandle& InvalidAssetHandle();
+	}
+
 	const std::string MESHES_DIR_NAME = "meshes";
 
 	const std::string HANDLE_NAME = "Handle";
@@ -61,6 +67,7 @@ namespace DEngine
 		CreateBaseRendererMaterialWireframe();
 
 		SetupFileWatcher();
+		SerializeAssetRegistry();
 	}
 
 	void EditorAssetManager::Update()
@@ -113,7 +120,7 @@ namespace DEngine
 			ReloadTexture(handle, metadata);
 		}
 
-		D_CORE_INFO("Hot reload: {0} reloaded successfully", AssetTypeToString(metadata.Type));
+		D_CORE_INFO("Hot reload: {0} reloaded successfully", AssetHelper::ToString(metadata.Type));
 	}
 
 	void EditorAssetManager::ReloadShader(const AssetHandle& handle, const AssetMetadata& metadata)
@@ -151,85 +158,30 @@ namespace DEngine
 
 	const AssetHandle& EditorAssetManager::CreateAsset(const std::filesystem::path& path)
 	{
-		AssetType type = AssetType::None;
+		const std::filesystem::path normalized = AssetHelper::NormalizePath(path);
+		if (const AssetHandle* existing = FindHandleByPath(normalized))
+			return *existing;
 
-		// Определяем тип ресурса по расширению файла
-		std::string extension = path.extension().string();
-		
-		if (extension == ".png" || extension == ".jpg" || extension == ".jpeg" || 
-			extension == ".bmp" || extension == ".tga" || extension == ".psd")
+		const AssetType type = AssetHelper::TypeFromExtension(normalized);
+		if (type == AssetType::None)
 		{
-			type = AssetType::Texture2D;
-		}
-		else if (extension == DMODEl_FILE_EXT || extension == ".obj" || extension == ".fbx" || extension == ".gltf" || 
-				 extension == ".glb" || extension == ".3ds" || extension == ".dae")
-		{
-			type = AssetType::Model;
-		}
-		else if (extension == ".glsl" || extension == ".vert" || extension == ".frag" || 
-				 extension == ".comp" || extension == ".geom" || extension == ".tesc" || 
-				 extension == ".tese")
-		{
-			type = AssetType::Shader;
-		}
-		else if (extension == DMAT_FILE_EXT)
-		{
-			type = AssetType::Material;
-		}
-		else if (extension == DMESH_FILE_EXT)
-		{
-			type = AssetType::Mesh;
-		}
-		else if (extension == DSCENE_FILE_EXT)
-		{
-			type = AssetType::Scene;
-		}
-		else
-		{
-			D_CORE_ERROR("EditorAssetManager::CreateAsset: unsupported file type: {0}", extension);
-			type = AssetType::None;
+			D_CORE_ERROR("EditorAssetManager::CreateAsset: unsupported file type: {0}", normalized.extension().string());
+			return InvalidAssetHandle();
 		}
 
-		// Проверяем, существует ли уже такой путь в реестре
-		AssetHandle handle = CheckAssetRegistryForPath(path);
-		if (handle != AssetHandle::Invalid())
-		{
-			return handle;
-		}
-
-		//TODO: дописать для остальных типов ресурсов, когда они будут готовы
-		handle = CreateAsset({ type, path });
-
-		return handle;
+		return EmplaceAsset(AssetHandle(), { type, normalized }, nullptr);
 	}
 
 	const AssetHandle& EditorAssetManager::CreateAsset(AssetMetadata metadata)
 	{
-		if (metadata.Type == AssetType::None) return AssetHandle::Invalid();
+		if (metadata.Type == AssetType::None)
+			return InvalidAssetHandle();
 
-		// Проверяем, существует ли уже такой путь в реестре
-		AssetHandle handle = CheckAssetRegistryForPath(metadata.FilePath);
-		if (handle != AssetHandle::Invalid())
-		{
-			return handle;
-		}
+		metadata.FilePath = AssetHelper::NormalizePath(metadata.FilePath);
+		if (const AssetHandle* existing = FindHandleByPath(metadata.FilePath))
+			return *existing;
 
-		handle = AssetHandle();
-		m_AssetRegistry[handle] = metadata;
-
-		// Добавляем файл в watcher если путь указан
-		//TODO: вместо точечной обработкой типов файлов без HotReload стоит поместить это в какой-то обработчик скорее
-		if (!metadata.FilePath.empty() && std::filesystem::exists(metadata.FilePath) && metadata.Type != AssetType::Mesh)
-		{
-			m_PathToHandle[metadata.FilePath] = handle;
-			m_HandleToPath[handle] = metadata.FilePath;
-			
-			m_FileWatcher.AddWatchPath(metadata.FilePath, [this](const std::filesystem::path& changedPath) {
-				OnFileChanged(changedPath);
-			});
-		}
-
-		return handle;
+		return EmplaceAsset(AssetHandle(), metadata, nullptr);
 	}
 
 
@@ -238,76 +190,100 @@ namespace DEngine
 														   uint32_t* inds, uint32_t indsSize,
 														   const std::filesystem::path& path)
 	{
-		AssetHandle handle = CheckAssetRegistryForPath(path);
-		if (handle != AssetHandle::Invalid())
-		{
-			return handle;
-		}
-		handle = AssetHandle();
-		Ref<Mesh> mesh = nullptr;
+		const std::filesystem::path normalized = AssetHelper::NormalizePath(path);
+		if (const AssetHandle* existing = FindHandleByPath(normalized))
+			return *existing;
 
 		MeshData meshData;
-
 		meshData.verts = verts;
 		meshData.vertSize = vertsSize;
 		meshData.inds = inds;
 		meshData.indsSize = indsSize;
 
-		mesh = CreateRef<Mesh>(layout, meshData);
+		Ref<Mesh> mesh = CreateRef<Mesh>(layout, meshData);
+		AssetHelper::EnsureParentDirectory(normalized);
+		MeshSerializer::Serialize(mesh, meshData, normalized);
 
-		MeshSerializer::Serialize(mesh, meshData, path);
-
-		m_AssetRegistry[handle] = { AssetType::Mesh, path };
-
+		const AssetHandle& handle = EmplaceAsset(AssetHandle(), { AssetType::Mesh, normalized }, mesh);
+		SerializeAssetRegistry();
 		return handle;
 	}
 
 	const AssetHandle& EditorAssetManager::CreateMaterialAsset(const Ref<Material>& material, const std::filesystem::path& path)
 	{
-		AssetHandle handle = CheckAssetRegistryForPath(path);
-		if (handle != AssetHandle::Invalid())
+		const std::filesystem::path normalized = AssetHelper::NormalizePath(path);
+		AssetHelper::EnsureParentDirectory(normalized);
+
+		if (const AssetHandle* existing = FindHandleByPath(normalized))
 		{
-			return handle;
+			if (material)
+			{
+				MaterialSerializer::Serialize(material, normalized);
+				material->handle = *existing;
+				m_LoadedAssets[*existing] = material;
+			}
+			SerializeAssetRegistry();
+			return *existing;
 		}
-		handle = AssetHandle();
-		MaterialSerializer::Serialize(material, path);
 
-		m_AssetRegistry[handle] = { AssetType::Material, path };
+		if (material)
+			MaterialSerializer::Serialize(material, normalized);
 
-		//SerializeAssetRegistry();
-
+		const AssetHandle& handle = EmplaceAsset(AssetHandle(), { AssetType::Material, normalized }, material);
+		SerializeAssetRegistry();
 		return handle;
 	}
 
 	const AssetHandle& EditorAssetManager::CreateModelAsset(const Ref<Model>& model, const std::filesystem::path& path)
 	{
-		AssetHandle handle = CheckAssetRegistryForPath(path);
-		if (handle != AssetHandle::Invalid())
+		const std::filesystem::path normalized = AssetHelper::NormalizePath(path);
+		AssetHelper::EnsureParentDirectory(normalized);
+
+		if (const AssetHandle* existing = FindHandleByPath(normalized))
 		{
-			return handle;
+			if (model)
+			{
+				ModelSerializer::Serialize(model, normalized);
+				model->handle = *existing;
+				m_LoadedAssets[*existing] = model;
+			}
+			SerializeAssetRegistry();
+			return *existing;
 		}
-		handle = AssetHandle();
-		ModelSerializer::Serialize(model, path);
 
-		m_AssetRegistry[handle] = { AssetType::Model, path };
+		if (model)
+			ModelSerializer::Serialize(model, normalized);
 
+		const AssetHandle& handle = EmplaceAsset(AssetHandle(), { AssetType::Model, normalized }, model);
+		SerializeAssetRegistry();
 		return handle;
 	}
 
 	const AssetHandle& EditorAssetManager::CreateSceneAsset(const Ref<Scene>& scene, const std::filesystem::path& path)
 	{
-		AssetHandle handle = CheckAssetRegistryForPath(path);
-		if (handle != AssetHandle::Invalid())
+		const std::filesystem::path normalized = AssetHelper::NormalizePath(path);
+		AssetHelper::EnsureParentDirectory(normalized);
+
+		// Init registers the scene path before the file exists. Reuse that handle
+		// and write the scene into it, otherwise the editor and the registry disagree.
+		if (const AssetHandle* existing = FindHandleByPath(normalized))
 		{
-			return handle;
+			if (scene)
+			{
+				SceneSerializer::Serialize(scene, normalized);
+				scene->handle = *existing;
+				m_LoadedAssets[*existing] = scene;
+			}
+			SerializeAssetRegistry();
+			return *existing;
 		}
-		handle = AssetHandle();
-		SceneSerializer::Serialize(scene, path);
 
-		m_AssetRegistry[handle] = { AssetType::Scene, path };
+		if (scene)
+			SceneSerializer::Serialize(scene, normalized);
 
+		const AssetHandle& handle = EmplaceAsset(AssetHandle(), { AssetType::Scene, normalized }, scene);
+		SerializeAssetRegistry();
 		return handle;
-
 	}
 
 	Ref<Asset> EditorAssetManager::GetAsset(const AssetHandle& handle)
@@ -323,7 +299,8 @@ namespace DEngine
 			asset = AsssetImporter::ImportAsset(handle, metadata);
 			if (!asset) 
 			{
-				D_CORE_ERROR("EditorAssetManager::GetAsset: couldn't load {0} by path {1}", AssetTypeToString(metadata.Type), metadata.FilePath.string());
+				D_CORE_ERROR("EditorAssetManager::GetAsset: couldn't load {0} by path {1}", AssetHelper::ToString(metadata.Type), metadata.FilePath.string());
+				m_LoadedAssets[handle] = nullptr;
 				return nullptr;
 			}
 
@@ -353,6 +330,14 @@ namespace DEngine
 		return m_LoadedAssets.find(handle) != m_LoadedAssets.end();
 	}
 
+	AssetHandle EditorAssetManager::GetHandleByPath(const std::filesystem::path& path)
+	{
+		if (const AssetHandle* found = FindHandleByPath(path))
+			return *found;
+
+		return AssetHandle(static_cast<uint64_t>(AssetHandle::Invalid()));
+	}
+
 	const AssetMetadata& EditorAssetManager::GetMetadata(const AssetHandle& handle)
 	{
 		static AssetMetadata s_NullMetadata;
@@ -368,27 +353,28 @@ namespace DEngine
 
 	const AssetHandle& EditorAssetManager::GetPrimitiveMesh(PrimitiveType type)
 	{
-		//Проверяем нет ли уже кэшированного примитива
 		auto it = m_MeshPrimitives.find(type);
 		if (it != m_MeshPrimitives.end())
-			return it->second;
-
-		// Проверяем, существует ли путь примитива в реестре
-		std::filesystem::path meshPrimitivePath = MeshGenerator::ConstructPrimitivePath(type);
-		AssetHandle handle = CheckAssetRegistryForPath(meshPrimitivePath);
-		if (handle != AssetHandle::Invalid())
 		{
-			m_MeshPrimitives[type] = handle;
-			return handle;
+			auto reg = m_AssetRegistry.find(it->second);
+			if (reg != m_AssetRegistry.end())
+				return reg->first;
 		}
 
-		handle = CreateMeshPrimitive(type);
-		return handle;
+		const std::filesystem::path meshPrimitivePath = AssetHelper::NormalizePath(MeshGenerator::ConstructPrimitivePath(type));
+		if (const AssetHandle* existing = FindHandleByPath(meshPrimitivePath))
+		{
+			m_MeshPrimitives[type] = *existing;
+			return *existing;
+		}
+
+		return CreateMeshPrimitive(type);
 	}
 
 	void EditorAssetManager::SerializeAssetRegistry()
 	{
 		auto path = GetAssetRegistryFilePath();
+		AssetHelper::EnsureParentDirectory(path);
 
 		std::ofstream file(path, std::ios::binary);
 		if (!file.is_open())
@@ -459,10 +445,10 @@ namespace DEngine
 			file.read(reinterpret_cast<char*>(&type), sizeof(uint32_t));
 
 			auto& metadata = m_AssetRegistry[handle];
-			metadata.FilePath = pathStr;
+			metadata.FilePath = AssetHelper::NormalizePath(pathStr);
 			metadata.Type = static_cast<AssetType>(type);
 
-			D_CORE_INFO("Deserialize asset {0} ({2}) by path {1}", AssetTypeToString(metadata.Type), metadata.FilePath.string(), std::to_string(handle));
+			D_CORE_INFO("Deserialize asset {0} ({2}) by path {1}", AssetHelper::ToString(metadata.Type), metadata.FilePath.string(), std::to_string(handle));
 
 			// Добавляем в FileWatcher при десериализации
 			if (!metadata.FilePath.empty() && std::filesystem::exists(metadata.FilePath))
@@ -494,26 +480,45 @@ namespace DEngine
 	void EditorAssetManager::CreateBaseRendererMaterialWireframe()
 	{
 		Ref<Material> mat = CreateRef<Material>(m_WireframeShaderHandle);
-		std::string filename = std::string("assets/materials/wireframe") + DMAT_FILE_EXT;
+		std::string filename = std::string("assets/materials/wireframe") + std::string(AssetHelper::NativeExtension(AssetType::Material));
 		m_BaseMaterialWireframe = CreateMaterialAsset(mat, filename);
 	}
 
 	void EditorAssetManager::CreateEmptyTexture()
 	{
-		m_EmptyTextureHandle = CreateAsset({ AssetType::Texture2D, "assets/textures/white_square.png" });
+		const std::filesystem::path path = AssetHelper::NormalizePath("assets/textures/white_square.png");
+		m_EmptyTextureHandle = CreateAsset({ AssetType::Texture2D, path });
+		if (std::filesystem::exists(path) && GetAsset(m_EmptyTextureHandle))
+			return;
+
+		TextureSpecification spec;
+		spec.Width = 1;
+		spec.Height = 1;
+		spec.Format = ImageFormat::RGBA8;
+
+		const uint8_t white[4] = { 255, 255, 255, 255 };
+		DataBuffer buffer(white, sizeof(white));
+		Ref<Texture2D> texture = Texture2D::Create(spec, buffer);
+		if (!texture)
+			return;
+
+		texture->handle = m_EmptyTextureHandle;
+		m_LoadedAssets[m_EmptyTextureHandle] = texture;
 	}
 
 	const AssetHandle& EditorAssetManager::CreateMeshPrimitive(PrimitiveType type)
 	{
-		AssetHandle handle;
-		Ref<Mesh> mesh;
+		const std::filesystem::path meshPrimitivePath = AssetHelper::NormalizePath(MeshGenerator::ConstructPrimitivePath(type));
+		if (const AssetHandle* existing = FindHandleByPath(meshPrimitivePath))
+		{
+			m_MeshPrimitives[type] = *existing;
+			return *existing;
+		}
 
-		std::filesystem::path meshPrimitivePath = MeshGenerator::ConstructPrimitivePath(type);
-		mesh = MeshGenerator::CreatePrimitive(type);
-
-		m_AssetRegistry[handle] = { AssetType::Mesh, meshPrimitivePath };
-		m_MeshPrimitives[type] = handle;	
-
+		Ref<Mesh> mesh = MeshGenerator::CreatePrimitive(type);
+		const AssetHandle& handle = EmplaceAsset(AssetHandle(), { AssetType::Mesh, meshPrimitivePath }, mesh);
+		m_MeshPrimitives[type] = handle;
+		SerializeAssetRegistry();
 		return handle;
 	}
 
@@ -548,7 +553,7 @@ namespace DEngine
 			return;
 
 		// Проверяем, зарегистрирован ли этот файл
-		auto it = m_PathToHandle.find(path);
+		auto it = m_PathToHandle.find(AssetHelper::NormalizePath(path));
 		if (it != m_PathToHandle.end())
 		{
 			AssetHandle handle = it->second;
@@ -602,8 +607,7 @@ namespace DEngine
 					continue;
 
 				// Проверяем, не добавлен ли уже этот файл
-				auto it = m_PathToHandle.find(filePath);
-				if (it != m_PathToHandle.end())
+				if (FindHandleByPath(filePath))
 					continue;
 
 				// Создаем ассет
@@ -612,17 +616,77 @@ namespace DEngine
 		}
 	}
 
-	AssetHandle EditorAssetManager::CheckAssetRegistryForPath(const std::filesystem::path& path)
+	namespace
 	{
-		if (path.empty()) return AssetHandle::Invalid();
-
-		auto it = m_PathToHandle.find(path);
-		if (it != m_PathToHandle.end())
+		const AssetHandle& InvalidAssetHandle()
 		{
-			return it->second;
+			static const AssetHandle handle(static_cast<uint64_t>(AssetHandle::Invalid()));
+			return handle;
+		}
+	}
+
+	const AssetHandle* EditorAssetManager::FindHandleByPath(const std::filesystem::path& path)
+	{
+		const std::filesystem::path normalized = AssetHelper::NormalizePath(path);
+		if (normalized.empty())
+			return nullptr;
+
+		auto mapped = m_PathToHandle.find(normalized);
+		if (mapped != m_PathToHandle.end())
+		{
+			auto reg = m_AssetRegistry.find(mapped->second);
+			if (reg != m_AssetRegistry.end())
+				return &reg->first;
 		}
 
-		return AssetHandle::Invalid();
+		const std::string wanted = normalized.generic_string();
+		for (auto reg = m_AssetRegistry.begin(); reg != m_AssetRegistry.end(); ++reg)
+		{
+			if (reg->second.FilePath.generic_string() != wanted)
+				continue;
+
+			m_PathToHandle[normalized] = reg->first;
+			m_HandleToPath[reg->first] = normalized;
+			return &reg->first;
+		}
+
+		return nullptr;
+	}
+
+	const AssetHandle& EditorAssetManager::EmplaceAsset(AssetHandle handle, const AssetMetadata& metadata, const Ref<Asset>& loaded)
+	{
+		if (static_cast<uint64_t>(handle) == AssetHandle::Invalid())
+			handle = AssetHandle();
+
+		AssetMetadata storedMeta = metadata;
+		storedMeta.FilePath = AssetHelper::NormalizePath(metadata.FilePath);
+
+		m_AssetRegistry[handle] = storedMeta;
+		const AssetHandle& storedHandle = m_AssetRegistry.find(handle)->first;
+
+		if (!storedMeta.FilePath.empty())
+		{
+			m_PathToHandle[storedMeta.FilePath] = storedHandle;
+			m_HandleToPath[storedHandle] = storedMeta.FilePath;
+
+			if (storedMeta.Type != AssetType::Mesh && std::filesystem::exists(storedMeta.FilePath))
+			{
+				m_FileWatcher.AddWatchPath(storedMeta.FilePath, [this](const std::filesystem::path& changedPath) {
+					OnFileChanged(changedPath);
+				});
+			}
+		}
+
+		if (loaded)
+		{
+			loaded->handle = storedHandle;
+			m_LoadedAssets[storedHandle] = loaded;
+
+			if (!storedMeta.FilePath.empty() && std::filesystem::exists(storedMeta.FilePath))
+				m_AssetLastLoadTime[storedHandle] = std::filesystem::last_write_time(storedMeta.FilePath);
+		}
+
+		return storedHandle;
 	}
 
 }

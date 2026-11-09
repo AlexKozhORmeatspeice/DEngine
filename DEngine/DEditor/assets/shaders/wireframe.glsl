@@ -25,6 +25,6 @@ uniform vec3 u_ViewPos;
 
 void main()
 {
-    vec3 baseColor = vec3(1., 1., 0.) + dot(u_ViewPos, vec3(0.));
-    color = vec4(baseColor, 0.7f);
+    vec3 baseColor = vec3(1.0, 1.0, 0.0) + dot(u_ViewPos, vec3(0.0));
+    color = vec4(baseColor, 1.0);
 }

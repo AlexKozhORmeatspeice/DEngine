@@ -1,165 +1,98 @@
 @echo off
 setlocal enabledelayedexpansion
+cd /d "%~dp0"
 
 echo ========================================
 echo   DEngine Project Generator
 echo ========================================
 echo.
 
-:: ============================================
-:: 1. ПРОВЕРКА НАЛИЧИЯ PREMAKE
-:: ============================================
-if not exist "vendor\premake\premake5.exe" (
-    echo [ERROR] Premake not found!
-    echo.
-    echo Expected path: vendor\premake\premake5.exe
-    echo.
-    PAUSE
-    exit /b 1
+set "PREMAKE=vendor\Premake\premake5.exe"
+if not exist "%PREMAKE%" goto :no_premake
+
+set "VSINSTALLER=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer"
+if not exist "%VSINSTALLER%\vswhere.exe" goto :no_vswhere
+
+set "VS_PATH="
+set "VS_YEAR="
+pushd "%VSINSTALLER%"
+for /f "usebackq delims=" %%i in (`vswhere.exe -latest -prerelease -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath`) do set "VS_PATH=%%i"
+for /f "usebackq delims=" %%i in (`vswhere.exe -latest -prerelease -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property catalog_productLineVersion`) do set "VS_YEAR=%%i"
+if not defined VS_PATH (
+    for /f "usebackq delims=" %%i in (`vswhere.exe -latest -prerelease -property installationPath`) do set "VS_PATH=%%i"
+    for /f "usebackq delims=" %%i in (`vswhere.exe -latest -prerelease -property catalog_productLineVersion`) do set "VS_YEAR=%%i"
 )
+popd
 
-:: ============================================
-:: 2. ОПРЕДЕЛЕНИЕ ВЕРСИИ VISUAL STUDIO
-:: ============================================
-set VS_VERSION=
+if not defined VS_PATH goto :no_vs
 
-:: Проверяем Visual Studio 2026 Insiders (У меня такая)
-if exist "C:\Program Files\Microsoft Visual Studio\18\Insiders\Common7\IDE\devenv.exe" (
-    set VS_VERSION=vs2026
-    echo [INFO] Found Visual Studio 2022 (Community)
-    goto :found_vs
-)
+set "VS_ACTION="
+if "%VS_YEAR%"=="2026" set "VS_ACTION=vs2026"
+if "%VS_YEAR%"=="2022" set "VS_ACTION=vs2022"
+if "%VS_YEAR%"=="2019" set "VS_ACTION=vs2019"
+if "%VS_YEAR%"=="2017" set "VS_ACTION=vs2017"
+if not defined VS_ACTION goto :no_action
 
-:: Проверяем Visual Studio 2022
-if exist "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.exe" (
-    set VS_VERSION=vs2022
-    echo [INFO] Found Visual Studio 2022 (Community)
-    goto :found_vs
-)
-
-if exist "C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\devenv.exe" (
-    set VS_VERSION=vs2022
-    echo [INFO] Found Visual Studio 2022 (Professional)
-    goto :found_vs
-)
-
-if exist "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.exe" (
-    set VS_VERSION=vs2022
-    echo [INFO] Found Visual Studio 2022 (Enterprise)
-    goto :found_vs
-)
-
-:: Проверяем Visual Studio 2019
-if exist "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\devenv.exe" (
-    set VS_VERSION=vs2019
-    echo [INFO] Found Visual Studio 2019 (Community)
-    goto :found_vs
-)
-
-if exist "C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.exe" (
-    set VS_VERSION=vs2019
-    echo [INFO] Found Visual Studio 2019 (Professional)
-    goto :found_vs
-)
-
-if exist "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\devenv.exe" (
-    set VS_VERSION=vs2019
-    echo [INFO] Found Visual Studio 2019 (Enterprise)
-    goto :found_vs
-)
-
-:: Проверяем Visual Studio 2017
-if exist "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe" (
-    set VS_VERSION=vs2017
-    echo [INFO] Found Visual Studio 2017 (Community)
-    goto :found_vs
-)
-
-if exist "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\devenv.exe" (
-    set VS_VERSION=vs2017
-    echo [INFO] Found Visual Studio 2017 (Professional)
-    goto :found_vs
-)
-
-if exist "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\devenv.exe" (
-    set VS_VERSION=vs2017
-    echo [INFO] Found Visual Studio 2017 (Enterprise)
-    goto :found_vs
-)
-
-:: Проверяем Visual Studio через vswhere (самый надежный способ)
-where /q vswhere
-if !ERRORLEVEL! EQU 0 (
-    for /f "usebackq tokens=*" %%i in (`vswhere -latest -property installationPath`) do (
-        set VS_PATH=%%i
-    )
-
-    if not "!VS_PATH!"=="" (
-        echo [INFO] Found Visual Studio via vswhere: !VS_PATH!
-
-        :: Определяем версию по пути
-        echo !VS_PATH! | findstr /i "2022" >nul
-        if !ERRORLEVEL! EQU 0 (
-            set VS_VERSION=vs2022
-            goto :found_vs
-        )
-
-        echo !VS_PATH! | findstr /i "2019" >nul
-        if !ERRORLEVEL! EQU 0 (
-            set VS_VERSION=vs2019
-            goto :found_vs
-        )
-
-        echo !VS_PATH! | findstr /i "2017" >nul
-        if !ERRORLEVEL! EQU 0 (
-            set VS_VERSION=vs2017
-            goto :found_vs
-        )
-    )
-)
-
-:: Если ничего не найдено
-echo [ERROR] Visual Studio not found!
+echo [INFO] Latest Visual Studio: %VS_YEAR%
+echo [INFO] Path: %VS_PATH%
+echo [INFO] Premake action: %VS_ACTION%
 echo.
-echo Please install one of the following:
-echo   - Visual Studio 2022 (recommended)
-echo   - Visual Studio 2019
-echo   - Visual Studio 2017
+echo [INFO] Generating DEngine.sln...
+"%PREMAKE%" --file=premake5.lua %VS_ACTION%
+if errorlevel 1 goto :premake_failed
+
+set "MSBUILD=%VS_PATH%\MSBuild\Current\Bin\MSBuild.exe"
+if not exist "%MSBUILD%" goto :no_msbuild
+
 echo.
-echo Make sure to install the "Desktop development with C++" workload.
+echo [INFO] Building DEngine.sln Debug x64 with Visual Studio %VS_YEAR%...
+"%MSBUILD%" DEngine.sln /t:Build /p:Configuration=Debug /p:Platform=x64 /m /v:minimal
+if errorlevel 1 goto :build_failed
+
 echo.
-echo Download: https://visualstudio.microsoft.com/downloads/
+echo ========================================
+echo   DEngine.sln generated and built
+echo ========================================
 echo.
-PAUSE
+pause
+exit /b 0
+
+:no_premake
+echo [ERROR] Premake not found: %PREMAKE%
+pause
 exit /b 1
 
-:found_vs
-echo [INFO] Using generator: !VS_VERSION!
-echo.
+:no_vswhere
+echo [ERROR] vswhere not found in:
+echo   %VSINSTALLER%
+pause
+exit /b 1
 
-:: ============================================
-:: 3. ЗАПУСК PREMAKE
-:: ============================================
-echo [INFO] Generating project files...
-call vendor\premake\premake5.exe !VS_VERSION!
+:no_vs
+echo [ERROR] Visual Studio was not found.
+echo Install Visual Studio with the "Desktop development with C++" workload.
+pause
+exit /b 1
 
-:: ============================================
-:: 4. ПРОВЕРКА РЕЗУЛЬТАТА
-:: ============================================
-IF !ERRORLEVEL! NEQ 0 (
-    echo.
-    echo [ERROR] Premake generation failed!
-    echo.
-    PAUSE
-    exit /b !ERRORLEVEL!
-)
+:no_action
+echo [ERROR] No Premake generator for Visual Studio %VS_YEAR%.
+echo Install is: %VS_PATH%
+pause
+exit /b 1
 
+:premake_failed
 echo.
-echo ========================================
-echo   Project generated successfully!
-echo ========================================
+echo [ERROR] Premake generation failed.
+pause
+exit /b 1
+
+:no_msbuild
+echo [ERROR] MSBuild not found: %MSBUILD%
+pause
+exit /b 1
+
+:build_failed
 echo.
-echo Open the solution file:
-echo   DEngine.sln
-echo.
-PAUSE
+echo [ERROR] Build failed.
+pause
+exit /b 1

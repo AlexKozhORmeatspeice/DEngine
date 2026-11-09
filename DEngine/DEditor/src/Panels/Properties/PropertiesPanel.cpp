@@ -3,6 +3,9 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
+#include "DEngine/Asset/EditorAssetManager.h"
+#include "Panels/AssetDragDrop.h"
+
 
 
 namespace DEngine
@@ -30,6 +33,36 @@ namespace DEngine
 				"Collider",
 				[](Entity& e) { return e.HasComponent<ColliderComponent>(); },
 				[](Entity& e) { e.AddComponent<ColliderComponent>(); }
+			},
+			{
+				"Mesh Renderer",
+				[](Entity& e) { return e.HasComponent<MeshRendererComponent>(); },
+				[](Entity& e)
+				{
+					auto& renderer = e.AddComponent<MeshRendererComponent>();
+					renderer.meshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Cube);
+				}
+			},
+			{
+				"Camera",
+				[](Entity& e) { return e.HasComponent<CameraComponent>(); },
+				[](Entity& e)
+				{
+					auto& camera = e.AddComponent<CameraComponent>();
+					camera.primary = true;
+					if (!e.GetScene())
+						return;
+
+					auto cameras = e.GetScene()->View<CameraComponent>();
+					for (auto [entity, other] : cameras.each())
+					{
+						if (entity != e.GetHandle())
+						{
+							camera.primary = false;
+							break;
+						}
+					}
+				}
 			},
 			// сюда просто добавляем новые компоненты
 			// {
@@ -62,31 +95,32 @@ namespace DEngine
 	void PropetiesPanel::SetContext(const Ref<Scene>& scene)
 	{
 		m_Context = scene;
+		m_SelectedEntity = {};
 	}
 
 	void PropetiesPanel::DrawComponents(Entity& entity)
 	{
 		DrawTag(entity);
 		DrawTransform(entity);
+		DrawCamera(entity);
+		DrawMeshRenderer(entity);
 		DrawRigidbody(entity);
 		DrawCollider(entity);
 		DrawAdditionalData(entity);
 	}
 
-	void PropetiesPanel::DrawTag(const Entity& entity)
+	void PropetiesPanel::DrawTag(Entity& entity)
 	{
 		if (!entity.HasComponent<TagComponent>()) return;
 
-		TagComponent tagComp = entity.GetComponent<TagComponent>();
-		
+		TagComponent& tagComp = entity.GetComponent<TagComponent>();
+
 		char buffer[256];
 		memset(buffer, 0, sizeof(buffer));
 		strcpy_s(buffer, sizeof(buffer), tagComp.Tag.c_str());
 
 		if (ImGui::InputText("Tag", buffer, sizeof(buffer)))
-		{
-			tagComp.Tag = std::string(buffer);
-		}
+			tagComp.Tag = buffer;
 	}
 	
 	void PropetiesPanel::DrawTransform(Entity& entity)
@@ -166,6 +200,102 @@ namespace DEngine
 
 			ImGui::EndPopup();
 		}
+	}
+
+	void PropetiesPanel::DrawAssetSlot(const char* label, AssetHandle& slot, AssetType accepted, bool allowPrimitives)
+	{
+		ImGui::PushID(label);
+
+		const std::string name = AssetHelper::DisplayName(slot);
+		float width = ImGui::GetContentRegionAvail().x;
+		if (allowPrimitives)
+			width -= 60.0f;
+		if (width < 40.0f)
+			width = 40.0f;
+		ImGui::Button(name.c_str(), ImVec2(width, 0.0f));
+		AcceptAssetInto(slot, accepted);
+
+		if (allowPrimitives)
+		{
+			ImGui::SameLine();
+			if (ImGui::Button("Set"))
+				ImGui::OpenPopup("PrimitiveMesh");
+
+			if (ImGui::BeginPopup("PrimitiveMesh"))
+			{
+				if (ImGui::MenuItem("Cube"))
+					slot = AssetManager::GetPrimitiveMesh(PrimitiveType::Cube);
+				if (ImGui::MenuItem("Sphere"))
+					slot = AssetManager::GetPrimitiveMesh(PrimitiveType::Sphere);
+				if (ImGui::MenuItem("Clear"))
+					slot = AssetHandle(static_cast<uint64_t>(AssetHandle::Invalid()));
+				ImGui::EndPopup();
+			}
+		}
+
+		ImGui::PopID();
+	}
+
+	void PropetiesPanel::DrawCamera(Entity& entity)
+	{
+		if (!entity.HasComponent<CameraComponent>())
+			return;
+		if (!ImGui::TreeNodeEx((void*)typeid(CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Camera"))
+			return;
+
+		CameraComponent& camera = entity.GetComponent<CameraComponent>();
+
+		const char* projectionNames[] = { "Perspective", "Orthographic" };
+		int projection = static_cast<int>(camera.projectionType);
+		if (ImGui::Combo("Projection", &projection, projectionNames, IM_ARRAYSIZE(projectionNames)))
+			camera.projectionType = static_cast<CameraProjectionType>(projection);
+
+		if (camera.projectionType == CameraProjectionType::Perspective)
+			ImGui::DragFloat("Field of View", &camera.fov, 0.1f, 1.0f, 179.0f);
+		else
+			ImGui::DragFloat("Size", &camera.orthoSize, 0.1f, 0.01f, 10000.0f);
+
+		ImGui::DragFloat("Near", &camera.nearClip, 0.01f, 0.001f, 100000.0f);
+		ImGui::DragFloat("Far", &camera.farClip, 1.0f, 0.01f, 100000.0f);
+		if (camera.nearClip < 0.001f)
+			camera.nearClip = 0.001f;
+		if (camera.farClip <= camera.nearClip)
+			camera.farClip = camera.nearClip + 0.01f;
+
+		bool primary = camera.primary;
+		if (ImGui::Checkbox("Primary", &primary))
+		{
+			camera.primary = primary;
+			if (primary && entity.GetScene())
+			{
+				auto cameras = entity.GetScene()->View<CameraComponent>();
+				for (auto [otherEntity, other] : cameras.each())
+				{
+					if (otherEntity != entity.GetHandle())
+						other.primary = false;
+				}
+			}
+		}
+
+		ImGui::TreePop();
+	}
+
+	void PropetiesPanel::DrawMeshRenderer(Entity& entity)
+	{
+		if (!entity.HasComponent<MeshRendererComponent>())
+			return;
+		if (!ImGui::TreeNodeEx((void*)typeid(MeshRendererComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Mesh Renderer"))
+			return;
+
+		MeshRendererComponent& renderer = entity.GetComponent<MeshRendererComponent>();
+
+		ImGui::Text("Mesh");
+		DrawAssetSlot("Mesh", renderer.meshHandle, AssetType::Mesh, true);
+
+		ImGui::Text("Material");
+		DrawAssetSlot("Material", renderer.materialHandle, AssetType::Material, false);
+
+		ImGui::TreePop();
 	}
 
 	void PropetiesPanel::DrawRigidbody(Entity& entity)

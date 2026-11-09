@@ -1,4 +1,5 @@
 #include "EditorLayer.h"
+#include "Panels/AssetDragDrop.h"
 #include "imgui/imgui.h"
 #include "DEngine/Core.h"
 #include <glm/gtc/type_ptr.hpp>
@@ -8,10 +9,6 @@
 #include "DEngine/Input/MouseButtonCodes.h"
 
 #define BASE_SCENE_PATH "assets/scenes/Example.dscene"
-
-static const int WIN_HEIGHT = 720;
-static const int WIN_WIDTH = 1280;
-
 
 namespace DEngine
 {
@@ -28,8 +25,6 @@ namespace DEngine
 		///Set camera
 		Window& win = Application::Get().GetWindow();
 		m_EditorCamera = std::make_shared<PerspectiveCamera>(60.0f, win.GetWidth(), win.GetHeight());
-		m_GameCamera = std::make_shared<PerspectiveCamera>(60.0f, WIN_WIDTH, WIN_HEIGHT);
-		m_ActiveCamera = m_EditorCamera;
 
 		//Set scene
 		AssetHandle m_SceneHandle = AssetManager::CreateAsset(BASE_SCENE_PATH);
@@ -42,12 +37,14 @@ namespace DEngine
 		}
 
 		//Set Renderer
-		m_Framebuffer = Framebuffer::Create({ win.GetWidth(), win.GetHeight() });
+		m_EditorFramebuffer = Framebuffer::Create({ win.GetWidth(), win.GetHeight() });
+		m_GameFramebuffer = Framebuffer::Create({ win.GetWidth(), win.GetHeight() });
 
 
 		//Set panels
 		m_ScenePanel.SetContext(m_ActiveScene);
 		m_PropPanel.SetContext(m_ActiveScene);
+		m_AssetsPanel.SetContext(m_ActiveScene);
 	}
 
 	void EditorLayer::LoadScene() 
@@ -64,8 +61,8 @@ namespace DEngine
 
 		std::string matName = "basemat";
 		std::string matName2 = "basemat2";
-		matName += DMAT_FILE_EXT;
-		matName2 += DMAT_FILE_EXT;
+		matName += AssetHelper::NativeExtension(AssetType::Material);
+		matName2 += AssetHelper::NativeExtension(AssetType::Material);
 		const AssetHandle matHandle = AssetManager::CreateMaterialAsset(mat, "assets/materials/" + matName);
 		const AssetHandle matHandle2 = AssetManager::CreateMaterialAsset(mat2, "assets/materials/" + matName2);
 
@@ -75,7 +72,7 @@ namespace DEngine
 		const AssetHandle sphereMeshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Sphere);
 
 		///Set objs
-		auto& cube = m_ActiveScene->CreateEntity("cube");
+		auto& cube = m_ActiveScene->CreateEntity("cubee");
 		cube.AddComponent<MeshRendererComponent>(meshHandle, matHandle);
 		cube.AddComponent<RigidbodyComponent>().isKinematic = true;
 		cube.AddComponent<ColliderComponent>();
@@ -128,35 +125,65 @@ namespace DEngine
 		auto& lightTrans = directLight.GetComponent<TransformComponent>();
 		lightTrans.Rotate(70.0f, { 0.0f, 1.0f, 0.0f });
 
+		auto& mainCamera = m_ActiveScene->CreateEntity("Main Camera");
+		mainCamera.AddComponent<CameraComponent>();
+		auto& cameraTrans = mainCamera.GetComponent<TransformComponent>();
+		cameraTrans.SetPosition({ 0.0f, 150.0f, 250.0f });
+
 		AssetManager::CreateSceneAsset(m_ActiveScene, BASE_SCENE_PATH);
 	}
 
-	void EditorLayer::ReloadScene()
+	void EditorLayer::StartGame()
 	{
-		m_CurrentGameMode = m_CurrentGameMode == GAME ? EDITOR : GAME;
-		AssetHandle m_SceneHandle = AssetManager::CreateAsset(BASE_SCENE_PATH);
-		switch (m_CurrentGameMode)
+		if (m_CurrentGameMode == GAME || !m_ActiveScene)
+			return;
+
+		m_PlaySnapshot = SceneSerializer::SerializeToString(m_ActiveScene);
+		if (m_PlaySnapshot.empty())
 		{
-		case DEngine::EDITOR:
-			EnableSelectedEntityDebug();
-			DisablePhysics();
-			D_INFO("SWITCHED TO EDITOR CAMERA");
-			m_ActiveCamera = m_EditorCamera;
-			DeserializeScene();
-			break;
-		case DEngine::GAME:
-			DisableSelectedEntityDebug();
-			CaptureCameraPos();
-			EnablePhysics();
-			D_INFO("SWITCHED TO GAME CAMERA");
-			m_ActiveCamera = m_GameCamera;
-			break;
-		default:
-			D_ERROR("UNKNOWN GAME MODE");
-			break;
+			D_ERROR("Couldn't start play mode");
+			return;
 		}
 
-		RecalculateFrameBuffer(m_ViewportSize);
+		m_CurrentGameMode = GAME;
+		DisableSelectedEntityDebug();
+		EnablePhysics();
+		D_INFO("SWITCHED TO PLAY MODE");
+	}
+
+	void EditorLayer::StopGame()
+	{
+		if (m_CurrentGameMode != GAME)
+			return;
+
+		DeserializeSceneResult restored = SceneSerializer::DeserializeFromString(m_PlaySnapshot);
+		m_CurrentGameMode = EDITOR;
+		m_PlaySnapshot.clear();
+
+		if (!restored.isSuccessful || !restored.scene)
+		{
+			D_ERROR("Couldn't restore the editor scene");
+			DisablePhysics();
+			return;
+		}
+
+		BindScene(restored.scene, true);
+		DisablePhysics();
+		EnableSelectedEntityDebug();
+		D_INFO("SWITCHED TO EDITOR MODE");
+	}
+
+	void EditorLayer::BindScene(const Ref<Scene>& scene, bool selectFirst)
+	{
+		m_ActiveScene = scene;
+		m_ScenePanel.SetContext(scene);
+		m_PropPanel.SetContext(scene);
+		m_AssetsPanel.SetContext(scene);
+
+		if (selectFirst && scene && !scene->GetAllEntities().empty())
+			m_ScenePanel.SetSelected(scene->GetAllEntities().front());
+		else
+			m_ScenePanel.SetSelected({});
 	}
 
 	void EditorLayer::EnablePhysics()
@@ -199,25 +226,15 @@ namespace DEngine
 		}
 	}
 
-	void EditorLayer::CaptureCameraPos()
-	{
-		m_GameCamera->SetPos(m_EditorCamera->GetPos());
-		m_GameCamera->SetRot(m_EditorCamera->GetRot());
-	}
-
-
 	void EditorLayer::OnUpdate(const Timestep& ts)
 	{
 		UpdateAssets(ts);
 
 		m_DrawTime = ts.GetSeconds();
+		if (auto cameraSystem = m_ActiveScene->GetSystem<CameraSystem>())
+			cameraSystem->SetViewport((uint32_t)m_GameViewportSize.x, (uint32_t)m_GameViewportSize.y);
 		m_ActiveScene->OnUpdate(ts);
-
-		//TODO: перенести код управления камерой в отдельный класс
-		if (m_CurrentGameMode == EDITOR)
-		{
-			UpdateEditorCamera(ts);
-		}
+		UpdateEditorCamera(ts);
 
 
 		// ОБРАБОТКА ОСТАЛЬНОГО ИНПУТА
@@ -233,67 +250,74 @@ namespace DEngine
 			m_TabJustPressed = false;
 		}
 
-		if (Input::IsKeyPressed(D_KEY_E))
-		{
-			if (!m_ReloadJustPressed)
-			{
-				m_ReloadJustPressed = true;
-				ReloadScene();
-			}
-		}
-		else
-		{
-			m_ReloadJustPressed = false;
-		}
-
 	}
 
 	void EditorLayer::UpdateEditorCamera(const Timestep& ts)
 	{
-		if (m_ViewportFocused)
+		if (m_EditorViewportFocused)
 		{
+			glm::vec3 forward = m_EditorCamera->GetForwardDir();
+			glm::vec3 right = m_EditorCamera->GetRightDir();
+			float step = m_CamSpeed * ts.GetSeconds();
+
 			if (Input::IsKeyPressed(D_KEY_W))
-				m_CamPos = m_CamPos + m_EditorCamera->GetForwardDir() * m_CamSpeed * ts.GetSeconds();
+				m_CamPos += forward * step;
 			if (Input::IsKeyPressed(D_KEY_S))
-				m_CamPos = m_CamPos - m_EditorCamera->GetForwardDir() * m_CamSpeed * ts.GetSeconds();
+				m_CamPos -= forward * step;
 			if (Input::IsKeyPressed(D_KEY_A))
-				m_CamPos = m_CamPos - m_EditorCamera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
+				m_CamPos -= right * step;
 			if (Input::IsKeyPressed(D_KEY_D))
-				m_CamPos = m_CamPos + m_EditorCamera->GetRightDir() * m_CamSpeed * ts.GetSeconds();
+				m_CamPos += right * step;
 
 			m_EditorCamera->SetPos(m_CamPos);
 			m_EditorCamera->SetRot(m_CamRot);
 		}
 	}
 
-	void EditorLayer::UpdateGameCamera(const Timestep& ts)
-	{
-		m_GameCamera->SetRot(glm::vec3(0,0,0));
-	}
-
 	void EditorLayer::DeserializeScene()
 	{
-		m_ScenePanel.SetContext(nullptr);
-		AssetHandle m_SceneHandle = AssetManager::CreateAsset(BASE_SCENE_PATH);
-		m_ActiveScene = SceneSerializer::Deserialize(BASE_SCENE_PATH).scene;
+		m_CurrentGameMode = EDITOR;
+		m_PlaySnapshot.clear();
+		AssetManager::CreateAsset(BASE_SCENE_PATH);
+		DeserializeSceneResult loaded = SceneSerializer::Deserialize(BASE_SCENE_PATH);
+		if (!loaded.isSuccessful || !loaded.scene)
+		{
+			D_ERROR("Couldn't deserialize the scene");
+			return;
+		}
 
-		m_ScenePanel.SetContext(m_ActiveScene);
-		m_PropPanel.SetContext(m_ActiveScene);
-		Entity entity = m_ActiveScene->GetAllEntities()[0];
-		m_PropPanel.SetSelectedContext(entity);
+		BindScene(loaded.scene, true);
+	}
+
+	void EditorLayer::RenderToTarget(const Ref<Framebuffer>& framebuffer, const Ref<Camera>& camera, const Timestep& ts)
+	{
+		if (!framebuffer || !camera)
+			return;
+
+		framebuffer->Bind();
+		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.15f, 1.0f });
+		RenderCommand::Clear();
+		Renderer::BeginScene(camera);
+		m_ActiveScene->OnRender(ts);
+		Renderer::EndScene();
+		framebuffer->Unbind();
 	}
 
 	void EditorLayer::OnRender(const Timestep& ts)
 	{
-		m_Framebuffer->Bind();
-		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.15f, 1.0f });
-		RenderCommand::Clear();
-		Renderer::BeginScene(m_ActiveCamera);
+		Ref<Camera> gameCamera = m_EditorCamera;
+		m_GameViewUsesSceneCamera = false;
+		if (auto cameraSystem = m_ActiveScene->GetSystem<CameraSystem>())
+		{
+			if (cameraSystem->HasSceneCamera())
+			{
+				gameCamera = cameraSystem->GetSceneCamera();
+				m_GameViewUsesSceneCamera = true;
+			}
+		}
 
-		m_ActiveScene->OnRender(ts);
-
-		Renderer::EndScene();
-		m_Framebuffer->Unbind();
+		RenderToTarget(m_EditorFramebuffer, m_EditorCamera, ts);
+		RenderToTarget(m_GameFramebuffer, gameCamera, ts);
 	}
 
 	void EditorLayer::OnRenderDocker()
@@ -348,46 +372,42 @@ namespace DEngine
 		ImGui::Text(objCountLabel);
 		ImGui::End();
 
-		//Viewport
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0,0 });
-		ImGui::Begin("Viewport");
+		ImGui::Begin("Editor");
 
-		m_ViewportFocused = ImGui::IsWindowFocused();
-		m_ViewportHovered = ImGui::IsWindowHovered();
-		Application::Get().GetImGuiLayer()->SetBlockEvents(!m_ViewportFocused || !m_ViewportHovered);
+		m_EditorViewportFocused = ImGui::IsWindowFocused();
+		m_EditorViewportHovered = ImGui::IsWindowHovered();
+		Application::Get().GetImGuiLayer()->SetBlockEvents(!m_EditorViewportFocused || !m_EditorViewportHovered);
 
-		ImVec2 viewportSize = ImGui::GetContentRegionAvail();
-
-		float aspratio = viewportSize.x / viewportSize.y;
-		glm::vec2 res = glm::vec2(viewportSize.x * aspratio, WIN_HEIGHT);
-
-		if (m_ViewportSize != *((glm::vec2*)&viewportSize))
+		ImVec2 editorSize = ImGui::GetContentRegionAvail();
+		if (editorSize.x > 0.0f && editorSize.y > 0.0f && m_EditorViewportSize != *((glm::vec2*)&editorSize))
 		{
-			m_ViewportSize = { viewportSize.x, viewportSize.y };
-			RecalculateFrameBuffer(m_ViewportSize);
-		}
-		if (m_CurrentGameMode == GameMode::EDITOR)
-		{
-			ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{ viewportSize.x, viewportSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-		}
-		else
-		{
-			ImVec2 cursor = ImGui::GetCursorPos();
-			ImGui::SetCursorPos(ImVec2(
-				cursor.x + (viewportSize.x - res.x) * 0.5f,
-				cursor.y + (viewportSize.y - res.y) * 0.5f
-			));
-			ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{ res.x, res.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+			m_EditorViewportSize = { editorSize.x, editorSize.y };
+			m_EditorFramebuffer->Resize((uint32_t)editorSize.x, (uint32_t)editorSize.y);
+			m_EditorCamera->ChangeSize((uint32_t)editorSize.x, (uint32_t)editorSize.y);
 		}
 
+		ImGui::Image((void*)m_EditorFramebuffer->GetColorAttachmentRendererID(), ImVec2{ editorSize.x, editorSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		AcceptModelDropOnLastItem();
+		RenderImGuizmo();
 
-		// ============================= Gizmos stuff =================================
-		if (m_CurrentGameMode == GameMode::EDITOR)
+		ImGui::End();
+
+		ImGui::Begin("Game");
+		ImVec2 gameSize = ImGui::GetContentRegionAvail();
+		if (gameSize.x > 0.0f && gameSize.y > 0.0f && m_GameViewportSize != *((glm::vec2*)&gameSize))
 		{
-			RenderImGuizmo();
+			m_GameViewportSize = { gameSize.x, gameSize.y };
+			m_GameFramebuffer->Resize((uint32_t)gameSize.x, (uint32_t)gameSize.y);
 		}
-		// ======================== End of gizmos stuff ===============================
 
+		ImGui::Image((void*)m_GameFramebuffer->GetColorAttachmentRendererID(), ImVec2{ gameSize.x, gameSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+		AcceptModelDropOnLastItem();
+		if (!m_GameViewUsesSceneCamera)
+		{
+			ImGui::SetCursorPos(ImVec2(8.0f, 8.0f));
+			ImGui::TextDisabled("No scene camera");
+		}
 		ImGui::End();
 		ImGui::PopStyleVar();
 	}
@@ -407,8 +427,8 @@ namespace DEngine
 				ImGuizmo::SetDrawlist();
 				ImGuizmo::SetRect(winpos.x, winpos.y, windowWidth, windowHeight);
 
-				glm::mat4 camViewMat = m_ActiveCamera->GetViewMat();
-				glm::mat4 camProjMat = m_ActiveCamera->GetProjMat();
+				glm::mat4 camViewMat = m_EditorCamera->GetViewMat();
+				glm::mat4 camProjMat = m_EditorCamera->GetProjMat();
 
 				auto& entityTransform = selected_entity.GetComponent<TransformComponent>().GetModelMatrixLink();
 
@@ -427,14 +447,6 @@ namespace DEngine
 		dis.Dispatch<MouseMovedEvent>(BIND_EVENT_FN(EditorLayer::OnMouseMovedEvent));
 		dis.Dispatch<MouseScrolledEvent>(BIND_EVENT_FN(EditorLayer::OnMouseScrolledEvent));
 
-		if (event.GetEventType() == EventType::WindowResize)
-		{
-			WindowResizeEvent& resizeEvent = (WindowResizeEvent&)event;
-			uint32_t width = resizeEvent.GetWidth();
-			uint32_t height = resizeEvent.GetHeight();
-
-			m_EditorCamera->ChangeSize(width, height);
-		}
 	}
 
 	bool EditorLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& event)
@@ -463,8 +475,7 @@ namespace DEngine
 
 	bool EditorLayer::OnMouseMovedEvent(MouseMovedEvent& event)
 	{
-		if (m_CurrentGameMode != EDITOR) return false;
-		if (!m_ViewportFocused || !m_ViewportHovered) return false;
+		if (!m_EditorViewportFocused || !m_EditorViewportHovered) return false;
 		if (!m_ControllingCameraWithMouse) return false;
 
 		float x = event.GetX();
@@ -484,8 +495,8 @@ namespace DEngine
 		m_LastMouseX = x;
 		m_LastMouseY = y;
 
-		m_CamRot.y += deltaX * m_MouseSensitivity;
-		m_CamRot.x += deltaY * m_MouseSensitivity;
+		m_CamRot.y -= deltaX * m_MouseSensitivity;
+		m_CamRot.x -= deltaY * m_MouseSensitivity;
 
 		// Ограничиваем pitch, чтобы камера не переворачивалась
 		m_CamRot.x = glm::clamp(m_CamRot.x, -89.0f, 89.0f);
@@ -497,8 +508,7 @@ namespace DEngine
 
 	bool EditorLayer::OnMouseScrolledEvent(MouseScrolledEvent& event)
 	{
-		if (m_CurrentGameMode != EDITOR) return false;
-		if (!m_ViewportFocused || !m_ViewportHovered) return false;
+		if (!m_EditorViewportFocused || !m_EditorViewportHovered) return false;
 
 		float offset = event.GetYOffset();
 		m_CamPos += m_EditorCamera->GetForwardDir() * offset * 20.0f;
@@ -508,29 +518,15 @@ namespace DEngine
 		return true;
 	}
 
+	void EditorLayer::AcceptModelDropOnLastItem()
+	{
+		AcceptModelDrop(m_ActiveScene);
+	}
+
 	void EditorLayer::Shutdown()
 	{
 		AssetManager::Shutdown();
 	}
-
-	void EditorLayer::RecalculateFrameBuffer(glm::vec2 viewportSize)
-	{
-		float aspratio = viewportSize.y / viewportSize.x;
-		glm::vec2 res = glm::vec2(viewportSize.x, WIN_HEIGHT * aspratio);
-
-			m_ActiveCamera->ChangeSize(viewportSize.x, viewportSize.y);
-			if (m_CurrentGameMode == GameMode::EDITOR)
-			{
-				m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
-			}
-			else
-			{
-				m_Framebuffer->Resize((uint32_t)res.x, (uint32_t)res.y);
-				m_ActiveCamera->ChangeSize(res.x, res.y);
-			}
-		
-	}
-
 
 	bool EditorLayer::OnKeyPressedEv(KeyPressedEvent& event)
 	{
@@ -589,6 +585,17 @@ namespace DEngine
 			{
 				if (ImGui::MenuItem("Exit")) Application::Get().Close();
 				ImGui::EndMenu();
+			}
+
+			ImGui::SameLine();
+			if (m_CurrentGameMode == GameMode::EDITOR)
+			{
+				if (ImGui::Button("Play"))
+					StartGame();
+			}
+			else if (ImGui::Button("Stop"))
+			{
+				StopGame();
 			}
 
 			ImGui::EndMenuBar();

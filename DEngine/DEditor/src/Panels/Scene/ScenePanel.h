@@ -16,6 +16,7 @@ namespace DEngine
 		void SetContext(const Ref<Scene>& scene);
 
 		void OnImGuiRender();
+		void SetSelected(Entity entity);
 	private:
 		void DrawEntityNode(const Entity& entity);
 

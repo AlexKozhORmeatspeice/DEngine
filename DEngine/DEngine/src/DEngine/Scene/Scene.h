@@ -1,16 +1,17 @@
 #pragma once
 
+#include "entt.hpp"
 #include "DEngine/Core/Timestep.h"
 #include "DEngine/Events/Event.h"
 #include "DEngine/Asset/Asset.h"
-#include "DEngine/Scene/Registry.h"
+
 #include <memory>
 #include <vector>
 
 namespace DEngine
 {
-	class System;
-	class Entity;
+    class System;
+    class Entity;
 
     class Scene : public Asset
     {
@@ -37,19 +38,30 @@ namespace DEngine
         void OnUpdate(const Timestep& ts);
         void OnRender(const Timestep& ts);
 
+        template<typename T>
+        std::shared_ptr<T> GetSystem()
+        {
+            for (auto& system : m_Systems)
+            {
+                if (auto typed = std::dynamic_pointer_cast<T>(system))
+                    return typed;
+            }
+            return nullptr;
+        }
+
         const std::vector<Entity>& GetAllEntities() const { return m_Entities; }
 
-        Registry& GetRegistry() { return m_Registry; }
-        const Registry& GetRegistry() const { return m_Registry; }
+        entt::registry& GetRegistry() { return m_Registry; }
+        const entt::registry& GetRegistry() const { return m_Registry; }
 
-		static AssetType GetStaticType() { return AssetType::Scene; }
-		virtual AssetType GetType() const override { return GetStaticType(); }
+        static AssetType GetStaticType() { return AssetType::Scene; }
+        virtual AssetType GetType() const override { return GetStaticType(); }
     private:
         void AddSystem(std::shared_ptr<System> system);
 
         std::vector<std::shared_ptr<System>> m_Systems;
         std::vector<Entity> m_Entities;
-        Registry m_Registry;
+        entt::registry m_Registry;
 
         friend class Entity;
         friend class ScenePanel;

@@ -25,21 +25,21 @@ namespace DEngine
 		void OnRenderDocker();
 		virtual void Shutdown() override;
 
-		void RecalculateFrameBuffer(glm::vec2 viewportSize);
+		void RenderToTarget(const Ref<Framebuffer>& framebuffer, const Ref<Camera>& camera, const Timestep& ts);
 		void RenderImGuizmo();
 
 		void LoadScene();
-		void ReloadScene();
+		void StartGame();
+		void StopGame();
+		void BindScene(const Ref<Scene>& scene, bool selectFirst);
 		void EnablePhysics();
 		void DisablePhysics();
 		void DisableSelectedEntityDebug();
 		void EnableSelectedEntityDebug();
 
-		void CaptureCameraPos();
-
 		void UpdateEditorCamera(const Timestep& ts);
-		void UpdateGameCamera(const Timestep& ts);
 		void DeserializeScene();
+		void AcceptModelDropOnLastItem();
 
 		virtual void OnEvent(Event& event) override;
 
@@ -63,16 +63,17 @@ namespace DEngine
 		SceneSerializer m_SceneSerializer;
 
 		//Objs
-		Ref<Camera> m_EditorCamera;
-		Ref<Camera> m_GameCamera;
-		Ref<Camera> m_ActiveCamera;
+		Ref<PerspectiveCamera> m_EditorCamera;
 
-		Ref<Framebuffer> m_Framebuffer;
+		Ref<Framebuffer> m_EditorFramebuffer;
+		Ref<Framebuffer> m_GameFramebuffer;
 		Ref<Scene> m_ActiveScene;
 
-		glm::vec2 m_ViewportSize;
-		bool m_ViewportFocused = false;
-		bool m_ViewportHovered = false;
+		glm::vec2 m_EditorViewportSize = { 0.0f, 0.0f };
+		glm::vec2 m_GameViewportSize = { 0.0f, 0.0f };
+		bool m_EditorViewportFocused = false;
+		bool m_EditorViewportHovered = false;
+		bool m_GameViewUsesSceneCamera = false;
 
 		glm::vec3 m_CamPos;
 		glm::vec3 m_CamRot;
@@ -86,7 +87,7 @@ namespace DEngine
 		GameMode m_CurrentGameMode = GameMode::EDITOR;
 		bool m_ControllingCameraWithMouse = false;
 		bool m_TabJustPressed = false;
-		bool m_ReloadJustPressed = false;
+		std::string m_PlaySnapshot;
 		float m_DrawTime;
 
 		float m_LastMouseX = 0.0f;

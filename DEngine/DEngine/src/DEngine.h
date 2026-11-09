@@ -31,6 +31,7 @@
 
 //--Assets--
 #include "DEngine/Asset/Asset.h"
+#include "DEngine/Asset/AssetHelper.h"
 #include "DEngine/Asset/AssetManagerBase.h"
 #include "DEngine/Asset/EditorAssetManager.h"
 #include "DEngine/Asset/RuntimeAssetManager.h"

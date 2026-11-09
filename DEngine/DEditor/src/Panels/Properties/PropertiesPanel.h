@@ -22,11 +22,15 @@ namespace DEngine
 	private:
 		void DrawComponents(Entity& entity);
 
-		void DrawTag(const Entity& entity);
+		void DrawTag(Entity& entity);
 		void DrawTransform(Entity& entity);
+		void DrawMeshRenderer(Entity& entity);
+		void DrawCamera(Entity& entity);
 		void DrawRigidbody(Entity& entity);
 		void DrawCollider(Entity& entity);
 		void DrawAdditionalData(Entity& entity);
+
+		void DrawAssetSlot(const char* label, AssetHandle& slot, AssetType accepted, bool allowPrimitives);
 
 		Ref<Scene> m_Context;
 		static Entity m_SelectedEntity;
