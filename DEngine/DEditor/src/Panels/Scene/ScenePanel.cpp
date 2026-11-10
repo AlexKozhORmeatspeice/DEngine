@@ -25,15 +25,13 @@ namespace DEngine
 			entry.second.clear();
 		m_Roots.clear();
 
-		auto view = m_Context->View<TagComponent>();
+		auto view = m_Context->View<TagComponent, TransformComponent>();
 		auto& registry = m_Context->GetRegistry();
-		m_Roots.reserve(view.size());
+		m_Roots.reserve(view.size_hint());
 
-		for (auto [handle, tag] : view.each())
+		for (auto [handle, tag, transform] : view.each())
 		{
-			(void)tag;
-			const TransformComponent* transform = registry.try_get<TransformComponent>(handle);
-			uint64_t parent = transform ? transform->Parent : 0;
+			uint64_t parent = transform.Parent;
 			if (parent != 0 && m_Context->Contains(parent))
 				m_Children[parent].push_back(handle);
 			else

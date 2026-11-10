@@ -1,0 +1,12 @@
+---
+description: DEditor and Sandbox stay in one solution generated for the newest Visual Studio
+alwaysApply: true
+---
+
+# One DEngine solution
+
+`premake5.lua` generates `DEngine.sln`. That solution contains DEngine, DEditor, and Sandbox together. Do not split the editor and the player into separate solutions.
+
+`Win_GenProject.bat` asks `vswhere` for the newest Visual Studio, including prerelease, then runs the matching Premake action (`vs2026`, `vs2022`, `vs2019`, or `vs2017`) and builds `DEngine.sln` with that install's MSBuild.
+
+Project bodies stay in `ProjectDEngine.lua`, `ProjectDEditor.lua`, and `ProjectSandbox.lua`. Change those, then run `Win_GenProject.bat`. Do not hand-edit a generated `.sln` or `.vcxproj` for a setting Premake can express.
