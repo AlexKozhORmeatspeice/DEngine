@@ -8,6 +8,7 @@
 #include "DEngine/Renderer/Renderer.h"
 
 #include "DEngine/Renderer/Cameras/OrthCamera.h"
+#include "DEngine/Profiler/Profiler.h"
 
 //TODO: TEMP
 #include "GLFW/glfw3.h" 
@@ -29,6 +30,7 @@ namespace DEngine
 
         //Renderer
         Renderer::Init();
+        D_PROFILE_THREAD("Main");
 
         //Init ImGui
         m_ImGuiLayer = new ImGuiLayer();
@@ -85,6 +87,7 @@ namespace DEngine
             GUIUpdate();
 
             m_Window->OnUpdate();
+            D_PROFILE_FRAME();
         }
 
         Shutdown();
@@ -98,18 +101,21 @@ namespace DEngine
 
     void Application::OnUpdate(const Timestep& ts)
     {
+        D_PROFILE_FUNCTION();
 		for (Layer* layer : m_layerStack)
 			layer->OnUpdate(ts);
     }
 
     void Application::OnRender(const Timestep& ts)
     {
+        D_PROFILE_FUNCTION();
 		for (Layer* layer : m_layerStack)
 			layer->OnRender(ts);
     }
 
     void Application::GUIUpdate()
     {
+        D_PROFILE_FUNCTION();
 		m_ImGuiLayer->Begin();
 		for (Layer* layer : m_layerStack)
 			layer->OnImGuiRenderer();

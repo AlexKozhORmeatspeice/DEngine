@@ -14,6 +14,9 @@ namespace DEngine
     struct TransformComponent : public Component
     {
         glm::mat4 trans = glm::mat4(1.0f);
+        uint64_t Parent = 0;
+        glm::mat4 world = glm::mat4(1.0f);
+        bool unactiveByParent = false;
 
         // �������� ���� ������ ������ ���. �������� ����� GetRotationEuler(),
         // ����������� ��� ������. � �������� ������ �� ���������.
@@ -48,6 +51,8 @@ namespace DEngine
 
         glm::mat4 GetModelMatrix() const;
         glm::mat4& GetModelMatrixLink();
+        glm::vec3 GetWorldPosition() const;
+        glm::quat GetWorldRotation() const;
 
         glm::vec3 GetForward() const;
         glm::vec3 GetRight() const;

@@ -4,6 +4,9 @@
 #include "DEngine.h"
 #include "DEngine/Core.h"
 
+#include <unordered_map>
+#include <vector>
+
 namespace DEngine
 {
 	//На все приложение будет только 1 окно с сценой
@@ -15,12 +18,15 @@ namespace DEngine
 
 		void SetContext(const Ref<Scene>& scene);
 
-		void OnImGuiRender();
+		void OnRender();
 		void SetSelected(Entity entity);
 	private:
-		void DrawEntityNode(const Entity& entity);
+		void BuildHierarchy();
+		void DrawEntityNode(entt::entity entity);
 
 		Ref<Scene> m_Context;
 		Entity m_SelectionContext;
+		std::unordered_map<uint64_t, std::vector<entt::entity>> m_Children;
+		std::vector<entt::entity> m_Roots;
 	};
 }

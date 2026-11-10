@@ -9,6 +9,7 @@ namespace DEngine
     const std::string TRANS_COMP_POS = "Pos";
     const std::string TRANS_COMP_ROT = "Rot";
     const std::string TRANS_COMP_SCALE = "Scale";
+    const std::string TRANS_COMP_PARENT = "Parent";
 
     // ------------------------------------------------------------
     //  Служебное: пометить кэш эйлеров как грязный
@@ -22,7 +23,7 @@ namespace DEngine
     //  Конструкторы
     // ------------------------------------------------------------
     TransformComponent::TransformComponent(const glm::mat4& _trans)
-        : trans(_trans)
+        : trans(_trans), world(_trans)
     {
         // Кэш эйлеров построим лениво — при первом GetRotationEuler()
         m_RotationEulerDirty = true;
@@ -159,7 +160,22 @@ namespace DEngine
     // ------------------------------------------------------------
     glm::mat4 TransformComponent::GetModelMatrix() const
     {
-        return trans;
+        return world;
+    }
+
+    glm::vec3 TransformComponent::GetWorldPosition() const
+    {
+        return glm::vec3(world[3]);
+    }
+
+    glm::quat TransformComponent::GetWorldRotation() const
+    {
+        glm::mat3 rotMat(
+            glm::normalize(glm::vec3(world[0])),
+            glm::normalize(glm::vec3(world[1])),
+            glm::normalize(glm::vec3(world[2]))
+        );
+        return glm::normalize(glm::quat_cast(rotMat));
     }
 
     glm::mat4& TransformComponent::GetModelMatrixLink()
@@ -169,17 +185,17 @@ namespace DEngine
 
     glm::vec3 TransformComponent::GetForward() const
     {
-        return glm::normalize(glm::vec3(trans * glm::vec4(0.0f, 0.0f, -1.0f, 0.0f)));
+        return glm::normalize(glm::vec3(world * glm::vec4(0.0f, 0.0f, -1.0f, 0.0f)));
     }
 
     glm::vec3 TransformComponent::GetRight() const
     {
-        return glm::normalize(glm::vec3(trans * glm::vec4(1.0f, 0.0f, 0.0f, 0.0f)));
+        return glm::normalize(glm::vec3(world * glm::vec4(1.0f, 0.0f, 0.0f, 0.0f)));
     }
 
     glm::vec3 TransformComponent::GetUp() const
     {
-        return glm::normalize(glm::vec3(trans * glm::vec4(0.0f, 1.0f, 0.0f, 0.0f)));
+        return glm::normalize(glm::vec3(world * glm::vec4(0.0f, 1.0f, 0.0f, 0.0f)));
     }
 
     // ------------------------------------------------------------
@@ -194,6 +210,7 @@ namespace DEngine
         out << YAML::Key << TRANS_COMP_POS << YAML::Value << pos;
         out << YAML::Key << TRANS_COMP_ROT << YAML::Value << rot;
         out << YAML::Key << TRANS_COMP_SCALE << YAML::Value << scale;
+        out << YAML::Key << TRANS_COMP_PARENT << YAML::Value << Parent;
     }
 
     bool TransformComponent::Deserialize(const YAML::Node& node)
@@ -207,6 +224,10 @@ namespace DEngine
         if (node[TRANS_COMP_SCALE])
             SetScale(node[TRANS_COMP_SCALE].as<glm::vec3>());
 
+        if (node[TRANS_COMP_PARENT])
+            Parent = node[TRANS_COMP_PARENT].as<uint64_t>();
+
+        world = trans;
         return true;
     }
 }

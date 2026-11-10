@@ -11,7 +11,7 @@ namespace DEngine
 	class PropetiesPanel
 	{
 	public:
-		void OnImGuiRender();
+		void OnRender();
 
 		static void SetSelectedContext(Entity& entity) { m_SelectedEntity = entity; }
 

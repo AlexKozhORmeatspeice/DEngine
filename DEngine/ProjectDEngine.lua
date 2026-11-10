@@ -35,6 +35,7 @@ project "DEngine"
         "%{IncludeDir.yaml}",
         "%{IncludeDir.assimp}",
         "%{IncludeDir.ImGuizmo}",
+        "%{IncludeDir.tracy}",
     }
 
     libdirs
@@ -48,7 +49,8 @@ project "DEngine"
         "GLAD",
         "ImGui",
         "yaml-cpp",
-        "assimp-vc143-mt"
+        "assimp-vc143-mt",
+        "Tracy"
     }
 
     filter "files:vendor/ImGuizmo/**.cpp"
@@ -91,4 +93,4 @@ project "DEngine"
         runtime "Release"
         optimize "on"
 
-filter {}
+EnableTracy()

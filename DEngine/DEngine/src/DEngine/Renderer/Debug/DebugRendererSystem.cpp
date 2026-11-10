@@ -6,6 +6,7 @@
 #include "DEngine/Renderer/Renderer.h"
 
 #include "DEngine/Asset/AssetManager.h"
+#include "DEngine/Profiler/Profiler.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -29,6 +30,7 @@ namespace DEngine
 
 	void DebugRendererSystem::OnRender(const Timestep& ts, Scene* scene)
 	{
+		D_PROFILE_FUNCTION();
 		(void)ts;
 
 		auto comps = scene->View<ColliderComponent, TransformComponent, DebugComponent>();
@@ -39,6 +41,8 @@ namespace DEngine
 		for (auto [entity, collider, trans, debug] : comps.each())
 		{
 			if (!debug.debugOn || collider.type == ColliderType::None)
+				continue;
+			if (!scene->IsActive(Entity(entity, scene)))
 				continue;
 
 			Ref<Mesh> meshObj = nullptr;
@@ -78,6 +82,13 @@ namespace DEngine
 
 			if (!meshObj)
 				continue;
+
+			if (collider.type != ColliderType::Mesh && trans.Parent != 0)
+			{
+				Entity parent = scene->FindEntity(trans.Parent);
+				if (parent && parent.HasComponent<TransformComponent>())
+					transform = parent.GetComponent<TransformComponent>().GetModelMatrix() * transform;
+			}
 
 			Renderer::Submit(meshObj, mat, transform, RenderMode::WIREFRAME);
 		}

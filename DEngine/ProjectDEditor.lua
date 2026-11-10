@@ -24,6 +24,7 @@ project "DEditor"
         "%{IncludeDir.entt}",
         "%{IncludeDir.yaml}",
         "%{IncludeDir.ImGuizmo}",
+        "%{IncludeDir.tracy}",
     }
 
     links
@@ -66,4 +67,4 @@ project "DEditor"
         runtime "Release"
         optimize "on"
 
-filter {}
+EnableTracy()

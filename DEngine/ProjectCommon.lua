@@ -12,6 +12,17 @@ IncludeDir["entt"] = "DEngine/vendor/entt/include"
 IncludeDir["yaml"] = "DEngine/vendor/yaml-cpp/include"
 IncludeDir["assimp"] = "DEngine/vendor/assimp/include"
 IncludeDir["ImGuizmo"] = "DEngine/vendor/ImGuizmo"
+IncludeDir["tracy"] = "DEngine/vendor/tracy/public"
+
+function EnableTracy()
+    filter "configurations:Debug"
+        defines { "TRACY_ENABLE", "TRACY_ON_DEMAND" }
+
+    filter "configurations:Release"
+        defines { "TRACY_ENABLE", "TRACY_ON_DEMAND" }
+
+    filter {}
+end
 
 function IncludeEngineDependencies()
     group "Dependencies"
@@ -19,6 +30,7 @@ function IncludeEngineDependencies()
         include "DEngine/vendor/GLAD"
         include "DEngine/vendor/imgui"
         include "DEngine/vendor/yaml-cpp"
+        include "DEngine/vendor/tracy"
     group ""
     filter {}
 end

@@ -22,7 +22,8 @@ project "Sandbox"
         "DEngine/vendor",
         "%{IncludeDir.glm}",
         "%{IncludeDir.entt}",
-        "%{IncludeDir.yaml}"
+        "%{IncludeDir.yaml}",
+        "%{IncludeDir.tracy}"
     }
 
     links
@@ -67,4 +68,4 @@ project "Sandbox"
         runtime "Release"
         optimize "on"
 
-filter {}
+EnableTracy()

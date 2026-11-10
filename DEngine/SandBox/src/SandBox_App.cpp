@@ -1,5 +1,6 @@
 #include "DEngine.h"
 #include "DEngine/EntryPoint.h"
+#include "DEngine/Profiler/Profiler.h"
 
 namespace DEngine
 {
@@ -44,6 +45,7 @@ namespace DEngine
 
 		void OnUpdate(const Timestep& ts) override
 		{
+			D_PROFILE_FUNCTION();
 			if (!m_Scene)
 				return;
 
@@ -53,6 +55,7 @@ namespace DEngine
 
 		void OnRender(const Timestep& ts) override
 		{
+			D_PROFILE_FUNCTION();
 			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.15f, 1.0f });
 			RenderCommand::Clear();
 

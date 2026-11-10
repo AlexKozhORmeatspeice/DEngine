@@ -14,7 +14,7 @@ namespace DEngine
 		AssetsPanel();
 
 		void SetContext(const Ref<Scene>& scene) { m_Scene = scene; }
-		void OnImGuiRender();
+		void OnRender();
 
 	private:
 		void DrawDirectoryEntry(const std::filesystem::path& path, bool isDirectory);

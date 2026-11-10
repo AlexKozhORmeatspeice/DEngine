@@ -5,8 +5,7 @@
 
 #include "DEngine/Asset/EditorAssetManager.h"
 #include "Panels/AssetDragDrop.h"
-
-
+#include "DEngine/Profiler/Profiler.h"
 
 namespace DEngine
 {
@@ -74,8 +73,9 @@ namespace DEngine
 		return list;
 	}
 
-	void PropetiesPanel::OnImGuiRender()
+	void PropetiesPanel::OnRender()
 	{
+		D_PROFILE_FUNCTION();
 		ImGui::Begin("Properties");
 
 		if (m_SelectedEntity)
@@ -114,6 +114,10 @@ namespace DEngine
 		if (!entity.HasComponent<TagComponent>()) return;
 
 		TagComponent& tagComp = entity.GetComponent<TagComponent>();
+
+		bool active = tagComp.activeSelf;
+		if (ImGui::Checkbox("Active", &active))
+			entity.GetScene()->SetActiveSelf(entity, active);
 
 		char buffer[256];
 		memset(buffer, 0, sizeof(buffer));

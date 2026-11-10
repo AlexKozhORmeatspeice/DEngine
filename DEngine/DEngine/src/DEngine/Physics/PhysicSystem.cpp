@@ -2,6 +2,8 @@
 #include "PhysicSystem.h"
 
 #include "DEngine/Scene/Components.h"
+#include "DEngine/Scene/Entity.h"
+#include "DEngine/Profiler/Profiler.h"
 
 
 namespace DEngine
@@ -464,6 +466,7 @@ namespace DEngine
 
     void PhysicsSystem::OnUpdate(const Timestep& ts, Scene* scene)
     {
+        D_PROFILE_FUNCTION();
         auto physicsComponents = scene->View<ColliderComponent, RigidbodyComponent, TransformComponent, TagComponent>();
         float dt = ts.GetSeconds();
 
@@ -472,7 +475,7 @@ namespace DEngine
         // ========================================================
         for (auto [entity, collider, rigidbody, transform, tagcomp] : physicsComponents.each())
         {
-            if (!tagcomp.isEnabled) continue;
+            if (!tagcomp.isEnabled || !scene->IsActive(Entity(entity, scene))) continue;
 
             if (rigidbody.isKinematic)
                 continue;
@@ -532,12 +535,13 @@ namespace DEngine
 
         for (auto [entityA, colliderA, rigidbodyA, transformA, tagcompA] : physicsComponents.each())
         {
-            if (!tagcompA.isEnabled) continue;
+            if (!tagcompA.isEnabled || !scene->IsActive(Entity(entityA, scene))) continue;
 
             for (auto [entityB, colliderB, rigidbodyB, transformB, tagcompB] : physicsComponents.each())
             {
                 if (visitedEntities.find(entityB) == visitedEntities.end()) continue;
                 if (entityA == entityB) continue;
+                if (!scene->IsActive(Entity(entityB, scene))) continue;
                 if (colliderA.isTrigger || colliderB.isTrigger) continue;
 
                 CollisionResult colRes = TestCollision(transformA, colliderA, transformB, colliderB);
@@ -589,7 +593,7 @@ namespace DEngine
         // ========================================================
         for (auto [entity, collider, rigidbody, transform, tagcomp] : physicsComponents.each())
         {
-            if (!tagcomp.isEnabled) continue;
+            if (!tagcomp.isEnabled || !scene->IsActive(Entity(entity, scene))) continue;
 
             if (rigidbody.isKinematic) continue;
 

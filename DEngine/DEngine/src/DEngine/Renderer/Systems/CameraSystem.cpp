@@ -1,9 +1,12 @@
 #include "dpch.h"
 #include "CameraSystem.h"
 
+#include "DEngine/Scene/Entity.h"
+
 #include "DEngine/Scene/Components.h"
 #include "DEngine/Renderer/Cameras/PerspCamera.h"
 #include "DEngine/Renderer/Cameras/OrthCamera.h"
+#include "DEngine/Profiler/Profiler.h"
 
 namespace DEngine
 {
@@ -15,6 +18,7 @@ namespace DEngine
 
 	void CameraSystem::OnUpdate(const Timestep& ts, Scene* scene)
 	{
+		D_PROFILE_FUNCTION();
 		(void)ts;
 
 		bool found = false;
@@ -26,15 +30,16 @@ namespace DEngine
 
 		for (auto [entity, camera, transform] : cameras.each())
 		{
-			(void)entity;
 			if (foundPrimary)
+				continue;
+			if (!scene->IsActive(Entity(entity, scene)))
 				continue;
 
 			if (!found || camera.primary)
 			{
 				settings = camera;
-				position = transform.GetPosition();
-				rotation = transform.GetRotation();
+				position = transform.GetWorldPosition();
+				rotation = transform.GetWorldRotation();
 				found = true;
 				foundPrimary = camera.primary;
 			}

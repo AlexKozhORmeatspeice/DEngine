@@ -6,6 +6,7 @@
 #include "DEngine/Asset/Asset.h"
 
 #include <memory>
+#include <unordered_map>
 #include <vector>
 
 namespace DEngine
@@ -22,6 +23,15 @@ namespace DEngine
         Entity CreateEntity(const std::string& name = "");
         void DestroyEntity(Entity& entity);
         Entity CreateEmptyEntity();
+
+        Entity FindEntity(uint64_t uuid) const;
+        Entity GetEntity(entt::entity handle) const;
+        uint64_t GetUUID(entt::entity handle) const;
+        bool Contains(uint64_t uuid) const;
+        bool SetParent(Entity child, Entity parent);
+        void SetActiveSelf(Entity entity, bool active);
+        void RebuildActivity();
+        bool IsActive(const Entity& entity) const;
 
         template<typename... Components>
         auto View()
@@ -58,10 +68,14 @@ namespace DEngine
         virtual AssetType GetType() const override { return GetStaticType(); }
     private:
         void AddSystem(std::shared_ptr<System> system);
+        void RefreshActivity(Entity entity);
+        void PropagateActivityDown(const Entity& node);
 
         std::vector<std::shared_ptr<System>> m_Systems;
         std::vector<Entity> m_Entities;
         entt::registry m_Registry;
+        std::unordered_map<entt::entity, uint64_t> m_UUIDByEntity;
+        std::unordered_map<uint64_t, entt::entity> m_EntityByUUID;
 
         friend class Entity;
         friend class ScenePanel;

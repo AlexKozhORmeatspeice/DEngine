@@ -2,9 +2,9 @@
 
 namespace DEngine
 {
-	class ViewportPanel
+	enum GameMode
 	{
-		
+		EDITOR,
+		GAME
 	};
 }
-

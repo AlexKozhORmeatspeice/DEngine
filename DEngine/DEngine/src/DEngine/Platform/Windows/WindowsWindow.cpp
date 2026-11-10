@@ -6,6 +6,7 @@
 #include "DEngine/Events/KeyEvent.h"
 
 #include "DEngine/Platform/OpenGL/OpenGLContext.h"
+#include "DEngine/Profiler/Profiler.h"
 #include "GLFW/glfw3.h"
 
 namespace DEngine
@@ -53,7 +54,7 @@ namespace DEngine
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
-		SetVSync(true);
+		SetVSync(false);
 
 		//Set GLFW Callbacks
 		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
@@ -149,6 +150,7 @@ namespace DEngine
 
 	void WindowsWindow::OnUpdate()
 	{
+		D_PROFILE_FUNCTION();
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}

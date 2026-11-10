@@ -6,6 +6,7 @@
 #include "backends/imgui_impl_opengl3.h"
 
 #include "DEngine/Application.h"
+#include "DEngine/Profiler/Profiler.h"
 
 //TODO: TEMP
 #include "GLFW/glfw3.h"
@@ -72,6 +73,7 @@ namespace DEngine
 
 	void ImGuiLayer::Begin()
 	{
+		D_PROFILE_FUNCTION();
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
@@ -79,6 +81,7 @@ namespace DEngine
 
 	void ImGuiLayer::End()
 	{
+		D_PROFILE_FUNCTION();
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
 		io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());

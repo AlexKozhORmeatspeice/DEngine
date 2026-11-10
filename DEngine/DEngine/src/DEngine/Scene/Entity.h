@@ -60,7 +60,7 @@ namespace DEngine
         }
 
         uint64_t GetUUID() const { return m_UUID; }
-        void SetUUID(uint64_t uuid) { m_UUID = uuid; }
+        void SetUUID(uint64_t uuid);
 
         operator bool() const { return m_Handle != entt::null && m_Scene != nullptr; }
         bool operator==(const Entity& other) const { return m_Handle == other.m_Handle && m_Scene == other.m_Scene; }
@@ -72,6 +72,7 @@ namespace DEngine
         Scene* GetScene() const { return m_Scene; }
 
     private:
+        friend class Scene;
         entt::entity m_Handle{ entt::null };
         Scene* m_Scene = nullptr;
         uint64_t m_UUID = 0;

@@ -1,12 +1,14 @@
 Scene: Untitled
 Entities:
-  - Entity: 0
+  - Entity: 3927528352039305993
     TagComponent:
-      Tag: cube
+      Tag: cubee
+      Active: true
     TransformComponent:
-      Pos: [-12.558586, 54.986786, -200]
+      Pos: [0, 91.98148, -200]
       Rot: [0, -0, 0]
-      Scale: [163.86823, 100.00002, 100]
+      Scale: [100, 100, 100]
+      Parent: 0
     MeshRendererComponent:
       MeshHandle: 9310984299163791311
       MaterialHandle: 17238545426363827667
@@ -16,7 +18,7 @@ Entities:
       Acceleration: [0, 0, 0]
       Force: [0, 0, 0]
       UseGravity: true
-      IsKinematic: false
+      IsKinematic: true
     ColliderComponent:
       Type: 1
       Size: [1, 1, 1]
@@ -26,13 +28,15 @@ Entities:
       IsTrigger: false
     DebugComponent:
       {}
-  - Entity: 0
+  - Entity: 13557283087037662045
     TagComponent:
-      Tag: plane
+      Tag: cube2
+      Active: true
     TransformComponent:
-      Pos: [0, -100, -73.352715]
+      Pos: [0, -31.808968, -20.160564]
       Rot: [0, -0, 0]
-      Scale: [400, 50, 400]
+      Scale: [2800, 50, 2000]
+      Parent: 0
     MeshRendererComponent:
       MeshHandle: 9310984299163791311
       MaterialHandle: 15213600318744686249
@@ -52,13 +56,15 @@ Entities:
       IsTrigger: false
     DebugComponent:
       {}
-  - Entity: 0
+  - Entity: 14504499050167644841
     TagComponent:
       Tag: cube3
+      Active: true
     TransformComponent:
-      Pos: [0, 500, -200]
+      Pos: [0, 500, -118.01254]
       Rot: [0, -0, 0]
       Scale: [100, 100, 100]
+      Parent: 0
     MeshRendererComponent:
       MeshHandle: 9310984299163791311
       MaterialHandle: 17238545426363827667
@@ -78,13 +84,15 @@ Entities:
       IsTrigger: false
     DebugComponent:
       {}
-  - Entity: 0
+  - Entity: 10460414323603626348
     TagComponent:
       Tag: sphere1
+      Active: true
     TransformComponent:
       Pos: [50, 200, -100]
       Rot: [0, -0, 0]
       Scale: [100, 100, 100]
+      Parent: 0
     MeshRendererComponent:
       MeshHandle: 15348227501446714218
       MaterialHandle: 17238545426363827667
@@ -104,13 +112,15 @@ Entities:
       IsTrigger: false
     DebugComponent:
       {}
-  - Entity: 0
+  - Entity: 12537738327048871483
     TagComponent:
       Tag: sphere2
+      Active: true
     TransformComponent:
       Pos: [50, 400, -100]
       Rot: [0, -0, 0]
       Scale: [100, 100, 100]
+      Parent: 0
     MeshRendererComponent:
       MeshHandle: 15348227501446714218
       MaterialHandle: 17238545426363827667
@@ -130,23 +140,27 @@ Entities:
       IsTrigger: false
     DebugComponent:
       {}
-  - Entity: 0
+  - Entity: 1791409504790820870
     TagComponent:
       Tag: direct light
+      Active: true
     TransformComponent:
       Pos: [0, 0, 0]
-      Rot: [0, 340.7, 0]
-      Scale: [0.99999815, 1, 0.99999815]
+      Rot: [0, 237.7, 315]
+      Scale: [0.9999993, 0.9999995, 0.99999917]
+      Parent: 0
     DirectLightComponent:
       Color: [1, 1, 1]
       Intensity: 1
-  - Entity: 0
+  - Entity: 1751721422332951856
     TagComponent:
       Tag: Main Camera
+      Active: true
     TransformComponent:
-      Pos: [-25.22732, 139.78278, 278.1631]
-      Rot: [327.6, -0, 0]
-      Scale: [1, 0.99999934, 0.99999934]
+      Pos: [-932.499, 760.981, 0.583]
+      Rot: [0, 267.7, 330.7]
+      Scale: [0.9999988, 0.99999905, 0.9999974]
+      Parent: 0
     CameraComponent:
       Projection: 0
       Primary: true
@@ -154,3 +168,4728 @@ Entities:
       OrthoSize: 10
       Near: 0.1
       Far: 3000
+  - Entity: 11321535721138752112
+    TagComponent:
+      Tag: Sponza
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 0
+  - Entity: 11389891690640533660
+    TagComponent:
+      Tag: Sponza 0
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 509223164994250904
+      MaterialHandle: 10031617261133832988
+  - Entity: 15040346670870778379
+    TagComponent:
+      Tag: Sponza 1
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1031204061559511725
+      MaterialHandle: 6172144796556205789
+  - Entity: 9464230265882876593
+    TagComponent:
+      Tag: Sponza 2
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8720960369631643649
+      MaterialHandle: 14381078734463956375
+  - Entity: 14590867110267819546
+    TagComponent:
+      Tag: Sponza 3
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7222793712432947458
+      MaterialHandle: 5481261985795370554
+  - Entity: 6717878584667456678
+    TagComponent:
+      Tag: Sponza 4
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3971082807716244813
+      MaterialHandle: 16038382656941632248
+  - Entity: 7399799228968646653
+    TagComponent:
+      Tag: Sponza 5
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16837694359489149159
+      MaterialHandle: 15047950753241861020
+  - Entity: 2928401043829081964
+    TagComponent:
+      Tag: Sponza 6
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 10979490802373823204
+      MaterialHandle: 12629184694140589280
+  - Entity: 16932546164282142613
+    TagComponent:
+      Tag: Sponza 7
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11462740810269577804
+      MaterialHandle: 9952265053473839054
+  - Entity: 14139545604907341777
+    TagComponent:
+      Tag: Sponza 8
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 149850216640273676
+      MaterialHandle: 6170695024553364988
+  - Entity: 6821000332382458451
+    TagComponent:
+      Tag: Sponza 9
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7910868093989943248
+      MaterialHandle: 5519243792604429705
+  - Entity: 9765061774891685163
+    TagComponent:
+      Tag: Sponza 10
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7669615845539447501
+      MaterialHandle: 18177626218846660542
+  - Entity: 17309802431351492756
+    TagComponent:
+      Tag: Sponza 11
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 18383780914460194211
+      MaterialHandle: 13099745003826022744
+  - Entity: 3883224186813495529
+    TagComponent:
+      Tag: Sponza 12
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8657947558592955576
+      MaterialHandle: 14143782805479960227
+  - Entity: 1087354894203706484
+    TagComponent:
+      Tag: Sponza 13
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16393839121048719963
+      MaterialHandle: 8752747740250967511
+  - Entity: 12579963376183808563
+    TagComponent:
+      Tag: Sponza 14
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8147279167965133398
+      MaterialHandle: 1138927978729695603
+  - Entity: 15936464977394744105
+    TagComponent:
+      Tag: Sponza 15
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3114397215902537
+      MaterialHandle: 15874209527641894367
+  - Entity: 9933076593765308098
+    TagComponent:
+      Tag: Sponza 16
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11823978715498465115
+      MaterialHandle: 711005188288794785
+  - Entity: 1241211535280712022
+    TagComponent:
+      Tag: Sponza 17
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2716090581486954548
+      MaterialHandle: 13601552233211024373
+  - Entity: 2367930553446350493
+    TagComponent:
+      Tag: Sponza 18
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5412221605110398234
+      MaterialHandle: 6694719095756181915
+  - Entity: 9535040822982484577
+    TagComponent:
+      Tag: Sponza 19
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6703230081394682662
+      MaterialHandle: 17960773280755865711
+  - Entity: 11417403984999825664
+    TagComponent:
+      Tag: Sponza 20
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3577833685854465838
+      MaterialHandle: 10691822168714387499
+  - Entity: 8576564215617258908
+    TagComponent:
+      Tag: Sponza 21
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11135718072103982799
+      MaterialHandle: 533688736550454464
+  - Entity: 4629222747314916194
+    TagComponent:
+      Tag: Sponza 22
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7041381142297219364
+      MaterialHandle: 2362356183770035621
+  - Entity: 10047204325428793603
+    TagComponent:
+      Tag: Sponza 23
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3512943308481753421
+      MaterialHandle: 6187371245556059049
+  - Entity: 2648605835852211139
+    TagComponent:
+      Tag: Sponza 24
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15600321058611034564
+      MaterialHandle: 17429572779271634854
+  - Entity: 16068226312143763819
+    TagComponent:
+      Tag: Sponza 25
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17662697850882677171
+      MaterialHandle: 15499102752519267784
+  - Entity: 9156511911848734048
+    TagComponent:
+      Tag: Sponza 26
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7381250523596420156
+      MaterialHandle: 2296363075355297018
+  - Entity: 2956735446821391678
+    TagComponent:
+      Tag: Sponza 27
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3857896727259306297
+      MaterialHandle: 16530299326259871030
+  - Entity: 11465501984065253280
+    TagComponent:
+      Tag: Sponza 28
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6108025395354723068
+      MaterialHandle: 8693501958359146734
+  - Entity: 8705690284941682251
+    TagComponent:
+      Tag: Sponza 29
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12078607273153211631
+      MaterialHandle: 197568099520679446
+  - Entity: 9130608048363297269
+    TagComponent:
+      Tag: Sponza 30
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 18143779669364514865
+      MaterialHandle: 17553896806407601761
+  - Entity: 1940063438418249509
+    TagComponent:
+      Tag: Sponza 31
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13960275239310088238
+      MaterialHandle: 12006365106632474649
+  - Entity: 15970779832474150556
+    TagComponent:
+      Tag: Sponza 32
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15559069503148721925
+      MaterialHandle: 15654087114617957489
+  - Entity: 9804251786395706685
+    TagComponent:
+      Tag: Sponza 33
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9598348601786033265
+      MaterialHandle: 10547890324639213818
+  - Entity: 16867662005741378805
+    TagComponent:
+      Tag: Sponza 34
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11242401824783813081
+      MaterialHandle: 910809591537019434
+  - Entity: 1861157274901756073
+    TagComponent:
+      Tag: Sponza 35
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2320508123065061316
+      MaterialHandle: 17705149500412511749
+  - Entity: 12625370487731364748
+    TagComponent:
+      Tag: Sponza 36
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5816875864961362899
+      MaterialHandle: 18241790909651755358
+  - Entity: 5718020572004395231
+    TagComponent:
+      Tag: Sponza 37
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4503455348950510356
+      MaterialHandle: 17123952660472994221
+  - Entity: 3369696119877129258
+    TagComponent:
+      Tag: Sponza 38
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 18378214110244874457
+      MaterialHandle: 16871392501641894527
+  - Entity: 4758948917082646533
+    TagComponent:
+      Tag: Sponza 39
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14892800088363827259
+      MaterialHandle: 761130291818221723
+  - Entity: 10273493567215046388
+    TagComponent:
+      Tag: Sponza 40
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6721125353579193318
+      MaterialHandle: 6531927426170518439
+  - Entity: 8951125541720496472
+    TagComponent:
+      Tag: Sponza 41
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13161885480044365387
+      MaterialHandle: 17692542614446517002
+  - Entity: 12623966152693015998
+    TagComponent:
+      Tag: Sponza 42
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7098277751047146587
+      MaterialHandle: 6455762588404790514
+  - Entity: 16319323616119170822
+    TagComponent:
+      Tag: Sponza 43
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12149886058590685826
+      MaterialHandle: 10252008915796558409
+  - Entity: 11332233804730394809
+    TagComponent:
+      Tag: Sponza 44
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 821140991477909633
+      MaterialHandle: 14057837799647105456
+  - Entity: 706197222057666731
+    TagComponent:
+      Tag: Sponza 45
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14046700976774995021
+      MaterialHandle: 1657830129533809388
+  - Entity: 8066369264528726913
+    TagComponent:
+      Tag: Sponza 46
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17621584529653997401
+      MaterialHandle: 8165819451442844639
+  - Entity: 1816354379370790579
+    TagComponent:
+      Tag: Sponza 47
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2583703592414804779
+      MaterialHandle: 14570722140278870818
+  - Entity: 15938150148997597317
+    TagComponent:
+      Tag: Sponza 48
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6308318913320068002
+      MaterialHandle: 1291907547236286186
+  - Entity: 10960042546224471070
+    TagComponent:
+      Tag: Sponza 49
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14086581891163435911
+      MaterialHandle: 7855770216691665450
+  - Entity: 637924455292274733
+    TagComponent:
+      Tag: Sponza 50
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4696984297644862560
+      MaterialHandle: 5052496128869261938
+  - Entity: 115674984070561947
+    TagComponent:
+      Tag: Sponza 51
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5025924842250131566
+      MaterialHandle: 4924490073810056498
+  - Entity: 1301752565124094195
+    TagComponent:
+      Tag: Sponza 52
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3370033235154789800
+      MaterialHandle: 1985988527334090000
+  - Entity: 8636714021978395833
+    TagComponent:
+      Tag: Sponza 53
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1776007961236941426
+      MaterialHandle: 13405770018425978097
+  - Entity: 12484372215558483585
+    TagComponent:
+      Tag: Sponza 54
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1425551395513255594
+      MaterialHandle: 576882805433207899
+  - Entity: 14400166191836029277
+    TagComponent:
+      Tag: Sponza 55
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 212439700042672299
+      MaterialHandle: 4923778013837989689
+  - Entity: 3233591194908401837
+    TagComponent:
+      Tag: Sponza 56
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17284074317849200814
+      MaterialHandle: 7832175366784837647
+  - Entity: 8407551131555135613
+    TagComponent:
+      Tag: Sponza 57
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11296620449753167843
+      MaterialHandle: 12106834989674804627
+  - Entity: 11151889413018131963
+    TagComponent:
+      Tag: Sponza 58
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11493416940425364503
+      MaterialHandle: 16517263031421994052
+  - Entity: 1733904791965907126
+    TagComponent:
+      Tag: Sponza 59
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5907564457870001877
+      MaterialHandle: 7038660707009347469
+  - Entity: 5972195743743394259
+    TagComponent:
+      Tag: Sponza 60
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6564167074418898056
+      MaterialHandle: 3743269366908357409
+  - Entity: 10814184125091885993
+    TagComponent:
+      Tag: Sponza 61
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5753361018384224156
+      MaterialHandle: 13811148742878511375
+  - Entity: 10404567805502720810
+    TagComponent:
+      Tag: Sponza 62
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11825398630311300130
+      MaterialHandle: 8266064991254998712
+  - Entity: 15872349074481738506
+    TagComponent:
+      Tag: Sponza 63
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7340203474685954653
+      MaterialHandle: 6506811242643020617
+  - Entity: 17477081808683781135
+    TagComponent:
+      Tag: Sponza 64
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3568188395406236961
+      MaterialHandle: 11539616121379004317
+  - Entity: 5952078051563768435
+    TagComponent:
+      Tag: Sponza 65
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16169198187281781490
+      MaterialHandle: 13181739424468792619
+  - Entity: 9134718451400310575
+    TagComponent:
+      Tag: Sponza 66
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14517611235710031806
+      MaterialHandle: 17577286049553671217
+  - Entity: 18390351863049168279
+    TagComponent:
+      Tag: Sponza 67
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9979255641865654278
+      MaterialHandle: 11442966742252319511
+  - Entity: 8245908419089511078
+    TagComponent:
+      Tag: Sponza 68
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4165971071662965911
+      MaterialHandle: 15767892190588728523
+  - Entity: 17584967986209295006
+    TagComponent:
+      Tag: Sponza 69
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1088015693218126751
+      MaterialHandle: 8608561370971656746
+  - Entity: 8666816096549661196
+    TagComponent:
+      Tag: Sponza 70
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16222673654572110900
+      MaterialHandle: 5882906569420698257
+  - Entity: 2674959357325253859
+    TagComponent:
+      Tag: Sponza 71
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12140272845343211282
+      MaterialHandle: 17488226369762225469
+  - Entity: 1747592211261081898
+    TagComponent:
+      Tag: Sponza 72
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17201823078470832627
+      MaterialHandle: 10156789306160838011
+  - Entity: 770120255497644517
+    TagComponent:
+      Tag: Sponza 73
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17043831932570406386
+      MaterialHandle: 12032276403713017813
+  - Entity: 15685040961993772475
+    TagComponent:
+      Tag: Sponza 74
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16569175090816731741
+      MaterialHandle: 13418280070969724624
+  - Entity: 3757817267611006794
+    TagComponent:
+      Tag: Sponza 75
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4343948022374587964
+      MaterialHandle: 9792033647785768310
+  - Entity: 17958370903131253520
+    TagComponent:
+      Tag: Sponza 76
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14019354080328665121
+      MaterialHandle: 14168374863227046798
+  - Entity: 16667436843251270529
+    TagComponent:
+      Tag: Sponza 77
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 10956743919254399681
+      MaterialHandle: 15914321862504154968
+  - Entity: 8048740237100406395
+    TagComponent:
+      Tag: Sponza 78
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4503873660075669663
+      MaterialHandle: 15229040524158752092
+  - Entity: 3551120427312488395
+    TagComponent:
+      Tag: Sponza 79
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7734227639175449809
+      MaterialHandle: 8516791160944718128
+  - Entity: 12750197610541316930
+    TagComponent:
+      Tag: Sponza 80
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 825971383051097670
+      MaterialHandle: 5621489269709083759
+  - Entity: 1210945325080227535
+    TagComponent:
+      Tag: Sponza 81
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9371226103271652318
+      MaterialHandle: 5909173076815294432
+  - Entity: 1899506184304595083
+    TagComponent:
+      Tag: Sponza 82
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16345777483801424564
+      MaterialHandle: 6630364623604454608
+  - Entity: 9254102710443857165
+    TagComponent:
+      Tag: Sponza 83
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 702847726028471408
+      MaterialHandle: 5951197433827038873
+  - Entity: 2865593870301764156
+    TagComponent:
+      Tag: Sponza 84
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14412600838626465974
+      MaterialHandle: 15183613788362026026
+  - Entity: 660773973108670504
+    TagComponent:
+      Tag: Sponza 85
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2728714841916549215
+      MaterialHandle: 11158647129910759663
+  - Entity: 12481087327336639379
+    TagComponent:
+      Tag: Sponza 86
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9695937265052357200
+      MaterialHandle: 12168124642123852493
+  - Entity: 8385633400947456697
+    TagComponent:
+      Tag: Sponza 87
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3538478933540796123
+      MaterialHandle: 17651549591297448319
+  - Entity: 4909840840338951110
+    TagComponent:
+      Tag: Sponza 88
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9125365231989094028
+      MaterialHandle: 3169681995546522633
+  - Entity: 8927323875013433742
+    TagComponent:
+      Tag: Sponza 89
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4935222772882426047
+      MaterialHandle: 15553440238084690964
+  - Entity: 11975694719567661431
+    TagComponent:
+      Tag: Sponza 90
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13956209233871071999
+      MaterialHandle: 7554284217801697159
+  - Entity: 59736990058430944
+    TagComponent:
+      Tag: Sponza 91
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8289242052074498677
+      MaterialHandle: 11005986616454955436
+  - Entity: 1210782606260361936
+    TagComponent:
+      Tag: Sponza 92
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9740995607389557494
+      MaterialHandle: 13627886549682428630
+  - Entity: 16041898263973829806
+    TagComponent:
+      Tag: Sponza 93
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8352560098733065024
+      MaterialHandle: 3381415078593080280
+  - Entity: 5804606737697459813
+    TagComponent:
+      Tag: Sponza 94
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17769018908403963742
+      MaterialHandle: 12034303078187242374
+  - Entity: 7555900910805857140
+    TagComponent:
+      Tag: Sponza 95
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11374796687029113979
+      MaterialHandle: 4906540676505967724
+  - Entity: 6672359154321038072
+    TagComponent:
+      Tag: Sponza 96
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8980256484594266011
+      MaterialHandle: 17296493364655698564
+  - Entity: 1477546913733362719
+    TagComponent:
+      Tag: Sponza 97
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1995860616921817278
+      MaterialHandle: 10566285187056127362
+  - Entity: 12293697693796349145
+    TagComponent:
+      Tag: Sponza 98
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1116543628760745042
+      MaterialHandle: 8608819152469925885
+  - Entity: 5448675412737821720
+    TagComponent:
+      Tag: Sponza 99
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6490144859119421467
+      MaterialHandle: 9609139581993403669
+  - Entity: 5660389020001315834
+    TagComponent:
+      Tag: Sponza 100
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7224840669751322282
+      MaterialHandle: 12031849576355381922
+  - Entity: 7634818198007390218
+    TagComponent:
+      Tag: Sponza 101
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17748737697244303931
+      MaterialHandle: 184020071416604622
+  - Entity: 11280389533316661150
+    TagComponent:
+      Tag: Sponza 102
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2375020689200165749
+      MaterialHandle: 7526986231215094873
+  - Entity: 17078686878031722479
+    TagComponent:
+      Tag: Sponza 103
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4867620537143257045
+      MaterialHandle: 8658679698717517963
+  - Entity: 17310854410474270346
+    TagComponent:
+      Tag: Sponza 104
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14859341814761492495
+      MaterialHandle: 4419100485784879566
+  - Entity: 8129366495131523563
+    TagComponent:
+      Tag: Sponza 105
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3485641327249681672
+      MaterialHandle: 1388598842739842771
+  - Entity: 18432760826085634349
+    TagComponent:
+      Tag: Sponza 106
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6109180551832997797
+      MaterialHandle: 7612973293620707607
+  - Entity: 6352658393689827346
+    TagComponent:
+      Tag: Sponza 107
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11910213917259441906
+      MaterialHandle: 6373932062144939266
+  - Entity: 5118466120847316827
+    TagComponent:
+      Tag: Sponza 108
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11831991098709064415
+      MaterialHandle: 7766787387109776802
+  - Entity: 10603310948681245946
+    TagComponent:
+      Tag: Sponza 109
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8626780615916314863
+      MaterialHandle: 13666389899677584653
+  - Entity: 8583078046842347638
+    TagComponent:
+      Tag: Sponza 110
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 201041003858498286
+      MaterialHandle: 7433235861686041638
+  - Entity: 11484512314793893457
+    TagComponent:
+      Tag: Sponza 111
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2906336343681296016
+      MaterialHandle: 9754874873274874301
+  - Entity: 6764440129835162291
+    TagComponent:
+      Tag: Sponza 112
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9529058195548912130
+      MaterialHandle: 3736527703753455326
+  - Entity: 13859909258051789231
+    TagComponent:
+      Tag: Sponza 113
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3554505009554200743
+      MaterialHandle: 4294001380942609564
+  - Entity: 15324760996112783844
+    TagComponent:
+      Tag: Sponza 114
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15522813112212586963
+      MaterialHandle: 4868577377040519814
+  - Entity: 12283034355432511601
+    TagComponent:
+      Tag: Sponza 115
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1350300679266966835
+      MaterialHandle: 5882926414245455260
+  - Entity: 16314237118461313236
+    TagComponent:
+      Tag: Sponza 116
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17500360496672653070
+      MaterialHandle: 3431433471237144753
+  - Entity: 5690687017358139221
+    TagComponent:
+      Tag: Sponza 117
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17074590093976419440
+      MaterialHandle: 10373317322400669111
+  - Entity: 4634638417400935455
+    TagComponent:
+      Tag: Sponza 118
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15370331612899508758
+      MaterialHandle: 9558946269580257469
+  - Entity: 1238959096256869912
+    TagComponent:
+      Tag: Sponza 119
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17478979447063347990
+      MaterialHandle: 9067575354989598983
+  - Entity: 8078919490149989454
+    TagComponent:
+      Tag: Sponza 120
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17391301228248823315
+      MaterialHandle: 15701676565294385156
+  - Entity: 16638217588109316514
+    TagComponent:
+      Tag: Sponza 121
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15696621339835149039
+      MaterialHandle: 10841785442426954486
+  - Entity: 2432562338785645948
+    TagComponent:
+      Tag: Sponza 122
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12089302180064037196
+      MaterialHandle: 8301903324899128046
+  - Entity: 13381624294780746340
+    TagComponent:
+      Tag: Sponza 123
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7827879651112371938
+      MaterialHandle: 1274071037818190340
+  - Entity: 8092780711674958482
+    TagComponent:
+      Tag: Sponza 124
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5030156473275430064
+      MaterialHandle: 12201734813918176572
+  - Entity: 8022872996046006904
+    TagComponent:
+      Tag: Sponza 125
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9872343151979774435
+      MaterialHandle: 12373372866503198462
+  - Entity: 4037931172087525668
+    TagComponent:
+      Tag: Sponza 126
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2307028663418064062
+      MaterialHandle: 9807998078429391459
+  - Entity: 12773162685085405110
+    TagComponent:
+      Tag: Sponza 127
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14060391283236525553
+      MaterialHandle: 4781359214535046900
+  - Entity: 7051921679241401077
+    TagComponent:
+      Tag: Sponza 128
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4695295728220227424
+      MaterialHandle: 7962640869692518239
+  - Entity: 6952920356831619131
+    TagComponent:
+      Tag: Sponza 129
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15039782789883592804
+      MaterialHandle: 11522741968703486229
+  - Entity: 4773871054968518845
+    TagComponent:
+      Tag: Sponza 130
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 820072360983975897
+      MaterialHandle: 12218919013281937862
+  - Entity: 15371085387013519508
+    TagComponent:
+      Tag: Sponza 131
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14391104212132790591
+      MaterialHandle: 15926610699989988848
+  - Entity: 2440018633116935277
+    TagComponent:
+      Tag: Sponza 132
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5445489338898731952
+      MaterialHandle: 2704389516419777057
+  - Entity: 7084006643356922815
+    TagComponent:
+      Tag: Sponza 133
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7746045834377359204
+      MaterialHandle: 8987544586191318577
+  - Entity: 6429396316176725452
+    TagComponent:
+      Tag: Sponza 134
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 587389571894124426
+      MaterialHandle: 17797597381878957132
+  - Entity: 8817124231231537838
+    TagComponent:
+      Tag: Sponza 135
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14638133121212397909
+      MaterialHandle: 2488917199709240977
+  - Entity: 6982502741642924327
+    TagComponent:
+      Tag: Sponza 136
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13827070403106899839
+      MaterialHandle: 9921560944774385441
+  - Entity: 15647383760037545975
+    TagComponent:
+      Tag: Sponza 137
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 365247410885997797
+      MaterialHandle: 6569558172266276631
+  - Entity: 574170965045646200
+    TagComponent:
+      Tag: Sponza 138
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16458977322657243364
+      MaterialHandle: 4953907125713353938
+  - Entity: 13101554281003599583
+    TagComponent:
+      Tag: Sponza 139
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8756342355915903822
+      MaterialHandle: 9792305867308359363
+  - Entity: 1888926711021139638
+    TagComponent:
+      Tag: Sponza 140
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16788589723272428847
+      MaterialHandle: 488890360624991015
+  - Entity: 13033972377370188968
+    TagComponent:
+      Tag: Sponza 141
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5711472115426534376
+      MaterialHandle: 10845363219457606527
+  - Entity: 5921189800126283976
+    TagComponent:
+      Tag: Sponza 142
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4121691531856597683
+      MaterialHandle: 13636785190136230940
+  - Entity: 9374948690977728403
+    TagComponent:
+      Tag: Sponza 143
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 10231606938074226684
+      MaterialHandle: 15784360706294216797
+  - Entity: 4000922967492352388
+    TagComponent:
+      Tag: Sponza 144
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7261150856713224826
+      MaterialHandle: 2239850845672765309
+  - Entity: 3139994596286278144
+    TagComponent:
+      Tag: Sponza 145
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 18071395767990953415
+      MaterialHandle: 15967930569386719141
+  - Entity: 11930678910117135170
+    TagComponent:
+      Tag: Sponza 146
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17885725735735914885
+      MaterialHandle: 3453975371711559139
+  - Entity: 5594354288430220263
+    TagComponent:
+      Tag: Sponza 147
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5347523439680851679
+      MaterialHandle: 3156542326355254197
+  - Entity: 17951917306741107328
+    TagComponent:
+      Tag: Sponza 148
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16738366196733202574
+      MaterialHandle: 8043106983899614967
+  - Entity: 17006146942563209319
+    TagComponent:
+      Tag: Sponza 149
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2936421085902706220
+      MaterialHandle: 3392600569217130385
+  - Entity: 16187461590179013251
+    TagComponent:
+      Tag: Sponza 150
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16492526454718433896
+      MaterialHandle: 16411534227616047345
+  - Entity: 16897395136876637568
+    TagComponent:
+      Tag: Sponza 151
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7044656740214707238
+      MaterialHandle: 4123186844766876444
+  - Entity: 3189067369308982013
+    TagComponent:
+      Tag: Sponza 152
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4818185720377533718
+      MaterialHandle: 7053677370450894418
+  - Entity: 12058537900015009986
+    TagComponent:
+      Tag: Sponza 153
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6212635498330859364
+      MaterialHandle: 1401691131872592511
+  - Entity: 5004340999280985030
+    TagComponent:
+      Tag: Sponza 154
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2612849244741341728
+      MaterialHandle: 4196071307577479830
+  - Entity: 2634995201702684991
+    TagComponent:
+      Tag: Sponza 155
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2137575094111504589
+      MaterialHandle: 9204423808544111397
+  - Entity: 1964291757053988187
+    TagComponent:
+      Tag: Sponza 156
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12881490479530572692
+      MaterialHandle: 14185090709564693139
+  - Entity: 9898738217322142710
+    TagComponent:
+      Tag: Sponza 157
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11085622837182522713
+      MaterialHandle: 3517192906907829903
+  - Entity: 11807377359259444809
+    TagComponent:
+      Tag: Sponza 158
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4488993593866027857
+      MaterialHandle: 15261626961618587439
+  - Entity: 242497423636855137
+    TagComponent:
+      Tag: Sponza 159
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8147457561664866861
+      MaterialHandle: 6302042623487824954
+  - Entity: 16221087092144116889
+    TagComponent:
+      Tag: Sponza 160
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13448596582420330402
+      MaterialHandle: 6009430706547664373
+  - Entity: 14493022260845842636
+    TagComponent:
+      Tag: Sponza 161
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11456837876709911998
+      MaterialHandle: 10873748672847150357
+  - Entity: 12616711571879807297
+    TagComponent:
+      Tag: Sponza 162
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7239892547598121207
+      MaterialHandle: 4677126275626518994
+  - Entity: 12019168588515299935
+    TagComponent:
+      Tag: Sponza 163
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15095274244191790738
+      MaterialHandle: 11732020553954483556
+  - Entity: 16049138562977424472
+    TagComponent:
+      Tag: Sponza 164
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15124919353837953460
+      MaterialHandle: 7840583125270378650
+  - Entity: 9021941625648390187
+    TagComponent:
+      Tag: Sponza 165
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16397204477667513322
+      MaterialHandle: 12171545857516559691
+  - Entity: 5658654122390897339
+    TagComponent:
+      Tag: Sponza 166
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8566242177488190167
+      MaterialHandle: 7554518637237676938
+  - Entity: 2493526712921752510
+    TagComponent:
+      Tag: Sponza 167
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9479913493456364010
+      MaterialHandle: 4669498123757988457
+  - Entity: 701031874810587345
+    TagComponent:
+      Tag: Sponza 168
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 993237905509688936
+      MaterialHandle: 13167868943296229352
+  - Entity: 3783633289624997412
+    TagComponent:
+      Tag: Sponza 169
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6131591846313213242
+      MaterialHandle: 7852726577137982519
+  - Entity: 6808950992429709689
+    TagComponent:
+      Tag: Sponza 170
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16423604191154934054
+      MaterialHandle: 9472014407677001780
+  - Entity: 5015790855425011048
+    TagComponent:
+      Tag: Sponza 171
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2892122402677714390
+      MaterialHandle: 149711722845536091
+  - Entity: 12820727063715436570
+    TagComponent:
+      Tag: Sponza 172
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2919725339740692923
+      MaterialHandle: 13985775793939547129
+  - Entity: 15679334280143420864
+    TagComponent:
+      Tag: Sponza 173
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2910241101124565380
+      MaterialHandle: 1455570829420695489
+  - Entity: 17526514831297371423
+    TagComponent:
+      Tag: Sponza 174
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4053526580969232401
+      MaterialHandle: 16287853870288667689
+  - Entity: 13992184114147320795
+    TagComponent:
+      Tag: Sponza 175
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4945569246789396154
+      MaterialHandle: 13673092567006927358
+  - Entity: 4865919659232398232
+    TagComponent:
+      Tag: Sponza 176
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6643963276108943723
+      MaterialHandle: 15902190729717474872
+  - Entity: 15472127648250773408
+    TagComponent:
+      Tag: Sponza 177
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12463196729620425897
+      MaterialHandle: 5641530676611884019
+  - Entity: 14245239417491324134
+    TagComponent:
+      Tag: Sponza 178
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1314011411385473914
+      MaterialHandle: 11549976762014722796
+  - Entity: 5262108909992524735
+    TagComponent:
+      Tag: Sponza 179
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15766304662376419828
+      MaterialHandle: 15000570652060596759
+  - Entity: 12443985004295818345
+    TagComponent:
+      Tag: Sponza 180
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9784047958630411909
+      MaterialHandle: 9370482473557695771
+  - Entity: 2520470501762553422
+    TagComponent:
+      Tag: Sponza 181
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12168471932068624046
+      MaterialHandle: 13206398506641437120
+  - Entity: 1141510053874036831
+    TagComponent:
+      Tag: Sponza 182
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17629287245243395774
+      MaterialHandle: 11577484773018285761
+  - Entity: 14301493727990285599
+    TagComponent:
+      Tag: Sponza 183
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16882429771571896061
+      MaterialHandle: 2005354599351141353
+  - Entity: 10298422959098592115
+    TagComponent:
+      Tag: Sponza 184
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15210878122645203177
+      MaterialHandle: 7866757078053437568
+  - Entity: 9171487701042673193
+    TagComponent:
+      Tag: Sponza 185
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9119745128205200401
+      MaterialHandle: 502662799507165258
+  - Entity: 4496730515359267730
+    TagComponent:
+      Tag: Sponza 186
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15589727122356319635
+      MaterialHandle: 8665274915168437277
+  - Entity: 6765988886937601575
+    TagComponent:
+      Tag: Sponza 187
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9500601446718255284
+      MaterialHandle: 18300650233930198822
+  - Entity: 12927561688634429862
+    TagComponent:
+      Tag: Sponza 188
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7859905988959454538
+      MaterialHandle: 4527107356094465665
+  - Entity: 17415897015517375071
+    TagComponent:
+      Tag: Sponza 189
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3900108487321306281
+      MaterialHandle: 8368694551307580429
+  - Entity: 10146937200422370094
+    TagComponent:
+      Tag: Sponza 190
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1954387944236474604
+      MaterialHandle: 10477234353769421532
+  - Entity: 5371019913872204887
+    TagComponent:
+      Tag: Sponza 191
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17883622430594949199
+      MaterialHandle: 3063667291826708910
+  - Entity: 16843606745885305263
+    TagComponent:
+      Tag: Sponza 192
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6394619758179841802
+      MaterialHandle: 11089319926801939887
+  - Entity: 7084066009631441802
+    TagComponent:
+      Tag: Sponza 193
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14841750702791873418
+      MaterialHandle: 1883356568272287651
+  - Entity: 9895960204742114604
+    TagComponent:
+      Tag: Sponza 194
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3155513495567655308
+      MaterialHandle: 17293719545287208465
+  - Entity: 9715693173317920131
+    TagComponent:
+      Tag: Sponza 195
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4433466076153219302
+      MaterialHandle: 11336441591480370697
+  - Entity: 12926380731093417114
+    TagComponent:
+      Tag: Sponza 196
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8026617059668200459
+      MaterialHandle: 10807373442617347726
+  - Entity: 2096834966972856669
+    TagComponent:
+      Tag: Sponza 197
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12506476774665907112
+      MaterialHandle: 13147112380379796266
+  - Entity: 4424535930807281926
+    TagComponent:
+      Tag: Sponza 198
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1509853988589573874
+      MaterialHandle: 194085960421859284
+  - Entity: 18298182125619333978
+    TagComponent:
+      Tag: Sponza 199
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 18017172624819298436
+      MaterialHandle: 1892861668900605973
+  - Entity: 630480369558577607
+    TagComponent:
+      Tag: Sponza 200
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 10339732745649033704
+      MaterialHandle: 3146100039384906424
+  - Entity: 12919975794336565105
+    TagComponent:
+      Tag: Sponza 201
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14314395365785581774
+      MaterialHandle: 2636665959632374017
+  - Entity: 346272724085061755
+    TagComponent:
+      Tag: Sponza 202
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 44110895884671090
+      MaterialHandle: 16153649722976522896
+  - Entity: 10530852684157286507
+    TagComponent:
+      Tag: Sponza 203
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14216717020393079749
+      MaterialHandle: 17958082327968354567
+  - Entity: 12019457151760415083
+    TagComponent:
+      Tag: Sponza 204
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 18127584439567884898
+      MaterialHandle: 2909288536926682098
+  - Entity: 6759406580827706172
+    TagComponent:
+      Tag: Sponza 205
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15219259128364837993
+      MaterialHandle: 6054203457478018333
+  - Entity: 15554694746777320096
+    TagComponent:
+      Tag: Sponza 206
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7411466441199265946
+      MaterialHandle: 14905128446503137609
+  - Entity: 11445411261510618189
+    TagComponent:
+      Tag: Sponza 207
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5816766908265076116
+      MaterialHandle: 1887064190527988302
+  - Entity: 3390462200264292086
+    TagComponent:
+      Tag: Sponza 208
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12836132625289277421
+      MaterialHandle: 12110608649022530036
+  - Entity: 6679216763326890410
+    TagComponent:
+      Tag: Sponza 209
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1264964556164431670
+      MaterialHandle: 16857160866354442238
+  - Entity: 6913440771716750931
+    TagComponent:
+      Tag: Sponza 210
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6635626602576971562
+      MaterialHandle: 3372678456375643340
+  - Entity: 9904164528769967784
+    TagComponent:
+      Tag: Sponza 211
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12371604288737105394
+      MaterialHandle: 8765114168912842566
+  - Entity: 6097445002759770134
+    TagComponent:
+      Tag: Sponza 212
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8144920810658446391
+      MaterialHandle: 6035814106281688891
+  - Entity: 17409094270418627765
+    TagComponent:
+      Tag: Sponza 213
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7275110315534290124
+      MaterialHandle: 9655094306867798963
+  - Entity: 4772919024554169275
+    TagComponent:
+      Tag: Sponza 214
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 10805987064366325770
+      MaterialHandle: 12056728903084810348
+  - Entity: 9850975220885019440
+    TagComponent:
+      Tag: Sponza 215
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16537551913991915547
+      MaterialHandle: 10256013172783894350
+  - Entity: 13978224618401504843
+    TagComponent:
+      Tag: Sponza 216
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1266137512876062555
+      MaterialHandle: 13870727443714566239
+  - Entity: 5398716325359376368
+    TagComponent:
+      Tag: Sponza 217
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14583044185781447861
+      MaterialHandle: 7791501959544674728
+  - Entity: 823804551008926678
+    TagComponent:
+      Tag: Sponza 218
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13928571285756855990
+      MaterialHandle: 16009881376518261415
+  - Entity: 6420049409155494360
+    TagComponent:
+      Tag: Sponza 219
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15094775124961989348
+      MaterialHandle: 2411074728856757694
+  - Entity: 13679333172127585862
+    TagComponent:
+      Tag: Sponza 220
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5234810302014206999
+      MaterialHandle: 9456742402753592250
+  - Entity: 16513833647048718910
+    TagComponent:
+      Tag: Sponza 221
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12437272644580669597
+      MaterialHandle: 9539929471520553051
+  - Entity: 13479254612582674896
+    TagComponent:
+      Tag: Sponza 222
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9919940920508020812
+      MaterialHandle: 14909411337337713662
+  - Entity: 3168418287001086375
+    TagComponent:
+      Tag: Sponza 223
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4836401108122640201
+      MaterialHandle: 8893165867482688510
+  - Entity: 8061594682242482187
+    TagComponent:
+      Tag: Sponza 224
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11892921257740851237
+      MaterialHandle: 13379128780822984833
+  - Entity: 10821274899464880278
+    TagComponent:
+      Tag: Sponza 225
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11864956825823399020
+      MaterialHandle: 4667741759810772216
+  - Entity: 14926103749690754867
+    TagComponent:
+      Tag: Sponza 226
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16744495872026634877
+      MaterialHandle: 12565232181008710650
+  - Entity: 7464521265996594351
+    TagComponent:
+      Tag: Sponza 227
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6377612409314568661
+      MaterialHandle: 17590495312944799053
+  - Entity: 11038439284478369407
+    TagComponent:
+      Tag: Sponza 228
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7585928270058322788
+      MaterialHandle: 13836112966189212789
+  - Entity: 11356919900622151016
+    TagComponent:
+      Tag: Sponza 229
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8062314494152211823
+      MaterialHandle: 4072529027391149215
+  - Entity: 1218673957287775313
+    TagComponent:
+      Tag: Sponza 230
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16176169753736909883
+      MaterialHandle: 9329193975840279533
+  - Entity: 15684939038390759195
+    TagComponent:
+      Tag: Sponza 231
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5182580985199137992
+      MaterialHandle: 2053155912557092818
+  - Entity: 6694249711950178165
+    TagComponent:
+      Tag: Sponza 232
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15556319197128401611
+      MaterialHandle: 16561332347676607549
+  - Entity: 2698035560801713190
+    TagComponent:
+      Tag: Sponza 233
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3720889171402074749
+      MaterialHandle: 4151673636274980813
+  - Entity: 9744952578199031187
+    TagComponent:
+      Tag: Sponza 234
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12969448221425421291
+      MaterialHandle: 15590891671000757728
+  - Entity: 2731581233650703517
+    TagComponent:
+      Tag: Sponza 235
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16307694905054896952
+      MaterialHandle: 5469392636609013421
+  - Entity: 2546161760312364934
+    TagComponent:
+      Tag: Sponza 236
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8236357126522375080
+      MaterialHandle: 13433403677939537471
+  - Entity: 7765965768434577439
+    TagComponent:
+      Tag: Sponza 237
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16233305238924965041
+      MaterialHandle: 6241348337268855871
+  - Entity: 18175379174187065313
+    TagComponent:
+      Tag: Sponza 238
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 197736136183148003
+      MaterialHandle: 5780320547169516657
+  - Entity: 2130004865366108898
+    TagComponent:
+      Tag: Sponza 239
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8077157873766340936
+      MaterialHandle: 13794900987696038180
+  - Entity: 9219498348465621570
+    TagComponent:
+      Tag: Sponza 240
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 10324293379035499624
+      MaterialHandle: 12833011723319964341
+  - Entity: 5597262120608622156
+    TagComponent:
+      Tag: Sponza 241
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17490600154706775136
+      MaterialHandle: 12288147109835240773
+  - Entity: 9306485214030284573
+    TagComponent:
+      Tag: Sponza 242
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11542040679082035790
+      MaterialHandle: 2788719203422524138
+  - Entity: 14596855634452905656
+    TagComponent:
+      Tag: Sponza 243
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7726347395658972804
+      MaterialHandle: 3052732259578706666
+  - Entity: 8852977558566925627
+    TagComponent:
+      Tag: Sponza 244
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5591228564645161922
+      MaterialHandle: 1682960688557473514
+  - Entity: 18297820636697443320
+    TagComponent:
+      Tag: Sponza 245
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8355078734054474713
+      MaterialHandle: 18325312692547188309
+  - Entity: 7682090028563022520
+    TagComponent:
+      Tag: Sponza 246
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2867149646443698415
+      MaterialHandle: 14031639123852471153
+  - Entity: 16233259629357298772
+    TagComponent:
+      Tag: Sponza 247
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8327637875535107860
+      MaterialHandle: 2837399971197349457
+  - Entity: 1510374949430358768
+    TagComponent:
+      Tag: Sponza 248
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8445921959554175942
+      MaterialHandle: 1751520118682600017
+  - Entity: 4349148411325726822
+    TagComponent:
+      Tag: Sponza 249
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3023984153524113472
+      MaterialHandle: 6503103638180403831
+  - Entity: 18158815314393186287
+    TagComponent:
+      Tag: Sponza 250
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12114724585296709107
+      MaterialHandle: 7885195565919443704
+  - Entity: 9962921119945334813
+    TagComponent:
+      Tag: Sponza 251
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 282132124094660020
+      MaterialHandle: 6936922584770333194
+  - Entity: 15626886232450568562
+    TagComponent:
+      Tag: Sponza 252
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15661532676816922626
+      MaterialHandle: 10757685488237389396
+  - Entity: 9521978493730389533
+    TagComponent:
+      Tag: Sponza 253
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4544478318597009923
+      MaterialHandle: 14866074952312659490
+  - Entity: 13275714268807149324
+    TagComponent:
+      Tag: Sponza 254
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11288522640612421691
+      MaterialHandle: 18409386734478918442
+  - Entity: 13720328868036408323
+    TagComponent:
+      Tag: Sponza 255
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9329670105669841079
+      MaterialHandle: 13981385338682180579
+  - Entity: 1313829897882260341
+    TagComponent:
+      Tag: Sponza 256
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12168279529920365790
+      MaterialHandle: 9926638383719374280
+  - Entity: 12670148398524509288
+    TagComponent:
+      Tag: Sponza 257
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12116463726955993906
+      MaterialHandle: 12841106022423006095
+  - Entity: 7121584387206183871
+    TagComponent:
+      Tag: Sponza 258
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6928823149758464850
+      MaterialHandle: 3116757128298074881
+  - Entity: 13029554896332699157
+    TagComponent:
+      Tag: Sponza 259
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14228215809401069307
+      MaterialHandle: 17962355845106222775
+  - Entity: 13258993010793373310
+    TagComponent:
+      Tag: Sponza 260
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12290473992281392665
+      MaterialHandle: 848418503187594110
+  - Entity: 15541878319676295204
+    TagComponent:
+      Tag: Sponza 261
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11620941971861651660
+      MaterialHandle: 2290157985992130656
+  - Entity: 1644919835869520743
+    TagComponent:
+      Tag: Sponza 262
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11889454254565424825
+      MaterialHandle: 9276129398407653257
+  - Entity: 14182958363363978673
+    TagComponent:
+      Tag: Sponza 263
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11043660538665380880
+      MaterialHandle: 9579262748371119978
+  - Entity: 3427105274382871608
+    TagComponent:
+      Tag: Sponza 264
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 604012364261051311
+      MaterialHandle: 8894244804882379094
+  - Entity: 7030856829415029104
+    TagComponent:
+      Tag: Sponza 265
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3502161118200055857
+      MaterialHandle: 8960295890783894804
+  - Entity: 11545859585045477070
+    TagComponent:
+      Tag: Sponza 266
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11409462025617932246
+      MaterialHandle: 16574094056839873439
+  - Entity: 10691397946685834737
+    TagComponent:
+      Tag: Sponza 267
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12461266026686251252
+      MaterialHandle: 11819667221328340163
+  - Entity: 17902311717120856117
+    TagComponent:
+      Tag: Sponza 268
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 10897062634137759028
+      MaterialHandle: 1826098190685419771
+  - Entity: 9054900893069890988
+    TagComponent:
+      Tag: Sponza 269
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 18286636046195824755
+      MaterialHandle: 15474955627430337409
+  - Entity: 184590337083978193
+    TagComponent:
+      Tag: Sponza 270
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11946375692631459261
+      MaterialHandle: 12567177545678646430
+  - Entity: 3314242049344018193
+    TagComponent:
+      Tag: Sponza 271
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8959519019409999213
+      MaterialHandle: 7846567513340842031
+  - Entity: 2085417643506954084
+    TagComponent:
+      Tag: Sponza 272
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8494996917758867216
+      MaterialHandle: 4263453040477282575
+  - Entity: 14212630780540084406
+    TagComponent:
+      Tag: Sponza 273
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4595522819000891318
+      MaterialHandle: 12278334468361480211
+  - Entity: 737780418075832933
+    TagComponent:
+      Tag: Sponza 274
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8137092606440576623
+      MaterialHandle: 389154072115458439
+  - Entity: 10215393304330077455
+    TagComponent:
+      Tag: Sponza 275
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9937513086615009880
+      MaterialHandle: 283021127138257754
+  - Entity: 13645305430577031068
+    TagComponent:
+      Tag: Sponza 276
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16735353303133076072
+      MaterialHandle: 12338152170397321369
+  - Entity: 2118820681832140028
+    TagComponent:
+      Tag: Sponza 277
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12814146675815472043
+      MaterialHandle: 14156340568684434128
+  - Entity: 11030525692442955486
+    TagComponent:
+      Tag: Sponza 278
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12710278415858336496
+      MaterialHandle: 580333069271553146
+  - Entity: 1192376151960663276
+    TagComponent:
+      Tag: Sponza 279
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 382067518216746946
+      MaterialHandle: 671878845271982859
+  - Entity: 1534387311539502008
+    TagComponent:
+      Tag: Sponza 280
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1077859038876086398
+      MaterialHandle: 3690052353348856299
+  - Entity: 3602887000755330854
+    TagComponent:
+      Tag: Sponza 281
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7430512425457656332
+      MaterialHandle: 12544024221678511024
+  - Entity: 5780922698696748157
+    TagComponent:
+      Tag: Sponza 282
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12957937050369540724
+      MaterialHandle: 8155658505749670822
+  - Entity: 13477497096366701338
+    TagComponent:
+      Tag: Sponza 283
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 215360263174935651
+      MaterialHandle: 13297264078933909240
+  - Entity: 9281514818180547153
+    TagComponent:
+      Tag: Sponza 284
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7638684763533395884
+      MaterialHandle: 12874592491152243689
+  - Entity: 10550451668714440570
+    TagComponent:
+      Tag: Sponza 285
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16010898661068180790
+      MaterialHandle: 16416559553223845094
+  - Entity: 14963817341849132870
+    TagComponent:
+      Tag: Sponza 286
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15941031222179713476
+      MaterialHandle: 16925864942537825413
+  - Entity: 17711594461109851240
+    TagComponent:
+      Tag: Sponza 287
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9184429414817834830
+      MaterialHandle: 1803341741075435032
+  - Entity: 13506295090828574207
+    TagComponent:
+      Tag: Sponza 288
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12831802771850350883
+      MaterialHandle: 14341180190867402338
+  - Entity: 8655043940017284472
+    TagComponent:
+      Tag: Sponza 289
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2594269009555825913
+      MaterialHandle: 16539868027316672468
+  - Entity: 12549732299889744337
+    TagComponent:
+      Tag: Sponza 290
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16513004285515595246
+      MaterialHandle: 770872351939100146
+  - Entity: 2268285753248817271
+    TagComponent:
+      Tag: Sponza 291
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8639638923082025583
+      MaterialHandle: 17073622752320765224
+  - Entity: 13743200361825991990
+    TagComponent:
+      Tag: Sponza 292
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1726848246605991514
+      MaterialHandle: 5562840873761144897
+  - Entity: 11748266136793878604
+    TagComponent:
+      Tag: Sponza 293
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4014842902481995371
+      MaterialHandle: 17320035530316595087
+  - Entity: 7128157311854182964
+    TagComponent:
+      Tag: Sponza 294
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3730223771128398490
+      MaterialHandle: 15787410987292018895
+  - Entity: 853370633522426933
+    TagComponent:
+      Tag: Sponza 295
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8599202532067149862
+      MaterialHandle: 8419650526991174513
+  - Entity: 3010161625737623027
+    TagComponent:
+      Tag: Sponza 296
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9075746704615568836
+      MaterialHandle: 10323465547954249131
+  - Entity: 14793110554763906454
+    TagComponent:
+      Tag: Sponza 297
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4507795385192952027
+      MaterialHandle: 1056506508175066718
+  - Entity: 3556472171237138004
+    TagComponent:
+      Tag: Sponza 298
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13125453463853621526
+      MaterialHandle: 11368589952243439353
+  - Entity: 1653912582946817252
+    TagComponent:
+      Tag: Sponza 299
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16389176151349854140
+      MaterialHandle: 14745040337091056522
+  - Entity: 7446640456007667914
+    TagComponent:
+      Tag: Sponza 300
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6381502093494054417
+      MaterialHandle: 3704417883711485333
+  - Entity: 9909551129772619307
+    TagComponent:
+      Tag: Sponza 301
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3692706342095962349
+      MaterialHandle: 15352502242184577681
+  - Entity: 16144452806101190156
+    TagComponent:
+      Tag: Sponza 302
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15724339654525604586
+      MaterialHandle: 12562659681517952692
+  - Entity: 1903081396044453332
+    TagComponent:
+      Tag: Sponza 303
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2589745577606501705
+      MaterialHandle: 2300824985344218253
+  - Entity: 205387630242677855
+    TagComponent:
+      Tag: Sponza 304
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4997953371019704625
+      MaterialHandle: 7873395778322477356
+  - Entity: 4014946098353298206
+    TagComponent:
+      Tag: Sponza 305
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14911740621715601765
+      MaterialHandle: 11937897413074677734
+  - Entity: 17521785043784914707
+    TagComponent:
+      Tag: Sponza 306
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8375274970326767110
+      MaterialHandle: 8387982476145577903
+  - Entity: 2129920917534334376
+    TagComponent:
+      Tag: Sponza 307
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15089973513069665632
+      MaterialHandle: 11729764260903874820
+  - Entity: 1524938430624892013
+    TagComponent:
+      Tag: Sponza 308
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9135371098911040578
+      MaterialHandle: 1803563455196997731
+  - Entity: 8755960984464089359
+    TagComponent:
+      Tag: Sponza 309
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1052236387141771088
+      MaterialHandle: 5556922476386141433
+  - Entity: 17486994450361274314
+    TagComponent:
+      Tag: Sponza 310
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5475337311702921954
+      MaterialHandle: 9275237508001532068
+  - Entity: 13909660286931326331
+    TagComponent:
+      Tag: Sponza 311
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4200341430852986364
+      MaterialHandle: 9561225133655462164
+  - Entity: 3080732777411030900
+    TagComponent:
+      Tag: Sponza 312
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 857612216322350793
+      MaterialHandle: 10125103762597415738
+  - Entity: 18236334903200515802
+    TagComponent:
+      Tag: Sponza 313
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13453522582907255786
+      MaterialHandle: 6567482930379554643
+  - Entity: 7878637108878800007
+    TagComponent:
+      Tag: Sponza 314
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13869957445675515178
+      MaterialHandle: 8482445211978012650
+  - Entity: 3704538381642111452
+    TagComponent:
+      Tag: Sponza 315
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14539268227209968190
+      MaterialHandle: 1773858735588838909
+  - Entity: 13804095968796520816
+    TagComponent:
+      Tag: Sponza 316
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15607295973169477432
+      MaterialHandle: 17696268539326451529
+  - Entity: 2800502332942722168
+    TagComponent:
+      Tag: Sponza 317
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12715766386007244973
+      MaterialHandle: 11000753780622819660
+  - Entity: 6269647324847940099
+    TagComponent:
+      Tag: Sponza 318
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7886542689939675195
+      MaterialHandle: 7648014924471178733
+  - Entity: 971305139478085185
+    TagComponent:
+      Tag: Sponza 319
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15681774487368064830
+      MaterialHandle: 11779115647780867410
+  - Entity: 12459313967648245217
+    TagComponent:
+      Tag: Sponza 320
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2763513612080842904
+      MaterialHandle: 8009248923830788148
+  - Entity: 7343108616308733464
+    TagComponent:
+      Tag: Sponza 321
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1403946874753900944
+      MaterialHandle: 10568680046863151926
+  - Entity: 14772678593473578793
+    TagComponent:
+      Tag: Sponza 322
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13699643482277737856
+      MaterialHandle: 13590013159700949053
+  - Entity: 2864745798410707301
+    TagComponent:
+      Tag: Sponza 323
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 10558594838685973352
+      MaterialHandle: 13445696705276577298
+  - Entity: 9540745549323097026
+    TagComponent:
+      Tag: Sponza 324
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1226233253615451328
+      MaterialHandle: 7247790418677216783
+  - Entity: 16551810843782174935
+    TagComponent:
+      Tag: Sponza 325
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6842802906408151062
+      MaterialHandle: 8968261555680751838
+  - Entity: 3756775720238392229
+    TagComponent:
+      Tag: Sponza 326
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 18169020562656417389
+      MaterialHandle: 7952701568463204035
+  - Entity: 13303262104406804622
+    TagComponent:
+      Tag: Sponza 327
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3748044088921436175
+      MaterialHandle: 11513723027320673435
+  - Entity: 6408989177074875097
+    TagComponent:
+      Tag: Sponza 328
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1225588470323028049
+      MaterialHandle: 17727332960790486891
+  - Entity: 5647468426611003792
+    TagComponent:
+      Tag: Sponza 329
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7167526448315812882
+      MaterialHandle: 8936672710644975889
+  - Entity: 6460832766505020060
+    TagComponent:
+      Tag: Sponza 330
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15503863102261879066
+      MaterialHandle: 12042156739801385994
+  - Entity: 4748847141241885408
+    TagComponent:
+      Tag: Sponza 331
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11026370672842768714
+      MaterialHandle: 13635127513182850351
+  - Entity: 2774735807755782545
+    TagComponent:
+      Tag: Sponza 332
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7892113703764945551
+      MaterialHandle: 1683477733486420736
+  - Entity: 6568565929240797838
+    TagComponent:
+      Tag: Sponza 333
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16944834171687149096
+      MaterialHandle: 4993991581593568215
+  - Entity: 16186359404575795202
+    TagComponent:
+      Tag: Sponza 334
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 551693912896503911
+      MaterialHandle: 8567599590472179489
+  - Entity: 17895850434539777971
+    TagComponent:
+      Tag: Sponza 335
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16984379507104747759
+      MaterialHandle: 11272611923582275457
+  - Entity: 5435454871769518511
+    TagComponent:
+      Tag: Sponza 336
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5435552864096518378
+      MaterialHandle: 2097801382886941740
+  - Entity: 12840362827954896750
+    TagComponent:
+      Tag: Sponza 337
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 806954282995959765
+      MaterialHandle: 74414923189465350
+  - Entity: 12545364186624483546
+    TagComponent:
+      Tag: Sponza 338
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11855669356768687883
+      MaterialHandle: 578116044567533173
+  - Entity: 12423101212554895098
+    TagComponent:
+      Tag: Sponza 339
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6244150044143334941
+      MaterialHandle: 17262020241804056773
+  - Entity: 5125706397440452509
+    TagComponent:
+      Tag: Sponza 340
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17511594057033478098
+      MaterialHandle: 6404299822602597511
+  - Entity: 4663855351852067629
+    TagComponent:
+      Tag: Sponza 341
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13868982060858355742
+      MaterialHandle: 15613496972706058880
+  - Entity: 992958434200874006
+    TagComponent:
+      Tag: Sponza 342
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13521370555698530601
+      MaterialHandle: 5041896543494702898
+  - Entity: 12658961584905711785
+    TagComponent:
+      Tag: Sponza 343
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5722789154146621294
+      MaterialHandle: 7922270014085078031
+  - Entity: 12764808265389631005
+    TagComponent:
+      Tag: Sponza 344
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8346925767624340393
+      MaterialHandle: 2755878117591553691
+  - Entity: 16345686201536213045
+    TagComponent:
+      Tag: Sponza 345
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 10216767054463898103
+      MaterialHandle: 5338655763135781564
+  - Entity: 10516727418335480001
+    TagComponent:
+      Tag: Sponza 346
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12136178774406395422
+      MaterialHandle: 8920827767969677891
+  - Entity: 9128459996800073166
+    TagComponent:
+      Tag: Sponza 347
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6963132503132505427
+      MaterialHandle: 6564276082784221621
+  - Entity: 13003020974712432134
+    TagComponent:
+      Tag: Sponza 348
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9631349420746079804
+      MaterialHandle: 8666489643942756806
+  - Entity: 9127403201026097058
+    TagComponent:
+      Tag: Sponza 349
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16398859859281683262
+      MaterialHandle: 4161560599367083023
+  - Entity: 9888944326753035558
+    TagComponent:
+      Tag: Sponza 350
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 547623493217722271
+      MaterialHandle: 6210853243951748605
+  - Entity: 11539349114254099787
+    TagComponent:
+      Tag: Sponza 351
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 162948677907999258
+      MaterialHandle: 9049693357474976477
+  - Entity: 723211726986052884
+    TagComponent:
+      Tag: Sponza 352
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17626716812188244135
+      MaterialHandle: 7815315363960442303
+  - Entity: 10480280408881554879
+    TagComponent:
+      Tag: Sponza 353
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5454045136407638804
+      MaterialHandle: 10511690466835083189
+  - Entity: 1019882414339843760
+    TagComponent:
+      Tag: Sponza 354
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 18413320772590659425
+      MaterialHandle: 18432134067809226276
+  - Entity: 15978506540036861676
+    TagComponent:
+      Tag: Sponza 355
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3945545983297219825
+      MaterialHandle: 1898864881496264525
+  - Entity: 4041355450180512912
+    TagComponent:
+      Tag: Sponza 356
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3111150089588579123
+      MaterialHandle: 13996188293530734000
+  - Entity: 3761907480719253021
+    TagComponent:
+      Tag: Sponza 357
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 10336150585280610936
+      MaterialHandle: 12273461433814890292
+  - Entity: 6008133228934450001
+    TagComponent:
+      Tag: Sponza 358
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14288183276113124899
+      MaterialHandle: 7029463757723133109
+  - Entity: 1276237283363141661
+    TagComponent:
+      Tag: Sponza 359
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13427612570892352228
+      MaterialHandle: 12276620634808904981
+  - Entity: 14810406893285134476
+    TagComponent:
+      Tag: Sponza 360
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17660943280354352055
+      MaterialHandle: 12272316389878688514
+  - Entity: 1627954851087210666
+    TagComponent:
+      Tag: Sponza 361
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17236093234441044825
+      MaterialHandle: 14253017761926818852
+  - Entity: 14745222314828484876
+    TagComponent:
+      Tag: Sponza 362
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 7842110081420950187
+      MaterialHandle: 5405144300516022081
+  - Entity: 17363195435630831326
+    TagComponent:
+      Tag: Sponza 363
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15839288776144681400
+      MaterialHandle: 15373509338123036514
+  - Entity: 7451460938236590786
+    TagComponent:
+      Tag: Sponza 364
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3803076028885048884
+      MaterialHandle: 4876935411117391926
+  - Entity: 10293575155821838189
+    TagComponent:
+      Tag: Sponza 365
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15640665769677835042
+      MaterialHandle: 1201829070753053137
+  - Entity: 316954495052393677
+    TagComponent:
+      Tag: Sponza 366
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 1928409224160008701
+      MaterialHandle: 223359465203321386
+  - Entity: 11417932416176642564
+    TagComponent:
+      Tag: Sponza 367
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14693041639813009501
+      MaterialHandle: 9326820617227999827
+  - Entity: 16336930738413067648
+    TagComponent:
+      Tag: Sponza 368
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 987888409435315240
+      MaterialHandle: 5822983621776823556
+  - Entity: 6435492318525182663
+    TagComponent:
+      Tag: Sponza 369
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 999950017970333039
+      MaterialHandle: 18321360170750725582
+  - Entity: 8382286574064601265
+    TagComponent:
+      Tag: Sponza 370
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 2139156142639883512
+      MaterialHandle: 16196097822288043087
+  - Entity: 7857494423232745115
+    TagComponent:
+      Tag: Sponza 371
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12270009632551466059
+      MaterialHandle: 1326921474286198819
+  - Entity: 5342585877790612355
+    TagComponent:
+      Tag: Sponza 372
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6125175143350331901
+      MaterialHandle: 14531254152337556754
+  - Entity: 2802506296945674444
+    TagComponent:
+      Tag: Sponza 373
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17109953982614452211
+      MaterialHandle: 9941236463154820935
+  - Entity: 9971683982549829639
+    TagComponent:
+      Tag: Sponza 374
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13204778844476588498
+      MaterialHandle: 11395731765316350262
+  - Entity: 11011043272990103973
+    TagComponent:
+      Tag: Sponza 375
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 18440760164920985323
+      MaterialHandle: 18059918613802169931
+  - Entity: 1128679186244753785
+    TagComponent:
+      Tag: Sponza 376
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6320217061671784893
+      MaterialHandle: 4528221318147486544
+  - Entity: 1472184555614472266
+    TagComponent:
+      Tag: Sponza 377
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16808056428215308081
+      MaterialHandle: 1765801022898794542
+  - Entity: 11923315171893033868
+    TagComponent:
+      Tag: Sponza 378
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 16661683732897592845
+      MaterialHandle: 18250980010277554823
+  - Entity: 7635630745782363500
+    TagComponent:
+      Tag: Sponza 379
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 13858068165084200216
+      MaterialHandle: 3681667032843799866
+  - Entity: 6634699011360728885
+    TagComponent:
+      Tag: Sponza 380
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17312941281007394505
+      MaterialHandle: 15373457483030208517
+  - Entity: 10661149499824612547
+    TagComponent:
+      Tag: Sponza 381
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 9942061147494388960
+      MaterialHandle: 16764736448155480863
+  - Entity: 4285281052491679666
+    TagComponent:
+      Tag: Sponza 382
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 3399602154044957303
+      MaterialHandle: 11939975077303814106
+  - Entity: 8565308671184530961
+    TagComponent:
+      Tag: Sponza 383
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 14786129141111971802
+      MaterialHandle: 4827823403892337748
+  - Entity: 2775918477817010592
+    TagComponent:
+      Tag: Sponza 384
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 12679178077410193725
+      MaterialHandle: 801412584362832935
+  - Entity: 13155002578390341178
+    TagComponent:
+      Tag: Sponza 385
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 5614707013335375667
+      MaterialHandle: 6866268913527523451
+  - Entity: 17606450478752585247
+    TagComponent:
+      Tag: Sponza 386
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 15554418274217557159
+      MaterialHandle: 3960708673121036884
+  - Entity: 2413410913198523952
+    TagComponent:
+      Tag: Sponza 387
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 11634239945825167580
+      MaterialHandle: 3673862842660105803
+  - Entity: 15983671971207173835
+    TagComponent:
+      Tag: Sponza 388
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6889064607081771693
+      MaterialHandle: 10130868987404291842
+  - Entity: 3396907887971797150
+    TagComponent:
+      Tag: Sponza 389
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 6137786154506586786
+      MaterialHandle: 8808300889146054101
+  - Entity: 14283070631988749841
+    TagComponent:
+      Tag: Sponza 390
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 4765796364574897091
+      MaterialHandle: 13947109170871852103
+  - Entity: 14129081359670796088
+    TagComponent:
+      Tag: Sponza 391
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 17916151706208960752
+      MaterialHandle: 9181440684580427940
+  - Entity: 16068820608229916241
+    TagComponent:
+      Tag: Sponza 392
+      Active: true
+    TransformComponent:
+      Pos: [0, 0, 0]
+      Rot: [0, -0, 0]
+      Scale: [1, 1, 1]
+      Parent: 11321535721138752112
+    MeshRendererComponent:
+      MeshHandle: 8937296282713956973
+      MaterialHandle: 6234406506571962666

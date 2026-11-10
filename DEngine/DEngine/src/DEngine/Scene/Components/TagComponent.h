@@ -11,6 +11,7 @@ namespace DEngine
 	{
 		std::string Tag;
 
+		bool activeSelf = true;
 		bool isEnabled = false;
 
 		TagComponent() = default;

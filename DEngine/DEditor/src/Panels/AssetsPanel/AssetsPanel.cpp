@@ -4,6 +4,7 @@
 #include "DEngine/Asset/AssetManager.h"
 #include "DEngine/Asset/EditorAssetManager.h"
 #include "Panels/AssetDragDrop.h"
+#include "DEngine/Profiler/Profiler.h"
 
 #include <algorithm>
 
@@ -46,8 +47,9 @@ namespace DEngine
 		return handle;
 	}
 
-	void AssetsPanel::OnImGuiRender()
+	void AssetsPanel::OnRender()
 	{
+		D_PROFILE_FUNCTION();
 		ImGui::Begin("Assets");
 
 		if (!std::filesystem::exists(m_CurrentDir))

@@ -182,6 +182,8 @@ namespace DEngine
             }
         }
 
+        newScene->RebuildActivity();
+
         result.isSuccessful = true;
         result.scene = newScene;
         return result;
