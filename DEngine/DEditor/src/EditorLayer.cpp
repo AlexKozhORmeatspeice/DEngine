@@ -234,7 +234,7 @@ namespace DEngine
 		m_TimeSinceAssetUpdate += ts.GetSeconds();
 		if (m_TimeSinceAssetUpdate >= m_AssetReloadInterval)
 		{
-			//AssetManager::Update();
+			AssetManager::Update();
 			m_TimeSinceAssetUpdate = 0.0f;
 		}
 	}

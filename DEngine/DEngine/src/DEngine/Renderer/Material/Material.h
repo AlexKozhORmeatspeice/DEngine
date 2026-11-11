@@ -36,9 +36,12 @@ namespace DEngine
         void UpdateDirtyValues();
 
         uint32_t GetCachedID(const std::string& name);
+        Ref<Shader> GetShader();
+        Ref<Texture> GetTexture(const AssetHandle& handle);
 
     private:
         AssetHandle m_ShaderHandle;
+        Ref<Shader> m_Shader;
         
         std::unordered_map<std::string, uint32_t> m_NameToID;
         
@@ -49,7 +52,9 @@ namespace DEngine
         std::unordered_map<uint32_t, glm::vec4> m_Vec4Values;
         std::unordered_map<uint32_t, glm::mat3> m_Mat3Values;
         std::unordered_map<uint32_t, glm::mat4> m_Mat4Values;
+
         std::unordered_map<uint32_t, AssetHandle> m_TextureValues;
+        std::unordered_map<AssetHandle, Ref<Texture>> m_Textures;
         
         std::vector<uint32_t> m_DirtyInts;
         std::vector<uint32_t> m_DirtyFloats;

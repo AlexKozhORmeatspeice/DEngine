@@ -9,6 +9,7 @@
 #include "SceneImporter.h"
 
 #include "unordered_map"
+#include "DEngine/Jobs/JobSystem.h"
 
 namespace DEngine
 {

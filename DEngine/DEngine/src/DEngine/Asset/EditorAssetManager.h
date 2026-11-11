@@ -7,6 +7,7 @@
 #include "DEngine/Asset/Asset.h"
 
 #include "unordered_map"
+#include <shared_mutex>
 
 namespace DEngine
 {
@@ -56,6 +57,8 @@ namespace DEngine
         void Update();
 
 	private:
+		Ref<Asset> GetPlaceholderAsset(const AssetMetadata& metadata);
+
 		// Handle stored in the registry. Null when this path is not registered.
 		const AssetHandle* FindHandleByPath(const std::filesystem::path& path);
 		// Inserts or updates the registry and returns the handle stored there.
@@ -86,6 +89,7 @@ namespace DEngine
 
 		AssetRegistry m_AssetRegistry;
 		AssetMap m_LoadedAssets;
+		mutable std::shared_mutex m_LoadedAssetsMutex;
 
         FileWatcher m_FileWatcher;
         bool m_HotReloadEnabled = true;

@@ -13,6 +13,7 @@ IncludeDir["yaml"] = "DEngine/vendor/yaml-cpp/include"
 IncludeDir["assimp"] = "DEngine/vendor/assimp/include"
 IncludeDir["ImGuizmo"] = "DEngine/vendor/ImGuizmo"
 IncludeDir["tracy"] = "DEngine/vendor/tracy/public"
+IncludeDir["enkiTS"] = "DEngine/vendor/enkiTS/src"
 
 function EnableTracy()
     filter "configurations:Debug"
@@ -31,6 +32,7 @@ function IncludeEngineDependencies()
         include "DEngine/vendor/imgui"
         include "DEngine/vendor/yaml-cpp"
         include "DEngine/vendor/tracy"
+        include "DEngine/vendor/enkiTS"
     group ""
     filter {}
 end

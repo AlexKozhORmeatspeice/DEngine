@@ -36,6 +36,7 @@ project "DEngine"
         "%{IncludeDir.assimp}",
         "%{IncludeDir.ImGuizmo}",
         "%{IncludeDir.tracy}",
+        "%{IncludeDir.enkiTS}",
     }
 
     libdirs
@@ -50,7 +51,8 @@ project "DEngine"
         "ImGui",
         "yaml-cpp",
         "assimp-vc143-mt",
-        "Tracy"
+        "Tracy",
+        "enkiTS"
     }
 
     filter "files:vendor/ImGuizmo/**.cpp"

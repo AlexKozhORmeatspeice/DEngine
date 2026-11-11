@@ -18,6 +18,9 @@
 #include "DEngine/Asset/Serializer/ModelSerializer.h"
 #include "DEngine/Scene/Serialization/SceneSerializer.h"
 
+#include "DEngine/Jobs/JobSystem.h"
+#include "DEngine/Profiler/Profiler.h"
+
 #include "fstream"
 #include "yaml-cpp/yaml.h"
 
@@ -53,6 +56,7 @@ namespace DEngine
 
 	void EditorAssetManager::Init()
 	{
+		D_PROFILE_FUNCTION();
 		DeserializeAssetRegistry();
 
 		AddAssetsInDirectory(Project::GetAssetRegistryPath(), true);
@@ -72,6 +76,7 @@ namespace DEngine
 
 	void EditorAssetManager::Update()
 	{
+		D_PROFILE_FUNCTION();
 		if (m_HotReloadEnabled)
 		{
 			m_FileWatcher.Update();
@@ -86,6 +91,7 @@ namespace DEngine
 
 	void EditorAssetManager::ReloadAsset(const AssetHandle& handle)
 	{
+		D_PROFILE_FUNCTION();
 		const auto& metadata = GetMetadata(handle);
 		if (metadata.Type == AssetType::None)
 		{
@@ -135,6 +141,7 @@ namespace DEngine
 
 	void EditorAssetManager::ReloadTexture(const AssetHandle& handle, const AssetMetadata& metadata)
 	{
+		D_PROFILE_FUNCTION();
 		auto texture = std::dynamic_pointer_cast<Texture2D>(m_LoadedAssets[handle]);
 		if (texture)
 		{
@@ -158,6 +165,7 @@ namespace DEngine
 
 	const AssetHandle& EditorAssetManager::CreateAsset(const std::filesystem::path& path)
 	{
+		D_PROFILE_FUNCTION();
 		const std::filesystem::path normalized = AssetHelper::NormalizePath(path);
 		if (const AssetHandle* existing = FindHandleByPath(normalized))
 			return *existing;
@@ -288,34 +296,52 @@ namespace DEngine
 
 	Ref<Asset> EditorAssetManager::GetAsset(const AssetHandle& handle)
 	{
-		const auto& metadata = GetMetadata(handle);
+		D_PROFILE_FUNCTION();
 
+		//Проверяем не загружен ли уже ресурс
+		{
+			std::shared_lock<std::shared_mutex> readLock(m_LoadedAssetsMutex);
+			const auto loaded = m_LoadedAssets.find(handle);
+			if (loaded != m_LoadedAssets.end())
+				return loaded->second;
+		}
+
+		// Проверяем что мы находимся на потоке для выгрузки ресурсов
+		const bool onGraphicsThread = !JobSystem::IsInitialized() || JobSystem::ThreadIndex() == 0;
+		if (!onGraphicsThread)
+			return nullptr;
+
+		//Загрузка данных
+
+		std::unique_lock<std::shared_mutex> writeLock(m_LoadedAssetsMutex); //TODO: убрать отсюда, потому что выгрузка на GPU будет происходить иначе
+
+		const auto& metadata = GetMetadata(handle);
 		if (metadata.Type == AssetType::None)
 			return nullptr;
 		
-		Ref<Asset> asset;
-		if (!IsAssetLoaded(handle))
 		{
-			asset = AsssetImporter::ImportAsset(handle, metadata);
-			if (!asset) 
+			D_PROFILE_SCOPE("Load new asset");
+			Ref<Asset> placeholder = GetPlaceholderAsset(metadata);
+			if (placeholder != nullptr)
+			{
+				//Перед показом placeholder необходимо инициализировать джобы на загрузку ресурсов
+				return placeholder;
+			}
+			Ref<Asset> asset = AsssetImporter::ImportAsset(handle, metadata);
+			if (!asset)
 			{
 				D_CORE_ERROR("EditorAssetManager::GetAsset: couldn't load {0} by path {1}", AssetHelper::ToString(metadata.Type), metadata.FilePath.string());
-				m_LoadedAssets[handle] = nullptr;
+				m_LoadedAssets.emplace(handle, nullptr);
 				return nullptr;
 			}
 
-			m_LoadedAssets[handle] = asset;
+			m_LoadedAssets.emplace(handle, asset);
 
-			// Сохраняем время загрузки для отслеживания изменений
 			if (!metadata.FilePath.empty() && std::filesystem::exists(metadata.FilePath))
-			{
 				m_AssetLastLoadTime[handle] = std::filesystem::last_write_time(metadata.FilePath);
-			}
+
+			return asset;
 		}
-
-		asset = m_LoadedAssets[handle];
-
-		return asset;
 	}
 
 	bool EditorAssetManager::IsAssetHandleValid(const AssetHandle& handle) const
@@ -327,6 +353,7 @@ namespace DEngine
 
 	bool EditorAssetManager::IsAssetLoaded(const AssetHandle& handle) const
 	{
+		std::shared_lock<std::shared_mutex> readLock(m_LoadedAssetsMutex);
 		return m_LoadedAssets.find(handle) != m_LoadedAssets.end();
 	}
 
@@ -373,6 +400,7 @@ namespace DEngine
 
 	void EditorAssetManager::SerializeAssetRegistry()
 	{
+		D_PROFILE_FUNCTION();
 		auto path = GetAssetRegistryFilePath();
 		AssetHelper::EnsureParentDirectory(path);
 
@@ -408,6 +436,7 @@ namespace DEngine
 
 	bool EditorAssetManager::DeserializeAssetRegistry()
 	{
+		D_PROFILE_FUNCTION();
 		auto path = GetAssetRegistryFilePath();
 
 		if (!std::filesystem::exists(path))
@@ -524,6 +553,7 @@ namespace DEngine
 
 	void EditorAssetManager::SetupFileWatcher()
 	{
+		D_PROFILE_FUNCTION();
 		auto assetsPath = Project::GetAssetRegistryPath();
 		
 		if (!std::filesystem::exists(assetsPath))
@@ -584,6 +614,7 @@ namespace DEngine
 
 	void EditorAssetManager::AddAssetsInDirectory(const std::filesystem::path& path, bool isVisibleInEditor)
 	{
+		D_PROFILE_FUNCTION();
 		if (!std::filesystem::exists(path))
 		{
 			D_CORE_WARN("EditorAssetManager::AddAssetsInDirectory: Directory {0} doesn't exist", path.string());
@@ -689,4 +720,14 @@ namespace DEngine
 		return storedHandle;
 	}
 
+	Ref<Asset> EditorAssetManager::GetPlaceholderAsset(const AssetMetadata& metadata)
+	{
+		switch (metadata.Type)
+		{
+			case AssetType::Texture2D:
+					return GetAsset(GetEmptyTextureHandle());
+		}
+
+		return nullptr;
+	}
 }

@@ -11,8 +11,7 @@ namespace DEngine
 	{
 		uint32_t id = GetCachedID(name);
 		if (id == UINT32_MAX) return;
-		
-		auto it = m_IntValues.find(id);
+
 		m_IntValues[id] = val;
 		m_DirtyInts.push_back(id);
 	}
@@ -21,8 +20,7 @@ namespace DEngine
 	{
 		uint32_t id = GetCachedID(name);
 		if (id == UINT32_MAX) return;
-		
-		auto it = m_FloatValues.find(id);
+
 		m_FloatValues[id] = val;
 		m_DirtyFloats.push_back(id);
 	}
@@ -31,8 +29,7 @@ namespace DEngine
 	{
 		uint32_t id = GetCachedID(name);
 		if (id == UINT32_MAX) return;
-		
-		auto it = m_Vec2Values.find(id);
+
 		m_Vec2Values[id] = val;
 		m_DirtyVec2s.push_back(id);
 	}
@@ -41,8 +38,7 @@ namespace DEngine
 	{
 		uint32_t id = GetCachedID(name);
 		if (id == UINT32_MAX) return;
-		
-		auto it = m_Vec3Values.find(id);
+
 		m_Vec3Values[id] = val;
 		m_DirtyVec3s.push_back(id);
 	}
@@ -51,8 +47,7 @@ namespace DEngine
 	{
 		uint32_t id = GetCachedID(name);
 		if (id == UINT32_MAX) return;
-		
-		auto it = m_Vec4Values.find(id);
+
 		m_Vec4Values[id] = val;
 		m_DirtyVec4s.push_back(id);
 	}
@@ -61,8 +56,7 @@ namespace DEngine
 	{
 		uint32_t id = GetCachedID(name);
 		if (id == UINT32_MAX) return;
-		
-		auto it = m_Mat3Values.find(id);
+
 		m_Mat3Values[id] = val;
 		m_DirtyMat3s.push_back(id);
 	}
@@ -71,7 +65,7 @@ namespace DEngine
 	{
 		uint32_t id = GetCachedID(name);
 		if (id == UINT32_MAX) return;
-		
+
 		m_Mat4Values[id] = val;
 		m_DirtyMat4s.push_back(id);
 	}
@@ -80,15 +74,15 @@ namespace DEngine
 	{
 		uint32_t id = GetCachedID(name);
 		if (id == UINT32_MAX) return;
-		
-		auto it = m_TextureValues.find(id);
+
 		m_TextureValues[id] = tex;
+		GetTexture(tex);
 		m_DirtyTextures.push_back(id);
 	}
 
 	void Material::Bind()
 	{
-		Ref<Shader> shader = AssetManager::GetAsset<Shader>(m_ShaderHandle);
+		Ref<Shader> shader = GetShader();
 		if (!shader)
 		{
 			D_CORE_ERROR("Material::Bind: shader {0} is not loaded", static_cast<uint64_t>(m_ShaderHandle));
@@ -96,68 +90,63 @@ namespace DEngine
 		}
 
 		shader->Bind();
-
 		UpdateDirtyValues();
 
-		auto bindTexture = [](const AssetHandle& textureHandle)
-		{
-			Ref<Texture2D> texture = AssetManager::GetAsset<Texture2D>(textureHandle);
-			if (!texture)
-				texture = AssetManager::GetAsset<Texture2D>(AssetManager::GetEmptyTextureHandle());
-			if (texture)
-				texture->Bind();
-		};
-
 		if (m_TextureValues.empty())
-			bindTexture(AssetManager::GetEmptyTextureHandle());
+		{
+			if (Ref<Texture> texture = GetTexture(AssetManager::GetEmptyTextureHandle()))
+				texture->Bind();
+			return;
+		}
 
 		for (const auto& [id, textureHandle] : m_TextureValues)
-			bindTexture(textureHandle);
+		{
+			if (Ref<Texture> texture = GetTexture(textureHandle))
+				texture->Bind();
+		}
 	}
 
 	void Material::Unbind()
 	{
-		Ref<Shader> shader = AssetManager::GetAsset<Shader>(m_ShaderHandle);
-		if (shader)
-			shader->Unbind();
+		if (m_Shader)
+			m_Shader->Unbind();
 	}
 
 	void Material::UpdateDirtyValues()
 	{
-		Ref<Shader> shader = AssetManager::GetAsset<Shader>(m_ShaderHandle);
-		if (!shader)
+		if (!m_Shader)
 			return;
 
 		for (uint32_t id : m_DirtyInts)
-			shader->UploadUniformInt(id, m_IntValues[id]);
+			m_Shader->UploadUniformInt(id, m_IntValues[id]);
 		m_DirtyInts.clear();
 
 		for (uint32_t id : m_DirtyFloats)
-			shader->UploadUniformFloat(id, m_FloatValues[id]);
+			m_Shader->UploadUniformFloat(id, m_FloatValues[id]);
 		m_DirtyFloats.clear();
 
 		for (uint32_t id : m_DirtyVec2s)
-			shader->UploadUniformFloat2(id, m_Vec2Values[id]);
+			m_Shader->UploadUniformFloat2(id, m_Vec2Values[id]);
 		m_DirtyVec2s.clear();
 
 		for (uint32_t id : m_DirtyVec3s)
-			shader->UploadUniformFloat3(id, m_Vec3Values[id]);
+			m_Shader->UploadUniformFloat3(id, m_Vec3Values[id]);
 		m_DirtyVec3s.clear();
 
 		for (uint32_t id : m_DirtyVec4s)
-			shader->UploadUniformFloat4(id, m_Vec4Values[id]);
+			m_Shader->UploadUniformFloat4(id, m_Vec4Values[id]);
 		m_DirtyVec4s.clear();
 
 		for (uint32_t id : m_DirtyMat3s)
-			shader->UploadUniformMat3(id, m_Mat3Values[id]);
+			m_Shader->UploadUniformMat3(id, m_Mat3Values[id]);
 		m_DirtyMat3s.clear();
 
 		for (uint32_t id : m_DirtyMat4s)
-			shader->UploadUniformMat4(id, m_Mat4Values[id]);
+			m_Shader->UploadUniformMat4(id, m_Mat4Values[id]);
 		m_DirtyMat4s.clear();
 
 		for (uint32_t id : m_DirtyTextures)
-			shader->UploadUniformInt(id, 0); //TODO: надо какую-то систему слотов для текстур сделать вероятно
+			m_Shader->UploadUniformInt(id, 0); //TODO: надо какую-то систему слотов для текстур сделать вероятно
 		m_DirtyTextures.clear();
 	}
 
@@ -166,16 +155,36 @@ namespace DEngine
 		auto it = m_NameToID.find(name);
 		if (it != m_NameToID.end())
 			return it->second;
-		
-		Ref<Shader> shader = AssetManager::GetAsset<Shader>(m_ShaderHandle);
+
+		Ref<Shader> shader = GetShader();
 		if (!shader)
 			return UINT32_MAX;
 
 		uint32_t id = shader->GetUniformLocation(name);
-
 		if (id != UINT32_MAX)
 			m_NameToID[name] = id;
-		
+
 		return id;
+	}
+
+	Ref<Shader> Material::GetShader()
+	{
+		if (!m_Shader)
+			m_Shader = AssetManager::GetAsset<Shader>(m_ShaderHandle);
+		return m_Shader;
+	}
+
+	Ref<Texture> Material::GetTexture(const AssetHandle& handle)
+	{
+		auto found = m_Textures.find(handle);
+		if (found != m_Textures.end())
+			return found->second;
+
+		Ref<Texture> texture = AssetManager::GetAsset<Texture2D>(handle);
+		if (!texture && handle != AssetManager::GetEmptyTextureHandle())
+			texture = GetTexture(AssetManager::GetEmptyTextureHandle());
+
+		m_Textures.emplace(handle, texture);
+		return texture;
 	}
 }

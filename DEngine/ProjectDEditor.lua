@@ -25,11 +25,13 @@ project "DEditor"
         "%{IncludeDir.yaml}",
         "%{IncludeDir.ImGuizmo}",
         "%{IncludeDir.tracy}",
+        "%{IncludeDir.enkiTS}",
     }
 
     links
     {
-        "DEngine"
+        "DEngine",
+        "enkiTS"
     }
 
     filter "system:windows"

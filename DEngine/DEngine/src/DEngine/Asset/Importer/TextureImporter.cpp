@@ -65,10 +65,10 @@ namespace DEngine
         data.Size = width * height * channels;
 
         // Отладочный вывод
+        
         D_CORE_INFO("TextureImporter: loaded {0} ({1}x{2}, channels={3}, format={4}, size={5} bytes)",
                     path.filename().string(), width, height, channels, 
                     (int)spec.Format, data.Size);
-
         Ref<Texture2D> tex = Texture2D::Create(spec, data);
         data.Release();
 

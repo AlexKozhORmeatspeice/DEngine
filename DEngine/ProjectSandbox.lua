@@ -23,12 +23,14 @@ project "Sandbox"
         "%{IncludeDir.glm}",
         "%{IncludeDir.entt}",
         "%{IncludeDir.yaml}",
-        "%{IncludeDir.tracy}"
+        "%{IncludeDir.tracy}",
+        "%{IncludeDir.enkiTS}"
     }
 
     links
     {
-        "DEngine"
+        "DEngine",
+        "enkiTS"
     }
 
     debugdir ("%{cfg.targetdir}")

@@ -61,3 +61,7 @@
 //--Utils--
 #include "DEngine/Utils/Timer.h"
 //---------
+
+//--Jobs--
+#include "DEngine/Jobs/JobSystem.h"
+//-------

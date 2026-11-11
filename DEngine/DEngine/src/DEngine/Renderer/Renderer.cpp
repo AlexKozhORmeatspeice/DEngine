@@ -36,7 +36,6 @@ namespace DEngine
 		mat->SetFloat3("u_ViewPos", s_SceneData->cam->GetPos());
 
 		mat->Bind();
-
 		mesh->Bind();
 
 		switch (mode)

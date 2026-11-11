@@ -10,6 +10,8 @@
 #include "DEngine/Renderer/Cameras/OrthCamera.h"
 #include "DEngine/Profiler/Profiler.h"
 
+#include "DEngine/Jobs/JobSystem.h"
+
 //TODO: TEMP
 #include "GLFW/glfw3.h" 
 #include "glad/glad.h"
@@ -95,6 +97,10 @@ namespace DEngine
 
     void Application::Init()
     {
+        //Init jobs
+        JobSystem::Init();
+
+        //Init layers
 		for (Layer* layer : m_layerStack)
 			layer->Init();
     }
@@ -126,6 +132,10 @@ namespace DEngine
     {
 		for (Layer* layer : m_layerStack)
 			layer->Shutdown();
+
+        //Shutdown jobs
+        JobSystem::WaitForAll();
+        JobSystem::Shutdown();
     }
     
     void Application::PushLayer(Layer* layer)
