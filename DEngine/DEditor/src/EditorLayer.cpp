@@ -135,7 +135,7 @@ namespace DEngine
 	void EditorLayer::OnUpdate(const Timestep& ts)
 	{
 		D_PROFILE_FUNCTION();
-		UpdateAssets(ts);
+		AssetManager::Update();
 		m_DrawTime = ts.GetSeconds();
 
 		if (m_ActiveScene)
@@ -229,13 +229,4 @@ namespace DEngine
 		AssetManager::Shutdown();
 	}
 
-	void EditorLayer::UpdateAssets(const Timestep& ts)
-	{
-		m_TimeSinceAssetUpdate += ts.GetSeconds();
-		if (m_TimeSinceAssetUpdate >= m_AssetReloadInterval)
-		{
-			AssetManager::Update();
-			m_TimeSinceAssetUpdate = 0.0f;
-		}
-	}
 }

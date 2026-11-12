@@ -174,6 +174,75 @@ namespace DEngine
 		return m_Shader;
 	}
 
+	namespace
+	{
+		template<typename T>
+		std::unordered_map<uint32_t, T> RemapUniformValues(const std::unordered_map<uint32_t, T>& values,
+														  const std::unordered_map<uint32_t, uint32_t>& oldToNew)
+		{
+			std::unordered_map<uint32_t, T> remapped;
+			for (const auto& [oldId, value] : values)
+			{
+				const auto found = oldToNew.find(oldId);
+				if (found == oldToNew.end() || found->second == UINT32_MAX)
+					continue;
+				remapped.emplace(found->second, value);
+			}
+			return remapped;
+		}
+
+		template<typename T>
+		void MarkDirty(const std::unordered_map<uint32_t, T>& values, std::vector<uint32_t>& dirty)
+		{
+			dirty.clear();
+			dirty.reserve(values.size());
+			for (const auto& [id, _] : values)
+				dirty.push_back(id);
+		}
+	}
+
+	void Material::InvalidateCachedShader()
+	{
+		m_Shader = nullptr;
+		Ref<Shader> shader = GetShader();
+		if (!shader)
+			return;
+
+		std::unordered_map<uint32_t, uint32_t> oldToNew;
+		std::unordered_map<std::string, uint32_t> names;
+		for (const auto& [name, oldId] : m_NameToID)
+		{
+			const uint32_t newId = shader->GetUniformLocation(name);
+			oldToNew.emplace(oldId, newId);
+			if (newId != UINT32_MAX)
+				names.emplace(name, newId);
+		}
+
+		m_IntValues = RemapUniformValues(m_IntValues, oldToNew);
+		m_FloatValues = RemapUniformValues(m_FloatValues, oldToNew);
+		m_Vec2Values = RemapUniformValues(m_Vec2Values, oldToNew);
+		m_Vec3Values = RemapUniformValues(m_Vec3Values, oldToNew);
+		m_Vec4Values = RemapUniformValues(m_Vec4Values, oldToNew);
+		m_Mat3Values = RemapUniformValues(m_Mat3Values, oldToNew);
+		m_Mat4Values = RemapUniformValues(m_Mat4Values, oldToNew);
+		m_TextureValues = RemapUniformValues(m_TextureValues, oldToNew);
+		m_NameToID = std::move(names);
+
+		MarkDirty(m_IntValues, m_DirtyInts);
+		MarkDirty(m_FloatValues, m_DirtyFloats);
+		MarkDirty(m_Vec2Values, m_DirtyVec2s);
+		MarkDirty(m_Vec3Values, m_DirtyVec3s);
+		MarkDirty(m_Vec4Values, m_DirtyVec4s);
+		MarkDirty(m_Mat3Values, m_DirtyMat3s);
+		MarkDirty(m_Mat4Values, m_DirtyMat4s);
+		MarkDirty(m_TextureValues, m_DirtyTextures);
+	}
+
+	void Material::InvalidateCachedTexture(const AssetHandle& handle)
+	{
+		m_Textures.erase(handle);
+	}
+
 	Ref<Texture> Material::GetTexture(const AssetHandle& handle)
 	{
 		auto found = m_Textures.find(handle);

@@ -29,6 +29,10 @@ namespace DEngine
         void Bind();
         void Unbind();
 
+        AssetHandle GetShaderHandle() const { return m_ShaderHandle; }
+        void InvalidateCachedShader();
+        void InvalidateCachedTexture(const AssetHandle& handle);
+
 		static AssetType GetStaticType() { return AssetType::Material; }
 		virtual AssetType GetType() const override { return GetStaticType(); }
 

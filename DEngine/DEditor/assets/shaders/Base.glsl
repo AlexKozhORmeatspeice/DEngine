@@ -63,6 +63,6 @@ void main()
     vec3 halfDir = normalize(lightDir + viewDir);
     float spec = pow(max(dot(normal, halfDir), 0.0f), shininess);
     vec3 specular = specularStrength * spec * u_LightColor;
-    
+
     color = vec4((ambient + diffuse + specular) * baseColor, 1.0f);
 }

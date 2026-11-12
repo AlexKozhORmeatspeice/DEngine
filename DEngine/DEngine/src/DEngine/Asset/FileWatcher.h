@@ -1,8 +1,9 @@
 #pragma once
+#include <cstdint>
 #include <filesystem>
-#include <unordered_map>
 #include <functional>
-#include <chrono>
+#include <unordered_map>
+#include <vector>
 
 namespace DEngine
 {
@@ -10,22 +11,28 @@ namespace DEngine
     {
     public:
         using FileChangeCallback = std::function<void(const std::filesystem::path&)>;
-        
+
+        static constexpr uint32_t MaxFilesPerUpdate = 20;
+
         FileWatcher() = default;
         ~FileWatcher() = default;
-        
+
         void AddWatchPath(const std::filesystem::path& path, FileChangeCallback callback);
         void RemoveWatchPath(const std::filesystem::path& path);
-        void Update(); // Call this each frame to check for changes
-        
+        void SetLastWriteTime(const std::filesystem::path& path, std::filesystem::file_time_type time);
+        void Update();
+
     private:
         struct WatchInfo
         {
+            std::filesystem::path Path;
             std::filesystem::file_time_type LastWriteTime;
             FileChangeCallback Callback;
         };
-        
-        std::unordered_map<std::filesystem::path, WatchInfo> m_WatchedFiles;
+
+        std::vector<WatchInfo> m_WatchedFiles;
+        std::unordered_map<std::filesystem::path, uint32_t> m_Index;
+        uint32_t m_NextCheck = 0;
         std::filesystem::path m_BasePath;
     };
 }

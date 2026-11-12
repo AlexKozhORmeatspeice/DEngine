@@ -36,7 +36,6 @@ namespace DEngine
 		void DisablePhysics();
 		void DisableSelectedEntityDebug();
 		void EnableSelectedEntityDebug();
-		void UpdateAssets(const Timestep& ts);
 
 		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& event);
 		bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& event);
@@ -58,7 +57,5 @@ namespace DEngine
 		GameMode m_CurrentGameMode = GameMode::EDITOR;
 		std::string m_PlaySnapshot;
 		float m_DrawTime = 0.0f;
-		float m_TimeSinceAssetUpdate = 0.0f;
-		const float m_AssetReloadInterval = 1.0f;
 	};
 }

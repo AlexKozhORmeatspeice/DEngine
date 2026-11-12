@@ -149,5 +149,6 @@ namespace DEngine
         std::unordered_map<AssetHandle, std::filesystem::path> m_HandleToPath;
         
         std::unordered_map<AssetHandle, std::filesystem::file_time_type> m_AssetLastLoadTime;
+        std::vector<AssetHandle> m_PendingReloads;
 	};
 }

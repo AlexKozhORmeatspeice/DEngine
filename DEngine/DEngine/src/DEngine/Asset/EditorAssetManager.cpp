@@ -10,6 +10,7 @@
 #include "DEngine/Asset/FileWatcher.h"
 
 #include "DEngine/Renderer/Shader/Shader.h"
+#include "DEngine/Renderer/Material/Material.h"
 #include "DEngine/Renderer/Mesh/Mesh.h"
 #include "DEngine/Renderer/Texture/Texture.h"
 #include "DEngine/Asset/Asset.h"
@@ -84,10 +85,16 @@ namespace DEngine
 	void EditorAssetManager::Update()
 	{
 		D_PROFILE_FUNCTION();
-		if (m_HotReloadEnabled)
-		{
-			m_FileWatcher.Update();
-		}
+		if (!m_HotReloadEnabled)
+			return;
+
+		m_FileWatcher.Update();
+		if (m_PendingReloads.empty())
+			return;
+
+		const AssetHandle handle = m_PendingReloads.front();
+		m_PendingReloads.erase(m_PendingReloads.begin());
+		ReloadAsset(handle);
 	}
 
 
@@ -138,6 +145,28 @@ namespace DEngine
 		else if (metadata.Type == AssetType::Texture2D)
 		{
 			ReloadTexture(handle, metadata);
+		}
+
+		if (metadata.Type == AssetType::Shader || metadata.Type == AssetType::Texture2D)
+		{
+			for (auto& entry : m_LoadedAssets)
+			{
+				Ref<Material> material = std::dynamic_pointer_cast<Material>(entry.second);
+				if (!material)
+					continue;
+
+				if (metadata.Type == AssetType::Shader && material->GetShaderHandle() == handle)
+					material->InvalidateCachedShader();
+				else if (metadata.Type == AssetType::Texture2D)
+					material->InvalidateCachedTexture(handle);
+			}
+		}
+
+		if (!metadata.FilePath.empty() && std::filesystem::exists(metadata.FilePath))
+		{
+			const auto writeTime = std::filesystem::last_write_time(metadata.FilePath);
+			m_AssetLastLoadTime[handle] = writeTime;
+			m_FileWatcher.SetLastWriteTime(metadata.FilePath, writeTime);
 		}
 
 		D_CORE_INFO("Hot reload: {0} reloaded successfully", AssetHelper::ToString(metadata.Type));
@@ -854,16 +883,15 @@ namespace DEngine
 			return;
 		}
 
-		// Рекурсивно добавляем все существующие файлы в watch
-		for (const auto& entry : std::filesystem::recursive_directory_iterator(assetsPath))
+		for (const auto& entry : m_AssetRegistry)
 		{
-			if (entry.is_regular_file())
-			{
-				auto path = entry.path();
-				m_FileWatcher.AddWatchPath(path, [this](const std::filesystem::path& changedPath) {
-					OnFileChanged(changedPath);
-				});
-			}
+			const AssetMetadata& metadata = entry.second;
+			if (metadata.FilePath.empty() || !std::filesystem::exists(metadata.FilePath))
+				continue;
+
+			m_FileWatcher.AddWatchPath(metadata.FilePath, [this](const std::filesystem::path& changedPath) {
+				OnFileChanged(changedPath);
+			});
 		}
 
 		D_CORE_INFO("EditorAssetManager: FileWatcher setup complete, watching {0}", assetsPath.string());
@@ -874,28 +902,18 @@ namespace DEngine
 		if (!m_HotReloadEnabled)
 			return;
 
-		// Проверяем, зарегистрирован ли этот файл
-		auto it = m_PathToHandle.find(AssetHelper::NormalizePath(path));
-		if (it != m_PathToHandle.end())
-		{
-			AssetHandle handle = it->second;
-			
-			// Проверяем, не загружен ли ассет в данный момент
-			auto loadIt = m_AssetLastLoadTime.find(handle);
-			if (loadIt != m_AssetLastLoadTime.end())
-			{
-				// Если файл был изменен во время загрузки, пропускаем
-				auto currentWrite = std::filesystem::last_write_time(path);
-				if (currentWrite <= loadIt->second)
-					return;
-			}
+		const auto it = m_PathToHandle.find(AssetHelper::NormalizePath(path));
+		if (it == m_PathToHandle.end())
+			return;
 
-			D_CORE_INFO("Hot reload: File {0} changed, reloading asset", path.string());
-			ReloadAsset(handle);
-			
-			// Обновляем время загрузки
-			m_AssetLastLoadTime[handle] = std::filesystem::last_write_time(path);
-		}
+		const AssetHandle handle = it->second;
+		if (!IsAssetLoaded(handle))
+			return;
+
+		if (std::find(m_PendingReloads.begin(), m_PendingReloads.end(), handle) != m_PendingReloads.end())
+			return;
+
+		m_PendingReloads.push_back(handle);
 	}
 
 	std::filesystem::path EditorAssetManager::GetAssetRegistryFilePath()
