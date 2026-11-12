@@ -28,6 +28,16 @@ namespace DEngine
 		}
 	}
 
+	void AssetManager::UploadPendingAssets()
+	{
+		if (!m_AssetManager)
+			return;
+
+		std::shared_ptr<EditorAssetManager> editorAsset = std::dynamic_pointer_cast<EditorAssetManager>(m_AssetManager);
+		if (editorAsset)
+			editorAsset->UploadPendingAssets();
+	}
+
 	const AssetHandle& AssetManager::CreateAsset(const std::filesystem::path& path)
 	{
 		auto& handle = m_AssetManager->CreateAsset(path);
@@ -78,8 +88,8 @@ namespace DEngine
 		return m_AssetManager->CreateSceneAsset(scene, path);
 	}
 
-	const AssetHandle& AssetManager::GetPrimitiveMesh(PrimitiveType type)
+	const AssetHandle& AssetManager::GetPrimitiveMeshHandle(PrimitiveType type)
 	{
-		return m_AssetManager->GetPrimitiveMesh(type);
+		return m_AssetManager->GetPrimitiveMeshHandle(type);
 	}
 }

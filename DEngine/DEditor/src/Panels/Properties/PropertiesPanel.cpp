@@ -39,7 +39,7 @@ namespace DEngine
 				[](Entity& e)
 				{
 					auto& renderer = e.AddComponent<MeshRendererComponent>();
-					renderer.meshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Cube);
+					renderer.meshHandle = AssetManager::GetPrimitiveMeshHandle(PrimitiveType::Cube);
 				}
 			},
 			{
@@ -228,9 +228,9 @@ namespace DEngine
 			if (ImGui::BeginPopup("PrimitiveMesh"))
 			{
 				if (ImGui::MenuItem("Cube"))
-					slot = AssetManager::GetPrimitiveMesh(PrimitiveType::Cube);
+					slot = AssetManager::GetPrimitiveMeshHandle(PrimitiveType::Cube);
 				if (ImGui::MenuItem("Sphere"))
-					slot = AssetManager::GetPrimitiveMesh(PrimitiveType::Sphere);
+					slot = AssetManager::GetPrimitiveMeshHandle(PrimitiveType::Sphere);
 				if (ImGui::MenuItem("Clear"))
 					slot = AssetHandle(static_cast<uint64_t>(AssetHandle::Invalid()));
 				ImGui::EndPopup();

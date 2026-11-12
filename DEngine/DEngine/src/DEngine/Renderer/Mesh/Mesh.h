@@ -19,10 +19,20 @@ namespace DEngine
 			indsSize = other.indsSize;
 		}
 
-		float* verts;
-		uint32_t vertSize;
-		uint32_t* inds;
-		uint32_t indsSize;
+		float* verts = nullptr;
+		uint32_t vertSize = 0;
+		uint32_t* inds = nullptr;
+		uint32_t indsSize = 0;
+
+		void Release()
+		{
+			delete[] verts;
+			delete[] inds;
+			verts = nullptr;
+			inds = nullptr;
+			vertSize = 0;
+			indsSize = 0;
+		}
 	};
 
 	class Mesh : public Asset

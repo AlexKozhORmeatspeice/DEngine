@@ -1,6 +1,8 @@
 #include "dpch.h"
 #include "EditorAssetManager.h"
 #include "Importer/AssetImporter.h"
+#include "Importer/TextureImporter.h"
+#include "Importer/MeshImporter.h"
 
 #include "DEngine/Core.h"
 
@@ -23,6 +25,8 @@
 
 #include "fstream"
 #include "yaml-cpp/yaml.h"
+
+#include <chrono>
 
 const std::string ASSET_REGISTRY_NAME = ".dassetslist";
 
@@ -66,9 +70,12 @@ namespace DEngine
 
 		CreateBaseRendererShader();
 		CreateEmptyTexture();
+		CreateBaseRendererMaterial();
 
 		CreateWireframeShader();
 		CreateBaseRendererMaterialWireframe();
+
+		CreateMeshPrimitive(PrimitiveType::Cube);
 
 		SetupFileWatcher();
 		SerializeAssetRegistry();
@@ -86,6 +93,13 @@ namespace DEngine
 
 	void EditorAssetManager::Shutdown()
 	{
+		for (auto& [handle, request] : m_InFlightLoads)
+		{
+			if (request && request->Decode)
+				JobSystem::Wait(*request->Decode);
+		}
+
+		UploadPendingAssets(true);
 		SerializeAssetRegistry();
 	}
 
@@ -294,54 +308,319 @@ namespace DEngine
 		return handle;
 	}
 
+	Ref<Asset> EditorAssetManager::WaitForInFlight(const std::shared_ptr<AssetLoadRequest>& load)
+	{
+		const bool onGraphicsThread = JobSystem::IsInitialized() && JobSystem::ThreadIndex() == 0;
+		std::unique_lock<std::mutex> lock(load->Mutex);
+		while (!load->Done)
+		{
+			if (!onGraphicsThread)
+			{
+				load->Ready.wait(lock, [&]() { return load->Done; });
+				break;
+			}
+
+			lock.unlock();
+			JobSystem::RunPinnedTasks();
+			lock.lock();
+			if (!load->Done)
+				load->Ready.wait_for(lock, std::chrono::milliseconds(1));
+		}
+		return load->Result;
+	}
+
+	Ref<Asset> EditorAssetManager::GetPlaceholder(const AssetMetadata& metadata)
+	{
+		switch (metadata.Type)
+		{
+			case AssetType::Texture2D:
+			{
+				const auto placeholder = m_LoadedAssets.find(m_EmptyTextureHandle);
+				if (placeholder != m_LoadedAssets.end())
+					return placeholder->second;
+
+				break;
+			}
+			case AssetType::Material:
+			{
+				const auto placeholder = m_LoadedAssets.find(m_BaseMaterial);
+				if (placeholder != m_LoadedAssets.end())
+					return placeholder->second;
+
+				break;
+			}
+			case AssetType::Mesh:
+			{
+				const auto placeholder = m_LoadedAssets.find(GetPrimitiveMeshHandle(m_PlaceholderPrimitive));
+				if (placeholder != m_LoadedAssets.end())
+					return placeholder->second;
+				break;
+			}
+		default:
+			break;
+		}
+
+		return nullptr;
+	}
+
+	void EditorAssetManager::QueueDecodedAsset(AssetHandle handle, const AssetMetadata& metadata)
+	{
+		D_PROFILE_FUNCTION();
+
+		PendingUpload pending;
+
+		switch (metadata.Type)
+		{
+			case AssetType::Texture2D:
+			{
+				auto texturePending = PendingTextureUpload();
+				texturePending.Handle = handle;
+
+				DecodedTexture decoded = TextureImporter::DecodeTexture2D(metadata.FilePath);
+				if (!decoded.Succeeded)
+				{
+					texturePending.Failed = true;
+				}
+				else
+				{
+					texturePending.Spec = decoded.Spec;
+					texturePending.Pixels.Data = decoded.Pixels.Data;
+					texturePending.Pixels.Size = decoded.Pixels.Size;
+					decoded.Pixels.Data = nullptr;
+					decoded.Pixels.Size = 0;
+				}
+				pending = texturePending;
+			}
+			break;
+			case AssetType::Mesh:
+			{
+				auto meshPending = PendingMeshUpload();
+				meshPending.Handle = handle;
+
+				DecodedMesh decoded = MeshImporter::DecodeMesh(metadata.FilePath);
+				if (!decoded.Succeeded)
+				{
+					meshPending.Failed = true;
+				}
+				else
+				{
+					meshPending.Layout = std::move(decoded.Layout);
+					meshPending.Data = decoded.Data;
+					decoded.Data.verts = nullptr;
+					decoded.Data.inds = nullptr;
+				}
+
+				pending = meshPending;
+			}
+			break;
+		default: //Если ресурс нельзя поставить в очередь - выходим
+			return;
+		}
+
+		std::lock_guard<std::mutex> lock(m_PendingMutex);
+		m_PendingAssets.push_back(std::move(pending));
+	}
+
+	void EditorAssetManager::UploadPendingAssets(bool flushAll)
+	{
+		D_PROFILE_FUNCTION();
+		constexpr uint64_t kUploadBudget = 5;
+
+		std::vector<PendingUpload> batch;
+		//Определяем бюджет загрузки на кадр
+		{
+			std::lock_guard<std::mutex> lock(m_PendingMutex);
+			uint64_t bytes = 0;
+			while (!m_PendingAssets.empty())
+			{
+				uint64_t size = 0;
+				auto asset = m_PendingAssets.front();
+				std::visit(overloaded
+				{
+					[&](PendingTextureUpload& t)
+					{
+						//size += t.Pixels.Size;
+						size += 1;
+					},
+					[&](PendingMeshUpload& m)
+					{
+						//size += m.Data.vertSize;
+						//size += static_cast<uint64_t>(m.Data.indsSize) * sizeof(uint32_t);
+						size += 1;
+					},
+				}, asset);
+
+				if (!flushAll && !batch.empty() && bytes + size > kUploadBudget)
+					break;
+
+				bytes += size;
+				batch.push_back(m_PendingAssets.front());
+				m_PendingAssets.erase(m_PendingAssets.begin());
+			}
+		}
+
+		//Загружаем
+		for (PendingUpload& item : batch)
+		{
+			Ref<Asset> resAsset;
+			AssetHandle handle;
+
+			std::visit(overloaded
+			{
+				[&](PendingTextureUpload& t)
+				{
+					handle = t.Handle;
+					if (!t.Failed)
+					{
+						resAsset = Texture2D::Create(t.Spec, t.Pixels);
+						t.Pixels.Release();
+					}
+
+				},
+				[&](PendingMeshUpload& m)
+				{
+					handle = m.Handle;
+					if (!m.Failed)
+						resAsset = MeshImporter::UploadMesh(m.Layout, m.Data);
+				},
+			}, item);
+
+			if (!resAsset)
+			{
+				const auto& metadata = GetMetadata(handle);
+				D_CORE_ERROR("EditorAssetManager: couldn't load asset {0}", metadata.FilePath.string());
+			}
+			else
+			{
+				resAsset->handle = handle;
+			}
+
+			std::unique_lock<std::shared_mutex> lock(m_LoadedAssetsMutex);
+			m_LoadedAssets[handle] = resAsset;
+			if (resAsset)
+			{
+				const auto& metadata = GetMetadata(handle);
+				if (!metadata.FilePath.empty() && std::filesystem::exists(metadata.FilePath))
+					m_AssetLastLoadTime[handle] = std::filesystem::last_write_time(metadata.FilePath);
+			}
+			m_InFlightLoads.erase(handle);
+		}
+	}
+
 	Ref<Asset> EditorAssetManager::GetAsset(const AssetHandle& handle)
 	{
 		D_PROFILE_FUNCTION();
 
-		//Проверяем не загружен ли уже ресурс
 		{
+			//Проверяем не был ли уже загружен ассет
 			std::shared_lock<std::shared_mutex> readLock(m_LoadedAssetsMutex);
 			const auto loaded = m_LoadedAssets.find(handle);
 			if (loaded != m_LoadedAssets.end())
 				return loaded->second;
+
+			//Проверяем не находится ли объект в очереди на загрузку
+			const auto inflight = m_InFlightLoads.find(handle);
+			if (inflight != m_InFlightLoads.end() && inflight->second->ReturnsPlaceholder)
+				return GetPlaceholder(inflight->second->metadata);
 		}
 
-		// Проверяем что мы находимся на потоке для выгрузки ресурсов
-		const bool onGraphicsThread = !JobSystem::IsInitialized() || JobSystem::ThreadIndex() == 0;
-		if (!onGraphicsThread)
-			return nullptr;
+		std::shared_ptr<AssetLoadRequest> load;
+		bool startLoad = false;
+		AssetMetadata metadata;
+		std::shared_ptr<AssetLoadRequest> asyncLoad;
+		Ref<Asset> placeholder;
 
-		//Загрузка данных
+		{
+			std::unique_lock<std::shared_mutex> lock(m_LoadedAssetsMutex);
+			//Повторные потоки если загрузка произошла уже в другом потоке
+			const auto loaded = m_LoadedAssets.find(handle);
+			if (loaded != m_LoadedAssets.end())
+				return loaded->second;
 
-		std::unique_lock<std::shared_mutex> writeLock(m_LoadedAssetsMutex); //TODO: убрать отсюда, потому что выгрузка на GPU будет происходить иначе
+			const auto inflight = m_InFlightLoads.find(handle);
+			if (inflight != m_InFlightLoads.end())
+			{
+				if (inflight->second->ReturnsPlaceholder)
+					return GetPlaceholder(inflight->second->metadata);
+				load = inflight->second;
+			}
+			else //Проверяем нужно ли загружать объект асинхронно. Если да - создаем Job для этого
+			{
+				metadata = GetMetadata(handle);
+				const bool onGraphicsThread = !JobSystem::IsInitialized() || JobSystem::ThreadIndex() == 0;
+				const bool asyncAsset =   (metadata.Type == AssetType::Texture2D || metadata.Type == AssetType::Mesh)
+										  && handle != m_EmptyTextureHandle && handle != GetPrimitiveMeshHandle(m_PlaceholderPrimitive)
+										  && JobSystem::IsInitialized()
+										  && JobSystem::ThreadCount() > 1;
 
-		const auto& metadata = GetMetadata(handle);
-		if (metadata.Type == AssetType::None)
-			return nullptr;
-		
+				if (metadata.Type == AssetType::None)
+					return nullptr;
+				if (!asyncAsset && metadata.Type != AssetType::Texture2D && metadata.Type != AssetType::Mesh && !onGraphicsThread)
+					return nullptr;
+
+				if (asyncAsset) //Создание Job на потоках кроме основного
+				{
+					asyncLoad = std::make_shared<AssetLoadRequest>();
+					asyncLoad->metadata = metadata;
+					asyncLoad->ReturnsPlaceholder = true;
+
+					const uint32_t workers = JobSystem::ThreadCount() - 1;
+					const uint32_t thread = 1 + (m_NextDecodeThread++ % workers);
+					const std::filesystem::path path = metadata.FilePath;
+					asyncLoad->Decode = CreateScope<PinnedJob>(thread, [this, handle, metadata]()
+					{
+						QueueDecodedAsset(handle, metadata);
+					});
+					m_InFlightLoads.emplace(handle, asyncLoad);
+					placeholder = GetPlaceholder(asyncLoad->metadata);
+				}
+				else
+				{
+					load = std::make_shared<AssetLoadRequest>();
+					m_InFlightLoads.emplace(handle, load);
+					startLoad = true;
+				}
+			}
+		}
+
+		if (asyncLoad) // Инитим Job для асинхронной загрузки
+		{
+			JobSystem::Schedule(*asyncLoad->Decode);
+			return placeholder;
+		}
+
+		if (!startLoad) //Даем простояться основному потоку для загрузки
+			return WaitForInFlight(load);
+
+		Ref<Asset> asset;
 		{
 			D_PROFILE_SCOPE("Load new asset");
-			Ref<Asset> placeholder = GetPlaceholderAsset(metadata);
-			if (placeholder != nullptr)
-			{
-				//Перед показом placeholder необходимо инициализировать джобы на загрузку ресурсов
-				return placeholder;
-			}
-			Ref<Asset> asset = AsssetImporter::ImportAsset(handle, metadata);
-			if (!asset)
-			{
-				D_CORE_ERROR("EditorAssetManager::GetAsset: couldn't load {0} by path {1}", AssetHelper::ToString(metadata.Type), metadata.FilePath.string());
-				m_LoadedAssets.emplace(handle, nullptr);
-				return nullptr;
-			}
-
-			m_LoadedAssets.emplace(handle, asset);
-
-			if (!metadata.FilePath.empty() && std::filesystem::exists(metadata.FilePath))
-				m_AssetLastLoadTime[handle] = std::filesystem::last_write_time(metadata.FilePath);
-
-			return asset;
+			asset = AsssetImporter::ImportAsset(handle, metadata);
 		}
+
+		if (!asset)
+		{
+			D_CORE_ERROR("EditorAssetManager::GetAsset: couldn't load {0} by path {1}", AssetHelper::ToString(metadata.Type), metadata.FilePath.string());
+		}
+
+		//Проверка готов ли ресурс
+		{
+			std::lock_guard<std::mutex> readyLock(load->Mutex);
+			load->Result = asset;
+			load->Done = true;
+		}
+		load->Ready.notify_all();
+
+		//Сохраняем ассет
+		{
+			std::unique_lock<std::shared_mutex> lock(m_LoadedAssetsMutex);
+			m_LoadedAssets.emplace(handle, asset);
+			if (asset && !metadata.FilePath.empty() && std::filesystem::exists(metadata.FilePath))
+				m_AssetLastLoadTime[handle] = std::filesystem::last_write_time(metadata.FilePath);
+			m_InFlightLoads.erase(handle);
+		}
+
+		return asset;
 	}
 
 	bool EditorAssetManager::IsAssetHandleValid(const AssetHandle& handle) const
@@ -378,7 +657,7 @@ namespace DEngine
 		return it->second;
 	}
 
-	const AssetHandle& EditorAssetManager::GetPrimitiveMesh(PrimitiveType type)
+	const AssetHandle& EditorAssetManager::GetPrimitiveMeshHandle(PrimitiveType type)
 	{
 		auto it = m_MeshPrimitives.find(type);
 		if (it != m_MeshPrimitives.end())
@@ -513,12 +792,25 @@ namespace DEngine
 		m_BaseMaterialWireframe = CreateMaterialAsset(mat, filename);
 	}
 
+	void EditorAssetManager::CreateBaseRendererMaterial()
+	{
+		Ref<Material> mat = CreateRef<Material>(m_BaseShaderHandle);
+		std::string filename = std::string("assets/materials/BaseMaterial") + std::string(AssetHelper::NativeExtension(AssetType::Material));
+		m_BaseMaterial = CreateMaterialAsset(mat, filename);
+	}
+
 	void EditorAssetManager::CreateEmptyTexture()
 	{
 		const std::filesystem::path path = AssetHelper::NormalizePath("assets/textures/white_square.png");
 		m_EmptyTextureHandle = CreateAsset({ AssetType::Texture2D, path });
-		if (std::filesystem::exists(path) && GetAsset(m_EmptyTextureHandle))
-			return;
+		if (std::filesystem::exists(path))
+		{
+			if (Ref<Asset> loaded = GetAsset(m_EmptyTextureHandle))
+			{
+				loaded->handle = m_EmptyTextureHandle;
+				return;
+			}
+		}
 
 		TextureSpecification spec;
 		spec.Width = 1;
@@ -718,16 +1010,5 @@ namespace DEngine
 		}
 
 		return storedHandle;
-	}
-
-	Ref<Asset> EditorAssetManager::GetPlaceholderAsset(const AssetMetadata& metadata)
-	{
-		switch (metadata.Type)
-		{
-			case AssetType::Texture2D:
-					return GetAsset(GetEmptyTextureHandle());
-		}
-
-		return nullptr;
 	}
 }

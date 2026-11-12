@@ -11,6 +11,7 @@
 #include "DEngine/Profiler/Profiler.h"
 
 #include "DEngine/Jobs/JobSystem.h"
+#include "DEngine/Asset/AssetManager.h"
 
 //TODO: TEMP
 #include "GLFW/glfw3.h" 
@@ -115,6 +116,9 @@ namespace DEngine
     void Application::OnRender(const Timestep& ts)
     {
         D_PROFILE_FUNCTION();
+		JobSystem::RunPinnedTasks();
+		AssetManager::UploadPendingAssets();
+
 		for (Layer* layer : m_layerStack)
 			layer->OnRender(ts);
     }

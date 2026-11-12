@@ -40,7 +40,7 @@ namespace DEngine
 
 		virtual inline const AssetHandle& GetEmptyTextureHandle() const = 0;
 
-		virtual const AssetHandle& GetPrimitiveMesh(PrimitiveType type) = 0;
+		virtual const AssetHandle& GetPrimitiveMeshHandle(PrimitiveType type) = 0;
 
 		virtual bool IsAssetHandleValid(const AssetHandle& handle) const = 0;
 		virtual bool IsAssetLoaded(const AssetHandle& handle) const = 0;

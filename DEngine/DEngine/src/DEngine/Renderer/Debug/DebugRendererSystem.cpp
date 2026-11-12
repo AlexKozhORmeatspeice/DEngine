@@ -51,17 +51,17 @@ namespace DEngine
 			switch (collider.type)
 			{
 			case ColliderType::Box:
-				meshObj = AssetManager::GetAsset<Mesh>(AssetManager::GetPrimitiveMesh(PrimitiveType::Cube));
+				meshObj = AssetManager::GetAsset<Mesh>(AssetManager::GetPrimitiveMeshHandle(PrimitiveType::Cube));
 				transform = ColliderMatrix(trans, collider.offset, collider.size);
 				break;
 
 			case ColliderType::Sphere:
-				meshObj = AssetManager::GetAsset<Mesh>(AssetManager::GetPrimitiveMesh(PrimitiveType::Sphere));
+				meshObj = AssetManager::GetAsset<Mesh>(AssetManager::GetPrimitiveMeshHandle(PrimitiveType::Sphere));
 				transform = ColliderMatrix(trans, collider.offset, glm::vec3(collider.radius * 2.0f));
 				break;
 
 			case ColliderType::Capsule:
-				meshObj = AssetManager::GetAsset<Mesh>(AssetManager::GetPrimitiveMesh(PrimitiveType::Sphere));
+				meshObj = AssetManager::GetAsset<Mesh>(AssetManager::GetPrimitiveMeshHandle(PrimitiveType::Sphere));
 				transform = ColliderMatrix(trans, collider.offset, glm::vec3(collider.radius * 2.0f, collider.height, collider.radius * 2.0f));
 				break;
 

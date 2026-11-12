@@ -181,10 +181,16 @@ namespace DEngine
 			return found->second;
 
 		Ref<Texture> texture = AssetManager::GetAsset<Texture2D>(handle);
-		if (!texture && handle != AssetManager::GetEmptyTextureHandle())
-			texture = GetTexture(AssetManager::GetEmptyTextureHandle());
+		const AssetHandle& emptyHandle = AssetManager::GetEmptyTextureHandle();
+		const bool stillLoading = texture && handle != emptyHandle && texture->handle == emptyHandle;
+		if (stillLoading)
+			return texture;
 
-		m_Textures.emplace(handle, texture);
+		if (!texture && handle != emptyHandle)
+			texture = GetTexture(emptyHandle);
+
+		if (texture)
+			m_Textures.emplace(handle, texture);
 		return texture;
 	}
 }

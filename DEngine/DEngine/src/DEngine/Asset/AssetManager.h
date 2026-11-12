@@ -17,6 +17,7 @@ namespace DEngine
 		static const AssetHandle& CreateAsset(const AssetMetadata& metadata);
 
 		static void Update();
+		static void UploadPendingAssets();
 
 		template<typename T>
 		static Ref<T> GetAsset(AssetHandle handle)
@@ -48,7 +49,7 @@ namespace DEngine
 		static const AssetHandle& GetBaseRendererMaterialWireframeHandle();
 
 		static const AssetHandle& GetEmptyTextureHandle();
-		static const AssetHandle& GetPrimitiveMesh(PrimitiveType type);
+		static const AssetHandle& GetPrimitiveMeshHandle(PrimitiveType type);
 		static const AssetHandle& CreateMaterialAsset(const Ref<Material>& material, const std::filesystem::path& path);
 
 		static const AssetHandle& CreateModelAsset(const Ref<Model>& model, const std::filesystem::path& path);

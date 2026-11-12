@@ -147,7 +147,7 @@ Entities:
     TransformComponent:
       Pos: [0, 0, 0]
       Rot: [0, 237.7, 315]
-      Scale: [0.9999993, 0.9999995, 0.99999917]
+      Scale: [0.9999993, 0.9999995, 0.99999934]
       Parent: 0
     DirectLightComponent:
       Color: [1, 1, 1]
@@ -159,7 +159,7 @@ Entities:
     TransformComponent:
       Pos: [-932.499, 760.981, 0.583]
       Rot: [0, 267.7, 330.7]
-      Scale: [0.9999988, 0.99999905, 0.9999974]
+      Scale: [0.9999989, 0.99999905, 0.99999756]
       Parent: 0
     CameraComponent:
       Projection: 0

@@ -4,12 +4,95 @@
 #include "DEngine/Scene/Entity.h"
 #include "DEngine/Scene/Components.h"
 
+#include "DEngine/Jobs/JobSystem.h"
+
 #include "fstream"
 #include "sstream"
+#include "optional"
 #include "yaml-cpp/yaml.h"
 
 namespace DEngine
 {
+    template<typename... T>
+    struct ParsedEntity
+    {
+        uint64_t UUID = 0;
+        bool HasUUID = false;
+        bool Ok = true;
+        std::tuple<std::optional<T>...> Components;
+    };
+
+    template<typename T>
+    void ReadParsedSlot(const YAML::Node& node, std::optional<T>& slot, bool& ok)
+    {
+        const YAML::Node child = node[T::GetStaticTypeName()];
+        if (!child)
+            return;
+
+        T value;
+        if (!value.Deserialize(child))
+        {
+            ok = false;
+            return;
+        }
+        slot = std::move(value);
+    }
+
+    template<typename T>
+    void ApplyParsedSlot(Entity& entity, std::optional<T>& slot)
+    {
+        if (!slot)
+            return;
+        entity.AddComponent<T>() = std::move(*slot);
+    }
+
+    template<typename... T>
+    ParsedEntity<T...> ParseEntityTextImpl(const std::string& text)
+    {
+        ParsedEntity<T...> parsed;
+        try
+        {
+            YAML::Node node = YAML::Load(text);
+            if (node["Entity"])
+            {
+                parsed.UUID = node["Entity"].as<uint64_t>();
+                parsed.HasUUID = true;
+            }
+
+            std::apply([&](auto&... slot)
+            {
+                (ReadParsedSlot(node, slot, parsed.Ok), ...);
+            }, parsed.Components);
+        }
+        catch (const std::exception&)
+        {
+            parsed.Ok = false;
+        }
+        return parsed;
+    }
+
+    template<typename Tuple>
+    struct ParsedEntityOf;
+
+    template<typename... T>
+    struct ParsedEntityOf<std::tuple<T...>>
+    {
+        using Type = ParsedEntity<T...>;
+    };
+
+    using ParsedSceneEntity = ParsedEntityOf<ComponentList>::Type;
+
+    template<typename... T>
+    ParsedSceneEntity ParseFromList(const std::string& text, std::tuple<T...>*)
+    {
+        return ParseEntityTextImpl<T...>(text);
+    }
+
+    ParsedSceneEntity ParseEntityText(const std::string& text)
+    {
+        return ParseFromList(text, static_cast<ComponentList*>(nullptr));
+    }
+
     template<typename T>
     void SceneSerializer::SerializeComponent(YAML::Emitter& out, const Entity& entity)
     {
@@ -168,11 +251,41 @@ namespace DEngine
         auto entitiesNode = data["Entities"];
         if (entitiesNode)
         {
+            // yaml-cpp nodes share memory, so each entity is copied to its own
+            // string before any worker reads it.
+            std::vector<std::string> texts;
             for (auto entityNode : entitiesNode)
+                texts.push_back(YAML::Dump(entityNode));
+
+            std::vector<ParsedSceneEntity> parsed(texts.size());
+            if (!texts.empty() && JobSystem::IsInitialized())
+            {
+                Job parse(static_cast<uint32_t>(texts.size()), [&](const JobRange& range, uint32_t)
+                {
+                    for (uint32_t i = range.Start; i < range.End; i++)
+                        parsed[i] = ParseEntityText(texts[i]);
+                }, 32);
+                JobSystem::Schedule(parse);
+                JobSystem::Wait(parse);
+            }
+            else
+            {
+                for (size_t i = 0; i < texts.size(); i++)
+                    parsed[i] = ParseEntityText(texts[i]);
+            }
+
+            for (ParsedSceneEntity& entityData : parsed)
             {
                 Entity entity = newScene->CreateEmptyEntity();
+                if (entityData.HasUUID)
+                    entity.SetUUID(entityData.UUID);
 
-                if (!DeserializeEntity(entityNode, entity))
+                std::apply([&](auto&... slot)
+                {
+                    (ApplyParsedSlot(entity, slot), ...);
+                }, entityData.Components);
+
+                if (!entityData.Ok)
                 {
                     D_CORE_WARN("Failed to deserialize entity, skipping...");
                     continue;
@@ -181,7 +294,6 @@ namespace DEngine
                 D_CORE_INFO("Deserialized entity with ID: {0}", entity.GetUUID());
             }
         }
-
         newScene->RebuildActivity();
 
         result.isSuccessful = true;

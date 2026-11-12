@@ -5,9 +5,16 @@
 #include "AssetManagerBase.h"
 #include "FileWatcher.h"
 #include "DEngine/Asset/Asset.h"
+#include "DEngine/Jobs/JobSystem.h"
+#include "DEngine/Renderer/Texture/Texture.h"
 
 #include "unordered_map"
+#include <condition_variable>
+#include <memory>
+#include <mutex>
 #include <shared_mutex>
+#include <vector>
+#include <variant>
 
 namespace DEngine
 {
@@ -45,7 +52,7 @@ namespace DEngine
 		virtual inline const AssetHandle& GetBaseRendererShader() const override { return m_BaseShaderHandle; }
 		virtual const AssetHandle& GetBaseRendererMaterialWireframeHandle() const override { return m_BaseMaterialWireframe; }
 		virtual inline const AssetHandle& GetEmptyTextureHandle() const override { return m_EmptyTextureHandle; }
-		virtual const AssetHandle& GetPrimitiveMesh(PrimitiveType type) override;
+		virtual const AssetHandle& GetPrimitiveMeshHandle(PrimitiveType type) override;
 
         void ReloadAsset(const AssetHandle& handle);
         void ReloadAssetByPath(const std::filesystem::path& path);
@@ -55,9 +62,44 @@ namespace DEngine
 		const AssetRegistry& GetAssetRegistry() const { return m_AssetRegistry; }
 
         void Update();
+		void UploadPendingAssets(bool flushAll = false);
 
 	private:
-		Ref<Asset> GetPlaceholderAsset(const AssetMetadata& metadata);
+		struct AssetLoadRequest
+		{
+			std::mutex Mutex;
+			std::condition_variable Ready;
+			bool Done = false;
+			bool ReturnsPlaceholder = false;
+			AssetMetadata metadata;
+			Ref<Asset> Result;
+			Scope<PinnedJob> Decode;
+		};
+
+		template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
+		template<class... Ts> overloaded(Ts...) -> overloaded<Ts...>;
+
+		struct PendingTextureUpload
+		{
+			AssetHandle Handle;
+			TextureSpecification Spec;
+			DataBuffer Pixels;
+			bool Failed = false;
+		};
+
+		struct PendingMeshUpload
+		{
+			AssetHandle Handle;
+			BufferLayout Layout;
+			MeshData Data;
+			bool Failed = false;
+		};
+
+		using PendingUpload = std::variant<PendingTextureUpload, PendingMeshUpload>;
+
+		Ref<Asset> WaitForInFlight(const std::shared_ptr<AssetLoadRequest>& load);
+		Ref<Asset> GetPlaceholder(const AssetMetadata& metadata);
+		void QueueDecodedAsset(AssetHandle handle, const AssetMetadata& path);
 
 		// Handle stored in the registry. Null when this path is not registered.
 		const AssetHandle* FindHandleByPath(const std::filesystem::path& path);
@@ -71,6 +113,7 @@ namespace DEngine
 		void CreateBaseRendererShader();
 		void CreateWireframeShader();
 		void CreateBaseRendererMaterialWireframe();
+		void CreateBaseRendererMaterial();
 
 		void CreateEmptyTexture();
 		const AssetHandle& CreateMeshPrimitive(PrimitiveType type);
@@ -82,9 +125,14 @@ namespace DEngine
 
 	private:
 		std::unordered_map<PrimitiveType, AssetHandle> m_MeshPrimitives;
+		PrimitiveType m_PlaceholderPrimitive = PrimitiveType::Cube;
+
 		AssetHandle m_BaseShaderHandle;
+		AssetHandle m_BaseMaterial;
+
 		AssetHandle m_WireframeShaderHandle;
 		AssetHandle m_BaseMaterialWireframe;
+
 		AssetHandle m_EmptyTextureHandle;
 
 		AssetRegistry m_AssetRegistry;
@@ -93,6 +141,10 @@ namespace DEngine
 
         FileWatcher m_FileWatcher;
         bool m_HotReloadEnabled = true;
+        std::unordered_map<AssetHandle, std::shared_ptr<AssetLoadRequest>> m_InFlightLoads;
+		std::mutex m_PendingMutex;
+		std::vector<PendingUpload> m_PendingAssets;
+		uint32_t m_NextDecodeThread = 0;
         std::unordered_map<std::filesystem::path, AssetHandle> m_PathToHandle;
         std::unordered_map<AssetHandle, std::filesystem::path> m_HandleToPath;
         

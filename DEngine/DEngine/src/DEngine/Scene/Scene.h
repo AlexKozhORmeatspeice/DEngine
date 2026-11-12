@@ -8,6 +8,7 @@
 #include <memory>
 #include <unordered_map>
 #include <vector>
+#include "shared_mutex"
 
 namespace DEngine
 {
@@ -67,6 +68,8 @@ namespace DEngine
         static AssetType GetStaticType() { return AssetType::Scene; }
         virtual AssetType GetType() const override { return GetStaticType(); }
     private:
+        std::shared_mutex m_CreateEntityMutex;
+
         void AddSystem(std::shared_ptr<System> system);
         void RefreshActivity(Entity entity);
         void PropagateActivityDown(const Entity& node);

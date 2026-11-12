@@ -28,8 +28,8 @@ namespace DEngine
 		const AssetHandle matHandle2 = AssetManager::CreateMaterialAsset(mat2, "assets/materials/" + matName2);
 
 		const AssetHandle sponzaHandle = AssetManager::CreateAsset({ AssetType::Model, "assets/models/sponza.obj-master/sponza.obj" });
-		const AssetHandle meshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Cube);
-		const AssetHandle sphereMeshHandle = AssetManager::GetPrimitiveMesh(PrimitiveType::Sphere);
+		const AssetHandle meshHandle = AssetManager::GetPrimitiveMeshHandle(PrimitiveType::Cube);
+		const AssetHandle sphereMeshHandle = AssetManager::GetPrimitiveMeshHandle(PrimitiveType::Sphere);
 
 		auto& cube = scene->CreateEntity("cubee");
 		cube.AddComponent<MeshRendererComponent>(meshHandle, matHandle);

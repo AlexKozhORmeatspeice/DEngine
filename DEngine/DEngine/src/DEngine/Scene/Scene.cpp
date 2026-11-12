@@ -29,6 +29,7 @@ namespace DEngine
 
     Entity Scene::CreateEntity(const std::string& name)
     {
+        std::unique_lock<std::shared_mutex> lock(m_CreateEntityMutex);
         entt::entity handle = m_Registry.create();
         UUID uuid;
 
@@ -47,6 +48,7 @@ namespace DEngine
 
     Entity Scene::CreateEmptyEntity()
     {
+        std::unique_lock<std::shared_mutex> lock(m_CreateEntityMutex);
         entt::entity handle = m_Registry.create();
         m_Entities.emplace_back(handle, this);
 
@@ -57,6 +59,7 @@ namespace DEngine
 
     void Scene::DestroyEntity(Entity& entity)
     {
+        std::unique_lock<std::shared_mutex> lock(m_CreateEntityMutex);
         uint64_t uuid = entity.GetUUID();
         if (uuid == 0)
             uuid = GetUUID(entity.GetHandle());
