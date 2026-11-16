@@ -12,14 +12,18 @@ namespace DEngine
 
 	void EditorLayer::Init()
 	{
+		//Инициализируем системы движка
 		AssetManager::Init(std::make_shared<EditorAssetManager>());
+		Renderer::Init();
 
+		//Создаем камры
 		const Window& win = Application::Get().GetWindow();
 		m_Camera.Init(win.GetWidth(), win.GetHeight());
 		m_Camera.SetViewport(&m_EditorViewport);
 		m_EditorViewport.Init(m_Camera.GetCamera());
 		m_GameViewport.Init();
 
+		//Загружаем сцену
 		const AssetHandle sceneHandle = AssetManager::CreateAsset(SceneGenerator::BaseScenePath());
 		m_ActiveScene = AssetManager::GetAsset<Scene>(sceneHandle);
 		if (!m_ActiveScene)
@@ -57,7 +61,7 @@ namespace DEngine
 
 		m_CurrentGameMode = GAME;
 		DisableSelectedEntityDebug();
-		EnablePhysics();
+		EnableLogic();
 		D_INFO("SWITCHED TO PLAY MODE");
 	}
 
@@ -98,7 +102,7 @@ namespace DEngine
 		BindScene(loaded.scene, true);
 	}
 
-	void EditorLayer::EnablePhysics()
+	void EditorLayer::EnableLogic()
 	{
 		auto comps = m_ActiveScene->View<TagComponent>();
 		for (auto [entity, tagcomp] : comps.each())

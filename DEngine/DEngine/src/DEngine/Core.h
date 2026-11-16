@@ -52,4 +52,9 @@ namespace DEngine
 	Ref<T> CreateRef(Args&&... args) {
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
+
+	template<typename T, typename... Args>
+	Ref<T> CastRef(Args&&... args) {
+		return std::dynamic_pointer_cast<T>(std::forward<Args>(args)...);
+	}
 }

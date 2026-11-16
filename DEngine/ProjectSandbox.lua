@@ -24,7 +24,8 @@ project "Sandbox"
         "%{IncludeDir.entt}",
         "%{IncludeDir.yaml}",
         "%{IncludeDir.tracy}",
-        "%{IncludeDir.enkiTS}"
+        "%{IncludeDir.enkiTS}",
+        "%{IncludeDir.Vulkan}",
     }
 
     links

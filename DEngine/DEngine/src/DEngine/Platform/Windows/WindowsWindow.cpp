@@ -6,6 +6,8 @@
 #include "DEngine/Events/KeyEvent.h"
 
 #include "DEngine/Platform/OpenGL/OpenGLContext.h"
+#include "DEngine/Platform/Vulkan/VulkanContext.h"
+#include "DEngine/Renderer/RendererAPI.h"
 #include "DEngine/Profiler/Profiler.h"
 #include "GLFW/glfw3.h"
 
@@ -48,9 +50,15 @@ namespace DEngine
 			s_GLFWInitialized = true;
 		}
 
+		if (RendererAPI::GetAPI() == RendererAPI::API::Vulkan)
+			glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+
 		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 
-		m_Context = new OpenGLContext(m_Window);
+		if (RendererAPI::GetAPI() == RendererAPI::API::Vulkan)
+			m_Context = new VulkanContext(m_Window);
+		else
+			m_Context = new OpenGLContext(m_Window);
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -157,13 +165,12 @@ namespace DEngine
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
-		if (enabled)
+		if (RendererAPI::GetAPI() == RendererAPI::API::OpenGL)
 		{
-			glfwSwapInterval(1);
-		}
-		else
-		{
-			glfwSwapInterval(0);
+			if (enabled)
+				glfwSwapInterval(1);
+			else
+				glfwSwapInterval(0);
 		}
 
 		m_Data.VSync = enabled;

@@ -26,6 +26,7 @@ project "DEditor"
         "%{IncludeDir.ImGuizmo}",
         "%{IncludeDir.tracy}",
         "%{IncludeDir.enkiTS}",
+        "%{IncludeDir.Vulkan}",
     }
 
     links

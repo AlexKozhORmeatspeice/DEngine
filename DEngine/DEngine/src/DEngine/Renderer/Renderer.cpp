@@ -1,15 +1,23 @@
 #include "dpch.h"
 #include "Renderer.h"
 
+#include "DEngine/Application.h"
+#include "DEngine/Asset/AssetManager.h"
+
 namespace DEngine
 {
 	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
-	RenderPipelineProvider Renderer::m_RenderPipelineProvider;
+	Ref<RendererPipeline> Renderer::m_Pipeline;
 
 	void Renderer::Init()
 	{
 		RenderCommand::Init();
-		m_RenderPipelineProvider.Init();
+		const Window& window = Application::Get().GetWindow();
+
+		m_Pipeline = RendererPipeline::Create(
+			AssetManager::GetAsset<Shader>(AssetManager::GetBaseRendererShaderHandle()),
+			Application::Get().GetDevice(),
+			RendererPipeline::CreateDefaultPipelineState(window.GetWidth(), window.GetHeight()));
 	}
 
 	void Renderer::BeginScene(const DEngine::Ref<Camera>& camera)

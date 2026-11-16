@@ -17,5 +17,9 @@
 #include "DEngine/Core/DataBuffer.h"
 
 #ifdef D_PLATFORM_WINDOWS
+	#ifndef NOMINMAX
+		#define NOMINMAX
+	#endif
 	#include "Windows.h"
+	#include <vulkan/vulkan.h>
 #endif

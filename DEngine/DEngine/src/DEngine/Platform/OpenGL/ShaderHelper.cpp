@@ -236,7 +236,7 @@ namespace DEngine
 		D_CORE_ASSERT(compiler.IsValid(), "shaderc compiler failed to start");
 
 		shaderc::CompileOptions options;
-		options.SetTargetEnvironment(shaderc_target_env_vulkan, shaderc_env_version_vulkan_1_2);
+		options.SetTargetEnvironment(shaderc_target_env_vulkan, shaderc_env_version_vulkan_1_1);
 		options.SetSourceLanguage(shaderc_source_language_glsl);
 		options.SetOptimizationLevel(shaderc_optimization_level_zero);
 
@@ -278,7 +278,7 @@ namespace DEngine
 		const char* stage = ShaderStageName(type);
 		uint64_t hash = HashSource(source);
 		std::filesystem::path cacheDir(kShaderCacheDir);
-		std::filesystem::path vulkanPath = cacheDir / CacheFileName(name, stage, "_Vulkan", "spv");
+		std::filesystem::path vulkanPath = cacheDir / CacheFileName(name, stage, "_Vulkan11", "spv");
 		std::filesystem::path openGLPath = cacheDir / CacheFileName(name, stage, "_OpenGL", "glsl");
 
 		std::string glsl;

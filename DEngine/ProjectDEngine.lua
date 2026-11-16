@@ -39,11 +39,13 @@ project "DEngine"
         "%{IncludeDir.enkiTS}",
         "%{IncludeDir.shaderc}",
         "%{IncludeDir.spirv_cross}",
+        "%{IncludeDir.Vulkan}",
     }
 
     libdirs
     {
-        "%{prj.name}/vendor/assimp/lib"
+        "%{prj.name}/vendor/assimp/lib",
+        "%{LibraryDir.Vulkan}"
     }
 
     links
@@ -72,6 +74,7 @@ project "DEngine"
         links
         {
             "opengl32.lib",
+            "vulkan-1.lib",
             "dwmapi.lib",
             "gdi32.lib",
             "user32.lib",
@@ -85,7 +88,8 @@ project "DEngine"
             "GLFW_INCLUDE_NONE",
             "_CRT_SECURE_NO_WARNINGS",
             "_CRT_NONSTDC_NO_WARNINGS",
-            "YAML_CPP_STATIC_DEFINE"
+            "YAML_CPP_STATIC_DEFINE",
+            "VK_USE_PLATFORM_WIN32_KHR"
         }
 
     filter "configurations:Debug"

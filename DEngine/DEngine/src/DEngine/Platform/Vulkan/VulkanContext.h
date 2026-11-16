@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DEngine/Core.h"
+#define GLFW_INCLUDE_VULKAN
 #include "DEngine/Renderer/GraphicsContext.h"
 
 class GLFWwindow;

@@ -30,9 +30,9 @@ namespace DEngine
         //Create window
         m_Window = Window::Create(WindowProps(name));
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+        m_RenderDevice = RenderDevice::Create(*m_Window);
+		m_SwapChain = SwapChain::Create(*m_RenderDevice, m_Window->GetWidth(), m_Window->GetHeight());
 
-        //Renderer
-        Renderer::Init();
         D_PROFILE_THREAD("Main");
 
         //Init ImGui
@@ -126,10 +126,10 @@ namespace DEngine
     void Application::GUIUpdate()
     {
         D_PROFILE_FUNCTION();
-		m_ImGuiLayer->Begin();
-		for (Layer* layer : m_layerStack)
-			layer->OnImGuiRenderer();
-		m_ImGuiLayer->End();
+		//m_ImGuiLayer->Begin();
+		//for (Layer* layer : m_layerStack)
+			//layer->OnImGuiRenderer();
+		//m_ImGuiLayer->End();
     }
 
     void Application::Shutdown()

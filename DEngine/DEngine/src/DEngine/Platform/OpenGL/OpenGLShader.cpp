@@ -33,7 +33,6 @@ namespace DEngine
 		glUseProgram(0);
 	}
 
-
 	void OpenGLShader::Compile(const ShaderRegistry& shaderSources)
 	{
 		ShaderRegistry openGLSources;

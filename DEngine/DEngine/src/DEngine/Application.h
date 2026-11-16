@@ -2,6 +2,8 @@
 
 #include "Core.h"
 #include "Window.h"
+#include "SwapChain/SwapChain.h"
+#include "DEngine/Renderer/Device/RenderDevice.h"
 #include "Layer/LayerStack.h"
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
@@ -33,6 +35,8 @@ namespace DEngine
 
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
+		inline RenderDevice& GetDevice() { return *m_RenderDevice; }
+
         inline float GetFPS() const { return m_FPS; }
 
     private:
@@ -49,6 +53,8 @@ namespace DEngine
 
     private:
 		Scope<Window> m_Window;
+        Scope<SwapChain> m_SwapChain;
+        Scope<RenderDevice> m_RenderDevice;
 
 		ImGuiLayer* m_ImGuiLayer;
         LayerStack m_layerStack;

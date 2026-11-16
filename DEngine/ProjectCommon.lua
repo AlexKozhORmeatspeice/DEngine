@@ -17,6 +17,15 @@ IncludeDir["enkiTS"] = "DEngine/vendor/enkiTS/src"
 IncludeDir["shaderc"] = "DEngine/vendor/shaderc/libshaderc/include"
 IncludeDir["spirv_cross"] = "DEngine/vendor/SPIRV-Cross"
 
+VulkanSDK = os.getenv("VULKAN_SDK")
+if not VulkanSDK or VulkanSDK == "" then
+    VulkanSDK = "C:/VulkanSDK/1.4.363.1"
+end
+VulkanSDK = VulkanSDK:gsub("\\", "/")
+IncludeDir["Vulkan"] = VulkanSDK .. "/Include"
+LibraryDir = {}
+LibraryDir["Vulkan"] = VulkanSDK .. "/Lib"
+
 function EnableTracy()
     filter "configurations:Debug"
         defines { "TRACY_ENABLE", "TRACY_ON_DEMAND" }

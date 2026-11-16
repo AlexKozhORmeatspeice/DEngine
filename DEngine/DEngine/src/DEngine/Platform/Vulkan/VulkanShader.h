@@ -34,11 +34,12 @@ namespace DEngine
 		virtual uint32_t GetUniformLocation(const std::string& name) override;
 
 		virtual inline const std::string& GetName() const override { return m_Name; }
+		virtual const std::unordered_map<ShaderType, VkShaderModule>& GetShaderModules() const { return m_ShaderModules; }
 
 	private:
 		void Compile(const ShaderRegistry& shaderSources);
 	private:
-		uint32_t m_RendererID;
+		std::unordered_map<ShaderType, VkShaderModule> m_ShaderModules;
 		std::string m_Name;
 	};
 }
