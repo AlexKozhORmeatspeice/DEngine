@@ -3,6 +3,7 @@
 
 #include "DEngine/Renderer/Renderer.h"
 #include "DEngine/Platform/OpenGL/OpenGLFramebuffer.h"
+#include "DEngine/Platform/Vulkan/VulkanFramebuffer.h"
 
 namespace DEngine
 {
@@ -11,6 +12,7 @@ namespace DEngine
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::OpenGL: return std::make_shared<OpenGLFramebuffer>(spec);
+			case RendererAPI::API::Vulkan: return std::make_shared<VulkanFramebuffer>(spec);
 			case RendererAPI::API::None: D_CORE_ASSERT(false, "None API is not supported");
 			default:
 				break;

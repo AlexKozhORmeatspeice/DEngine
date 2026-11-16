@@ -37,12 +37,16 @@ namespace DEngine
 
 	void OpenGLRendererAPI::DrawIndexed(const DEngine::Ref<VertexArray> vertArr)
 	{
+		if (!vertArr || !vertArr->GetIndexBuffer())
+			return;
+
 		vertArr->Bind();
 		glDrawElements(GL_TRIANGLES, vertArr->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
 	void OpenGLRendererAPI::DrawIndexedWireframe(const DEngine::Ref<VertexArray> vertArr)
 	{
-		vertArr->Bind();
+		if (!vertArr || !vertArr->GetIndexBuffer())
+			return;
 
 		// Triangle indexes are not line pairs. Draw the mesh edges, on top of the solid object.
 		glDisable(GL_CULL_FACE);

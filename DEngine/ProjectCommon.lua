@@ -14,6 +14,8 @@ IncludeDir["assimp"] = "DEngine/vendor/assimp/include"
 IncludeDir["ImGuizmo"] = "DEngine/vendor/ImGuizmo"
 IncludeDir["tracy"] = "DEngine/vendor/tracy/public"
 IncludeDir["enkiTS"] = "DEngine/vendor/enkiTS/src"
+IncludeDir["shaderc"] = "DEngine/vendor/shaderc/libshaderc/include"
+IncludeDir["spirv_cross"] = "DEngine/vendor/SPIRV-Cross"
 
 function EnableTracy()
     filter "configurations:Debug"
@@ -33,6 +35,8 @@ function IncludeEngineDependencies()
         include "DEngine/vendor/yaml-cpp"
         include "DEngine/vendor/tracy"
         include "DEngine/vendor/enkiTS"
+        include "DEngine/vendor/shaderc"
+        include "DEngine/vendor/SPIRV-Cross"
     group ""
     filter {}
 end

@@ -1,7 +1,9 @@
 #include "dpch.h"
 #include "OpenGLShader.h"
 
-#include "fstream"
+#include "ShaderHelper.h"
+
+#include "vector"
 
 #include "glad/glad.h"
 #include "glm/gtc/type_ptr.hpp"
@@ -10,18 +12,6 @@
 
 namespace DEngine
 {
-	static GLenum ShaderTypeToGLType(ShaderType type)
-	{
-		if (type == ShaderType::Vertex)
-			return GL_VERTEX_SHADER;
-
-		if (type == ShaderType::Fragment)
-			return GL_FRAGMENT_SHADER;
-
-		D_CORE_ASSERT(false, "Unkown shader type!");
-		return GL_NONE;
-	}
-
 	OpenGLShader::OpenGLShader(const ShaderRegistry& shaderRegistry, const std::string& name)
 		: m_Name(name)
 	{
@@ -46,16 +36,20 @@ namespace DEngine
 
 	void OpenGLShader::Compile(const ShaderRegistry& shaderSources)
 	{
+		ShaderRegistry openGLSources;
+		for (auto&& [type, source] : shaderSources)
+			openGLSources[type] = ShaderHelper::OpenGLSourceFromVulkan(type, source, m_Name);
+
 		GLuint prog = glCreateProgram();
 
-		D_CORE_ASSERT(shaderSources.size() <= MAX_SHADER_SIZE, "Too many shaders passed. Increase max number of shaders in engine API");
+		D_CORE_ASSERT(openGLSources.size() <= MAX_SHADER_SIZE, "Too many shaders passed. Increase max number of shaders in engine API");
 
 		std::array<GLuint, MAX_SHADER_SIZE> glShaderIds;
 
 		int i = 0;
-		for (auto&& [type, source] : shaderSources)
+		for (auto&& [type, source] : openGLSources)
 		{
-			GLuint shader = glCreateShader(ShaderTypeToGLType(type));
+			GLuint shader = glCreateShader(ShaderHelper::ShaderTypeToGLType(type));
 
 			//Create shader handle
 			const GLchar* gl_source = source.c_str();

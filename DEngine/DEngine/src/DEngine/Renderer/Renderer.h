@@ -7,6 +7,7 @@
 #include "DEngine/Renderer/Shader/Shader.h"
 #include "DEngine/Renderer/Mesh/Mesh.h"
 #include "DEngine/Renderer/Material/Material.h"
+#include "DEngine/Renderer/Pipeline/RenderPipelineProvider.h"
 
 #include "glm/glm.hpp"
 
@@ -29,6 +30,8 @@ namespace DEngine
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	private:
+		static RenderPipelineProvider m_RenderPipelineProvider;
+
 		struct SceneData
 		{
 			glm::mat4 viewProjMat;

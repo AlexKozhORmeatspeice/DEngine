@@ -1,27 +1,34 @@
 #type vertex
-#version 330 core
+#version 450
 
 layout(location = 0) in vec3 a_Position;
 
-uniform mat4 u_ViewProj;
-uniform mat4 u_ModelMat;
+layout(set = 0, binding = 0) uniform Camera
+{
+    mat4 u_ViewProj;
+    mat4 u_ModelMat;
+};
 
-out vec3 v_WorldPos;
+layout(location = 0) out vec3 v_WorldPos;
 
 void main()
 {
-    vec4 worldPos = u_ModelMat * vec4(a_Position, 1.0f);
+    vec4 worldPos = u_ModelMat * vec4(a_Position, 1.0);
     v_WorldPos = worldPos.xyz;
     gl_Position = u_ViewProj * worldPos;
 }
 
 #type fragment
-#version 330 core
+#version 450
+
+layout(location = 0) in vec3 v_WorldPos;
 
 layout(location = 0) out vec4 color;
 
-in vec3 v_WorldPos;
-uniform vec3 u_ViewPos;
+layout(set = 0, binding = 0) uniform View
+{
+    vec3 u_ViewPos;
+};
 
 void main()
 {

@@ -2,6 +2,7 @@
 #include "Shader.h"
 
 #include "DEngine/Platform/OpenGL/OpenGLShader.h"
+#include "DEngine/Platform/Vulkan/VulkanShader.h"
 #include "DEngine/Renderer/Renderer.h"
 
 namespace DEngine
@@ -12,6 +13,8 @@ namespace DEngine
 		{
 			case RendererAPI::API::OpenGL:
 				return std::make_shared<OpenGLShader>(shaderRegistry, name);
+			case RendererAPI::API::Vulkan:
+				return std::make_shared<VulkanShader>(shaderRegistry, name);
 			case RendererAPI::API::None: D_CORE_ASSERT(false, "None API is not supported");
 			default:
 				break;

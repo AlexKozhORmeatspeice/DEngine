@@ -37,6 +37,8 @@ project "DEngine"
         "%{IncludeDir.ImGuizmo}",
         "%{IncludeDir.tracy}",
         "%{IncludeDir.enkiTS}",
+        "%{IncludeDir.shaderc}",
+        "%{IncludeDir.spirv_cross}",
     }
 
     libdirs
@@ -52,7 +54,13 @@ project "DEngine"
         "yaml-cpp",
         "assimp-vc143-mt",
         "Tracy",
-        "enkiTS"
+        "enkiTS",
+        "SPIRV-Cross"
+    }
+
+    dependson
+    {
+        "shaderc"
     }
 
     filter "files:vendor/ImGuizmo/**.cpp"
@@ -84,15 +92,18 @@ project "DEngine"
         defines "D_DEBUG"
         runtime "Debug"
         symbols "on"
+        links { path.join(path.getdirectory(_SCRIPT), "DEngine/vendor/shaderc/build/libshaderc/Debug/shaderc_combined.lib") }
 
     filter "configurations:Release"
         defines "D_RELEASE"
         runtime "Release"
         optimize "on"
+        links { path.join(path.getdirectory(_SCRIPT), "DEngine/vendor/shaderc/build/libshaderc/Release/shaderc_combined.lib") }
 
     filter "configurations:Dist"
         defines "D_DIST"
         runtime "Release"
         optimize "on"
+        links { path.join(path.getdirectory(_SCRIPT), "DEngine/vendor/shaderc/build/libshaderc/Release/shaderc_combined.lib") }
 
 EnableTracy()

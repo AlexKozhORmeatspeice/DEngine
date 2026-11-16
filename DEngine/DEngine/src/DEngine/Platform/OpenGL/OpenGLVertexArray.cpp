@@ -49,6 +49,9 @@ namespace DEngine
 
 	void OpenGLVertexArray::AddVertexBuffer(const DEngine::Ref<VertexBuffer>& vertBuffer)
 	{
+		if (!vertBuffer)
+			return;
+
 		glBindVertexArray(m_RendererID);
 		vertBuffer->Bind();
 
@@ -75,6 +78,9 @@ namespace DEngine
 
 	void OpenGLVertexArray::SetIndexBuffer(const DEngine::Ref<IndexBuffer>& indBuffer)
 	{
+		if (!indBuffer)
+			return;
+
 		glBindVertexArray(m_RendererID);
 		indBuffer->Bind();
 

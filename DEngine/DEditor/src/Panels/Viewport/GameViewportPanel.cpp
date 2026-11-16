@@ -40,10 +40,12 @@ namespace DEngine
 			if (gameSize.x > 0.0f && gameSize.y > 0.0f && (m_Size.x != gameSize.x || m_Size.y != gameSize.y))
 			{
 				m_Size = { gameSize.x, gameSize.y };
-				m_Framebuffer->Resize((uint32_t)gameSize.x, (uint32_t)gameSize.y);
+				if (m_Framebuffer)
+					m_Framebuffer->Resize((uint32_t)gameSize.x, (uint32_t)gameSize.y);
 			}
 
-			ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{ gameSize.x, gameSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+			if (m_Framebuffer)
+				ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{ gameSize.x, gameSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 			AcceptModelDrop(scene);
 			if (!m_UsesSceneCamera)
 			{

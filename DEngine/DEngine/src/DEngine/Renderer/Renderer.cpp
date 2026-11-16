@@ -4,10 +4,12 @@
 namespace DEngine
 {
 	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
+	RenderPipelineProvider Renderer::m_RenderPipelineProvider;
 
 	void Renderer::Init()
 	{
 		RenderCommand::Init();
+		m_RenderPipelineProvider.Init();
 	}
 
 	void Renderer::BeginScene(const DEngine::Ref<Camera>& camera)
@@ -31,6 +33,10 @@ namespace DEngine
 		if (!mesh || !mat)
 			return;
 
+		Ref<VertexArray> vertexArray = mesh->GetVertexArray();
+		if (!vertexArray || !vertexArray->GetIndexBuffer())
+			return;
+
 		mat->SetMat4("u_ViewProj", s_SceneData->viewProjMat);
 		mat->SetMat4("u_ModelMat", trans);
 		mat->SetFloat3("u_ViewPos", s_SceneData->cam->GetPos());
@@ -41,11 +47,11 @@ namespace DEngine
 		switch (mode)
 		{
 			case WIREFRAME:
-				RenderCommand::DrawIndexedWireframe(mesh->GetVertexArray());
+				RenderCommand::DrawIndexedWireframe(vertexArray);
 				break;
 			case SOLID:
 			default:
-				RenderCommand::DrawIndexed(mesh->GetVertexArray());
+				RenderCommand::DrawIndexed(vertexArray);
 				break;
 		}
 

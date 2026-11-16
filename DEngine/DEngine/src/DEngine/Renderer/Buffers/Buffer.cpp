@@ -3,6 +3,7 @@
 
 #include "DEngine/Renderer/Renderer.h"
 #include "DEngine/Platform/OpenGL/OpenGLBuffer.h"
+#include "DEngine/Platform/Vulkan/VulkanBuffer.h"
 
 namespace DEngine
 {
@@ -12,6 +13,8 @@ namespace DEngine
 		{
 		case RendererAPI::API::OpenGL:
 			return std::make_shared<OpenGLVertexBuffer>(verts, size);
+		case RendererAPI::API::Vulkan:
+			return std::make_shared<VulkanVertexBuffer>(verts, size);
 		case RendererAPI::API::None:
 			D_CORE_ASSERT(false, "None API is not supported")
 			break;
@@ -28,6 +31,8 @@ namespace DEngine
 		{
 		case RendererAPI::API::OpenGL:
 			return std::make_shared<OpenGLIndexBuffer>(inds, count);
+		case RendererAPI::API::Vulkan:
+			return std::make_shared<VulkanIndexBuffer>(inds, count);
 		case RendererAPI::API::None:
 			D_CORE_ASSERT(false, "None API is not supported")
 			break;
