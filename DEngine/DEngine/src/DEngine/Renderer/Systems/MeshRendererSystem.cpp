@@ -80,6 +80,9 @@ namespace DEngine
 
 		JobSystem::Schedule(prepare);
 		JobSystem::Wait(prepare);
+
+		if (!lights.empty())
+			Renderer::SetDirectionalLight(lights[0].lookDir, lights[0].color);
 		
 		{
 			D_PROFILE_SCOPE("Renderer upload")
@@ -99,12 +102,6 @@ namespace DEngine
 
 				if (!obj.mat || !obj.mesh)
 					continue;
-
-				if (!lights.empty())
-				{
-					obj.mat->SetFloat3("u_LightDirection", lights[0].lookDir);
-					obj.mat->SetFloat3("u_LightColor", lights[0].color);
-				}
 
 				Renderer::Submit(obj.mesh, obj.mat, obj.model);
 			}

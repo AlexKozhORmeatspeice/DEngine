@@ -1,5 +1,7 @@
 #include "dpch.h"
 #include "VulkanVertexArray.h"
+#include "DEngine/Platform/Vulkan/VulkanBuffer.h"
+#include "DEngine/Platform/Vulkan/VulkanCommandBuffer.h"
 
 namespace DEngine
 {
@@ -11,11 +13,19 @@ namespace DEngine
 	{
 	}
 
-	void VulkanVertexArray::Bind() const
+	void VulkanVertexArray::Bind(CommandBuffer& commandBuffer) const
 	{
+		for (const Ref<VertexBuffer>& buffer : m_VertexBuffers)
+		{
+			if (buffer)
+				buffer->Bind(commandBuffer);
+		}
+
+		if (m_IndexBuffer)
+			m_IndexBuffer->Bind(commandBuffer);
 	}
 
-	void VulkanVertexArray::Unbind() const
+	void VulkanVertexArray::Unbind(CommandBuffer& commandBuffer) const
 	{
 	}
 

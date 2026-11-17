@@ -2,9 +2,15 @@
 
 #include "DEngine/Core.h"
 #include "DEngine/Renderer/Device/RenderDevice.h"
+#include "DEngine/Renderer/Buffers/Framebuffer.h"
+
+#include "vector"
 
 namespace DEngine
 {
+	class RenderPass;
+	class CommandBuffer;
+
 	class D_API SwapChain
 	{
 	public:
@@ -18,11 +24,19 @@ namespace DEngine
 		uint32_t GetWidth() const { return m_Width; }
 		uint32_t GetHeight() const { return m_Height; }
 		uint32_t GetImageCount() const { return m_ImageCount; }
+		virtual uint32_t GetCurrentFrame() const { return 0; }
 
 		float GetExtentAspectRatio() const
 		{
 			return static_cast<float>(m_Width) / static_cast<float>(m_Height);
 		}
+
+		const Ref<RenderPass>& GetRenderPass() const { return m_RenderPass; }
+		const Ref<Framebuffer>& GetFramebuffer(uint32_t index) const { return m_Framebuffers[index]; }
+
+		virtual bool AcquireNextImage(uint32_t& imageIndex);
+		virtual bool Submit(CommandBuffer& commandBuffer, uint32_t imageIndex);
+		virtual void Resize(uint32_t width, uint32_t height) {}
 
 	protected:
 		SwapChain() = default;
@@ -35,5 +49,7 @@ namespace DEngine
 		uint32_t m_Width = 0;
 		uint32_t m_Height = 0;
 		uint32_t m_ImageCount = 0;
+		Ref<RenderPass> m_RenderPass;
+		std::vector<Ref<Framebuffer>> m_Framebuffers;
 	};
 }

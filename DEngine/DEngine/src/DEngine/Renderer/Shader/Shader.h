@@ -11,6 +11,8 @@
 
 namespace DEngine
 {
+	class CommandBuffer;
+
 	//-------Settings-------
 	//Max number of shader program objects available to a GL program
 	const int MAX_SHADER_SIZE = 4;
@@ -25,8 +27,8 @@ namespace DEngine
 	public:
 		virtual ~Shader() {}
 
-		virtual void Bind() const = 0;
-		virtual void Unbind() const = 0;
+		virtual void Bind(CommandBuffer& commandBuffer) const = 0;
+		virtual void Unbind(CommandBuffer& commandBuffer) const = 0;
 
 		virtual void UploadUniformInt(const std::string& name, int val) = 0;
 		virtual void UploadUniformInt(const uint32_t& u_loc, int val) = 0;

@@ -1,5 +1,6 @@
 #include "dpch.h"
 #include "OpenGLVertexArray.h"
+#include "DEngine/Platform/OpenGL/OpenGLBuffer.h"
 
 #include "glad/glad.h"
 
@@ -37,12 +38,12 @@ namespace DEngine
 		glDeleteVertexArrays(1, &m_RendererID);
 	}
 
-	void OpenGLVertexArray::Bind() const
+	void OpenGLVertexArray::Bind(CommandBuffer& commandBuffer) const
 	{
 		glBindVertexArray(m_RendererID);
 	}
 
-	void OpenGLVertexArray::Unbind() const
+	void OpenGLVertexArray::Unbind(CommandBuffer& commandBuffer) const
 	{
 		glBindVertexArray(0);
 	}
@@ -53,7 +54,7 @@ namespace DEngine
 			return;
 
 		glBindVertexArray(m_RendererID);
-		vertBuffer->Bind();
+		glBindBuffer(GL_ARRAY_BUFFER, static_cast<OpenGLVertexBuffer*>(vertBuffer.get())->GetRendererID());
 
 		D_CORE_ASSERT(vertBuffer->GetLayout().GetElements().size(), "VertexArray::AddVertexBuffer(...): Vertex Buffer has no layout");
 
@@ -82,7 +83,7 @@ namespace DEngine
 			return;
 
 		glBindVertexArray(m_RendererID);
-		indBuffer->Bind();
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, static_cast<OpenGLIndexBuffer*>(indBuffer.get())->GetRendererID());
 
 		m_IndexBuffer = indBuffer;
 	}

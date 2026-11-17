@@ -17,8 +17,10 @@ namespace DEngine
 		explicit VulkanRendererPipeline(Ref<Shader> shader, RenderDevice& device, const PipelineState& state);
 		~VulkanRendererPipeline() override;
 
+		virtual void Bind(CommandBuffer& commandBuffer) override;
+		virtual void SetViewport(CommandBuffer& commandBuffer, float x, float y, float width, float height) override;
+
 	private:
-		void CreateShaderModule(const std::vector<uint32_t>& code, VkShaderModule* shaderModule);
 
 		VkPipeline m_Pipeline = VK_NULL_HANDLE;
 		VkShaderModule m_VertShaderModule;

@@ -251,6 +251,34 @@ namespace DEngine
 		return std::vector<uint32_t>(result.cbegin(), result.cend());
 	}
 
+	static std::string PromoteModelMatrix(std::string source)
+	{
+		const std::string token = ".u_ModelMat";
+		size_t position = 0;
+		while ((position = source.find(token, position)) != std::string::npos)
+		{
+			size_t name = position;
+			while (name > 0 && (std::isalnum(static_cast<unsigned char>(source[name - 1])) || source[name - 1] == '_'))
+				--name;
+			source.erase(name, position - name + 1);
+			position = name + std::string("u_ModelMat").size();
+		}
+
+		if (source.find("uniform mat4 u_ModelMat") == std::string::npos && source.find("u_ModelMat") != std::string::npos)
+		{
+			const std::string version = "#version";
+			size_t versionPos = source.find(version);
+			size_t lineEnd = versionPos == std::string::npos ? 0 : source.find('\n', versionPos);
+			if (lineEnd == std::string::npos)
+				lineEnd = source.size();
+			else
+				++lineEnd;
+			source.insert(lineEnd, "uniform mat4 u_ModelMat;\n");
+		}
+
+		return source;
+	}
+
 	std::string ShaderHelper::SpirvToOpenGLGlsl(const std::vector<uint32_t>& spirv)
 	{
 		try
@@ -263,7 +291,7 @@ namespace DEngine
 			options.enable_420pack_extension = false;
 			options.emit_uniform_buffer_as_plain_uniforms = true;
 			compiler.set_common_options(options);
-			return FlattenUniformStructs(compiler.compile());
+			return FlattenUniformStructs(PromoteModelMatrix(compiler.compile()));
 		}
 		catch (const std::exception& exception)
 		{

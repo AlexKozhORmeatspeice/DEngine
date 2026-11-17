@@ -1,8 +1,13 @@
 #pragma once
 
+#include "DEngine/Renderer/Pipeline/PipelineLayout.h"
 #include "DEngine/Renderer/Pipeline/PipelineState.h"
+#include "DEngine/Renderer/Pipeline/RenderPass.h"
+#include "DEngine/Renderer/CommandBuffer.h"
 
 #include "vulkan/vulkan.h"
+
+#include "vector"
 
 namespace DEngine
 {
@@ -10,6 +15,10 @@ namespace DEngine
 	{
 	public:
 		static VkBool32 Bool(bool value);
+
+		static VkFormat Format(ShaderDataType type);
+		static VkVertexInputBindingDescription VertexBinding(const BufferLayout& layout, uint32_t binding = 0);
+		static std::vector<VkVertexInputAttributeDescription> VertexAttributes(const BufferLayout& layout, uint32_t binding = 0);
 
 		static VkPrimitiveTopology Topology(DPrimitiveTopology topology);
 		static VkPolygonMode PolygonMode(DPolygonMode mode);
@@ -30,7 +39,17 @@ namespace DEngine
 		static VkPipelineColorBlendAttachmentState ColorBlendAttachment(const DColorBlendAttachment& state);
 		static VkPipelineColorBlendStateCreateInfo ColorBlend(const DColorBlend& state, const VkPipelineColorBlendAttachmentState* attachments);
 		static VkPipelineDepthStencilStateCreateInfo DepthStencil(const DDepthStencil& state);
-		static VkPipelineLayout PipelineLayout(const DPipelineLayout& layout);
-		static VkRenderPass RenderPass(const DRenderPass& renderPass);
+
+		static VkShaderStageFlags ShaderStage(uint32_t stageFlags);
+		static VkDescriptorType DescriptorType(DDescriptorType type);
+		static VkDescriptorSetLayoutBinding DescriptorBinding(const DDescriptorBinding& binding);
+		static VkPushConstantRange PushConstantRange(const DPushConstantRange& range);
+		static VkPipelineLayoutCreateInfo PipelineLayout(const PipelineLayoutState& state, const VkDescriptorSetLayout* setLayouts, const VkPushConstantRange* pushConstants);
+
+		static VkCommandBufferLevel CommandBufferLevel(DCommandBufferLevel level);
+		static VkCommandBufferBeginInfo CommandBufferBegin(const CommandBufferState& state);
+		static VkClearValue ClearValue(const DClearValue& value);
+		static VkSubpassContents SubpassContents(DSubpassContents contents);
+		static VkRenderPassBeginInfo RenderPassBegin(VkRenderPass renderPass, VkFramebuffer framebuffer, const RenderPassState& state, const VkClearValue* clearValues);
 	};
 }

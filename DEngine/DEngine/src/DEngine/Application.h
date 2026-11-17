@@ -36,6 +36,7 @@ namespace DEngine
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 		inline RenderDevice& GetDevice() { return *m_RenderDevice; }
+		inline SwapChain& GetSwapChain() { return *m_SwapChain; }
 
         inline float GetFPS() const { return m_FPS; }
 
@@ -53,8 +54,8 @@ namespace DEngine
 
     private:
 		Scope<Window> m_Window;
-        Scope<SwapChain> m_SwapChain;
         Scope<RenderDevice> m_RenderDevice;
+        Scope<SwapChain> m_SwapChain;
 
 		ImGuiLayer* m_ImGuiLayer;
         LayerStack m_layerStack;

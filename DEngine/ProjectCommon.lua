@@ -16,6 +16,7 @@ IncludeDir["tracy"] = "DEngine/vendor/tracy/public"
 IncludeDir["enkiTS"] = "DEngine/vendor/enkiTS/src"
 IncludeDir["shaderc"] = "DEngine/vendor/shaderc/libshaderc/include"
 IncludeDir["spirv_cross"] = "DEngine/vendor/SPIRV-Cross"
+IncludeDir["vma"] = "DEngine/vendor/VulkanMemoryAllocator/include"
 
 VulkanSDK = os.getenv("VULKAN_SDK")
 if not VulkanSDK or VulkanSDK == "" then

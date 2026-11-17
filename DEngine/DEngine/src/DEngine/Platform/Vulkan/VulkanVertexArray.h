@@ -11,8 +11,8 @@ namespace DEngine
 		VulkanVertexArray();
 		virtual ~VulkanVertexArray();
 
-		virtual void Bind() const override;
-		virtual void Unbind() const override;
+		virtual void Bind(CommandBuffer& commandBuffer) const override;
+		virtual void Unbind(CommandBuffer& commandBuffer) const override;
 
 		virtual void AddVertexBuffer(const DEngine::Ref<VertexBuffer>& vertBuffer) override;
 		virtual void SetIndexBuffer(const DEngine::Ref<IndexBuffer>& vertBuffer) override;

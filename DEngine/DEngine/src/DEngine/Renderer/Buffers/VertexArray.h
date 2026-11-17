@@ -2,6 +2,7 @@
 
 #include "DEngine/Core.h"
 #include "DEngine/Renderer/Buffers/Buffer.h"
+#include "DEngine/Renderer/CommandBuffer.h"
 #include "memory"
 
 namespace DEngine
@@ -11,8 +12,8 @@ namespace DEngine
 	public:
 		virtual ~VertexArray() {}
 
-		virtual void Bind() const = 0;
-		virtual void Unbind() const = 0;
+		virtual void Bind(CommandBuffer& commandBuffer) const = 0;
+		virtual void Unbind(CommandBuffer& commandBuffer) const = 0;
 
 		virtual void AddVertexBuffer(const DEngine::Ref<VertexBuffer>& vertBuffer) = 0;
 		virtual void SetIndexBuffer(const DEngine::Ref<IndexBuffer>& vertBuffer) = 0;

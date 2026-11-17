@@ -17,13 +17,15 @@ namespace DEngine
 		if (!m_Open || !m_Framebuffer || !camera || !scene)
 			return;
 
-		m_Framebuffer->Bind();
-		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.15f, 1.0f });
-		RenderCommand::Clear();
-		Renderer::BeginScene(camera);
+		const FramebufferSpecification& spec = m_Framebuffer->GetSpecification();
+		const uint32_t width = (uint32_t)m_Size.x;
+		const uint32_t height = (uint32_t)m_Size.y;
+		if (width > 0 && height > 0 && (spec.Width != width || spec.Height != height))
+			m_Framebuffer->Resize(width, height);
+
+		Renderer::BeginScene(camera, m_Framebuffer);
 		scene->OnRender(ts);
 		Renderer::EndScene();
-		m_Framebuffer->Unbind();
 	}
 
 	void GameViewportPanel::OnRender(const Ref<Scene>& scene)
@@ -38,14 +40,10 @@ namespace DEngine
 		{
 			const ImVec2 gameSize = ImGui::GetContentRegionAvail();
 			if (gameSize.x > 0.0f && gameSize.y > 0.0f && (m_Size.x != gameSize.x || m_Size.y != gameSize.y))
-			{
 				m_Size = { gameSize.x, gameSize.y };
-				if (m_Framebuffer)
-					m_Framebuffer->Resize((uint32_t)gameSize.x, (uint32_t)gameSize.y);
-			}
 
 			if (m_Framebuffer)
-				ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{ gameSize.x, gameSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+				ImGui::Image(m_Framebuffer->GetImGuiHandle(), ImVec2{ gameSize.x, gameSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 			AcceptModelDrop(scene);
 			if (!m_UsesSceneCamera)
 			{

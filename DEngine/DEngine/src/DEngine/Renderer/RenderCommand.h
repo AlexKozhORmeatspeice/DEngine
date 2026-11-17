@@ -16,6 +16,12 @@ namespace DEngine
 				s_RendererAPI->Init();
 		}
 
+		inline static void Shutdown()
+		{
+			if (s_RendererAPI)
+				s_RendererAPI->Shutdown();
+		}
+
 		inline static void SetClearColor(const glm::vec4& color)
 		{
 			if (s_RendererAPI)
@@ -34,15 +40,15 @@ namespace DEngine
 				s_RendererAPI->Clear();
 		}
 
-		inline static void DrawIndexed(const DEngine::Ref<VertexArray>& vertexArray)
+		inline static void DrawIndexed(CommandBuffer& commandBuffer, const DEngine::Ref<VertexArray>& vertexArray)
 		{
 			if (s_RendererAPI && vertexArray)
-				s_RendererAPI->DrawIndexed(vertexArray);
+				s_RendererAPI->DrawIndexed(commandBuffer, vertexArray);
 		}
-		inline static void DrawIndexedWireframe(const DEngine::Ref<VertexArray>& vertexArray)
+		inline static void DrawIndexedWireframe(CommandBuffer& commandBuffer, const DEngine::Ref<VertexArray>& vertexArray)
 		{
 			if (s_RendererAPI && vertexArray)
-				s_RendererAPI->DrawIndexedWireframe(vertexArray);
+				s_RendererAPI->DrawIndexedWireframe(commandBuffer, vertexArray);
 		}
 
 	public:

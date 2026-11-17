@@ -32,6 +32,7 @@ namespace DEngine
 		m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
         m_RenderDevice = RenderDevice::Create(*m_Window);
 		m_SwapChain = SwapChain::Create(*m_RenderDevice, m_Window->GetWidth(), m_Window->GetHeight());
+		RenderCommand::Init();
 
         D_PROFILE_THREAD("Main");
 
@@ -89,6 +90,8 @@ namespace DEngine
 
             GUIUpdate();
 
+            Renderer::EndFrame();
+
             m_Window->OnUpdate();
             D_PROFILE_FRAME();
         }
@@ -119,6 +122,8 @@ namespace DEngine
 		JobSystem::RunPinnedTasks();
 		AssetManager::UploadPendingAssets();
 
+		Renderer::BeginFrame();
+
 		for (Layer* layer : m_layerStack)
 			layer->OnRender(ts);
     }
@@ -126,20 +131,27 @@ namespace DEngine
     void Application::GUIUpdate()
     {
         D_PROFILE_FUNCTION();
-		//m_ImGuiLayer->Begin();
-		//for (Layer* layer : m_layerStack)
-			//layer->OnImGuiRenderer();
-		//m_ImGuiLayer->End();
+		m_ImGuiLayer->Begin();
+		for (Layer* layer : m_layerStack)
+			layer->OnImGuiRenderer();
+		m_ImGuiLayer->End();
     }
 
     void Application::Shutdown()
     {
+		Renderer::Shutdown();
+
 		for (Layer* layer : m_layerStack)
 			layer->Shutdown();
 
         //Shutdown jobs
-        JobSystem::WaitForAll();
+		JobSystem::WaitForAll();
         JobSystem::Shutdown();
+
+		m_layerStack.Clear();
+		m_ImGuiLayer = nullptr;
+
+		RenderCommand::Shutdown();
     }
     
     void Application::PushLayer(Layer* layer)
@@ -174,6 +186,8 @@ namespace DEngine
         m_Minimized = false;
 
         Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+		if (m_ImGuiLayer)
+			m_ImGuiLayer->OnResize(e.GetWidth(), e.GetHeight());
         return false;
     }
 }

@@ -92,6 +92,7 @@ namespace DEngine
 
 			AssetManager::Init(std::make_shared<EditorAssetManager>());
 			m_AssetsReady = true;
+			Renderer::Init();
 
 			Window& window = Application::Get().GetWindow();
 			m_FallbackCamera = std::make_shared<PerspectiveCamera>(60.0f, window.GetWidth(), window.GetHeight());

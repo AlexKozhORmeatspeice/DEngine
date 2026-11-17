@@ -40,8 +40,8 @@ namespace DEngine
 	public:
 		Mesh(const BufferLayout& layout, const MeshData& data);
 
-		void Bind();
-		void Unbind();
+		void Bind(CommandBuffer& commandBuffer);
+		void Unbind(CommandBuffer& commandBuffer);
 
 		Ref<VertexArray> GetVertexArray() const { return m_VertexArray; }
 

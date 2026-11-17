@@ -3,6 +3,8 @@
 #include "DEngine/Core.h"
 #include "DEngine/Renderer/Shader/Shader.h"
 #include "DEngine/Renderer/Texture/Texture.h"
+#include "DEngine/Renderer/Pipeline/DescriptorSet.h"
+#include "DEngine/Renderer/CommandBuffer.h"
 
 #include "DEngine/Asset/Asset.h"
 
@@ -26,8 +28,8 @@ namespace DEngine
         void SetMat4(const std::string& name, const glm::mat4& val);
         void SetTexture2D(const std::string& name, const AssetHandle& tex);
 
-        void Bind();
-        void Unbind();
+        void Bind(CommandBuffer& commandBuffer);
+        void Unbind(CommandBuffer& commandBuffer);
 
         AssetHandle GetShaderHandle() const { return m_ShaderHandle; }
         void InvalidateCachedShader();
@@ -58,7 +60,12 @@ namespace DEngine
         std::unordered_map<uint32_t, glm::mat4> m_Mat4Values;
 
         std::unordered_map<uint32_t, AssetHandle> m_TextureValues;
+        std::unordered_map<std::string, AssetHandle> m_NamedTextures;
         std::unordered_map<AssetHandle, Ref<Texture>> m_Textures;
+        std::vector<Ref<DescriptorSet>> m_TextureSets;
+        std::vector<Ref<Texture>> m_WrittenTextures;
+
+        AssetHandle ResolveTextureHandle() const;
         
         std::vector<uint32_t> m_DirtyInts;
         std::vector<uint32_t> m_DirtyFloats;

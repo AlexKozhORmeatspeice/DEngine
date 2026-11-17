@@ -8,6 +8,8 @@
 #include "DEngine/Application.h"
 #include "DEngine/Profiler/Profiler.h"
 #include "DEngine/Renderer/RendererAPI.h"
+#include "DEngine/Renderer/Renderer.h"
+#include "DEngine/Platform/Vulkan/VulkanImGuiHelper.h"
 
 //TODO: TEMP
 #include "GLFW/glfw3.h"
@@ -35,7 +37,8 @@ namespace DEngine
 		ImGuiIO& io = ImGui::GetIO();
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+		if (RendererAPI::GetAPI() != RendererAPI::API::Vulkan)
+			io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 		ImGuiStyle& style = ImGui::GetStyle();
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -48,7 +51,10 @@ namespace DEngine
 		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
 		if (RendererAPI::GetAPI() == RendererAPI::API::Vulkan)
+		{
 			ImGui_ImplGlfw_InitForVulkan(window, true);
+			VulkanImGuiHelper::Init();
+		}
 		else
 		{
 			ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -58,7 +64,9 @@ namespace DEngine
 
 	void ImGuiLayer::Shutdown()
 	{
-		if (RendererAPI::GetAPI() == RendererAPI::API::OpenGL)
+		if (RendererAPI::GetAPI() == RendererAPI::API::Vulkan)
+			VulkanImGuiHelper::Shutdown();
+		else
 			ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
@@ -83,8 +91,16 @@ namespace DEngine
 		D_PROFILE_FUNCTION();
 		if (RendererAPI::GetAPI() == RendererAPI::API::OpenGL)
 			ImGui_ImplOpenGL3_NewFrame();
+		else if (RendererAPI::GetAPI() == RendererAPI::API::Vulkan)
+			VulkanImGuiHelper::NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
+	}
+
+	void ImGuiLayer::OnResize(uint32_t width, uint32_t height)
+	{
+		if (RendererAPI::GetAPI() == RendererAPI::API::Vulkan)
+			VulkanImGuiHelper::OnResize(Application::Get().GetSwapChain().GetImageCount());
 	}
 
 	void ImGuiLayer::End()
@@ -95,8 +111,13 @@ namespace DEngine
 		io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
 
 		ImGui::Render();
-		if (RendererAPI::GetAPI() != RendererAPI::API::OpenGL)
+		if (RendererAPI::GetAPI() == RendererAPI::API::Vulkan)
+		{
+			Renderer::BeginSwapchainPass();
+			VulkanImGuiHelper::Render();
+			Renderer::EndSwapchainPass();
 			return;
+		}
 
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)

@@ -22,6 +22,7 @@ namespace DEngine
 
 		void Begin();
 		void End();
+		void OnResize(uint32_t width, uint32_t height);
 
 		virtual void OnEvent(Event& event);
 

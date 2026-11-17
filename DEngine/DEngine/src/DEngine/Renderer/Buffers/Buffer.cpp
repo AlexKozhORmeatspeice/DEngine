@@ -7,14 +7,14 @@
 
 namespace DEngine
 {
-	Ref<VertexBuffer> VertexBuffer::Create(float* verts, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* verts, uint32_t size, const BufferLayout& layout)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::OpenGL:
-			return std::make_shared<OpenGLVertexBuffer>(verts, size);
+			return std::make_shared<OpenGLVertexBuffer>(verts, size, layout);
 		case RendererAPI::API::Vulkan:
-			return std::make_shared<VulkanVertexBuffer>(verts, size);
+			return std::make_shared<VulkanVertexBuffer>(verts, size, layout);
 		case RendererAPI::API::None:
 			D_CORE_ASSERT(false, "None API is not supported")
 			break;

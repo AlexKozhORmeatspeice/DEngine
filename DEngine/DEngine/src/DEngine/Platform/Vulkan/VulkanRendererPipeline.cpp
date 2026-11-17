@@ -1,8 +1,11 @@
 #include "dpch.h"
 #include "VulkanRendererPipeline.h"
+#include "DEngine/Platform/Vulkan/VulkanCommandBuffer.h"
 #include "DEngine/Application.h"
 #include "DEngine/Platform/Vulkan/VulkanRenderDevice.h"
 #include "DEngine/Platform/Vulkan/VulkanHelper.h"
+#include "DEngine/Platform/Vulkan/VulkanPipelineLayout.h"
+#include "DEngine/Platform/Vulkan/VulkanRenderPass.h"
 #include "DEngine/Platform/Vulkan/VulkanShader.h"
 
 namespace DEngine
@@ -55,21 +58,27 @@ namespace DEngine
 			shaderStages[FRAGMENT_SHADER_IND].pSpecializationInfo = nullptr;
 		}
 
+		const VkVertexInputBindingDescription vertexBinding = VulkanHelper::VertexBinding(m_State.vertexLayout);
+		const std::vector<VkVertexInputAttributeDescription> vertexAttributes = VulkanHelper::VertexAttributes(m_State.vertexLayout);
+		const bool hasVertexLayout = !m_State.vertexLayout.GetElements().empty();
+
 		VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
 		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-		vertexInputInfo.vertexAttributeDescriptionCount = 0;
-		vertexInputInfo.vertexBindingDescriptionCount = 0;
-		vertexInputInfo.pVertexAttributeDescriptions = nullptr;
-		vertexInputInfo.pVertexBindingDescriptions = nullptr;
+		vertexInputInfo.vertexBindingDescriptionCount = hasVertexLayout ? 1 : 0;
+		vertexInputInfo.pVertexBindingDescriptions = hasVertexLayout ? &vertexBinding : nullptr;
+		vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(vertexAttributes.size());
+		vertexInputInfo.pVertexAttributeDescriptions = vertexAttributes.empty() ? nullptr : vertexAttributes.data();
 
-		const VkViewport viewport = VulkanHelper::Viewport(m_State.viewport);
-		const VkRect2D scissor = VulkanHelper::Scissor(m_State.scissor);
+		VkDynamicState dynamicStates[] = { VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR };
+		VkPipelineDynamicStateCreateInfo dynamicState{};
+		dynamicState.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
+		dynamicState.dynamicStateCount = 2;
+		dynamicState.pDynamicStates = dynamicStates;
+
 		VkPipelineViewportStateCreateInfo viewportState{};
 		viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
 		viewportState.viewportCount = 1;
-		viewportState.pViewports = &viewport;
 		viewportState.scissorCount = 1;
-		viewportState.pScissors = &scissor;
 
 		const VkPipelineInputAssemblyStateCreateInfo inputAssembly = VulkanHelper::InputAssembly(m_State.inputAssembly);
 		const VkPipelineRasterizationStateCreateInfo rasterization = VulkanHelper::Rasterization(m_State.rasterization);
@@ -77,6 +86,13 @@ namespace DEngine
 		const VkPipelineColorBlendAttachmentState colorBlendAttachment = VulkanHelper::ColorBlendAttachment(m_State.colorBlendAttachment);
 		const VkPipelineColorBlendStateCreateInfo colorBlend = VulkanHelper::ColorBlend(m_State.colorBlend, &colorBlendAttachment);
 		const VkPipelineDepthStencilStateCreateInfo depthStencil = VulkanHelper::DepthStencil(m_State.depthStencil);
+
+		VkPipelineLayout layout = VK_NULL_HANDLE;
+		VkRenderPass renderPass = VK_NULL_HANDLE;
+		if (m_State.pipelineLayout)
+			layout = static_cast<VulkanPipelineLayout*>(m_State.pipelineLayout.get())->GetNative();
+		if (m_State.renderPass)
+			renderPass = static_cast<VulkanRenderPass*>(m_State.renderPass.get())->GetNative();
 
 		VkGraphicsPipelineCreateInfo pipelineInfo{};
 		pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
@@ -89,9 +105,9 @@ namespace DEngine
 		pipelineInfo.pMultisampleState = &multisample;
 		pipelineInfo.pDepthStencilState = &depthStencil;
 		pipelineInfo.pColorBlendState = &colorBlend;
-		pipelineInfo.pDynamicState = nullptr;
-		pipelineInfo.layout = VulkanHelper::PipelineLayout(m_State.pipelineLayout);
-		pipelineInfo.renderPass = VulkanHelper::RenderPass(m_State.renderPass);
+		pipelineInfo.pDynamicState = &dynamicState;
+		pipelineInfo.layout = layout;
+		pipelineInfo.renderPass = renderPass;
 		pipelineInfo.subpass = m_State.subpass;
 		pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
 		pipelineInfo.basePipelineIndex = -1;
@@ -103,15 +119,27 @@ namespace DEngine
 		}
 	}
 
-	void VulkanRendererPipeline::CreateShaderModule(const std::vector<uint32_t>& code, VkShaderModule* shaderModule)
+	void VulkanRendererPipeline::Bind(CommandBuffer& commandBuffer)
 	{
-		auto device = static_cast<VkDevice*>(Application::Get().GetDevice().GetNativeDevice());
+		vkCmdBindPipeline(static_cast<VulkanCommandBuffer&>(commandBuffer).GetNative(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_Pipeline);
+	}
 
-		VkShaderModuleCreateInfo createInfo{};
-		createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-		createInfo.codeSize = code.size() * sizeof(uint32_t);
-		createInfo.pCode = code.data();
+	void VulkanRendererPipeline::SetViewport(CommandBuffer& commandBuffer, float x, float y, float width, float height)
+	{
+		VkViewport viewport{};
+		viewport.x = x;
+		viewport.y = y;
+		viewport.width = width;
+		viewport.height = height;
+		viewport.minDepth = 0.0f;
+		viewport.maxDepth = 1.0f;
 
-		D_CORE_ASSERT(vkCreateShaderModule(*device, &createInfo, nullptr, shaderModule) == VK_SUCCESS, "Failed to create shader module");
+		VkRect2D scissor{};
+		scissor.offset = { static_cast<int32_t>(x), static_cast<int32_t>(y) };
+		scissor.extent = { static_cast<uint32_t>(width), static_cast<uint32_t>(height) };
+
+		VkCommandBuffer native = static_cast<VulkanCommandBuffer&>(commandBuffer).GetNative();
+		vkCmdSetViewport(native, 0, 1, &viewport);
+		vkCmdSetScissor(native, 0, 1, &scissor);
 	}
 }

@@ -23,7 +23,9 @@ namespace DEngine
 		virtual void SetData(const DataBuffer& data) override;
 		virtual	uint32_t GetRendererID() const override;
 
-		virtual void Bind(unsigned int slot = 0) const override;
+		virtual void Bind(CommandBuffer& commandBuffer, uint32_t slot = 0) const override;
+		virtual void Unbind(CommandBuffer& commandBuffer) const override;
+		virtual void* GetImGuiHandle() const override { return (void*)(uintptr_t)m_RendererID; }
 	private:
 
 		TextureSpecification m_Specification;

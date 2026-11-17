@@ -40,6 +40,7 @@ project "DEngine"
         "%{IncludeDir.shaderc}",
         "%{IncludeDir.spirv_cross}",
         "%{IncludeDir.Vulkan}",
+        "%{IncludeDir.vma}",
     }
 
     libdirs

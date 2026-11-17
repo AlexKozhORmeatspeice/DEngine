@@ -2,6 +2,8 @@
 #include "Material.h"
 
 #include "DEngine/Asset/AssetManager.h"
+#include "DEngine/Renderer/Renderer.h"
+#include "DEngine/Renderer/Pipeline/DescriptorSet.h"
 
 namespace DEngine
 {
@@ -72,15 +74,19 @@ namespace DEngine
 
 	void Material::SetTexture2D(const std::string& name, const AssetHandle& tex)
 	{
+		m_NamedTextures[name] = tex;
+		m_WrittenTextures.clear();
+		GetTexture(tex);
+
 		uint32_t id = GetCachedID(name);
-		if (id == UINT32_MAX) return;
+		if (id == UINT32_MAX)
+			return;
 
 		m_TextureValues[id] = tex;
-		GetTexture(tex);
 		m_DirtyTextures.push_back(id);
 	}
 
-	void Material::Bind()
+	void Material::Bind(CommandBuffer& commandBuffer)
 	{
 		Ref<Shader> shader = GetShader();
 		if (!shader)
@@ -89,27 +95,35 @@ namespace DEngine
 			return;
 		}
 
-		shader->Bind();
+		shader->Bind(commandBuffer);
 		UpdateDirtyValues();
 
-		if (m_TextureValues.empty())
+		const uint32_t image = Renderer::GetFrameInFlightIndex();
+		if (m_TextureSets.size() <= image)
+			m_TextureSets.resize(image + 1);
+		if (!m_TextureSets[image])
+			m_TextureSets[image] = DescriptorSet::Create(Renderer::GetPipelineLayout(), 1);
+
+		if (m_WrittenTextures.size() <= image)
+			m_WrittenTextures.resize(image + 1);
+
+		if (Ref<Texture> texture = GetTexture(ResolveTextureHandle()))
 		{
-			if (Ref<Texture> texture = GetTexture(AssetManager::GetEmptyTextureHandle()))
-				texture->Bind();
-			return;
+			if (m_WrittenTextures[image] != texture)
+			{
+				m_TextureSets[image]->WriteTexture(0, texture);
+				m_WrittenTextures[image] = texture;
+			}
 		}
 
-		for (const auto& [id, textureHandle] : m_TextureValues)
-		{
-			if (Ref<Texture> texture = GetTexture(textureHandle))
-				texture->Bind();
-		}
+		if (m_TextureSets[image])
+			m_TextureSets[image]->Bind(commandBuffer, Renderer::GetPipelineLayout());
 	}
 
-	void Material::Unbind()
+	void Material::Unbind(CommandBuffer& commandBuffer)
 	{
 		if (m_Shader)
-			m_Shader->Unbind();
+			m_Shader->Unbind(commandBuffer);
 	}
 
 	void Material::UpdateDirtyValues()
@@ -241,6 +255,31 @@ namespace DEngine
 	void Material::InvalidateCachedTexture(const AssetHandle& handle)
 	{
 		m_Textures.erase(handle);
+		for (Ref<Texture>& written : m_WrittenTextures)
+		{
+			if (written && written->handle == handle)
+				written = nullptr;
+		}
+	}
+
+	AssetHandle Material::ResolveTextureHandle() const
+	{
+		auto named = m_NamedTextures.find("u_Texture");
+		if (named != m_NamedTextures.end())
+			return named->second;
+
+		auto id = m_NameToID.find("u_Texture");
+		if (id != m_NameToID.end())
+		{
+			auto value = m_TextureValues.find(id->second);
+			if (value != m_TextureValues.end())
+				return value->second;
+		}
+
+		if (!m_TextureValues.empty())
+			return m_TextureValues.begin()->second;
+
+		return AssetManager::GetEmptyTextureHandle();
 	}
 
 	Ref<Texture> Material::GetTexture(const AssetHandle& handle)

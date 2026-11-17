@@ -1,8 +1,10 @@
 #pragma once
 
 #include "DEngine/Renderer/Texture/Texture.h"
+#include "DEngine/Platform/Vulkan/VulkanRendererAPI.h"
+
 #include "string"
-#include "DEngine/Core/DataBuffer.h"
+#include "vector"
 
 namespace DEngine
 {
@@ -20,13 +22,26 @@ namespace DEngine
 		virtual void SetData(const DataBuffer& data) override;
 		virtual uint32_t GetRendererID() const override;
 
-		virtual void Bind(unsigned int slot = 0) const override;
-	private:
-		TextureSpecification m_Specification;
+		virtual void Bind(CommandBuffer& commandBuffer, uint32_t slot = 0) const override;
+		virtual void Unbind(CommandBuffer& commandBuffer) const override;
+		virtual void* GetImGuiHandle() const override;
 
-		unsigned int m_RendererID;
-		std::string m_Path;
-		unsigned int m_Width, m_Height;
-		uint32_t m_Format;
+		VkImageView GetImageView() const { return m_ImageView; }
+		VkSampler GetSampler() const { return m_Sampler; }
+
+	private:
+		void CreateImage();
+		void Upload(const void* pixels, uint32_t size, uint32_t bytesPerPixel);
+
+		TextureSpecification m_Specification;
+		unsigned int m_Width = 0;
+		unsigned int m_Height = 0;
+		VkFormat m_Format = VK_FORMAT_R8G8B8A8_UNORM;
+		VkDevice m_Device = VK_NULL_HANDLE;
+		VulkanAllocatedImage m_Image;
+		VkImageView m_ImageView = VK_NULL_HANDLE;
+		VkSampler m_Sampler = VK_NULL_HANDLE;
+		VkImageLayout m_Layout = VK_IMAGE_LAYOUT_UNDEFINED;
+		mutable void* m_ImGuiHandle = nullptr;
 	};
 }

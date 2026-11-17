@@ -8,6 +8,57 @@ namespace DEngine
 		return value ? VK_TRUE : VK_FALSE;
 	}
 
+	VkFormat VulkanHelper::Format(ShaderDataType type)
+	{
+		switch (type)
+		{
+			case ShaderDataType::Float: return VK_FORMAT_R32_SFLOAT;
+			case ShaderDataType::Float2: return VK_FORMAT_R32G32_SFLOAT;
+			case ShaderDataType::Float3: return VK_FORMAT_R32G32B32_SFLOAT;
+			case ShaderDataType::Float4: return VK_FORMAT_R32G32B32A32_SFLOAT;
+			case ShaderDataType::Mat3: return VK_FORMAT_R32G32B32_SFLOAT;
+			case ShaderDataType::Mat4: return VK_FORMAT_R32G32B32A32_SFLOAT;
+			case ShaderDataType::Int: return VK_FORMAT_R32_SINT;
+			case ShaderDataType::Int2: return VK_FORMAT_R32G32_SINT;
+			case ShaderDataType::Int3: return VK_FORMAT_R32G32B32_SINT;
+			case ShaderDataType::Int4: return VK_FORMAT_R32G32B32A32_SINT;
+			case ShaderDataType::Bool: return VK_FORMAT_R8_UINT;
+			case ShaderDataType::None: break;
+		}
+
+		D_CORE_ASSERT(false, "Unsupported shader data type");
+		return VK_FORMAT_UNDEFINED;
+	}
+
+	VkVertexInputBindingDescription VulkanHelper::VertexBinding(const BufferLayout& layout, uint32_t binding)
+	{
+		VkVertexInputBindingDescription result{};
+		result.binding = binding;
+		result.stride = layout.GetStride();
+		result.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+		return result;
+	}
+
+	std::vector<VkVertexInputAttributeDescription> VulkanHelper::VertexAttributes(const BufferLayout& layout, uint32_t binding)
+	{
+		std::vector<VkVertexInputAttributeDescription> result;
+		result.reserve(layout.GetElements().size());
+
+		uint32_t location = 0;
+		for (const BufferElement& element : layout)
+		{
+			VkVertexInputAttributeDescription attribute{};
+			attribute.location = location;
+			attribute.binding = binding;
+			attribute.format = Format(element.Type);
+			attribute.offset = element.Offset;
+			result.push_back(attribute);
+			location++;
+		}
+
+		return result;
+	}
+
 	VkPrimitiveTopology VulkanHelper::Topology(DPrimitiveTopology topology)
 	{
 		switch (topology)
@@ -223,13 +274,128 @@ namespace DEngine
 		return result;
 	}
 
-	VkPipelineLayout VulkanHelper::PipelineLayout(const DPipelineLayout& layout)
+	VkShaderStageFlags VulkanHelper::ShaderStage(uint32_t stageFlags)
 	{
-		return reinterpret_cast<VkPipelineLayout>(layout.native);
+		VkShaderStageFlags result = 0;
+		if (stageFlags & DShaderStage::Vertex)
+			result |= VK_SHADER_STAGE_VERTEX_BIT;
+		if (stageFlags & DShaderStage::Fragment)
+			result |= VK_SHADER_STAGE_FRAGMENT_BIT;
+		if (stageFlags & DShaderStage::Geometry)
+			result |= VK_SHADER_STAGE_GEOMETRY_BIT;
+		if (stageFlags & DShaderStage::TessellationControl)
+			result |= VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT;
+		if (stageFlags & DShaderStage::TessellationEvaluation)
+			result |= VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT;
+		if (stageFlags & DShaderStage::Compute)
+			result |= VK_SHADER_STAGE_COMPUTE_BIT;
+		return result;
 	}
 
-	VkRenderPass VulkanHelper::RenderPass(const DRenderPass& renderPass)
+	VkDescriptorType VulkanHelper::DescriptorType(DDescriptorType type)
 	{
-		return reinterpret_cast<VkRenderPass>(renderPass.native);
+		switch (type)
+		{
+		case DDescriptorType::UniformBuffer: return VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+		case DDescriptorType::CombinedImageSampler: return VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+		}
+
+		D_CORE_ASSERT(false, "Unsupported descriptor type");
+		return VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+	}
+
+	VkDescriptorSetLayoutBinding VulkanHelper::DescriptorBinding(const DDescriptorBinding& binding)
+	{
+		VkDescriptorSetLayoutBinding result{};
+		result.binding = binding.binding;
+		result.descriptorType = DescriptorType(binding.type);
+		result.descriptorCount = binding.count;
+		result.stageFlags = ShaderStage(binding.stageFlags);
+		result.pImmutableSamplers = nullptr;
+		return result;
+	}
+
+	VkPushConstantRange VulkanHelper::PushConstantRange(const DPushConstantRange& range)
+	{
+		VkPushConstantRange result{};
+		result.stageFlags = ShaderStage(range.stageFlags);
+		result.offset = range.offset;
+		result.size = range.size;
+		return result;
+	}
+
+	VkPipelineLayoutCreateInfo VulkanHelper::PipelineLayout(const PipelineLayoutState& state, const VkDescriptorSetLayout* setLayouts, const VkPushConstantRange* pushConstants)
+	{
+		VkPipelineLayoutCreateInfo result{};
+		result.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+		result.flags = static_cast<VkPipelineLayoutCreateFlags>(state.flags);
+		result.setLayoutCount = static_cast<uint32_t>(state.setLayouts.size());
+		result.pSetLayouts = setLayouts;
+		result.pushConstantRangeCount = static_cast<uint32_t>(state.pushConstantRanges.size());
+		result.pPushConstantRanges = pushConstants;
+		return result;
+	}
+
+	VkCommandBufferLevel VulkanHelper::CommandBufferLevel(DCommandBufferLevel level)
+	{
+		switch (level)
+		{
+		case DCommandBufferLevel::Primary: return VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+		case DCommandBufferLevel::Secondary: return VK_COMMAND_BUFFER_LEVEL_SECONDARY;
+		}
+
+		D_CORE_ASSERT(false, "Unsupported command buffer level");
+		return VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+	}
+
+	VkCommandBufferBeginInfo VulkanHelper::CommandBufferBegin(const CommandBufferState& state)
+	{
+		VkCommandBufferBeginInfo result{};
+		result.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+		if (state.oneTimeSubmit)
+			result.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
+		return result;
+	}
+
+	VkClearValue VulkanHelper::ClearValue(const DClearValue& value)
+	{
+		VkClearValue result{};
+		if (value.type == DClearType::DepthStencil)
+		{
+			result.depthStencil.depth = value.depth;
+			result.depthStencil.stencil = value.stencil;
+			return result;
+		}
+
+		result.color.float32[0] = value.color[0];
+		result.color.float32[1] = value.color[1];
+		result.color.float32[2] = value.color[2];
+		result.color.float32[3] = value.color[3];
+		return result;
+	}
+
+	VkSubpassContents VulkanHelper::SubpassContents(DSubpassContents contents)
+	{
+		switch (contents)
+		{
+		case DSubpassContents::Inline: return VK_SUBPASS_CONTENTS_INLINE;
+		case DSubpassContents::Secondary: return VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS;
+		}
+
+		D_CORE_ASSERT(false, "Unsupported subpass contents");
+		return VK_SUBPASS_CONTENTS_INLINE;
+	}
+
+	VkRenderPassBeginInfo VulkanHelper::RenderPassBegin(VkRenderPass renderPass, VkFramebuffer framebuffer, const RenderPassState& state, const VkClearValue* clearValues)
+	{
+		VkRenderPassBeginInfo result{};
+		result.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+		result.renderPass = renderPass;
+		result.framebuffer = framebuffer;
+		result.renderArea.offset = { state.offsetX, state.offsetY };
+		result.renderArea.extent = { state.width, state.height };
+		result.clearValueCount = static_cast<uint32_t>(state.clearValues.size());
+		result.pClearValues = clearValues;
+		return result;
 	}
 }

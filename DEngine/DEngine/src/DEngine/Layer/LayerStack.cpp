@@ -34,6 +34,14 @@ namespace DEngine
 		}
 	}
 
+	void LayerStack::Clear()
+	{
+		for (Layer* layer : m_Layers)
+			delete layer;
+		m_Layers.clear();
+		m_LayerInsertInd = 0;
+	}
+
 	void LayerStack::PopOverlay(Layer* overlay)
 	{
 		auto it = std::find(m_Layers.begin(), m_Layers.end(), overlay);

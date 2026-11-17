@@ -1,5 +1,8 @@
 #pragma once
 
+#include "DEngine/Core.h"
+#include "DEngine/Renderer/Buffers/Buffer.h"
+
 #include "string"
 #include "cstdint"
 
@@ -161,15 +164,8 @@ namespace DEngine
 		DStencilOpState back;
 	};
 
-	struct DPipelineLayout
-	{
-		void* native = nullptr;
-	};
-
-	struct DRenderPass
-	{
-		void* native = nullptr;
-	};
+	class PipelineLayout;
+	class RenderPass;
 
 	struct PipelineState
 	{
@@ -181,8 +177,9 @@ namespace DEngine
 		DColorBlendAttachment colorBlendAttachment;
 		DColorBlend colorBlend;
 		DDepthStencil depthStencil;
-		DPipelineLayout pipelineLayout;
-		DRenderPass renderPass;
+		BufferLayout vertexLayout;
+		Ref<PipelineLayout> pipelineLayout;
+		Ref<RenderPass> renderPass;
 		uint32_t subpass = 0;
 	};
 }

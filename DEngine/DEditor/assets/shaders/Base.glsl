@@ -9,8 +9,12 @@ layout(location = 3) in vec3 a_Tangent;
 layout(set = 0, binding = 0) uniform Camera
 {
     mat4 u_ViewProj;
-    mat4 u_ModelMat;
 };
+
+layout(push_constant) uniform Model
+{
+    mat4 u_ModelMat;
+} pc;
 
 layout(location = 0) out vec3 v_WorldPos;
 layout(location = 1) out vec3 v_Normal;
@@ -18,9 +22,9 @@ layout(location = 2) out vec2 v_Texcoord;
 
 void main()
 {
-    vec4 worldPos = u_ModelMat * vec4(a_Position, 1.0);
+    vec4 worldPos = pc.u_ModelMat * vec4(a_Position, 1.0);
     v_WorldPos = worldPos.xyz;
-    v_Normal = normalize(mat3(transpose(inverse(u_ModelMat))) * a_Normal);
+    v_Normal = normalize(mat3(transpose(inverse(pc.u_ModelMat))) * a_Normal);
     v_Texcoord = a_Texcoord;
 
     gl_Position = u_ViewProj * worldPos;
@@ -35,9 +39,9 @@ layout(location = 2) in vec2 v_Texcoord;
 
 layout(location = 0) out vec4 color;
 
-layout(set = 0, binding = 1) uniform sampler2D u_Texture;
+layout(set = 1, binding = 0) uniform sampler2D u_Texture;
 
-layout(set = 0, binding = 2) uniform Light
+layout(set = 0, binding = 1) uniform Light
 {
     vec3 u_LightDirection;
     vec3 u_LightColor;

@@ -3,6 +3,7 @@
 #include "DEngine/Core.h"
 #include "DEngine/Core/DataBuffer.h"
 #include "DEngine/Asset/Asset.h"
+#include "DEngine/Renderer/CommandBuffer.h"
 
 namespace DEngine
 {
@@ -36,7 +37,9 @@ namespace DEngine
 		virtual void SetData(const DataBuffer& data) = 0;
 		virtual	uint32_t GetRendererID() const = 0;
 
-		virtual void Bind(unsigned int slot = 0) const = 0;
+		virtual void Bind(CommandBuffer& commandBuffer, uint32_t slot = 0) const = 0;
+		virtual void Unbind(CommandBuffer& commandBuffer) const = 0;
+		virtual void* GetImGuiHandle() const = 0;
 	};
 
 	class Texture2D : public Texture
@@ -45,7 +48,6 @@ namespace DEngine
 		virtual ~Texture2D() {}
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;
-		virtual void Bind(unsigned int slot = 0) const = 0;
 
 		static Ref<Texture2D> Create(const TextureSpecification& spec, const DataBuffer& buffer = DataBuffer());
 

@@ -33,7 +33,7 @@ namespace DEngine
 		void StopGame();
 		void DeserializeScene();
 		void EnableLogic();
-		void DisablePhysics();
+		void DisableLogic();
 		void DisableSelectedEntityDebug();
 		void EnableSelectedEntityDebug();
 

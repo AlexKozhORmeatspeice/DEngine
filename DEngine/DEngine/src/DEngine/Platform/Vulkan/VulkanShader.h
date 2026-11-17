@@ -13,8 +13,8 @@ namespace DEngine
 		VulkanShader(const ShaderRegistry& shaderRegistry, const std::string& name = "");
 		virtual ~VulkanShader();
 
-		virtual void Bind() const override;
-		virtual void Unbind() const override;
+		virtual void Bind(CommandBuffer& commandBuffer) const override;
+		virtual void Unbind(CommandBuffer& commandBuffer) const override;
 
 		virtual void UploadUniformInt(const std::string& name, int val) override;
 		virtual void UploadUniformInt(const uint32_t& name, int val) override;

@@ -97,8 +97,13 @@ namespace DEngine
         return m_RendererID;
     }
 
-    void OpenGLTexture2D::Bind(unsigned int slot) const
+    void OpenGLTexture2D::Bind(CommandBuffer& commandBuffer, uint32_t slot) const
     {
         glBindTextureUnit(slot, m_RendererID);
+    }
+
+    void OpenGLTexture2D::Unbind(CommandBuffer& commandBuffer) const
+    {
+        glBindTextureUnit(0, 0);
     }
 }

@@ -18,13 +18,13 @@ namespace DEngine
 		glDeleteTextures(1, &m_DepthAttachment);
 	}
 
-	void OpenGLFramebuffer::Bind()
+	void OpenGLFramebuffer::Bind(CommandBuffer& commandBuffer)
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
 		glViewport(0, 0, m_Specification.Width, m_Specification.Height);
 	}
 
-	void OpenGLFramebuffer::Unbind()
+	void OpenGLFramebuffer::Unbind(CommandBuffer& commandBuffer)
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}

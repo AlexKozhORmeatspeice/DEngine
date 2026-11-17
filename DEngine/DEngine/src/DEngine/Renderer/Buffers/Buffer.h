@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DEngine/Core.h"
+#include "DEngine/Renderer/CommandBuffer.h"
 #include "stdint.h"
 #include "vector"
 
@@ -110,6 +111,8 @@ namespace DEngine
 				default:
 					break;
 			}
+
+			return 0;
 		}
 	};
 
@@ -131,6 +134,7 @@ namespace DEngine
 		void AddElement(const BufferElement& elem)
 		{
 			m_Elements.push_back(elem);
+			CalculateOffsetAndStride();
 		}
 
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
@@ -163,13 +167,13 @@ namespace DEngine
 	public:
 		virtual ~VertexBuffer() {}
 
-		virtual void Bind() const = 0;
-		virtual void Unbind() const = 0;
+		virtual void Bind(CommandBuffer& commandBuffer) const = 0;
+		virtual void Unbind(CommandBuffer& commandBuffer) const = 0;
 
 		virtual void SetLayout(const BufferLayout& layout) = 0;
 		virtual const BufferLayout& GetLayout() const = 0;
 
-		static Ref<VertexBuffer> Create(float* verts, uint32_t size);
+		static Ref<VertexBuffer> Create(float* verts, uint32_t size, const BufferLayout& layout = {});
 	protected:
 		VertexBuffer() {}
 	};
@@ -179,8 +183,8 @@ namespace DEngine
 	public:
 		virtual ~IndexBuffer() {}
 
-		virtual void Bind() const = 0;
-		virtual void Unbind() const = 0;
+		virtual void Bind(CommandBuffer& commandBuffer) const = 0;
+		virtual void Unbind(CommandBuffer& commandBuffer) const = 0;
 
 		virtual uint32_t GetCount() const = 0;
 

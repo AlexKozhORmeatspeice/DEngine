@@ -40,13 +40,18 @@ namespace DEngine
 		if (!m_Open || !m_Framebuffer || !m_Camera || !scene)
 			return;
 
-		m_Framebuffer->Bind();
-		RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.15f, 1.0f });
-		RenderCommand::Clear();
-		Renderer::BeginScene(m_Camera);
+		const FramebufferSpecification& spec = m_Framebuffer->GetSpecification();
+		const uint32_t width = (uint32_t)m_Size.x;
+		const uint32_t height = (uint32_t)m_Size.y;
+		if (width > 0 && height > 0 && (spec.Width != width || spec.Height != height))
+		{
+			m_Framebuffer->Resize(width, height);
+			m_Camera->ChangeSize(width, height);
+		}
+
+		Renderer::BeginScene(m_Camera, m_Framebuffer);
 		scene->OnRender(ts);
 		Renderer::EndScene();
-		m_Framebuffer->Unbind();
 	}
 
 	void EditorViewportPanel::OnRender(const Ref<Scene>& scene, PropetiesPanel& properties)
@@ -64,16 +69,10 @@ namespace DEngine
 		{
 			const ImVec2 editorSize = ImGui::GetContentRegionAvail();
 			if (editorSize.x > 0.0f && editorSize.y > 0.0f && (m_Size.x != editorSize.x || m_Size.y != editorSize.y))
-			{
 				m_Size = { editorSize.x, editorSize.y };
-				if (m_Framebuffer)
-					m_Framebuffer->Resize((uint32_t)editorSize.x, (uint32_t)editorSize.y);
-				if (m_Camera)
-					m_Camera->ChangeSize((uint32_t)editorSize.x, (uint32_t)editorSize.y);
-			}
 
 			if (m_Framebuffer)
-				ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), ImVec2{ editorSize.x, editorSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+				ImGui::Image(m_Framebuffer->GetImGuiHandle(), ImVec2{ editorSize.x, editorSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
 			AcceptModelDrop(scene);
 			DrawGizmo(properties);
 		}

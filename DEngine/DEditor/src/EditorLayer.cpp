@@ -77,12 +77,12 @@ namespace DEngine
 		if (!restored.isSuccessful || !restored.scene)
 		{
 			D_ERROR("Couldn't restore the editor scene");
-			DisablePhysics();
+			DisableLogic();
 			return;
 		}
 
 		BindScene(restored.scene, true);
-		DisablePhysics();
+		DisableLogic();
 		EnableSelectedEntityDebug();
 		D_INFO("SWITCHED TO EDITOR MODE");
 	}
@@ -112,7 +112,7 @@ namespace DEngine
 		}
 	}
 
-	void EditorLayer::DisablePhysics()
+	void EditorLayer::DisableLogic()
 	{
 		auto comps = m_ActiveScene->View<TagComponent>();
 		for (auto [entity, tagcomp] : comps.each())

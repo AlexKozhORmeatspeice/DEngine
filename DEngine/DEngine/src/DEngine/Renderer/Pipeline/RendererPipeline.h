@@ -7,15 +7,18 @@
 
 namespace DEngine
 {
+	class CommandBuffer;
 	class D_API RendererPipeline
 	{
 	public:
 		virtual ~RendererPipeline() = default;
+		RendererPipeline(const RendererPipeline&) = delete;
+		void operator=(const RendererPipeline&) = delete;
 
 		static Ref<RendererPipeline> Create(Ref<Shader> shader, RenderDevice& device, const PipelineState& state);
 
-		RendererPipeline(const RendererPipeline&) = delete;
-		void operator=(const RendererPipeline&) = delete;
+		virtual void Bind(CommandBuffer& commandBuffer) = 0;
+		virtual void SetViewport(CommandBuffer& commandBuffer, float x, float y, float width, float height) = 0;
 
 		const PipelineState& GetState() const { return m_State; }
 

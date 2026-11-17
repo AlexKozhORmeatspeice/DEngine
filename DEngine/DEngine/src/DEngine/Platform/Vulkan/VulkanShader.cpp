@@ -21,11 +21,11 @@ namespace DEngine
 		}
 	}
 
-	void VulkanShader::Bind() const
+	void VulkanShader::Bind(CommandBuffer& commandBuffer) const
 	{
 	}
 
-	void VulkanShader::Unbind() const
+	void VulkanShader::Unbind(CommandBuffer& commandBuffer) const
 	{
 	}
 

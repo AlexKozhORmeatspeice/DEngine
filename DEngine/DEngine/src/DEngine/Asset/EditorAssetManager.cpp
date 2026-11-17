@@ -108,6 +108,15 @@ namespace DEngine
 
 		UploadPendingAssets(true);
 		SerializeAssetRegistry();
+
+		m_HotReloadEnabled = false;
+		{
+			std::unique_lock<std::shared_mutex> lock(m_LoadedAssetsMutex);
+			m_LoadedAssets.clear();
+		}
+		m_InFlightLoads.clear();
+		std::lock_guard<std::mutex> pendingLock(m_PendingMutex);
+		m_PendingAssets.clear();
 	}
 
 	void EditorAssetManager::ReloadAsset(const AssetHandle& handle)

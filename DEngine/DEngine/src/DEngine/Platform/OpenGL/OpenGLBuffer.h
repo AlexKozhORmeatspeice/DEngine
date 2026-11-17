@@ -10,14 +10,16 @@ namespace DEngine
 	class D_API OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
-		OpenGLVertexBuffer(float* verts, uint32_t size);
+		OpenGLVertexBuffer(float* verts, uint32_t size, const BufferLayout& layout);
 		virtual ~OpenGLVertexBuffer();
 
 		virtual void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
 		virtual const BufferLayout& GetLayout() const override { return m_Layout; }
 
-		virtual void Bind() const override;
-		virtual void Unbind() const override;
+		virtual void Bind(CommandBuffer& commandBuffer) const override;
+		virtual void Unbind(CommandBuffer& commandBuffer) const override;
+
+		uint32_t GetRendererID() const { return m_RenderID; }
 	private:
 		uint32_t m_RenderID;
 		BufferLayout m_Layout;
@@ -31,8 +33,10 @@ namespace DEngine
 
 		virtual uint32_t GetCount() const { return m_Count; }
 
-		virtual void Bind() const override;
-		virtual void Unbind() const override;
+		virtual void Bind(CommandBuffer& commandBuffer) const override;
+		virtual void Unbind(CommandBuffer& commandBuffer) const override;
+
+		uint32_t GetRendererID() const { return m_RenderID; }
 	private:
 		uint32_t m_RenderID;
 		uint32_t m_Count;

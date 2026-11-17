@@ -10,8 +10,8 @@ namespace DEngine
 		OpenGLFramebuffer(const FramebufferSpecification& spec);
 		virtual ~OpenGLFramebuffer();
 
-		virtual void Bind() override;
-		virtual void Unbind() override;
+		virtual void Bind(CommandBuffer& commandBuffer) override;
+		virtual void Unbind(CommandBuffer& commandBuffer) override;
 
 		virtual void Resize(uint32_t width, uint32_t height) override;
 

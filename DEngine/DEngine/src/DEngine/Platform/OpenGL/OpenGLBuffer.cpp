@@ -7,8 +7,9 @@ namespace DEngine
 {
 //----------------VERTEX BUFFER----------------
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* verts, uint32_t size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(float* verts, uint32_t size, const BufferLayout& layout)
 		: VertexBuffer()
+		, m_Layout(layout)
 	{
 		glCreateBuffers(1, &m_RenderID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RenderID);
@@ -20,12 +21,12 @@ namespace DEngine
 		glDeleteBuffers(1, &m_RenderID);
 	}
 
-	void OpenGLVertexBuffer::Bind() const
+	void OpenGLVertexBuffer::Bind(CommandBuffer& commandBuffer) const
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, m_RenderID);
 	}
 
-	void OpenGLVertexBuffer::Unbind() const
+	void OpenGLVertexBuffer::Unbind(CommandBuffer& commandBuffer) const
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
@@ -45,12 +46,12 @@ namespace DEngine
 		glDeleteBuffers(1, &m_RenderID);
 	}
 
-	void OpenGLIndexBuffer::Bind() const
+	void OpenGLIndexBuffer::Bind(CommandBuffer& commandBuffer) const
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RenderID);
 	}
 
-	void OpenGLIndexBuffer::Unbind() const
+	void OpenGLIndexBuffer::Unbind(CommandBuffer& commandBuffer) const
 	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}

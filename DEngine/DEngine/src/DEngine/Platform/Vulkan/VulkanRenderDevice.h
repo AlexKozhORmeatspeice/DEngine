@@ -44,6 +44,8 @@ namespace DEngine
 		VulkanRenderDevice& operator=(VulkanRenderDevice&&) = delete;
 
 		VkCommandPool GetCommandPool() { return m_CommandPool; }
+		VkInstance GetInstance() const { return m_Instance; }
+		VkPhysicalDevice GetPhysicalDevice() const { return m_PhysicalDevice; }
 		VkDevice* Device() { return &m_Device; }
 		VkSurfaceKHR Surface() { return m_Surface; }
 		VkQueue GraphicsQueue() { return m_GraphicsQueue; }

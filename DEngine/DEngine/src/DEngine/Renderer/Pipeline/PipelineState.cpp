@@ -65,8 +65,14 @@ namespace DEngine
 		state.depthStencil.front = {};
 		state.depthStencil.back = {};
 
-		state.pipelineLayout.native = nullptr;
-		state.renderPass.native = nullptr;
+		state.vertexLayout =
+		{
+			{ ShaderDataType::Float3, "a_Position" },
+			{ ShaderDataType::Float3, "a_Normal" },
+			{ ShaderDataType::Float2, "a_Texcoord" },
+			{ ShaderDataType::Float3, "a_Tangent" },
+		};
+
 		state.subpass = 0;
 
 		return state;

@@ -1,5 +1,6 @@
 #include "dpch.h"
 #include "SwapChain.h"
+#include "DEngine/Renderer/CommandBuffer.h"
 
 #include "DEngine/Renderer/Renderer.h"
 #include "DEngine/Platform/OpenGL/OpenGLSwapChain.h"
@@ -20,5 +21,16 @@ namespace DEngine
 
 		D_CORE_ASSERT(false, "Current Renderer API doesn't support a swap chain");
 		return nullptr;
+	}
+
+	bool SwapChain::AcquireNextImage(uint32_t& imageIndex)
+	{
+		imageIndex = 0;
+		return true;
+	}
+
+	bool SwapChain::Submit(CommandBuffer& commandBuffer, uint32_t imageIndex)
+	{
+		return true;
 	}
 }

@@ -18,16 +18,17 @@ namespace DEngine
 		VulkanSwapChain(const VulkanSwapChain&) = delete;
 		void operator=(const VulkanSwapChain&) = delete;
 
-		VkFramebuffer GetFrameBuffer(int index) { return m_SwapChainFramebuffers[index]; }
-		VkRenderPass GetRenderPass() { return m_RenderPass; }
 		VkImageView GetImageView(int index) { return m_SwapChainImageViews[index]; }
 		VkFormat GetSwapChainImageFormat() { return m_SwapChainImageFormat; }
-		VkExtent2D GetSwapChainExtent() { return m_SwapChainExtent; }
+		VkExtent2D GetExtent() { return m_SwapChainExtent; }
 
 		VkFormat FindDepthFormat();
 
-		VkResult AcquireNextImage(uint32_t* imageIndex);
-		VkResult SubmitCommandBuffers(const VkCommandBuffer* buffers, uint32_t* imageIndex);
+		uint32_t GetCurrentFrame() const override { return static_cast<uint32_t>(m_CurrentFrame); }
+
+		bool AcquireNextImage(uint32_t& imageIndex) override;
+		bool Submit(CommandBuffer& commandBuffer, uint32_t imageIndex) override;
+		void Resize(uint32_t width, uint32_t height) override;
 
 	private:
 		void CreateSwapChain();
@@ -36,6 +37,7 @@ namespace DEngine
 		void CreateRenderPass();
 		void CreateFramebuffers();
 		void CreateSyncObjects();
+		void EnsurePresentSemaphores();
 
 		VkSurfaceFormatKHR ChooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
 		VkPresentModeKHR ChooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
@@ -43,9 +45,6 @@ namespace DEngine
 
 		VkFormat m_SwapChainImageFormat;
 		VkExtent2D m_SwapChainExtent;
-
-		std::vector<VkFramebuffer> m_SwapChainFramebuffers;
-		VkRenderPass m_RenderPass = VK_NULL_HANDLE;
 
 		std::vector<VkImage> m_DepthImages;
 		std::vector<VkDeviceMemory> m_DepthImageMemory;
