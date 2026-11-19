@@ -7,6 +7,8 @@
 #include "DEngine/Renderer/Pipeline/RenderPass.h"
 #include "DEngine/SwapChain/SwapChain.h"
 
+#include "DEngine/Profiler/Profiler.h"
+
 namespace DEngine
 {
 	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
@@ -22,10 +24,12 @@ namespace DEngine
 	bool Renderer::m_FrameOpen = false;
 	bool Renderer::m_ScenePassOpen = false;
 	bool Renderer::m_SwapchainPassRecorded = false;
+	bool Renderer::m_SwapchainDrawn = false;
 
 	void Renderer::Init()
 	{
 		RenderCommand::Init();
+		CommandPoolSystem::Init(Application::Get().GetDevice());
 
 		CreatePipelineLayout();
 		CreatePipeline();
@@ -36,6 +40,7 @@ namespace DEngine
 	void Renderer::Shutdown()
 	{
 		m_PrimaryCommandBuffers.clear();
+		CommandPoolSystem::Shutdown();
 		m_FrameSlots.clear();
 		m_ActivePass = nullptr;
 		m_ActiveFramebuffer = nullptr;
@@ -46,6 +51,8 @@ namespace DEngine
 
 	void Renderer::BeginFrame()
 	{
+		D_PROFILE_FUNCTION();
+
 		if (m_PrimaryCommandBuffers.empty())
 			return;
 		SwapChain& swapChain = Application::Get().GetSwapChain();
@@ -57,17 +64,19 @@ namespace DEngine
 		m_NextFrameSlot = 0;
 		m_FrameOpen = true;
 		m_SwapchainPassRecorded = false;
+		m_SwapchainDrawn = false;
 	}
 
 	void Renderer::EndFrame()
 	{
+		D_PROFILE_FUNCTION();
 		if (!m_FrameOpen)
 			return;
 
 		if (m_ScenePassOpen)
 			EndScene();
 
-		if (!m_SwapchainPassRecorded)
+		if (!m_SwapchainPassRecorded && !m_SwapchainDrawn)
 		{
 			BeginSwapchainPass();
 			EndSwapchainPass();
@@ -97,7 +106,7 @@ namespace DEngine
 		depthClear.stencil = 1;
 		passState.clearValues.push_back(colorClear);
 		passState.clearValues.push_back(depthClear);
-		passState.contents = DSubpassContents::Inline;
+		passState.contents = DSubpassContents::Secondary;
 		return passState;
 	}
 
@@ -142,6 +151,13 @@ namespace DEngine
 	void Renderer::WriteFrameDescriptors(const Ref<Camera>& camera)
 	{
 		s_SceneData->viewProjMat = camera->GetViewProjMat();
+		if (RendererAPI::GetAPI() == RendererAPI::API::Vulkan)
+		{
+			s_SceneData->viewProjMat[0][1] *= -1.0f;
+			s_SceneData->viewProjMat[1][1] *= -1.0f;
+			s_SceneData->viewProjMat[2][1] *= -1.0f;
+			s_SceneData->viewProjMat[3][1] *= -1.0f;
+		}
 		s_SceneData->cam = camera;
 		s_SceneData->light.viewPosition = glm::vec4(camera->GetPos(), 1.0f);
 
@@ -160,7 +176,10 @@ namespace DEngine
 			EndScene();
 
 		SwapChain& swapChain = Application::Get().GetSwapChain();
-		Ref<Framebuffer> target = framebuffer ? framebuffer : swapChain.GetFramebuffer(m_CurrentPrimaryCommandBufferInd);
+		Ref<Framebuffer> swapFramebuffer = swapChain.GetFramebuffer(m_CurrentPrimaryCommandBufferInd);
+		Ref<Framebuffer> target = framebuffer ? framebuffer : swapFramebuffer;
+		if (target == swapFramebuffer)
+			m_SwapchainDrawn = true;
 		const FramebufferSpecification& spec = target->GetSpecification();
 		Ref<RenderPass> renderPass = target->GetRenderPass() ? target->GetRenderPass() : swapChain.GetRenderPass();
 
@@ -171,16 +190,37 @@ namespace DEngine
 		if (RendererAPI::GetAPI() == RendererAPI::API::OpenGL)
 			target->Bind(commandBuffer);
 
-		renderPass->Begin(commandBuffer, *target, MakePassState(spec.Width, spec.Height));
+		RenderPassState passState = MakePassState(spec.Width, spec.Height);
+		const bool recordSecondaries = RendererAPI::GetAPI() == RendererAPI::API::Vulkan;
+		if (recordSecondaries)
+			passState.contents = DSubpassContents::Secondary;
+
+		renderPass->Begin(commandBuffer, *target, passState);
 		m_ActivePass = renderPass;
 		m_ActiveFramebuffer = target;
-		m_Pipeline->Bind(commandBuffer);
-		m_Pipeline->SetViewport(commandBuffer, 0.0f, 0.0f, static_cast<float>(spec.Width), static_cast<float>(spec.Height));
-		m_FrameSlots[m_CurrentPrimaryCommandBufferInd][m_ActiveFrameSlot].set->Bind(commandBuffer, m_PipelineLayout);
+		if (!recordSecondaries)
+			BindSceneState(commandBuffer);
 		m_ScenePassOpen = true;
 	}
 
-	void Renderer::Submit(const Ref<Mesh>& mesh, const Ref<Material>& mat, const glm::mat4& trans, RenderMode mode)
+	void Renderer::BindSceneState(CommandBuffer& commandBuffer)
+	{
+		if (!m_Pipeline || !m_ActiveFramebuffer)
+			return;
+		if (m_CurrentPrimaryCommandBufferInd >= m_FrameSlots.size())
+			return;
+
+		const std::vector<FrameSlot>& slots = m_FrameSlots[m_CurrentPrimaryCommandBufferInd];
+		if (m_ActiveFrameSlot >= slots.size() || !slots[m_ActiveFrameSlot].set)
+			return;
+
+		const FramebufferSpecification& spec = m_ActiveFramebuffer->GetSpecification();
+		m_Pipeline->Bind(commandBuffer);
+		m_Pipeline->SetViewport(commandBuffer, 0.0f, 0.0f, static_cast<float>(spec.Width), static_cast<float>(spec.Height));
+		slots[m_ActiveFrameSlot].set->Bind(commandBuffer, m_PipelineLayout);
+	}
+
+	void Renderer::Submit(CommandBuffer& commandBuffer, const Ref<Mesh>& mesh, const Ref<Material>& mat, const glm::mat4& trans, RenderMode mode)
 	{
 		if (!mesh || !mat || !m_ScenePassOpen)
 			return;
@@ -189,7 +229,6 @@ namespace DEngine
 		if (!vertexArray || !vertexArray->GetIndexBuffer())
 			return;
 
-		CommandBuffer& commandBuffer = *m_PrimaryCommandBuffers[m_CurrentPrimaryCommandBufferInd];
 		mat->Bind(commandBuffer);
 		m_PipelineLayout->PushConstant(commandBuffer, DShaderStage::Vertex, 0, sizeof(glm::mat4), &trans);
 		mesh->Bind(commandBuffer);
@@ -208,6 +247,7 @@ namespace DEngine
 
 	void Renderer::EndScene()
 	{
+		D_PROFILE_FUNCTION();
 		if (!m_ScenePassOpen)
 			return;
 
@@ -237,8 +277,9 @@ namespace DEngine
 
 		SwapChain& swapChain = Application::Get().GetSwapChain();
 		Ref<Framebuffer> target = swapChain.GetFramebuffer(m_CurrentPrimaryCommandBufferInd);
+		Ref<RenderPass> renderPass = m_SwapchainDrawn ? swapChain.GetContinueRenderPass() : swapChain.GetRenderPass();
 		CommandBuffer& commandBuffer = *m_PrimaryCommandBuffers[m_CurrentPrimaryCommandBufferInd];
-		swapChain.GetRenderPass()->Begin(commandBuffer, *target, MakePassState(swapChain.GetWidth(), swapChain.GetHeight()));
+		renderPass->Begin(commandBuffer, *target, MakePassState(swapChain.GetWidth(), swapChain.GetHeight()));
 		m_SwapchainPassRecorded = true;
 	}
 
@@ -315,15 +356,21 @@ namespace DEngine
 	void Renderer::CreateCommandBuffers()
 	{
 		SwapChain& swapChain = Application::Get().GetSwapChain();
-		RenderDevice& device = Application::Get().GetDevice();
+
+		m_PrimaryCommandBuffers.clear();
+
+		const Ref<CommandPool>& pool = CommandPoolSystem::Get(0);
+		if (!pool)
+			return;
+
+		pool->FreeAll();
 
 		CommandBufferState state;
 		state.level = DCommandBufferLevel::Primary;
 
-		m_PrimaryCommandBuffers.clear();
 		m_PrimaryCommandBuffers.resize(swapChain.GetImageCount());
 		for (uint32_t i = 0; i < swapChain.GetImageCount(); i++)
-			m_PrimaryCommandBuffers[i] = CommandBuffer::Create(device, state);
+			m_PrimaryCommandBuffers[i] = pool->Allocate(state);
 	}
 
 	void Renderer::CreateFrameResources()

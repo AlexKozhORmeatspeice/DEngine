@@ -108,6 +108,6 @@ namespace DEngine
 		VkQueue m_PresentQueue;
 
 		const std::vector<const char*> m_ValidationLayers = { "VK_LAYER_KHRONOS_validation" };
-		const std::vector<const char*> m_DeviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
+		const std::vector<const char*> m_DeviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME, VK_EXT_NESTED_COMMAND_BUFFER_EXTENSION_NAME };
 	};
 }

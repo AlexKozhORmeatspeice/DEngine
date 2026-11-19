@@ -11,6 +11,7 @@ namespace DEngine
 	{
 	public:
 		explicit VulkanRenderPass(RenderDevice& device, VulkanSwapChain& swapChain);
+		VulkanRenderPass(RenderDevice& device, VulkanSwapChain& swapChain, bool preserveColor);
 		VulkanRenderPass(RenderDevice& device, VkFormat colorFormat, VkFormat depthFormat, VkImageLayout colorFinalLayout);
 		~VulkanRenderPass() override;
 

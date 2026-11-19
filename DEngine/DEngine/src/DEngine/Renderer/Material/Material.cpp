@@ -5,6 +5,8 @@
 #include "DEngine/Renderer/Renderer.h"
 #include "DEngine/Renderer/Pipeline/DescriptorSet.h"
 
+#include "DEngine/Profiler/Profiler.h"
+
 namespace DEngine
 {
 	Material::Material(const AssetHandle& shaderHandle) : m_ShaderHandle(shaderHandle) {}
@@ -88,6 +90,7 @@ namespace DEngine
 
 	void Material::Bind(CommandBuffer& commandBuffer)
 	{
+		D_PROFILE_FUNCTION();
 		Ref<Shader> shader = GetShader();
 		if (!shader)
 		{
@@ -96,6 +99,22 @@ namespace DEngine
 		}
 
 		shader->Bind(commandBuffer);
+
+		if (Ref<DescriptorSet> textureSet = EnsureTextureSet())
+			textureSet->Bind(commandBuffer, Renderer::GetPipelineLayout());
+	}
+
+	void Material::PrepareForRender()
+	{
+		EnsureTextureSet();
+	}
+
+	Ref<DescriptorSet> Material::EnsureTextureSet()
+	{
+		if (!GetShader())
+			return nullptr;
+
+		std::lock_guard<std::mutex> lock(m_BindMutex);
 		UpdateDirtyValues();
 
 		const uint32_t image = Renderer::GetFrameInFlightIndex();
@@ -116,8 +135,7 @@ namespace DEngine
 			}
 		}
 
-		if (m_TextureSets[image])
-			m_TextureSets[image]->Bind(commandBuffer, Renderer::GetPipelineLayout());
+		return m_TextureSets[image];
 	}
 
 	void Material::Unbind(CommandBuffer& commandBuffer)

@@ -41,6 +41,7 @@
 
 //--Renderer--
 #include "DEngine/Renderer/Renderer.h"
+#include "DEngine/Renderer/CommandPoolSystem.h"
 #include "DEngine/Renderer/RenderCommand.h"
 #include "DEngine/Renderer/GraphicsContext.h"
 #include "DEngine/Renderer/RendererAPI.h"

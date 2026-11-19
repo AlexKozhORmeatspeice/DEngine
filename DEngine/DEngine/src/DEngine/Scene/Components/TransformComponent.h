@@ -17,6 +17,7 @@ namespace DEngine
         uint64_t Parent = 0;
         glm::mat4 world = glm::mat4(1.0f);
         bool unactiveByParent = false;
+        bool isChangedTransform = false;
 
         // �������� ���� ������ ������ ���. �������� ����� GetRotationEuler(),
         // ����������� ��� ������. � �������� ������ �� ���������.

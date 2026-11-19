@@ -1,5 +1,7 @@
 #include "dpch.h"
 #include "VulkanShader.h"
+
+#include "mutex"
 #include "VulkanShaderHelper.h"
 #include "DEngine/Application.h"
 
@@ -31,6 +33,9 @@ namespace DEngine
 
 	void VulkanShader::Compile(const ShaderRegistry& shaderSources)
 	{
+		static std::mutex compileMutex;
+		std::lock_guard<std::mutex> lock(compileMutex);
+
 		auto device = static_cast<VkDevice*>(Application::Get().GetDevice().GetNativeDevice());
 
 		for (auto&& [type, source] : shaderSources)

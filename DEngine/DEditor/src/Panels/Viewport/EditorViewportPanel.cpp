@@ -72,7 +72,7 @@ namespace DEngine
 				m_Size = { editorSize.x, editorSize.y };
 
 			if (m_Framebuffer)
-				ImGui::Image(m_Framebuffer->GetImGuiHandle(), ImVec2{ editorSize.x, editorSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+				ImGui::Image(m_Framebuffer->GetImGuiHandle(), ImVec2{ editorSize.x, editorSize.y });
 			AcceptModelDrop(scene);
 			DrawGizmo(properties);
 		}
@@ -94,8 +94,10 @@ namespace DEngine
 
 		const glm::mat4 camViewMat = m_Camera->GetViewMat();
 		const glm::mat4 camProjMat = m_Camera->GetProjMat();
-		glm::mat4& entityTransform = selected.GetComponent<TransformComponent>().GetModelMatrixLink();
-		ImGuizmo::Manipulate(glm::value_ptr(camViewMat), glm::value_ptr(camProjMat),
-			m_GuizmoType, ImGuizmo::WORLD, glm::value_ptr(entityTransform));
+		TransformComponent& transform = selected.GetComponent<TransformComponent>();
+		glm::mat4& entityTransform = transform.GetModelMatrixLink();
+		if (ImGuizmo::Manipulate(glm::value_ptr(camViewMat), glm::value_ptr(camProjMat),
+			m_GuizmoType, ImGuizmo::WORLD, glm::value_ptr(entityTransform)))
+			transform.isChangedTransform = true;
 	}
 }

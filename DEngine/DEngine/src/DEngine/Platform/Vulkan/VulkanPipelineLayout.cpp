@@ -3,6 +3,8 @@
 #include "DEngine/Platform/Vulkan/VulkanHelper.h"
 #include "DEngine/Platform/Vulkan/VulkanCommandBuffer.h"
 
+#include "DEngine/Profiler/Profiler.h"
+
 namespace DEngine
 {
 	VulkanPipelineLayout::VulkanPipelineLayout(RenderDevice& device, const PipelineLayoutState& state)
@@ -56,6 +58,7 @@ namespace DEngine
 
 	void VulkanPipelineLayout::PushConstant(CommandBuffer& commandBuffer, uint32_t stageFlags, uint32_t offset, uint32_t size, const void* data)
 	{
+		D_PROFILE_FUNCTION();
 		if (!data || size == 0 || m_Layout == VK_NULL_HANDLE)
 			return;
 

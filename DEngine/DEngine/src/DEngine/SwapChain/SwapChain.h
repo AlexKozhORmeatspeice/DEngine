@@ -32,6 +32,7 @@ namespace DEngine
 		}
 
 		const Ref<RenderPass>& GetRenderPass() const { return m_RenderPass; }
+		const Ref<RenderPass>& GetContinueRenderPass() const { return m_ContinueRenderPass ? m_ContinueRenderPass : m_RenderPass; }
 		const Ref<Framebuffer>& GetFramebuffer(uint32_t index) const { return m_Framebuffers[index]; }
 
 		virtual bool AcquireNextImage(uint32_t& imageIndex);
@@ -50,6 +51,7 @@ namespace DEngine
 		uint32_t m_Height = 0;
 		uint32_t m_ImageCount = 0;
 		Ref<RenderPass> m_RenderPass;
+		Ref<RenderPass> m_ContinueRenderPass;
 		std::vector<Ref<Framebuffer>> m_Framebuffers;
 	};
 }

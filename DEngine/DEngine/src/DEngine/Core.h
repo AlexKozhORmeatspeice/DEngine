@@ -22,8 +22,8 @@
 	#define D_ASSERT(x, ...) { if(!(x)) { D_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 	#define D_CORE_ASSERT(x, ...) { if(!(x)) { D_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 #else
-	#define D_ASSERT(x, ...)
-	#define D_CORE_ASSERT(x, ...)
+	#define D_ASSERT(x, ...) { if(!(x)) { D_ERROR("Assertion Failed: {0}", __VA_ARGS__); } }
+	#define D_CORE_ASSERT(x, ...) { if(!(x)) { D_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); } }
 #endif
 
 #define BIT(X) (1 << X)

@@ -113,6 +113,9 @@ namespace DEngine
 		ImGui::Render();
 		if (RendererAPI::GetAPI() == RendererAPI::API::Vulkan)
 		{
+			if (!Renderer::IsFrameOpen())
+				return;
+
 			Renderer::BeginSwapchainPass();
 			VulkanImGuiHelper::Render();
 			Renderer::EndSwapchainPass();

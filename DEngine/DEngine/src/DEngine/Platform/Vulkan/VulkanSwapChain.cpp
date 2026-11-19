@@ -268,6 +268,7 @@ namespace DEngine
 	void VulkanSwapChain::CreateRenderPass()
 	{
 		m_RenderPass = RenderPass::Create(m_Device, *this);
+		m_ContinueRenderPass = CreateRef<VulkanRenderPass>(m_Device, *this, true);
 	}
 
 	void VulkanSwapChain::CreateFramebuffers()

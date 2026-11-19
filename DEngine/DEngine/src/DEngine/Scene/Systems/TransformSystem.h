@@ -6,6 +6,7 @@
 
 #include <cstdint>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 #include <utility>   // std::declval
 
@@ -31,9 +32,14 @@ namespace DEngine
 
         using TransformView = decltype(std::declval<Scene*>()->View<TransformComponent>());
 
-        void UpdateWorld(Scene* scene);
+        using ChildMap = std::unordered_map<uint64_t, std::vector<entt::entity>>;
 
-        void ComposeIterative(Scene* scene, entt::entity root, TransformView& view);
+        void UpdateWorld(Scene* scene);
+        void ComposeDirty(Scene* scene, entt::entity entity, TransformView& view, const ChildMap& children, const std::unordered_set<entt::entity>& dirty);
+        void PropagateChildren(Scene* scene, entt::entity entity, TransformView& view, const ChildMap& children);
+        void WriteWorld(Scene* scene, entt::entity entity, TransformView& view);
+        entt::entity FindParentEntity(Scene* scene, const TransformComponent& transform, TransformView& view) const;
+        VisitState StateOf(entt::entity entity) const;
 
         std::unordered_map<entt::entity, VisitState> m_VisitState;
         std::vector<entt::entity> m_Stack;

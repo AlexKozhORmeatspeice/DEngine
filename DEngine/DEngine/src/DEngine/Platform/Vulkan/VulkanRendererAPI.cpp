@@ -5,6 +5,7 @@
 #include "DEngine/Platform/Vulkan/VulkanRenderDevice.h"
 
 #include "cstring"
+#include "DEngine/Profiler/Profiler.h"
 
 namespace DEngine
 {
@@ -79,10 +80,10 @@ namespace DEngine
 
 	void VulkanRendererAPI::DrawIndexed(CommandBuffer& commandBuffer, const DEngine::Ref<VertexArray>& vertArr)
 	{
+		D_PROFILE_FUNCTION();
 		if (!vertArr || !vertArr->GetIndexBuffer())
 			return;
-
-		vertArr->Bind(commandBuffer);
+		
 		vkCmdDrawIndexed(static_cast<VulkanCommandBuffer&>(commandBuffer).GetNative(), vertArr->GetIndexBuffer()->GetCount(), 1, 0, 0, 0);
 	}
 
@@ -177,6 +178,7 @@ namespace DEngine
 
 	VkDescriptorSet VulkanRendererAPI::AllocateDescriptorSet(VkDescriptorSetLayout layout)
 	{
+		std::lock_guard<std::mutex> lock(m_DescriptorMutex);
 		if (layout == VK_NULL_HANDLE)
 			return VK_NULL_HANDLE;
 
@@ -205,6 +207,7 @@ namespace DEngine
 
 	void VulkanRendererAPI::FreeDescriptorSet(VkDescriptorSet set)
 	{
+		std::lock_guard<std::mutex> lock(m_DescriptorMutex);
 		if (set == VK_NULL_HANDLE)
 			return;
 

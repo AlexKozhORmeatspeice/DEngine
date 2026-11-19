@@ -10,101 +10,148 @@
 
 #include "DEngine/Jobs/JobSystem.h"
 
+#include "algorithm"
 
 namespace DEngine
 {
-	struct RenderObj
+	Ref<CommandBuffer> MeshRendererSystem::GetThreadBuffer(uint32_t frame, uint32_t pass, uint32_t thread)
 	{
-		bool isRendered = false;
-		AssetHandle materialHandle{ uint64_t{ 0 } };
-		AssetHandle meshHandle{ uint64_t{ 0 } };
-		Ref<Material> mat;
-		Ref<Mesh> mesh;
-		glm::mat4 model{ 1.0f };
-	};
+		if (m_Buffers.size() <= frame)
+			m_Buffers.resize(frame + 1);
+		if (m_Buffers[frame].size() <= pass)
+			m_Buffers[frame].resize(pass + 1);
+		if (m_Buffers[frame][pass].size() <= thread)
+			m_Buffers[frame][pass].resize(thread + 1);
+
+		Ref<CommandBuffer>& buffer = m_Buffers[frame][pass][thread];
+		if (!buffer)
+		{
+			const Ref<CommandPool>& pool = CommandPoolSystem::Get(thread);
+			if (pool)
+				buffer = pool->AllocateSecondary(false);
+		}
+
+		return buffer;
+	}
 
 	void MeshRendererSystem::OnRender(const Timestep& ts, Scene* scene)
 	{
 		D_PROFILE_FUNCTION();
-		auto lightComps = scene->View<DirectLightComponent, TransformComponent>();
+		(void)ts;
 
+		auto lightComps = scene->View<DirectLightComponent, TransformComponent>();
 		auto comps = scene->View<TagComponent, MeshRendererComponent, TransformComponent>();
 		const auto* entityStorage = comps.handle();
 
-		struct LightData
-		{
-			glm::vec3 lookDir;
-			glm::vec3 color;
-		};
-
-		std::vector<LightData> lights;
-
-		for (auto [entity, light, lightTrans] : lightComps.each()) // TODO: в будущем надо обрабатывать разные light, но пока есть только DirectLight
+		for (auto [entity, light, lightTrans] : lightComps.each())
 		{
 			if (!scene->IsActive(Entity(entity, scene)))
 				continue;
 
-			lights.push_back({ lightTrans.GetForward(), light.color });
+			Renderer::SetDirectionalLight(lightTrans.GetForward(), light.color);
+			break;
 		}
 
 		const uint32_t count = entityStorage ? static_cast<uint32_t>(entityStorage->size()) : 0;
-		if (count == 0) return;
+		if (count == 0)
+			return;
 
-		std::vector<RenderObj> renderObjs(count);
-
-		Job prepare(count, [&](const JobRange& range, uint32_t)
+		if (Renderer::GetAPI() != RendererAPI::API::Vulkan)
 		{
-			for (uint32_t i = range.Start; i < range.End; ++i)
+			for (uint32_t i = 0; i < count; ++i)
 			{
 				const auto entity = (*entityStorage)[i];
 				if (!comps.contains(entity))
 					continue;
 
 				const auto& tag = comps.get<TagComponent>(entity);
-				const auto& mesh = comps.get<MeshRendererComponent>(entity);
+				const auto& meshComp = comps.get<MeshRendererComponent>(entity);
 				const auto& trans = comps.get<TransformComponent>(entity);
-
 				if (!tag.activeSelf || trans.unactiveByParent)
 					continue;
 
-				renderObjs[i].isRendered = true;
-				renderObjs[i].materialHandle = mesh.materialHandle;
-				renderObjs[i].meshHandle = mesh.meshHandle;
-				renderObjs[i].mat = AssetManager::GetAsset<Material>(mesh.materialHandle);
-				renderObjs[i].mesh = AssetManager::GetAsset<Mesh>(mesh.meshHandle);
-				renderObjs[i].model = trans.GetModelMatrix();
-
-				//TODO: в будущем надо перенести логику отрисовки тоже в параллельный блок, но для этого надо сильно менять архитектуру рендера и использовать RenderCommand
-			}
-		});
-
-		JobSystem::Schedule(prepare);
-		JobSystem::Wait(prepare);
-
-		if (!lights.empty())
-			Renderer::SetDirectionalLight(lights[0].lookDir, lights[0].color);
-		
-		{
-			D_PROFILE_SCOPE("Renderer upload")
-			for (RenderObj& obj : renderObjs)
-			{
-				if (!obj.isRendered)
+				Ref<Material> mat = AssetManager::GetAsset<Material>(meshComp.materialHandle);
+				Ref<Mesh> mesh = AssetManager::GetAsset<Mesh>(meshComp.meshHandle);
+				if (!mat || !mesh)
 					continue;
 
-				if (!obj.mat)
-				{
-					obj.mat = AssetManager::GetAsset<Material>(obj.materialHandle);
-				}
-				if (!obj.mesh)
-				{
-					obj.mesh = AssetManager::GetAsset<Mesh>(obj.meshHandle);
-				}
-
-				if (!obj.mat || !obj.mesh)
-					continue;
-
-				Renderer::Submit(obj.mesh, obj.mat, obj.model);
+				Renderer::Submit(Renderer::GetCommandBuffer(), mesh, mat, trans.GetModelMatrix());
 			}
+			return;
 		}
+
+		const uint32_t frame = Renderer::GetFrameInFlightIndex();
+		if (m_Frame != frame)
+		{
+			m_Frame = frame;
+			m_Pass = 0;
+		}
+
+		const uint32_t pass = m_Pass++;
+		const uint32_t threadCount = JobSystem::ThreadCount();
+		if (threadCount == 0)
+			return;
+
+		const uint32_t chunk = (count + threadCount - 1) / threadCount;
+		std::vector<Ref<CommandBuffer>> recorded;
+		std::vector<PinnedJob> jobs;
+		recorded.reserve(threadCount);
+		jobs.reserve(threadCount);
+
+		for (uint32_t thread = 0; thread < threadCount; ++thread)
+		{
+			const uint32_t start = thread * chunk;
+			const uint32_t end = std::min(count, start + chunk);
+			if (start >= end)
+				continue;
+
+			Ref<CommandBuffer> buffer = GetThreadBuffer(frame, pass, thread);
+			if (!buffer)
+			{
+				D_CORE_ERROR("Got null buffer");
+				continue;
+			}
+
+			recorded.push_back(buffer);
+			jobs.emplace_back(thread, [buffer, start, end, &comps, entityStorage]()
+			{
+				CommandBufferInheritance inheritance{};
+				inheritance.framebuffer = Renderer::GetCurrentFramebuffer().get();
+				inheritance.renderPass = Renderer::GetActivePass().get();
+
+				buffer->Reset();
+				buffer->BeginSecondary(inheritance);
+				Renderer::BindSceneState(*buffer);
+
+				for (uint32_t i = start; i < end; ++i)
+				{
+					const auto entity = (*entityStorage)[i];
+					if (!comps.contains(entity))
+						continue;
+
+					const auto& tag = comps.get<TagComponent>(entity);
+					const auto& meshComp = comps.get<MeshRendererComponent>(entity);
+					const auto& trans = comps.get<TransformComponent>(entity);
+					if (!tag.activeSelf || trans.unactiveByParent)
+						continue;
+
+					Ref<Material> mat = AssetManager::GetAsset<Material>(meshComp.materialHandle);
+					Ref<Mesh> mesh = AssetManager::GetAsset<Mesh>(meshComp.meshHandle);
+					if (!mat || !mesh)
+						continue;
+
+					Renderer::Submit(*buffer, mesh, mat, trans.GetModelMatrix());
+				}
+
+				buffer->End();
+			});
+		}
+
+		for (PinnedJob& job : jobs)
+			JobSystem::Schedule(job);
+		for (PinnedJob& job : jobs)
+			JobSystem::Wait(job);
+
+		Renderer::GetCommandBuffer().ExecuteCommands(recorded);
 	}
 }

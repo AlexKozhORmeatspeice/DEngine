@@ -1,6 +1,8 @@
 #include "dpch.h"
 #include "Mesh.h"
 
+#include "DEngine/Profiler/Profiler.h"
+
 namespace DEngine
 {
 	Mesh::Mesh(const BufferLayout& layout, const MeshData& data)
@@ -21,6 +23,8 @@ namespace DEngine
 
 	void Mesh::Bind(CommandBuffer& commandBuffer)
 	{
+		D_PROFILE_FUNCTION();
+
 		if (m_VertexArray)
 			m_VertexArray->Bind(commandBuffer);
 	}

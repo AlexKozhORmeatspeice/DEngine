@@ -593,7 +593,9 @@ namespace DEngine
 
 				if (metadata.Type == AssetType::None)
 					return nullptr;
-				if (!asyncAsset && metadata.Type != AssetType::Texture2D && metadata.Type != AssetType::Mesh && !onGraphicsThread)
+
+				const bool loadOnAnyThread = metadata.Type == AssetType::Material || metadata.Type == AssetType::Shader;
+				if (!asyncAsset && metadata.Type != AssetType::Texture2D && metadata.Type != AssetType::Mesh && !loadOnAnyThread && !onGraphicsThread)
 					return nullptr;
 
 				if (asyncAsset) //Создание Job на потоках кроме основного

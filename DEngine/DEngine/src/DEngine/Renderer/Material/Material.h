@@ -8,6 +8,7 @@
 
 #include "DEngine/Asset/Asset.h"
 
+#include <mutex>
 #include <unordered_map>
 #include <vector>
 #include <cstring>
@@ -29,6 +30,7 @@ namespace DEngine
         void SetTexture2D(const std::string& name, const AssetHandle& tex);
 
         void Bind(CommandBuffer& commandBuffer);
+        void PrepareForRender();
         void Unbind(CommandBuffer& commandBuffer);
 
         AssetHandle GetShaderHandle() const { return m_ShaderHandle; }
@@ -40,6 +42,7 @@ namespace DEngine
 
     private:
         void UpdateDirtyValues();
+        Ref<DescriptorSet> EnsureTextureSet();
 
         uint32_t GetCachedID(const std::string& name);
         Ref<Shader> GetShader();
@@ -62,8 +65,9 @@ namespace DEngine
         std::unordered_map<uint32_t, AssetHandle> m_TextureValues;
         std::unordered_map<std::string, AssetHandle> m_NamedTextures;
         std::unordered_map<AssetHandle, Ref<Texture>> m_Textures;
-        std::vector<Ref<DescriptorSet>> m_TextureSets;
-        std::vector<Ref<Texture>> m_WrittenTextures;
+		std::mutex m_BindMutex;
+		std::vector<Ref<DescriptorSet>> m_TextureSets;
+		std::vector<Ref<Texture>> m_WrittenTextures;
 
         AssetHandle ResolveTextureHandle() const;
         

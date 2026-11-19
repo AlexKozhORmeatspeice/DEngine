@@ -43,7 +43,7 @@ namespace DEngine
 				m_Size = { gameSize.x, gameSize.y };
 
 			if (m_Framebuffer)
-				ImGui::Image(m_Framebuffer->GetImGuiHandle(), ImVec2{ gameSize.x, gameSize.y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+				ImGui::Image(m_Framebuffer->GetImGuiHandle(), ImVec2{ gameSize.x, gameSize.y });
 			AcceptModelDrop(scene);
 			if (!m_UsesSceneCamera)
 			{

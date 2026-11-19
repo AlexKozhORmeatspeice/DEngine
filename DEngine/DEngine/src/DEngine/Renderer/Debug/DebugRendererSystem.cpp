@@ -11,7 +11,7 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/quaternion.hpp"
-#include "glm/gtx/quaternion.hpp"
+#include "vector"
 
 namespace DEngine
 {
@@ -37,6 +37,8 @@ namespace DEngine
 		Ref<Material> mat = AssetManager::GetAsset<Material>(AssetManager::GetBaseRendererMaterialWireframeHandle());
 		if (!mat)
 			return;
+
+		Ref<CommandBuffer> commandBuffer;
 
 		for (auto [entity, collider, trans, debug] : comps.each())
 		{
@@ -90,7 +92,61 @@ namespace DEngine
 					transform = parent.GetComponent<TransformComponent>().GetModelMatrix() * transform;
 			}
 
-			Renderer::Submit(meshObj, mat, transform, RenderMode::WIREFRAME);
+			if (Renderer::GetAPI() == RendererAPI::API::Vulkan)
+			{
+				if (!commandBuffer)
+				{
+					commandBuffer = GetPassBuffer();
+					if (!commandBuffer)
+						return;
+
+					CommandBufferInheritance inheritance{};
+					inheritance.framebuffer = Renderer::GetCurrentFramebuffer().get();
+					inheritance.renderPass = Renderer::GetActivePass().get();
+					commandBuffer->Reset();
+					commandBuffer->BeginSecondary(inheritance);
+					Renderer::BindSceneState(*commandBuffer);
+				}
+
+				Renderer::Submit(*commandBuffer, meshObj, mat, transform, RenderMode::WIREFRAME);
+			}
+			else
+			{
+				Renderer::Submit(Renderer::GetCommandBuffer(), meshObj, mat, transform, RenderMode::WIREFRAME);
+			}
 		}
+
+		if (commandBuffer)
+		{
+			commandBuffer->End();
+			std::vector<Ref<CommandBuffer>> commands{ commandBuffer };
+			Renderer::GetCommandBuffer().ExecuteCommands(commands);
+		}
+	}
+
+	Ref<CommandBuffer> DebugRendererSystem::GetPassBuffer()
+	{
+		const uint32_t frame = Renderer::GetFrameInFlightIndex();
+		if (m_Frame != frame)
+		{
+			m_Frame = frame;
+			m_Pass = 0;
+		}
+
+		if (m_Buffers.size() <= frame)
+			m_Buffers.resize(frame + 1);
+		if (m_Buffers[frame].size() <= m_Pass)
+			m_Buffers[frame].resize(m_Pass + 1);
+
+		Ref<CommandBuffer>& buffer = m_Buffers[frame][m_Pass];
+		m_Pass++;
+		if (!buffer)
+		{
+			const Ref<CommandPool>& pool = CommandPoolSystem::Get(0);
+			if (pool)
+				buffer = pool->AllocateSecondary(false);
+		}
+
+		return buffer;
 	}
 }

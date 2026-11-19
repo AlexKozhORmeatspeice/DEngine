@@ -129,7 +129,9 @@ namespace DEngine
 
         if (!parent)
         {
-            child.GetComponent<TransformComponent>().Parent = 0;
+            TransformComponent& transform = child.GetComponent<TransformComponent>();
+            transform.Parent = 0;
+            transform.isChangedTransform = true;
             RefreshActivity(child);
             return true;
         }
@@ -148,7 +150,9 @@ namespace DEngine
             walk = FindEntity(next);
         }
 
-        child.GetComponent<TransformComponent>().Parent = parent.GetUUID();
+        TransformComponent& transform = child.GetComponent<TransformComponent>();
+        transform.Parent = parent.GetUUID();
+        transform.isChangedTransform = true;
         RefreshActivity(child);
         return true;
     }

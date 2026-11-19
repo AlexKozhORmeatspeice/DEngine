@@ -14,6 +14,7 @@
 #include "DEngine/Renderer/Buffers/UniformBuffer.h"
 #include "DEngine/Renderer/Buffers/Framebuffer.h"
 #include "DEngine/Renderer/CommandBuffer.h"
+#include "DEngine/Renderer/CommandPoolSystem.h"
 
 #include "glm/glm.hpp"
 #include "vector"
@@ -33,21 +34,26 @@ namespace DEngine
 		static void BeginFrame();
 		static void EndFrame();
 		static void BeginScene(const DEngine::Ref<Camera>& camera, const Ref<Framebuffer>& framebuffer = nullptr);
-		static void Submit(const Ref<Mesh>& mesh, const Ref<Material>& mat, const glm::mat4& trans, RenderMode mode = RenderMode::SOLID);
+		static void Submit(CommandBuffer& commandBuffer, const Ref<Mesh>& mesh, const Ref<Material>& mat, const glm::mat4& trans, RenderMode mode = RenderMode::SOLID);
+		static void BindSceneState(CommandBuffer& commandBuffer);
 		static void EndScene();
 		static void SetDirectionalLight(const glm::vec3& direction, const glm::vec3& color);
 
 		static void BeginSwapchainPass();
 		static void EndSwapchainPass();
+		static bool IsFrameOpen() { return m_FrameOpen; }
 
 		static void OnWindowResize(uint32_t width, uint32_t height);
 		static void ResetIdleCommandBuffers();
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 		static CommandBuffer& GetCommandBuffer();
+		static const Ref<CommandPool>& GetCommandPool() { return CommandPoolSystem::GetCurrent(); }
 		static const Ref<PipelineLayout>& GetPipelineLayout() { return m_PipelineLayout; }
 		static uint32_t GetFrameInFlightIndex();
 		static const Ref<DescriptorSet>& GetFrameSet();
+		inline static Ref<Framebuffer> GetCurrentFramebuffer() { return m_ActiveFramebuffer; }
+		inline static Ref<RenderPass> GetActivePass() { return m_ActivePass; }
 	private:
 		struct FrameSlot
 		{
@@ -76,6 +82,7 @@ namespace DEngine
 		static bool m_FrameOpen;
 		static bool m_ScenePassOpen;
 		static bool m_SwapchainPassRecorded;
+		static bool m_SwapchainDrawn;
 
 		struct DirectionalLight
 		{

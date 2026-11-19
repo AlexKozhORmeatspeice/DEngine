@@ -379,7 +379,7 @@ namespace DEngine
 		switch (contents)
 		{
 		case DSubpassContents::Inline: return VK_SUBPASS_CONTENTS_INLINE;
-		case DSubpassContents::Secondary: return VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS;
+		case DSubpassContents::Secondary: return VK_SUBPASS_CONTENTS_INLINE_AND_SECONDARY_COMMAND_BUFFERS_KHR;
 		}
 
 		D_CORE_ASSERT(false, "Unsupported subpass contents");

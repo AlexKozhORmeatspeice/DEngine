@@ -6,6 +6,7 @@
 #include "vk_mem_alloc.h"
 #include "DEngine/Platform/Vulkan/VulkanCommandBuffer.h"
 
+#include "mutex"
 #include "unordered_map"
 #include "vector"
 
@@ -62,6 +63,7 @@ namespace DEngine
 		static VulkanRendererAPI* s_Instance;
 		VmaAllocator m_Allocator = VK_NULL_HANDLE;
 
+		std::mutex m_DescriptorMutex;
 		std::vector<VkDescriptorPool> m_DescriptorPools;
 		std::unordered_map<VkDescriptorSet, VkDescriptorPool> m_DescriptorSetPools;
 	};
