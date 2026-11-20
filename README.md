@@ -2,5 +2,5 @@
 
 
 
-Игровой движок от команды HellishD
+Game Engine create by team HellishD
 
